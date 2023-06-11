@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<ul>
+    {% for sheet in sheets %}
+    <a href="/{{ sheet.id }}">
+        <li>{{ sheet.character.name }} - {{ sheet.character._class }} lvl {{ sheet.character.level }}
+    </a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
