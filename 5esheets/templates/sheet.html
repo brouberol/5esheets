@@ -175,107 +175,111 @@
                                 <label for="Acrobatics">Acrobatics <span class="skill">(Dex)</span></label><input
                                     name="Acrobatics" placeholder="+0" type="text"
                                     value="{{ character.data['Acrobatics'] }}" /><input name="Acrobatics-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Acrobatics-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Animal Handling">Animal Handling <span
                                         class="skill">(Wis)</span></label><input name="Animal Handling" placeholder="+0"
                                     type="text" value="{{ character.data['Animal Handling'] }}" /><input
-                                    name="Animal Handling-prof" type="checkbox" />
+                                    name="Animal-Handling-prof" type="checkbox" {% if
+                                    character.data['Animal-Handling-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Arcana">Arcana <span class="skill">(Int)</span></label><input name="Arcana"
                                     placeholder="+0" type="text" value="{{ character.data['Arcana'] }}" /><input
-                                    name="Arcana-prof" type="checkbox" />
+                                    name="Arcana-prof" type="checkbox" {% if character.data['Arcana-prof'] %}checked{%
+                                    endif %} />
                             </li>
                             <li>
                                 <label for="Athletics">Athletics <span class="skill">(Str)</span></label><input
                                     name="Athletics" placeholder="+0" type="text"
                                     value="{{ character.data['Athletics'] }}" /><input name="Athletics-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Athletics-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Deception">Deception <span class="skill">(Cha)</span></label><input
                                     name="Deception" placeholder="+0" type="text"
                                     value="{{ character.data['Deception'] }}" /><input name="Deception-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Deception-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="History">History <span class="skill">(Int)</span></label><input
                                     name="History" placeholder="+0" type="text"
-                                    value="{{ character.data['History'] }}" /><input name="History-prof"
-                                    type="checkbox" />
+                                    value="{{ character.data['History'] }}" /><input name="History-prof" type="checkbox"
+                                    {% if character.data['History-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Insight">Insight <span class="skill">(Wis)</span></label><input
                                     name="Insight" placeholder="+0" type="text"
-                                    value="{{ character.data['Insight'] }}" /><input name="Insight-prof"
-                                    type="checkbox" />
+                                    value="{{ character.data['Insight'] }}" /><input name="Insight-prof" type="checkbox"
+                                    {% if character.data['Insight-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Intimidation">Intimidation <span class="skill">(Cha)</span></label><input
                                     name="Intimidation" placeholder="+0" type="text"
                                     value="{{ character.data['Intimidation'] }}" /><input name="Intimidation-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Intimidation'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Investigation">Investigation <span class="skill">(Int)</span></label><input
                                     name="Investigation" placeholder="+0" type="text"
                                     value="{{ character.data['Investigation'] }}" /><input name="Investigation-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Investigation-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Medicine">Medicine <span class="skill">(Wis)</span></label><input
                                     name="Medicine" placeholder="+0" type="text"
                                     value="{{ character.data['Medicine'] }}" /><input name="Medicine-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Medicine-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Nature">Nature <span class="skill">(Int)</span></label><input name="Nature"
                                     placeholder="+0" type="text" value="{{ character.data['Nature'] }}" /><input
-                                    name="Nature-prof" type="checkbox" />
+                                    name="Nature-prof" type="checkbox" {% if character.data['Nature-prof'] %}checked{%
+                                    endif %} />
                             </li>
                             <li>
                                 <label for="Perception">Perception <span class="skill">(Wis)</span></label><input
                                     name="Perception" placeholder="+0" type="text"
                                     value="{{ character.data['Perception'] }}" /><input name="Perception-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Perception-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Performance">Performance <span class="skill">(Cha)</span></label><input
                                     name="Performance" placeholder="+0" type="text"
                                     value="{{ character.data['Performance'] }}" /><input name="Performance-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Performance-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Persuasion">Persuasion <span class="skill">(Cha)</span></label><input
                                     name="Persuasion" placeholder="+0" type="text"
                                     value="{{ character.data['Persuasion'] }}" /><input name="Persuasion-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Persuasion-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Religion">Religion <span class="skill">(Int)</span></label><input
                                     name="Religion" placeholder="+0" type="text"
                                     value="{{ character.data['Religion'] }}" /><input name="Religion-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Religion-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Sleight of Hand">Sleight of Hand <span
                                         class="skill">(Dex)</span></label><input name="Sleight of Hand" placeholder="+0"
                                     type="text" value="{{ character.data['Sleight of Hand'] }}" /><input
-                                    name="Sleight of Hand-prof" type="checkbox" />
+                                    name="Sleight-of-Hand-prof" type="checkbox" {% if
+                                    character.data['Sleight-of-Hand-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Stealth">Stealth <span class="skill">(Dex)</span></label><input
                                     name="Stealth" placeholder="+0" type="text"
-                                    value="{{ character.data['Stealth'] }}" /><input name="Stealth-prof"
-                                    type="checkbox" />
+                                    value="{{ character.data['Stealth'] }}" /><input name="Stealth-prof" type="checkbox"
+                                    {% if character.data['Stealth-prof'] %}checked{% endif %} />
                             </li>
                             <li>
                                 <label for="Survival">Survival <span class="skill">(Wis)</span></label><input
                                     name="Survival" placeholder="+0" type="text"
                                     value="{{ character.data['Survival'] }}" /><input name="Survival-prof"
-                                    type="checkbox" />
+                                    type="checkbox" {% if character.data['Survival-prof'] %}checked{% endif %} />
                             </li>
                         </ul>
                         <div class="label">
