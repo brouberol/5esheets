@@ -18,7 +18,7 @@ const modToCarac = {
 
 const scoreModifier = (score) => {
     return Math.ceil((score - 10) / 2);
-}
+};
 
 const proficiencyBonus = (level) => {
     if (level <= 4) {
@@ -32,7 +32,7 @@ const proficiencyBonus = (level) => {
     } else if (level >= 17 && level <= 20) {
         return 6;
     }
-}
+};
 
 const formatBonus = (bonus) => {
     if (bonus < 0) {
@@ -40,18 +40,18 @@ const formatBonus = (bonus) => {
     } else {
         return `+${bonus}`;
     }
-}
+};
 
 const getProficiencyBonus = () => {
     return parseInt(document.getElementsByName("proficiencybonus")[0].value);
-}
+};
 
-const getCaractModifier = (carac) => {
+const getCaracModifier = (carac) => {
     return parseInt(document.getElementsByName(`${carac}mod`)[0].value);
-}
+};
 
 const updateCaracSavingThrowModifier = (carac) => {
-    let caracModifier = getCaractModifier(carac);
+    let caracModifier = getCaracModifier(carac);
     let savingThrowModifierInput = document.getElementsByName(`${carac}-save`)[0]
     let savingThrowProficiencyCheckbox = document.getElementsByName(`${carac}-save-prof`)[0];
     if (savingThrowProficiencyCheckbox.checked) {
@@ -61,11 +61,11 @@ const updateCaracSavingThrowModifier = (carac) => {
         var savingThrowBonus = caracModifier;
     }
     savingThrowModifierInput.value = formatBonus(savingThrowBonus);
-}
+};
 
 const updateSkillModifier = (carac, skill) => {
     let skillDashed = skill.replace(/ /g, '-')
-    let caracModifier = getCaractModifier(carac);
+    let caracModifier = getCaracModifier(carac);
     let skillModifierInput = document.getElementsByName(skill)[0]
     let skillProficiencyCheckbox = document.getElementsByName(`${skillDashed}-prof`)[0];
     if (skillProficiencyCheckbox.checked) {
@@ -80,7 +80,7 @@ const updateSkillModifier = (carac, skill) => {
         let passivePerceptionInput = document.getElementsByName("passiveperception")[0];
         passivePerceptionInput.value = 10 + skillBonus;
     }
-}
+};
 
 const updateCaracScoreAndDependents = (carac) => {
     let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
@@ -142,7 +142,7 @@ caracs.forEach((carac) => {
             updateSkillModifier(carac, skill)
         })
     })
-})
+});
 
 
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
@@ -152,7 +152,7 @@ document.getElementsByName("classlevel")[0].addEventListener("change", () => {
     let proficiencyBonusInput = document.getElementsByName("proficiencybonus")[0];
     proficiencyBonusInput.value = bonus;
     proficiencyBonusInput.dispatchEvent(new Event('change'));
-})
+});
 
 document.getElementsByName('proficiencybonus')[0].addEventListener('change', () => {
     caracs.forEach((carac) => {
