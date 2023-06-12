@@ -36,7 +36,16 @@ form.charsheet {
   margin-right: auto;
   margin-left: auto;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
 }
+
+@media screen and (min-width: 2500px) {
+  form.charsheet {
+    flex-direction: row;
+  }
+}
+
 form.charsheet div.textblock {
   display: flex;
   flex-direction: column-reverse;
