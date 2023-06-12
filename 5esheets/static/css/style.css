@@ -35,7 +35,7 @@ form.charsheet {
   left: 0;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 10px;
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
 }
