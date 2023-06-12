@@ -9,15 +9,22 @@
       </select>
     </section>
     <section class="misc">
-      <ul>
+      <ul id="dailyspells">
         <li>
           <label for="dailyspells">Daily spells</label><input name="dailyspells"
             value="{{ character.data['dailyspells'] }}" />
         </li>
         <li>
-          <label for="dailyspells">Daily prepared spells</label><input name="dailyspells"
-            value="{{ character.data['dailyspells'] }}" />
+          <label for="dailypreparedspells">Preparable spells</label>
+          <div id="dailypreparedspells">
+            <input id="remainingdailyspells" class="dailypreparedspells" name="remainingdailyspells" /> / <input
+              id="totaldailypreparedspells" class="dailyspells" name="dailypreparedspells"
+              value="{{ character.data['dailypreparedspells'] }}" />
+          </div>
         </li>
+        <li></li>
+      </ul>
+      <ul id="spellattack">
         <li>
           <label for="spelldc">Spell DC</label><input id="spelldc" name="spelldc" placeholder="10"
             value="{{ character.data['spelldc'] }}" />

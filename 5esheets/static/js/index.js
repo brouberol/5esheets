@@ -91,6 +91,13 @@ const updateSpellAttackBonus = (spellcastingAbility) => {
     document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
 }
 
+const updateRemainingDailyPreparedSpells = () => {
+    let totalDailyPeparedSpellsInput = parseInt(document.getElementById("totaldailypreparedspells").value);
+    let remainingDailyPeparedSpellsInput = document.getElementById("remainingdailyspells");
+    let currentlyPreparedSpells = document.querySelectorAll("div#spells input.bubble[type=checkbox]:checked").length;
+    remainingDailyPeparedSpellsInput.value = totalDailyPeparedSpellsInput - currentlyPreparedSpells;
+}
+
 caracs.forEach((carac) => {
     let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
     caracScoreItem.addEventListener('change', () => {
@@ -110,6 +117,7 @@ caracs.forEach((carac) => {
         })
     })
 })
+
 
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
     let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
@@ -142,4 +150,10 @@ document.getElementById("extraspellattackbonus").addEventListener('change', () =
     let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
     let totalSpellAttackBonus = getCaractModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
     document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
+})
+
+document.querySelectorAll('div#spells input.bubble[type=checkbox]').forEach((node) => {
+    node.addEventListener("change", () => {
+        updateRemainingDailyPreparedSpells();
+    })
 })
