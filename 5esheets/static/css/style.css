@@ -729,3 +729,9 @@ input[name=charname] {
   font-weight: bold;
   font-size: 0.95rem;
 }
+
+input#updatesheet {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+}
