@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.3.2"
+python-slugify = "^8.0.1"
 
 
 [build-system]

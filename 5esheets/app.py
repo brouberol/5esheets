@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from flask import Flask, redirect, render_template, request, url_for
+from slugify import slugify
 
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
 
@@ -25,10 +26,13 @@ def create_table():
             """CREATE TABLE sheets(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 character_name VARCHAR(255),
+                character_slug VARCHAR(255),
                 character_class VARCHAR(50),
                 character_level INTEGER,
                 character_json_data TEXT NOT NULL
-            );"""
+            );
+            CREATE INDEX sheets_character_slug ON sheets(character_slug);
+            """
         )
 
 
@@ -45,6 +49,7 @@ class Character:
     name: str
     level: int
     _class: int
+    slug: str
     data: dict = field(default_factory=lambda: defaultdict(str))
 
 
@@ -59,7 +64,11 @@ def list_sheets():
     sheets = []
     with get_db_connection() as db:
         res = db.execute(
-            "SELECT id, character_name, character_class, character_level FROM sheets ORDER BY character_name;"
+            """
+            SELECT id, character_name, character_class, character_level, character_slug
+            FROM sheets
+            ORDER BY character_name;
+            """
         )
         for row in res.fetchall():
             sheets.append(
@@ -69,6 +78,7 @@ def list_sheets():
                         name=row["character_name"],
                         level=row["character_level"],
                         _class=row["character_class"],
+                        slug=row["character_slug"],
                     ),
                 )
             )
@@ -76,25 +86,30 @@ def list_sheets():
         return render_template("sheets.html", sheets=sheets)
 
 
-@app.route("/<sheet_id>", methods=["GET"])
-def display_sheet(sheet_id: int):
+@app.route("/<slug>", methods=["GET"])
+def display_sheet(slug: str):
     with get_db_connection() as db:
         row = db.execute(
-            "SELECT character_name, character_class, character_level, character_json_data FROM sheets WHERE id=:id;",
-            {"id": sheet_id},
+            """
+            SELECT character_name, character_class, character_level, character_slug, character_json_data
+            FROM sheets
+            WHERE character_slug=:slug;
+            """,
+            {"slug": slug},
         ).fetchone()
         character = Character(
             name=row["character_name"],
             level=row["character_level"],
             _class=row["character_class"],
             data=json.loads(row["character_json_data"]),
+            slug=row["character_slug"],
         )
 
         return render_template("sheet.html", character=character)
 
 
-@app.route("/<sheet_id>", methods=["POST"])
-def update_sheet(sheet_id: int):
+@app.route("/<slug>", methods=["POST"])
+def update_sheet(slug: str):
     with get_db_connection() as db:
         character_data = request.form.to_dict()
         character_name = character_data.pop("charname")
@@ -110,17 +125,17 @@ def update_sheet(sheet_id: int):
                 character_class=:class,
                 character_level=:level,
                 character_json_data=:data
-            WHERE id=:id
+            WHERE slug=:slug
         """,
             {
-                "id": sheet_id,
+                "slug": slug,
                 "name": character_name,
                 "level": int(character_level),
                 "class": character_class,
                 "data": json.dumps(character_data),
             },
         )
-        return redirect(url_for("display_sheet", sheet_id=sheet_id))
+        return redirect(url_for("display_sheet", slug=slug))
 
 
 if __name__ == "__main__":
