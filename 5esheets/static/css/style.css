@@ -130,9 +130,10 @@ form.charsheet header section.misc ul {
   flex-wrap: wrap;
 }
 form.charsheet header section.misc ul li {
-  width: 33.33333%;
+  width: 33%;
   display: flex;
   flex-direction: column-reverse;
+  padding-left: 1em;
 }
 form.charsheet header section.misc ul li label {
   margin-bottom: 5px;
@@ -736,4 +737,17 @@ input#updatesheet {
   position: absolute;
   top: 2%;
   right: 5%;
+}
+
+div#dailypreparedspells {
+  display: flex;
+  flex-direction: row;
+}
+
+input#remainingdailyspells {
+  text-align: right;
+}
+
+section.misc ul#spellattack li:nth-child(1) {
+  flex: 2;
 }
