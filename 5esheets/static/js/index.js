@@ -6,7 +6,15 @@ const skillsByCarac = {
     'Wisdom': ['Animal Handling', 'Insight', 'Medicine', 'Perception', 'Survival'],
     'Charisma': ['Deception', 'Intimidation', 'Performance', 'Persuasion'],
     'Intelligence': ['Arcana', 'History', 'Nature', 'Investigation', 'Religion']
-}
+};
+const modToCarac = {
+    'int_mod': 'Intelligence',
+    'wis_mod': 'Wisdom',
+    'str_mod': 'Strength',
+    'dex_mod': 'Dexterity',
+    'cha_mod': 'Charisma',
+    'con_mod': 'Constitution',
+};
 
 const scoreModifier = (score) => {
     return Math.ceil((score - 10) / 2);
@@ -83,20 +91,38 @@ const updateCaracScoreAndDependents = (carac) => {
     skillsByCarac[carac].forEach((skill) => {
         updateSkillModifier(carac, skill);
     })
-}
+};
 
 const updateSpellAttackBonus = (spellcastingAbility) => {
     let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
-    let totalSpellAttackBonus = getCaractModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
+    let totalSpellAttackBonus = getCaracModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
     document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
-}
+};
 
 const updateRemainingDailyPreparedSpells = () => {
     let totalDailyPeparedSpellsInput = parseInt(document.getElementById("totaldailypreparedspells").value);
     let remainingDailyPeparedSpellsInput = document.getElementById("remainingdailyspells");
     let currentlyPreparedSpells = document.querySelectorAll("div#spells input.bubble[type=checkbox]:checked").length;
     remainingDailyPeparedSpellsInput.value = totalDailyPeparedSpellsInput - currentlyPreparedSpells;
-}
+};
+
+function generateCaracMacroRegex(searchTerm) {
+    return new RegExp(`${searchTerm}`, 'g')
+  }
+
+const replaceCaracModMacroByValue = () => {
+    for (const [mod_str, carac] of Object.entries(modToCarac)) {
+        let searchTerm = `@${mod_str}`
+        let replacement = formatBonus(getCaracModifier(carac));
+        for (const node of document.querySelectorAll("textarea")) {
+            if (node.textContent.includes(searchTerm)) {
+                let re = generateCaracMacroRegex(searchTerm);
+                node.textContent = node.textContent.replace(re, replacement);
+            }
+          }
+    }
+};
+
 
 caracs.forEach((carac) => {
     let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
@@ -139,21 +165,27 @@ document.getElementsByName('proficiencybonus')[0].addEventListener('change', () 
 
 document.getElementById("spellcastingability-select").addEventListener('change', () => {
     let spellcastingAbility = document.getElementById("spellcastingability-select").value;
-    let spellDc = 8 + getProficiencyBonus() + getCaractModifier(spellcastingAbility);
+    let spellDc = 8 + getProficiencyBonus() + getCaracModifier(spellcastingAbility);
     document.getElementById("spelldc").value = spellDc;
 
     updateSpellAttackBonus(spellcastingAbility);
-})
+});
 
 document.getElementById("extraspellattackbonus").addEventListener('change', () => {
     let spellcastingAbility = document.getElementById("spellcastingability-select").value;
     let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
-    let totalSpellAttackBonus = getCaractModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
+    let totalSpellAttackBonus = getCaracModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
     document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
-})
+});
 
 document.querySelectorAll('div#spells input.bubble[type=checkbox]').forEach((node) => {
     node.addEventListener("change", () => {
         updateRemainingDailyPreparedSpells();
     })
-})
+});
+
+document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+        replaceCaracModMacroByValue();
+    }
+  }
