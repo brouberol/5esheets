@@ -47,28 +47,6 @@ section.attributes > div:nth-child(2){
   width: 65%;
 }
 
-@media screen and (min-width: 2000px) {
-  form.charsheet {
-    flex-direction: row;
-  }
-  div#character {
-    margin-right: 100px;
-  }
-
-  section.attributes > div:nth-child(1){
-    width: 30%;
-  }
-  section.attributes > div:nth-child(2){
-    width: 65%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  form.charsheet {
-    width: 95%;
-  }
-}
-
 form.charsheet div.textblock {
   display: flex;
   flex-direction: column-reverse;
@@ -601,7 +579,7 @@ form.charsheet main section.equipment > div > div.money ul > li label {
 form.charsheet main section.equipment > div > div.money ul > li input {
   border: 1px solid black;
   border-radius: 10px;
-  width: 40px;
+  width: 60%;
   padding: 10px 3px;
   font-size: 12px;
   text-align: center;
@@ -768,4 +746,26 @@ input#remainingdailyspells {
 
 section.misc ul#spellattack li:nth-child(1) {
   flex: 2;
+}
+
+@media screen and (min-width: 2000px) {
+  form.charsheet {
+    flex-direction: row;
+  }
+  div#character {
+    margin-right: 100px;
+  }
+
+  section.attributes > div:nth-child(1){
+    width: 30%;
+  }
+  section.attributes > div:nth-child(2){
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  form.charsheet {
+    width: 95%;
+  }
 }
