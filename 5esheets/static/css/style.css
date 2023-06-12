@@ -308,7 +308,7 @@ form.charsheet main > section div.passive-perception input {
   border-radius: 10px;
 }
 form.charsheet main > section div.otherprofs textarea {
-  height: 26em;
+  height: 24em;
 }
 form.charsheet main section.combat {
   background-color: #eee;
@@ -547,7 +547,7 @@ form.charsheet main section.equipment {
   margin-top: 10px;
 }
 form.charsheet main section.equipment textarea {
-  height: 27em;
+  height: 27.3em;
 }
 form.charsheet main section.equipment > div {
   padding: 10px;
