@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
+
 {% block head %}
 <script async src="static/js/index.js" rel="text/javascript"></script>
 <title>{{ character.name }}</title>
 {% endblock %}
+
+{% block title %}
+<h1>{{ character.name }}</h1>
+{% endblock %}
+
 {% block content %}
 <form class="charsheet" method="post">
     {% include "character.html" %}
