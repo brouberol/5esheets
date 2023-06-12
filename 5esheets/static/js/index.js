@@ -186,6 +186,7 @@ document.querySelectorAll('div#spells input.bubble[type=checkbox]').forEach((nod
 
 document.onreadystatechange = function () {
     if (document.readyState == "complete") {
+        updateRemainingDailyPreparedSpells();
         replaceCaracModMacroByValue();
     }
   }
