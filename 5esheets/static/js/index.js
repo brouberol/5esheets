@@ -101,6 +101,11 @@ const updateSkillModifier = (carac, skill) => {
         var skillBonus = caracModifier;
     }
     skillModifierInput.value = formatBonus(skillBonus);
+
+    if (skill === "Perception") {
+        let passivePerceptionInput = document.getElementsByName("passiveperception")[0];
+        passivePerceptionInput.value = 10 + skillBonus;
+    }
 }
 
 const updateCaracScoreAndDependents = (carac) => {
