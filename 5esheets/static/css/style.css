@@ -45,7 +45,7 @@ form.charsheet {
     width: 2000px;
     flex-direction: row;
   }
-  div#page1 {
+  div#character {
     margin-right: 100px;
   }
 }
