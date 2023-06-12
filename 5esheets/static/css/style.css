@@ -40,9 +40,13 @@ form.charsheet {
   flex-direction: column;
 }
 
-@media screen and (min-width: 2500px) {
+@media screen and (min-width: 2000px) {
   form.charsheet {
+    width: 2000px;
     flex-direction: row;
+  }
+  div#page1 {
+    margin-right: 100px;
   }
 }
 
