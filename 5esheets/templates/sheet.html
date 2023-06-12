@@ -106,11 +106,18 @@
                     </ul>
                 </div>
                 <div class="attr-applications">
-                    <div class="inspiration box">
+                    <div class="inspiration box large-checkbox">
                         <div class="label-container">
                             <label for="inspiration">Inspiration</label>
                         </div>
                         <input name="inspiration" type="checkbox" {% if character.data['inspiration'] %}checked{% endif
+                            %} />
+                    </div>
+                    <div class="darkvision box large-checkbox">
+                        <div class="label-container">
+                            <label for="darkvision">Darkvision</label>
+                        </div>
+                        <input name="darkvision" type="checkbox" {% if character.data['darkvision'] %}checked{% endif
                             %} />
                     </div>
                     <div class="proficiencybonus box">

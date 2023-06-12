@@ -35,7 +35,7 @@ def create_table():
 def is_field_from_checkbox(field_name):
     return (
         field_name.endswith("-prof")
-        or field_name == "inspiration"
+        or field_name in ("inspiration", "darkvision")
         or field_name.startswith(("deathfail", "deathsuccess"))
     )
 

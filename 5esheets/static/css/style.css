@@ -210,12 +210,12 @@ form.charsheet main > section section.attributes div.scores ul li div.modifier i
   margin: -1px;
   text-align: center;
 }
-form.charsheet main > section section.attributes div.attr-applications div.inspiration {
+.large-checkbox {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
-form.charsheet main > section section.attributes div.attr-applications div.inspiration input {
+.large-checkbox input {
   -webkit-appearance: none;
       -moz-appearance: none;
           appearance: none;
