@@ -649,12 +649,11 @@ div.spell-list-column {
   flex-shrink: 0;
 }
 
-div#cantrips-header, div.spells-header {
+div.spells-header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   position: relative;
-  margin-top: 6px;
   text-align: center;
 }
 
