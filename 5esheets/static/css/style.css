@@ -554,6 +554,9 @@ form.charsheet main section.equipment > div {
   flex-direction: row;
   flex-wrap: wrap;
 }
+form.charsheet main section.equipment > div > div.money {
+  flex: 1;
+}
 form.charsheet main section.equipment > div > div.money ul {
   display: flex;
   flex-direction: row;
@@ -589,7 +592,6 @@ form.charsheet main section.equipment > div > label {
   flex: 100%;
 }
 form.charsheet main section.equipment > div > textarea {
-  flex: 1;
   border: 0;
 }
 form.charsheet main section.flavor {
