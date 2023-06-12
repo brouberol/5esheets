@@ -34,12 +34,20 @@ const formatBonus = (bonus) => {
     }
 }
 
+const getProficiencyBonus = () => {
+    return parseInt(document.getElementsByName("proficiencybonus")[0].value);
+}
+
+const getCaractModifier = (carac) => {
+    return parseInt(document.getElementsByName(`${carac}mod`)[0].value);
+}
+
 const updateCaracSavingThrowModifier = (carac) => {
-    let caracModifier = parseInt(document.getElementsByName(`${carac}mod`)[0].value);
+    let caracModifier = getCaractModifier(carac);
     let savingThrowModifierInput = document.getElementsByName(`${carac}-save`)[0]
     let savingThrowProficiencyCheckbox = document.getElementsByName(`${carac}-save-prof`)[0];
     if (savingThrowProficiencyCheckbox.checked) {
-        var proficiencyBonus = parseInt(document.getElementsByName("proficiencybonus")[0].value);
+        var proficiencyBonus = getProficiencyBonus()
         var savingThrowBonus = caracModifier + proficiencyBonus;
     } else {
         var savingThrowBonus = caracModifier;
@@ -49,7 +57,7 @@ const updateCaracSavingThrowModifier = (carac) => {
 
 const updateSkillModifier = (carac, skill) => {
     let skillDashed = skill.replace(/ /g, '-')
-    let caracModifier = parseInt(document.getElementsByName(`${carac}mod`)[0].value);
+    let caracModifier = getCaractModifier(carac);
     let skillModifierInput = document.getElementsByName(skill)[0]
     let skillProficiencyCheckbox = document.getElementsByName(`${skillDashed}-prof`)[0];
     if (skillProficiencyCheckbox.checked) {
@@ -75,6 +83,12 @@ const updateCaracScoreAndDependents = (carac) => {
     skillsByCarac[carac].forEach((skill) => {
         updateSkillModifier(carac, skill);
     })
+}
+
+const updateSpellAttackBonus = (spellcastingAbility) => {
+    let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
+    let totalSpellAttackBonus = getCaractModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
+    document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
 }
 
 caracs.forEach((carac) => {
@@ -107,7 +121,6 @@ document.getElementsByName("classlevel")[0].addEventListener("change", () => {
 })
 
 document.getElementsByName('proficiencybonus')[0].addEventListener('change', () => {
-    console.log("COUCOU");
     caracs.forEach((carac) => {
         updateCaracSavingThrowModifier(carac);
         skillsByCarac[carac].forEach((skill) => {
@@ -115,3 +128,18 @@ document.getElementsByName('proficiencybonus')[0].addEventListener('change', () 
         })
     })
 });
+
+document.getElementById("spellcastingability-select").addEventListener('change', () => {
+    let spellcastingAbility = document.getElementById("spellcastingability-select").value;
+    let spellDc = 8 + getProficiencyBonus() + getCaractModifier(spellcastingAbility);
+    document.getElementById("spelldc").value = spellDc;
+
+    updateSpellAttackBonus(spellcastingAbility);
+})
+
+document.getElementById("extraspellattackbonus").addEventListener('change', () => {
+    let spellcastingAbility = document.getElementById("spellcastingability-select").value;
+    let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
+    let totalSpellAttackBonus = getCaractModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
+    document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
+})
