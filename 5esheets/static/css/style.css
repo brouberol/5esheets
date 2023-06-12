@@ -48,6 +48,13 @@ form.charsheet {
   div#character {
     margin-right: 100px;
   }
+
+  section.attributes > div:nth-child(1){
+    width: 30%;
+  }
+  section.attributes > div:nth-child(2){
+    width: 65%;
+  }
 }
 
 form.charsheet div.textblock {
