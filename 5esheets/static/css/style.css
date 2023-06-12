@@ -175,7 +175,7 @@ form.charsheet main > section section.attributes {
   justify-content: space-between;
 }
 form.charsheet main > section section.attributes div.scores {
-  width: 101px;
+  width: 30%;
   background-color: #bbb;
   border-radius: 10px;
   padding-bottom: 5px;
@@ -192,8 +192,7 @@ form.charsheet main > section section.attributes div.scores ul {
   height: 100%;
 }
 form.charsheet main > section section.attributes div.scores ul li {
-  height: 80px;
-  width: 70px;
+  width: min(90%, 70px);
   background-color: white;
   border: 1px solid black;
   text-align: center;
