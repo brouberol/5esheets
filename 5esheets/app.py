@@ -6,7 +6,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from flask import Flask, redirect, render_template, request, url_for
-from slugify import slugify
 
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
 
