@@ -47,7 +47,6 @@ var caracs = ['Strength', 'Dexterity', 'Constitution', 'Wisdom', 'Charisma', 'In
 
 caracs.forEach((carac) => {
     let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
-    console.log(caracScoreItem);
     caracScoreItem.addEventListener('change', () => {
         let score = parseInt(caracScoreItem.value);
         let modifier = scoreModifier(score);
