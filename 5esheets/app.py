@@ -125,7 +125,7 @@ def update_sheet(slug: str):
                 character_class=:class,
                 character_level=:level,
                 character_json_data=:data
-            WHERE slug=:slug
+            WHERE character_slug=:slug
         """,
             {
                 "slug": slug,
