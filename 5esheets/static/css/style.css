@@ -30,7 +30,7 @@ div.box {
 }
 
 form.charsheet {
-  width: 800px;
+  width: 70%;
   right: 0;
   left: 0;
   margin-right: auto;
@@ -40,9 +40,15 @@ form.charsheet {
   flex-direction: column;
 }
 
+section.attributes > div:nth-child(1){
+  width: 30%;
+}
+section.attributes > div:nth-child(2){
+  width: 65%;
+}
+
 @media screen and (min-width: 2000px) {
   form.charsheet {
-    width: 2000px;
     flex-direction: row;
   }
   div#character {
