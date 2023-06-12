@@ -82,7 +82,7 @@ form.charsheet header {
   align-contents: stretch;
   align-items: stretch;
 }
-form.charsheet header section.charname {
+section.charname, section.spellcastingability {
   border: 1px solid black;
   border-right: 0;
   border-radius: 10px 0 0 10px;
@@ -95,12 +95,13 @@ form.charsheet header section.charname {
   top: 0;
   margin: auto;
 }
-form.charsheet header section.charname input {
+section.charname input, section.spellcastingability input {
   padding: 0.5em;
   margin: 5px;
   border: 0;
+  background-color: inherit;
 }
-form.charsheet header section.charname label {
+section.charname label, section.spellcastingability label {
   padding-left: 1em;
 }
 form.charsheet header section.misc {
@@ -126,11 +127,13 @@ form.charsheet header section.misc ul li label {
 form.charsheet header section.misc ul li input {
   border: 0;
   border-bottom: 1px solid #ddd;
+  width: 80%;
 }
 form.charsheet main {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 form.charsheet main div.label-container {
   position: relative;
@@ -210,11 +213,7 @@ form.charsheet main > section section.attributes div.scores ul li div.modifier i
   margin: -1px;
   text-align: center;
 }
-.large-checkbox {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-}
+
 .large-checkbox input {
   -webkit-appearance: none;
       -moz-appearance: none;
@@ -223,12 +222,12 @@ form.charsheet main > section section.attributes div.scores ul li div.modifier i
   padding: 15px;
   border-radius: 10px;
 }
-form.charsheet main > section section.attributes div.attr-applications div.proficiencybonus {
+div.proficiencybonus, .large-checkbox {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
-form.charsheet main > section section.attributes div.attr-applications div.proficiencybonus input {
+div.proficiencybonus input, .large-checkbox input {
   width: 30px;
   height: 28px;
   border: 1px solid black;
@@ -485,7 +484,7 @@ form.charsheet main section.combat > div.deathsaves > div div.bubbles {
   flex: 1 40%;
   margin-left: 5px;
 }
-form.charsheet main section.combat > div.deathsaves > div div.bubbles input[type=checkbox] {
+input[type=checkbox].bubble {
   -webkit-appearance: none;
       -moz-appearance: none;
           appearance: none;
@@ -582,7 +581,6 @@ form.charsheet main section.equipment > div > textarea {
 }
 form.charsheet main section.flavor {
   padding: 10px;
-  background: #bbb;
   border-radius: 10px;
 }
 form.charsheet main section.flavor div {
@@ -628,4 +626,93 @@ form.charsheet main section.features div textarea {
   border: 0;
   padding: 5px;
   height: 43em;
+}
+
+div.spell-list-column {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+div#cantrips-header, div.spells-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  position: relative;
+  margin-top: 6px;
+  text-align: center;
+}
+
+div.spells-level {
+  display: flex;
+  width: 30px;
+  height: 28px;
+  border: 1px solid black;
+  text-align: center;
+  border-radius: 10px 0px 0px 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+div.spell-list ul {
+  padding-bottom: 3em;
+  display: flex;
+  flex-direction: column;
+}
+
+div.spell-list ul li {
+  display: flex;
+  flex-direction: row;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+div.spell-list input[type=checkbox].bubble {
+  margin-right: 10px;
+}
+
+div.spell-list input {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  width: 95%;
+}
+
+div.spells-slots-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border: 1px solid black;
+}
+
+div.spells-slots-available, div.spells-slots-total {
+  display: flex;
+}
+
+div.spells-slots-available input, div.spells-slots-total input {
+  flex: 1;
+  width: 49%;
+  border: 0;
+  text-align: center;
+}
+
+div.spells-slots-available input{
+  border-right: 1px solid black;
+}
+
+header label {
+  margin-top: 5px;
+  padding-bottom: 5px;
+  color: gray
+}
+
+section.spellcastingability select {
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: inherit;
+  border: 0;
+}
+
+input[name=charname] {
+  font-weight: bold;
+  font-size: 0.95rem;
 }
