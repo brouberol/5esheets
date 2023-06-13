@@ -18,13 +18,14 @@ def get_locale():
     )
 
 
+db_file = Path(__file__).parent / "db" / "5esheets.db"
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
 babel = Babel(app, locale_selector=get_locale)
 
 
 @contextmanager
 def get_db_connection():
-    conn = sqlite3.connect("sheets.db")
+    conn = sqlite3.connect(db_file)
     conn.row_factory = sqlite3.Row
     yield conn
     conn.commit()
@@ -150,6 +151,6 @@ def update_sheet(slug: str):
 
 
 if __name__ == "__main__":
-    if not Path("sheets.db").exists():
+    if not Path(db_file).exists():
         create_table()
     app.run()
