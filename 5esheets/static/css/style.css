@@ -784,7 +784,7 @@ section.misc ul#spellattack li:nth-child(1) {
     width: inherit;
     border-radius: 0 0 10px 10px;
   }
-  form.charsheet header section.charname {
+  form.charsheet header section.charname, form.charsheet header section.spellcastingability {
     border-radius: 10px 10px 0 0;
     border: 0;
   }
