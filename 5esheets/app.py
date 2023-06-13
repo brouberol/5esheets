@@ -6,8 +6,20 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from flask import Flask, redirect, render_template, request, url_for
+from flask_babel import Babel
+
+SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
+
+
+def get_locale():
+    # From https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-i18n-and-l10n-legacy
+    return request.accept_languages.best_match(
+        SUPPORTED_TRANSLATION_LANGUAGES, default="en"
+    )
+
 
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
+babel = Babel(app, locale_selector=get_locale)
 
 
 @contextmanager
