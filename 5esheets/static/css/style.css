@@ -788,6 +788,15 @@ section.misc ul#spellattack li:nth-child(1) {
     border-radius: 10px 10px 0 0;
     border: 0;
   }
+  section#combatcol {
+    padding-top: 1.5em;
+  }
+  form.charsheet main section.flavor, form.charsheet main section.features {
+    padding: 1.5em 0 0 0 ;
+  }
+  div#cantrips {
+    padding-top: 1.5em;
+  }
 }
 
 header > h1 {
