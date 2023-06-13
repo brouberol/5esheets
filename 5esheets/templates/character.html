@@ -326,14 +326,16 @@
                             <label for="maxhp">Hit Point Maximum</label><input name="maxhp" placeholder="10" type="text"
                                 value="{{ character.data['maxhp'] }}" />
                         </div>
-                        <div class="current">
-                            <label for="currenthp">Current Hit Points</label><input name="currenthp" type="text"
-                                value="{{ character.data['currenthp'] }}" />
+                        <div id="current-temporary-hp">
+                            <div id="temporary-hp">
+                                <label for="temphp">Temporary Hit Points</label><input name="temphp" type="text"
+                                    value="{{ character.data['temphp'] }}" />
+                            </div>
+                            <div id="current-hp">
+                                <label for="currenthp">Current Hit Points</label><input name="currenthp" type="text"
+                                    value="{{ character.data['currenthp'] }}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="temporary">
-                        <label for="temphp">Temporary Hit Points</label><input name="temphp" type="text"
-                            value="{{ character.data['temphp'] }}" />
                     </div>
                 </div>
                 <div class="hitdice">
