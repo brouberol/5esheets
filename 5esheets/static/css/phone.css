@@ -1,0 +1,43 @@
+div#character {
+  display: flex;
+  flex-direction: column;
+}
+
+form.charsheet header {
+  flex-direction: column;
+}
+
+form.charsheet main {
+  flex-direction: column;
+  width: 100%;
+}
+
+form.charsheet section {
+  width: 100%;
+}
+
+form.charsheet main > section {
+  width: 100%;
+}
+
+form.charsheet header section.misc {
+  width: inherit;
+  border-radius: 0 0 10px 10px;
+}
+
+form.charsheet header section.charname, form.charsheet header section.spellcastingability {
+  border-radius: 10px 10px 0 0;
+  border: 0;
+}
+
+section#combatcol {
+  padding-top: 1.5em;
+}
+
+form.charsheet main section.flavor, form.charsheet main section.features {
+  padding: 1.5em 0 0 0 ;
+}
+
+div#cantrips {
+  padding-top: 1.5em;
+}
