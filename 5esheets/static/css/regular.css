@@ -721,12 +721,48 @@ section.misc ul#spellattack li:nth-child(1) {
   flex: 2;
 }
 
-
-
 header > h1 {
   text-align: center;
 }
 
-input.custom-resource-header {
+#custom-resources {
+  display: flex;
+  flex-direction: row;
+}
+
+#custom-resources input {
   border: none;
+}
+
+.custom-resource {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.custom-resources-inputs {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  width: 80%;
+}
+
+.custom-resources-inputs input:nth-of-type(1) {
+  text-align: right;
+  padding-right: 5%;
+}
+.custom-resources-inputs input:nth-of-type(2) {
+  text-align: left;
+  padding-left: 5%;
+}
+
+.custom-resource input {
+  width: 80%;
+  flex: 1;
+  text-align: center;
+}
+
+input.custom-resource-header {
+  font-size: var(--font-size-s);
+  text-transform: uppercase;
+  overflow-wrap: break-word;
 }
