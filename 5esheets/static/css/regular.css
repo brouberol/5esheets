@@ -766,3 +766,7 @@ input.custom-resource-header {
   text-transform: uppercase;
   overflow-wrap: break-word;
 }
+
+section {
+  margin-bottom: var(--interbox-spacing);
+}

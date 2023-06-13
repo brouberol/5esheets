@@ -1,6 +1,5 @@
 .roundedbox {
   background-color: white;
-  margin: var(--interbox-spacing);
   border: 1px solid black;
   border-radius: var(--box-border-radius);
   padding: var(--innerbox-spacing);
