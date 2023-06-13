@@ -1,0 +1,43 @@
+# Translations template for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-06-13 21:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: 5esheets/templates/character.html:4
+msgid "character_name"
+msgstr ""
+
+#: 5esheets/templates/character.html:10
+msgid "class_and_level"
+msgstr ""
+
+#: 5esheets/templates/character.html:14
+msgid "background"
+msgstr ""
+
+#: 5esheets/templates/character.html:18
+msgid "player_name"
+msgstr ""
+
+#: 5esheets/templates/character.html:22
+msgid "race"
+msgstr ""
+
+#: 5esheets/templates/character.html:30
+msgid "experience_points"
+msgstr ""
+

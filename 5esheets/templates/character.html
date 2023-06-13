@@ -1,33 +1,33 @@
 <div id="character">
     <header>
         <section class="charname">
-            <label for="charname">Character Name</label><input name="charname" placeholder="Irene Wun Kmout"
+            <label for="charname">{{ _("character_name")}}</label><input name="charname" placeholder="Irene Wun Kmout"
                 value="{{ character.name }}" />
         </section>
         <section class="misc">
             <ul>
                 <li>
-                    <label for="classlevel">Class & Level</label><input name="classlevel"
+                    <label for="classlevel">{{ _("class_and_level" )}}</label><input name="classlevel"
                         value="{{ character._class }} {{ character.level }}" />
                 </li>
                 <li>
-                    <label for="background">Background</label><input name="background" placeholder="Acolyte"
+                    <label for="background">{{ _("background") }}</label><input name="background" placeholder="Acolyte"
                         value="{{ character.data['background'] }}" />
                 </li>
                 <li>
-                    <label for="playername">Player Name</label><input name="playername"
+                    <label for="playername">{{ _("player_name") }}</label><input name="playername"
                         placeholder="Player McPlayerface" value="{{ character.data['playername'] }}">
                 </li>
                 <li>
-                    <label for="race">Race</label><input name="race" placeholder="Half-elf"
+                    <label for="race">{{ _("race" )}}</label><input name="race" placeholder="Half-elf"
                         value="{{ character.data['race'] }}" />
                 </li>
                 <li>
-                    <label for="alignment">Alignment</label><input name="alignment" placeholder="Lawful Good"
+                    <label for="alignment">{{ _("alignment" )}}</label><input name="alignment" placeholder="Lawful Good"
                         value="{{ character.data['alignment'] }}" />
                 </li>
                 <li>
-                    <label for="experiencepoints">Experience Points</label><input name="experiencepoints"
+                    <label for="experiencepoints">{{ _("experience_points" )}}</label><input name="experiencepoints"
                         value="{{ character.data['experiencepoints'] }}" placeholder="3240" />
                 </li>
             </ul>

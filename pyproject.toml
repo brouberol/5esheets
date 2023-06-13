@@ -10,6 +10,8 @@ readme = "README.md"
 python = "^3.8"
 Flask = "^2.3.2"
 python-slugify = "^8.0.1"
+babel = "^2.12.1"
+flask-babel = "^3.1.0"
 
 
 [build-system]
