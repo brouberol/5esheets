@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 
@@ -19,8 +20,12 @@ def get_locale():
 
 
 db_file = Path(__file__).parent / "db" / "5esheets.db"
+migrations_dir = Path(__file__).parent / "migrations"
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
 babel = Babel(app, locale_selector=get_locale)
+
+with app.app_context():
+    caribou.upgrade(db_url=db_file, migration_dir=migrations_dir)
 
 
 @contextmanager
@@ -30,22 +35,6 @@ def get_db_connection():
     yield conn
     conn.commit()
     conn.close()
-
-
-def create_table():
-    with get_db_connection() as db:
-        db.execute(
-            """CREATE TABLE sheets(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                character_name VARCHAR(255),
-                character_slug VARCHAR(255),
-                character_class VARCHAR(50),
-                character_level INTEGER,
-                character_json_data TEXT NOT NULL
-            );
-            CREATE INDEX sheets_character_slug ON sheets(character_slug);
-            """
-        )
 
 
 def is_field_from_checkbox(field_name):
@@ -148,9 +137,3 @@ def update_sheet(slug: str):
             },
         )
         return redirect(url_for("display_sheet", slug=slug))
-
-
-if __name__ == "__main__":
-    if not Path(db_file).exists():
-        create_table()
-    app.run()
