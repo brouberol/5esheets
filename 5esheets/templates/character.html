@@ -7,30 +7,30 @@
         <section class="misc">
             <ul>
                 <li>
-                    <label class="carac" for="classlevel">{{ _("class_and_level" )}}</label>
+                    <label for="classlevel">{{ _("class_and_level" )}}</label>
                     <input name="classlevel" value="{{ character._class }} {{ character.level }}" />
                 </li>
                 <li>
-                    <label class="carac" for="background">{{ _("background") }}</label>
+                    <label for="background">{{ _("background") }}</label>
                     <input name="background" placeholder="Acolyte" value="{{ character.data['background'] }}" />
                 </li>
                 <li>
-                    <label class="carac" for="playername">{{ _("player_name") }}</label>
+                    <label for="playername">{{ _("player_name") }}</label>
                     <input name="playername" placeholder="Player McPlayerface"
                         value="{{ character.data['playername'] }}">
                 </li>
             </ul>
             <ul>
                 <li>
-                    <label class="carac" for="race">{{ _("race" )}}</label>
+                    <label for="race">{{ _("race" )}}</label>
                     <input name="race" placeholder="Half-elf" value="{{ character.data['race'] }}" />
                 </li>
                 <li>
-                    <label class="carac" for="alignment">{{ _("alignment" )}}</label>
+                    <label for="alignment">{{ _("alignment" )}}</label>
                     <input name="alignment" placeholder="Lawful Good" value="{{ character.data['alignment'] }}" />
                 </li>
                 <li>
-                    <label class="carac" for="experiencepoints">{{ _("experience_points" )}}</label>
+                    <label for="experiencepoints">{{ _("experience_points" )}}</label>
                     <input name="experiencepoints" value="{{ character.data['experiencepoints'] }}"
                         placeholder="3240" />
                 </li>
@@ -44,8 +44,9 @@
                     <ul>
                         <li>
                             <div class="score">
-                                <label for="Strengthscore">{{ _("strength_abbr") }}</label><input name="Strengthscore"
-                                    placeholder="10" value="{{ character.data['Strengthscore'] }}" />
+                                <label class="carac" for="Strengthscore">{{ _("strength_abbr") }}</label>
+                                <input name="Strengthscore" placeholder="10"
+                                    value="{{ character.data['Strengthscore'] }}" />
                             </div>
                             <div class="modifier">
                                 <input name="Strengthmod" placeholder="+0"
@@ -54,8 +55,8 @@
                         </li>
                         <li>
                             <div class="score">
-                                <label for="Dexterityscore">{{ _("dexterity_abbr") }}</label><input
-                                    name="Dexterityscore" placeholder="10"
+                                <label class="carac" for="Dexterityscore">{{ _("dexterity_abbr") }}</label>
+                                <input name="Dexterityscore" placeholder="10"
                                     value="{{ character.data['Dexterityscore'] }}" />
                             </div>
                             <div class="modifier">
@@ -65,8 +66,8 @@
                         </li>
                         <li>
                             <div class="score">
-                                <label for="Constitutionscore">{{ _("constitution_abbr") }}</label><input
-                                    name="Constitutionscore" placeholder="10"
+                                <label class="carac" for="Constitutionscore">{{ _("constitution_abbr") }}</label>
+                                <input name="Constitutionscore" placeholder="10"
                                     value="{{ character.data['Constitutionscore'] }}" />
                             </div>
                             <div class="modifier">
@@ -76,8 +77,8 @@
                         </li>
                         <li>
                             <div class="score">
-                                <label for="Intelligencescore">{{ _("intelligence_abbr") }}</label><input
-                                    name="Intelligencescore" value="{{ character.data['Intelligencescore'] }}"
+                                <label class="carac" for="Intelligencescore">{{ _("intelligence_abbr") }}</label>
+                                <input name="Intelligencescore" value="{{ character.data['Intelligencescore'] }}"
                                     placeholder="10" />
                             </div>
                             <div class="modifier">
@@ -87,8 +88,9 @@
                         </li>
                         <li>
                             <div class="score">
-                                <label for="Wisdomscore">{{ _("wisdom_abbr") }}</label><input name="Wisdomscore"
-                                    placeholder="10" value="{{ character.data['Wisdomscore'] }}" />
+                                <label class="carac" for="Wisdomscore">{{ _("wisdom_abbr") }}</label>
+                                <input name="Wisdomscore" placeholder="10"
+                                    value="{{ character.data['Wisdomscore'] }}" />
                             </div>
                             <div class="modifier">
                                 <input name="Wisdommod" placeholder="+0" value="{{ character.data['Wisdommod'] }}" />
@@ -96,8 +98,9 @@
                         </li>
                         <li>
                             <div class="score">
-                                <label for="Charismascore">{{ _("charisma_abbr") }}</label><input name="Charismascore"
-                                    placeholder="10" value="{{ character.data['Charismascore'] }}" />
+                                <label class="carac" for="Charismascore">{{ _("charisma_abbr") }}</label>
+                                <input name="Charismascore" placeholder="10"
+                                    value="{{ character.data['Charismascore'] }}" />
                             </div>
                             <div class="modifier">
                                 <input name="Charismamod" placeholder="+0"

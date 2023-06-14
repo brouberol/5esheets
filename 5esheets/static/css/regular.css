@@ -28,6 +28,16 @@ form.charsheet {
   flex-direction: column;
 }
 
+label {
+  text-transform: uppercase;
+  font-size: var(--font-size);
+}
+
+label.carac {
+  font-size: var(--font-size-ms);
+  font-weight: bold;
+}
+
 section.attributes > div:nth-child(1){
   width: 30%;
 }
@@ -71,10 +81,7 @@ form.charsheet :-ms-input-placeholder {
 form.charsheet ::placeholder {
   color: #bbb;
 }
-form.charsheet label {
-  text-transform: uppercase;
-  font-size: 12px;
-}
+
 form.charsheet header {
   display: flex;
   align-contents: stretch;
@@ -167,10 +174,6 @@ form.charsheet main > section section.attributes div.scores {
   background-color: #bbb;
   border-radius: 10px;
   padding-bottom: 5px;
-}
-form.charsheet main > section section.attributes div.scores label {
-  font-size: 8px;
-  font-weight: bold;
 }
 form.charsheet main > section section.attributes div.scores ul {
   display: flex;
