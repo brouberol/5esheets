@@ -123,6 +123,16 @@ const replaceCaracModMacroByValue = () => {
   }
 };
 
+const sortChildrenByText = (parent) => {
+  [...parent.children].sort((a,b)=>a.innerText>b.innerText?1:-1).forEach(node=>parent.appendChild(node));
+}
+
+const sortSkillsElements = () => {
+  // todo: fix class into id
+  let skillList = document.querySelectorAll(".skills > ul")[0];
+  sortChildrenByText(skillList);
+}
+
 
 caracs.forEach((carac) => {
   let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
@@ -188,5 +198,6 @@ document.onreadystatechange = function () {
   if (document.readyState == "complete") {
     updateRemainingDailyPreparedSpells();
     replaceCaracModMacroByValue();
+    sortSkillsElements();
   }
-  }
+}
