@@ -1,15 +1,29 @@
 import json
 import sqlite3
-from collections import defaultdict
 from contextlib import contextmanager
-from dataclasses import dataclass, field
 from pathlib import Path
 
 import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 
+from .models import Character, CharacterSheet
+
 SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
+
+
+def dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
+
+
+@contextmanager
+def get_db_connection():
+    conn = sqlite3.connect(db_file)
+    conn.row_factory = dict_factory
+    yield conn
+    conn.commit()
+    conn.close()
 
 
 def get_locale():
@@ -17,24 +31,6 @@ def get_locale():
     return request.accept_languages.best_match(
         SUPPORTED_TRANSLATION_LANGUAGES, default="en"
     )
-
-
-db_file = Path(__file__).parent / "db" / "5esheets.db"
-migrations_dir = Path(__file__).parent / "migrations"
-app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
-babel = Babel(app, locale_selector=get_locale)
-
-with app.app_context():
-    caribou.upgrade(db_url=db_file, migration_dir=migrations_dir)
-
-
-@contextmanager
-def get_db_connection():
-    conn = sqlite3.connect(db_file)
-    conn.row_factory = sqlite3.Row
-    yield conn
-    conn.commit()
-    conn.close()
 
 
 def is_field_from_checkbox(field_name):
@@ -45,19 +41,13 @@ def is_field_from_checkbox(field_name):
     )
 
 
-@dataclass
-class Character:
-    name: str
-    level: int
-    _class: int
-    slug: str
-    data: dict = field(default_factory=lambda: defaultdict(str))
+db_file = Path(__file__).parent / "db" / "5esheets.db"
+migrations_dir = Path(__file__).parent / "migrations"
+app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
+babel = Babel(app, locale_selector=get_locale)
 
-
-@dataclass
-class CharacterSheet:
-    id: int
-    character: Character
+with app.app_context():
+    caribou.upgrade(db_url=db_file, migration_dir=migrations_dir)
 
 
 @app.route("/", methods=["GET"])
@@ -72,17 +62,7 @@ def list_sheets():
             """
         )
         for row in res.fetchall():
-            sheets.append(
-                CharacterSheet(
-                    id=row["id"],
-                    character=Character(
-                        name=row["character_name"],
-                        level=row["character_level"],
-                        _class=row["character_class"],
-                        slug=row["character_slug"],
-                    ),
-                )
-            )
+            sheets.append(CharacterSheet.from_dict(row))
 
         return render_template("sheets.html", sheets=sheets)
 
@@ -98,13 +78,7 @@ def display_sheet(slug: str):
             """,
             {"slug": slug},
         ).fetchone()
-        character = Character(
-            name=row["character_name"],
-            level=row["character_level"],
-            _class=row["character_class"],
-            data=json.loads(row["character_json_data"]),
-            slug=row["character_slug"],
-        )
+        character = Character.from_dict(row)
 
         return render_template("sheet.html", character=character)
 
