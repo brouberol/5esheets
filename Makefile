@@ -7,7 +7,7 @@ translations-extract:  ## Extract all strings to translate from jinja templates
 	poetry run pybabel extract -F babel.cfg -o 5esheets/translations/messages.pot .
 
 translations-update:  translations-extract  ## Update the language catalogs with new translations
-	poetry run pybabel update -i 5esheets/translations/messages.pot -d 5esheets/translations
+	poetry run pybabel update --no-fuzzy-matching -i 5esheets/translations/messages.pot -d 5esheets/translations
 
 translations-compile:  translations-update  ## Compile translations into a .mo file
 	poetry run pybabel compile -d 5esheets/translations
