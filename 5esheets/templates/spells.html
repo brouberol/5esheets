@@ -11,10 +11,6 @@
     <section class="misc">
       <ul id="dailyspells">
         <li>
-          <label for="dailyspells">{{ _("daily_spells") }}</label><input name="dailyspells"
-            value="{{ character.data['dailyspells'] }}" />
-        </li>
-        <li>
           <label for="dailypreparedspells">{{ _("preparable_spells") }}</label>
           <div id="dailypreparedspells">
             <input id="remainingdailyspells" class="dailypreparedspells" name="remainingdailyspells" /> / <input
@@ -22,20 +18,21 @@
               value="{{ character.data['dailypreparedspells'] }}" />
           </div>
         </li>
-        <li></li>
-      </ul>
-      <ul id="spellattack">
         <li>
           <label for="spelldc">{{ _("spell_dc") }}</label><input id="spelldc" name="spelldc" placeholder="10"
             value="{{ character.data['spelldc'] }}" />
         </li>
+      </ul>
+      <ul id="spellattack">
         <li>
-          <label for="playername">{{ _("extra_spell_attack_bonus") }}</label><input id="extraspellattackbonus"
-            name="extraspellattackbonus" placeholder="+1" value="{{ character.data['extraspellattackbonus'] }}">
+          <label for="extraspellattackbonus">{{ _("extra_spell_attack_bonus") }}</label><input
+            id="extraspellattackbonus" name="extraspellattackbonus" placeholder="+1"
+            value="{{ character.data['extraspellattackbonus'] }}">
         </li>
         <li>
-          <label for="playername">{{ _("total_spell_attack_bonus") }}</label><input id="totalspellattackbonus"
-            name="totalspellattackbonus" placeholder="+1" value="{{ character.data['totalspellattackbonus'] }}">
+          <label for="extraspellattackbonus">{{ _("total_spell_attack_bonus") }}</label><input
+            id="totalspellattackbonus" name="totalspellattackbonus" placeholder="+1"
+            value="{{ character.data['totalspellattackbonus'] }}">
         </li>
       </ul>
     </section>
