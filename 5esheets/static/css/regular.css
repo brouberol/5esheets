@@ -1,23 +1,4 @@
-textarea {
-  font-size: 12px;
-  text-align: left;
-  width: calc(100% - 20px - 2px);
-  border-radius: 10px;
-  padding: 10px;
-  resize: none;
-  overflow: hidden;
-  height: 15em;
-}
-
-input[type=checkbox] {
-  cursor: pointer;
-}
-
-div.box {
-  margin-top: 10px;
-}
-
-form.charsheet {
+#character-sheet {
   width: 70%;
   right: 0;
   left: 0;
@@ -28,9 +9,35 @@ form.charsheet {
   flex-direction: column;
 }
 
+main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+section {
+  margin-bottom: var(--interbox-spacing);
+  padding: var(--innerbox-spacing);
+}
+
 label {
   text-transform: uppercase;
   font-size: var(--font-size);
+}
+
+textarea {
+  font-size: var(--font-size);
+  text-align: left;
+  width: calc(100% - 20px - 2px);
+  border-radius: var(--box-border-radius);
+  resize: none;
+  overflow: hidden;
+  height: 15em;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
 }
 
 label.carac {
@@ -38,11 +45,9 @@ label.carac {
   font-weight: bold;
 }
 
-section.attributes > div:nth-child(1){
-  width: 30%;
-}
-section.attributes > div:nth-child(2){
-  width: 65%;
+label.subtitle {
+  text-align: center;
+  font-size: var(--font-size-ms);
 }
 
 form.charsheet div.textblock {
@@ -68,10 +73,6 @@ form.charsheet ul {
   margin: 0;
   padding: 0;
 }
-form.charsheet ul li {
-  list-style-image: none;
-  display: block;
-}
 form.charsheet ::-moz-placeholder {
   color: #bbb;
 }
@@ -84,13 +85,12 @@ form.charsheet ::placeholder {
 
 form.charsheet header {
   display: flex;
-  align-contents: stretch;
   align-items: stretch;
 }
 section.charname, section.spellcastingability {
-  border: 1px solid black;
+  border: var(--box-border);
   border-right: 0;
-  border-radius: 10px 0 0 10px;
+  border-radius: var(--box-border-radius) 0 0 var(--box-border-radius);
   padding: 5px 0;
   background-color: #eee;
   width: 30%;
@@ -111,8 +111,8 @@ section.charname label, section.spellcastingability label {
 }
 form.charsheet header section.misc {
   width: 70%;
-  border: 1px solid black;
-  border-radius: 10px;
+  border: var(--box-border);
+  border-radius: var(--box-border-radius);
   padding-left: 1em;
   padding-right: 1em;
 }
@@ -127,7 +127,7 @@ form.charsheet header section.misc ul li {
   flex-direction: column-reverse;
   padding-left: 1em;
 }
-form.charsheet header section.misc ul li label {
+section.misc label {
   margin-bottom: 5px;
 }
 form.charsheet header section.misc ul li input {
@@ -135,218 +135,187 @@ form.charsheet header section.misc ul li input {
   border-bottom: 1px solid #ddd;
   width: 80%;
 }
-form.charsheet main {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-form.charsheet main div.label-container {
+
+div.box-label-container {
   position: relative;
   width: 100%;
-  height: 18px;
-  margin-top: 6px;
-  border: 1px solid black;
+  height: 1.2rem;
+  margin-top: 0.25rem;
+  border: var(--box-border);
   border-left: 0;
   text-align: center;
 }
-form.charsheet main div.label-container > label {
-  position: absolute;
-  left: 0;
-  top: 1px;
-  transform: translate(0%, 50%);
-  width: 100%;
-  font-size: 8px;
-}
-form.charsheet main > section {
+
+ main > section {
   width: 32%;
   display: flex;
   flex-direction: column;
 }
-form.charsheet main > section section.attributes {
+section.attributes {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-form.charsheet main > section section.attributes div.scores {
+section.attributes > div:nth-child(1){
+  width: 30%;
+}
+section.attributes > div:nth-child(2){
+  width: 65%;
+}
+section.attributes div.scores {
   width: 30%;
   background-color: #bbb;
   border-radius: 10px;
   padding-bottom: 5px;
 }
-form.charsheet main > section section.attributes div.scores ul {
+section.attributes div.scores ul {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: 100%;
 }
-form.charsheet main > section section.attributes div.scores ul li {
-  width: min(90%, 70px);
-  background-color: white;
-  border: 1px solid black;
+section.attributes div.scores ul li {
+  width: min(90%, 75px);
   text-align: center;
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
 }
-form.charsheet main > section section.attributes div.scores ul li input {
+section.attributes div.scores ul li input {
   width: 100%;
   padding: 0;
   border: 0;
 }
-form.charsheet main > section section.attributes div.scores ul li div.score input {
+section.attributes div.scores ul li div.score input {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--font-size-xxl);
   padding: 2px 0px 0px 0px;
   background: white;
 }
-form.charsheet main > section section.attributes div.scores ul li div.modifier {
+section.attributes div.scores div.modifier {
   margin-top: 3px;
 }
-form.charsheet main > section section.attributes div.scores ul li div.modifier input {
+section.attributes div.scores div.modifier input {
   background: white;
-  width: 30px;
-  height: 20px;
-  border: 1px inset black;
+  width: 40%;
+  border: var(--box-border);
   border-radius: 20px;
-  margin: -1px;
   text-align: center;
 }
 
-.large-checkbox input {
-  -webkit-appearance: none;
-      -moz-appearance: none;
-          appearance: none;
-  border: 1px solid black;
-  padding: 15px;
-  border-radius: 10px;
-}
 div.proficiencybonus, .large-checkbox {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
-div.proficiencybonus input, .large-checkbox input {
-  width: 30px;
-  height: 28px;
+
+.large-checkbox input {
+  margin-right: -0.2rem;
+}
+
+.large-checkbox input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 2rem;
+  height: 1.6rem;
   border: 1px solid black;
   text-align: center;
   border-radius: 10px;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section {
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px 5px;
-}
-form.charsheet main > section section.attributes div.attr-applications div.list-section div.label {
-  margin-top: 10px;
-  margin-bottom: 2.5px;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 10px;
-  font-weight: bold;
-}
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li {
+
+section.attributes li {
   display: flex;
   align-items: center;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li > * {
+li.score-mod-with-prof > * {
   margin-left: 5px;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li label span.skill {
+li.score-mod-with-prof label span.skill {
   color: #bbb;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=text] {
+li.score-mod-with-prof input[type=text] {
   width: 30px;
   font-size: 12px;
   text-align: center;
   border: 0;
   border-bottom: 1px solid black;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=checkbox] {
+li.score-mod-with-prof input[type=checkbox] {
   -webkit-appearance: none;
-      -moz-appearance: none;
-          appearance: none;
-  width: 10px;
-  height: 10px;
+  -moz-appearance: none;
+  appearance: none;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 0.7em;
   border: 1px solid black;
-  border-radius: 10px;
 }
-form.charsheet main > section div.passive-perception {
+section div.passive-perception {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
 }
-form.charsheet main > section div.passive-perception input {
-  width: 30px;
-  height: 28px;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 10px;
-}
+
 form.charsheet main > section div.otherprofs textarea {
   height: 24em;
 }
-form.charsheet main section.combat {
+
+section.combat {
+  padding: var(--innerbox-spacing);
+}
+section.combat {
   background-color: #eee;
   display: flex;
   flex-wrap: wrap;
   border-radius: 10px;
 }
-form.charsheet main section.combat > div {
+section.combat > div {
   overflow: hidden;
 }
-form.charsheet main section.combat > div.armorclass, form.charsheet main section.combat > div.initiative, form.charsheet main section.combat > div.speed {
-  flex-basis: 33.333%;
+
+div#combat-stats, div#hitdice-deathsaves {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }
-form.charsheet main section.combat > div.armorclass > div, form.charsheet main section.combat > div.initiative > div, form.charsheet main section.combat > div.speed > div {
+
+div.armorclass > div, div.initiative > div, div.speed > div {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  margin-top: 10px;
 }
-form.charsheet main section.combat > div.armorclass > div label, form.charsheet main section.combat > div.initiative > div label, form.charsheet main section.combat > div.speed > div label {
-  font-size: 8px;
-  width: 50px;
-  border: 1px solid black;
-  border-top: 0;
-  background-color: white;
+
+div.armorclass label, div.initiative label, div.speed label {
+  font-size: var(--font-size-xs);
+  width: 70%;
+}
+
+div.armorclass input, div.initiative input, div.speed input {
+  width: 85%;
+  aspect-ratio: 1;
+  border-radius: var(--box-border-radius);
+  border: var(--box-border);
   text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 0 0 10px 10px;
+  font-size: var(--font-size-xl);
 }
-form.charsheet main section.combat > div.armorclass > div input, form.charsheet main section.combat > div.initiative > div input, form.charsheet main section.combat > div.speed > div input {
-  height: 70px;
-  width: 70px;
-  border-radius: 10px;
-  border: 1px solid black;
-  text-align: center;
-  font-size: 30px;
-}
-form.charsheet main section.combat > div.hp {
+
+div.hp {
   flex-basis: 100%;
 }
-form.charsheet main section.combat > div.hp > div.regular {
-  background-color: white;
-  border: 1px solid black;
-  margin: 10px;
-  margin-bottom: 5px;
-  border-radius: 10px 10px 0 0;
-}
-form.charsheet main section.combat > div.hp > div.regular > div.max {
+
+div.max {
   display: flex;
   justify-content: space-around;
   align-items: baseline;
 }
-form.charsheet main section.combat > div.hp > div.regular > div.max label {
+div.max label {
   font-size: 10px;
   text-transform: none;
   color: #bbb;
 }
-form.charsheet main section.combat > div.hp > div.regular > div.max input {
+div.max input {
   width: 40%;
   border: 0;
   border-bottom: 1px solid #ddd;
@@ -370,99 +339,69 @@ div#current-hp input, div#temporary-hp input {
   font-size: 20px;
   text-align: center;
 }
-div#current-hp label, div#temporary-hp label {
-  font-size: 10px;
-  padding-bottom: 5px;
-  text-align: center;
-  font-weight: bold;
+
+div#hitdice-deathsaves {
+  justify-content: space-between;
+}
+div.hitdice, div.deathsaves {
+  width: 45%;
 }
 
-form.charsheet main section.combat > div.hitdice, form.charsheet main section.combat > div.deathsaves {
-  flex: 1 50%;
-  height: 100px;
-}
-form.charsheet main section.combat > div.hitdice > div, form.charsheet main section.combat > div.deathsaves > div {
-  height: 80px;
-}
-form.charsheet main section.combat > div.hitdice > div {
-  background-color: white;
-  margin: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-}
-form.charsheet main section.combat > div.hitdice > div > div.total {
+div.hitdice div.total {
   display: flex;
   align-items: baseline;
   justify-content: space-around;
   padding: 5px 0;
 }
-form.charsheet main section.combat > div.hitdice > div > div.total label {
+div.hitdice div.total label {
   font-size: 10px;
   color: #bbb;
   margin: 0.25em;
   text-transform: none;
 }
-form.charsheet main section.combat > div.hitdice > div > div.total input {
-  font-size: 12px;
-  flex-grow: 1;
+div.hitdice div.total input {
   border: 0;
   border-bottom: 1px solid #ddd;
   width: 50%;
-  margin-right: 0.25em;
   padding: 0 0.25em;
   text-align: center;
 }
-form.charsheet main section.combat > div.hitdice > div > div.remaining {
+div.hitdice div.remaining {
   flex: 1;
   display: flex;
   flex-direction: column-reverse;
 }
-form.charsheet main section.combat > div.hitdice > div > div.remaining label {
-  text-align: center;
-  padding: 2px;
-  font-size: 10px;
-}
-form.charsheet main section.combat > div.hitdice > div > div.remaining input {
+div.hitdice div.remaining input {
   text-align: center;
   border: 0;
   flex: 1;
 }
-form.charsheet main section.combat > div.deathsaves > div {
-  margin: 10px;
-  background: white;
-  border: 1px solid black;
-  border-radius: 10px;
+div.deathsaves  {
   display: flex;
   flex-direction: column-reverse;
 }
-form.charsheet main section.combat > div.deathsaves > div > div.label {
-  text-align: center;
-}
-form.charsheet main section.combat > div.deathsaves > div > div.label label {
-  font-size: 10px;
-}
-form.charsheet main section.combat > div.deathsaves > div > div.marks {
+
+div.deathsaves div.marks {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: center;
 }
-form.charsheet main section.combat > div.deathsaves > div > div.marks div.deathsuccesses, form.charsheet main section.combat > div.deathsaves > div > div.marks div.deathfails {
+div.deathsaves div.marks div.deathsuccesses, div.deathsaves div.marks div.deathfails {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-form.charsheet main section.combat > div.deathsaves > div > div.marks div.deathsuccesses label, form.charsheet main section.combat > div.deathsaves > div > div.marks div.deathfails label {
-  font-size: 8px;
-  text-align: right;
-  flex: 1 50%;
+div.deathsaves div.marks div.deathsuccesses label, div.deathsaves div.marks div.deathfails label {
+  font-size: var(--font-size-xs);
 }
-form.charsheet main section.combat > div.deathsaves > div div.bubbles {
-  flex: 1 40%;
-  margin-left: 5px;
+div.deathsaves div.bubbles {
+  display: flex;
+  font-size: var(--font-size-xs);
+  width: 50%;
+  justify-content: space-between;
 }
+
 input[type=checkbox].bubble {
   -webkit-appearance: none;
       -moz-appearance: none;
@@ -475,67 +414,53 @@ input[type=checkbox].bubble {
 input[type=checkbox]:checked {
   background-color: black;
 }
-form.charsheet main section.attacksandspellcasting {
-  border: 1px solid black;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-form.charsheet main section.attacksandspellcasting > div {
+section.attacksandspellcasting > div {
   margin: 10px;
   display: flex;
   flex-direction: column;
 }
-form.charsheet main section.attacksandspellcasting > div > label {
-  order: 3;
-  text-align: center;
-}
-form.charsheet main section.attacksandspellcasting > div > table {
+
+section.attacksandspellcasting table {
   width: 100%;
 }
-form.charsheet main section.attacksandspellcasting > div > table th {
-  font-size: 10px;
+section.attacksandspellcasting table th {
+  font-size: var(--font-size);
   color: #ddd;
 }
-form.charsheet main section.attacksandspellcasting > div > table input {
+section.attacksandspellcasting table input {
   width: calc(100% - 4px);
   border: 0;
   background-color: #eee;
-  font-size: 10px;
+  font-size: var(--font-size-ms);
   padding: 3px;
 }
-form.charsheet main section.attacksandspellcasting > div textarea {
+section.attacksandspellcasting > div textarea {
   border: 0;
 }
-form.charsheet main section.equipment {
-  border: 1px solid black;
-  border-radius: 10px;
-  margin-top: 10px;
+section.equipment textarea {
+  height: 30em;
 }
-form.charsheet main section.equipment textarea {
-  height: 27.3em;
-}
-form.charsheet main section.equipment > div {
-  padding: 10px;
+section.equipment {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-form.charsheet main section.equipment > div > div.money {
+section.equipment div.money {
   flex: 1;
 }
-form.charsheet main section.equipment > div > div.money ul {
+section.equipment div.money ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 100%;
   padding-bottom: 1em;
 }
-form.charsheet main section.equipment > div > div.money ul > li {
+section.equipment div.money ul > li {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-form.charsheet main section.equipment > div > div.money ul > li label {
+section.equipment div.money ul > li label {
   border: 1px solid black;
   border-radius: 4px;
   border-top: 0px;
@@ -544,7 +469,7 @@ form.charsheet main section.equipment > div > div.money ul > li label {
   text-align: center;
   padding: 3px 0;
 }
-form.charsheet main section.equipment > div > div.money ul > li input {
+section.equipment div.money ul > li input {
   border: 1px solid black;
   border-radius: 10px;
   width: 60%;
@@ -552,61 +477,32 @@ form.charsheet main section.equipment > div > div.money ul > li input {
   font-size: 12px;
   text-align: center;
 }
-form.charsheet main section.equipment > div > label {
-  order: 3;
-  text-align: center;
-  flex: 100%;
-}
-form.charsheet main section.equipment > div > textarea {
-  border: 0;
-}
-form.charsheet main section.flavor {
-  padding: 10px;
-  border-radius: 10px;
-}
-form.charsheet main section.flavor div {
-  background: white;
+
+section.flavor div {
   display: flex;
   flex-direction: column-reverse;
   padding: 5px;
-  border: 1px solid black;
+  border: var(--box-border)
 }
-form.charsheet main section.flavor div label {
-  text-align: center;
-  font-size: 10px;
-  margin-top: 3px;
-}
-form.charsheet main section.flavor div textarea {
+
+section.flavor textarea {
   border: 0;
-  border-radius: 0;
-  height: 4em;
+  height: 6em;
+  padding: 0.5em;
+  width: initial;
 }
-form.charsheet main section.flavor div:first-child {
+section.flavor div:first-child {
   border-radius: 10px 10px 0 0;
 }
-form.charsheet main section.flavor div:not(:first-child) {
+section.flavor div:not(:first-child) {
   margin-top: 10px;
 }
-form.charsheet main section.flavor div:last-child {
+section.flavor div:last-child {
   border-radius: 0 0 10px 10px;
 }
-form.charsheet main section.features {
-  padding: 10px;
-}
-form.charsheet main section.features div {
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column-reverse;
-}
-form.charsheet main section.features div label {
-  text-align: center;
-}
-form.charsheet main section.features div textarea {
-  border: 0;
-  padding: 5px;
-  height: 43em;
+
+section.features div textarea {
+  height: 42em;
 }
 
 div.spell-list-column {
@@ -620,17 +516,6 @@ div.spells-header {
   justify-content: flex-start;
   position: relative;
   text-align: center;
-}
-
-div.spells-level {
-  display: flex;
-  width: 30px;
-  height: 28px;
-  border: 1px solid black;
-  text-align: center;
-  border-radius: 10px 0px 0px 10px;
-  align-items: center;
-  justify-content: center;
 }
 
 div.spell-list ul {
@@ -658,10 +543,10 @@ div.spell-list input {
 }
 
 div.spells-slots-container {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   border: 1px solid black;
+  flex-direction: row;
+  display: flex;
 }
 
 div.spells-slots-available, div.spells-slots-total {
@@ -756,8 +641,4 @@ input.custom-resource-header {
   font-size: var(--font-size-s);
   text-transform: uppercase;
   overflow-wrap: break-word;
-}
-
-section {
-  margin-bottom: var(--interbox-spacing);
 }

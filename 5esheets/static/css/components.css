@@ -1,14 +1,70 @@
+.box {
+  margin-top: var(--interbox-spacing);
+}
+
+.flex {
+  display: flex;
+}
+
 .roundedbox {
   background-color: white;
-  border: 1px solid black;
+  border: var(--box-border);
   border-radius: var(--box-border-radius);
   padding: var(--innerbox-spacing);
 }
 
-label.associated-carac {
-  text-transform: capitalize !important;
-  font-size: var(--font-size-ms) !important;
+.roundedbox-bottom-only {
+  border: var(--box-border);
+  background-color: white;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 0 0 var(--box-border-radius) var(--box-border-radius);
+}
+
+.no-top-border {
+  border-top: 0;
+}
+
+.box-textarea {
+  padding: calc(var(--interbox-spacing) * 2);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.box-textarea textarea {
+  border: 0;
+  padding: 5px;
+}
+
+.associated-carac {
+  text-transform: capitalize;
+  font-size: var(--font-size-ms);
   text-align: left;
-  order: 1;
   padding-left: 1rem;
+}
+
+.spells-level {
+  display: flex;
+  width: 1.8em;
+  height: 1.7em;
+  border: var(--box-border);
+  border-right-width: 0px;
+  text-align: center;
+  border-radius: var(--box-border-radius) 0px 0px var(--box-border-radius);
+  align-items: center;
+  justify-content: center;
+}
+
+input.square-rounded {
+  width: 2em;
+  aspect-ratio: 1;
+  text-align: center;
+  border:  var(--box-border);
+  border-radius: var(--box-border-radius);
+}
+
+.box-subtitle {
+  text-align: center;
+  padding-top: var(--innerbox-spacing);
 }
