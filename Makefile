@@ -2,10 +2,10 @@
 .PHONY: run docker-build docker-run help
 
 5esheets/translations/messages.pot: 5esheets/templates/*.html
-	poetry run pybabel extract -F babel.cfg -o 5esheets/translations/messages.pot .
+	poetry run pybabel extract --omit-header -F babel.cfg -o 5esheets/translations/messages.pot .
 
 $(wildcard 5esheets/translations/*/*/messages.po): 5esheets/translations/messages.pot
-	poetry run pybabel update --no-fuzzy-matching -i 5esheets/translations/messages.pot -d 5esheets/translations
+	poetry run pybabel update --omit-header --no-fuzzy-matching -i 5esheets/translations/messages.pot -d 5esheets/translations
 
 $(wildcard 5esheets/translations/*/*/messages.mo): $(wildcard 5esheets/translations/*/*/messages.po)
 	poetry run pybabel compile -d 5esheets/translations
