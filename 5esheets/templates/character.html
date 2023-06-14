@@ -129,46 +129,46 @@
                     <div class="saves list-section box">
                         <ul>
                             <li>
-                                <label for="Strength-save">{{ _("strength") }}</label>
-                                <input name="Strength-save" placeholder="+0"
-                                    value="{{ character.data['Strength-save'] }}" type="text" />
                                 <input name="Strength-save-prof" type="checkbox" {% if
                                     character.data['Strength-save-prof'] %}checked{% endif %} />
+                                <input name="Strength-save" placeholder="+0"
+                                    value="{{ character.data['Strength-save'] }}" type="text" />
+                                <label class="associated-carac" for="Strength-save">{{ _("strength") }}</label>
                             </li>
                             <li>
-                                <label for="Dexterity-save">{{ _("dexterity") }}</label>
-                                <input name="Dexterity-save" value="{{ character.data['Dexterity-save'] }}"
-                                    placeholder="+0" type="text" />
                                 <input name="Dexterity-save-prof" type="checkbox" {% if
                                     character.data['Dexterity-save-prof'] %}checked{% endif %} />
+                                <input name="Dexterity-save" value="{{ character.data['Dexterity-save'] }}"
+                                    placeholder="+0" type="text" />
+                                <label class="associated-carac" for="Dexterity-save">{{ _("dexterity") }}</label>
                             </li>
                             <li>
-                                <label for="Constitution-save">{{ _("constitution") }}</label>
-                                <input name="Constitution-save" value="{{ character.data['Constitution-save'] }}"
-                                    placeholder="+0" type="text" />
                                 <input name="Constitution-save-prof" type="checkbox" {% if
                                     character.data['Constitution-save-prof'] %}checked{% endif %} />
+                                <input name="Constitution-save" value="{{ character.data['Constitution-save'] }}"
+                                    placeholder="+0" type="text" />
+                                <label class="associated-carac" for="Constitution-save">{{ _("constitution") }}</label>
                             </li>
                             <li>
-                                <label for="Wisdom-save">{{ _("wisdom") }}</label>
-                                <input name="Wisdom-save" placeholder="+0" value="{{ character.data['Wisdom-save'] }}"
-                                    type="text" />
                                 <input name="Wisdom-save-prof" type="checkbox" {% if character.data['Wisdom-save-prof']
                                     %}checked{% endif %} />
+                                <input name="Wisdom-save" placeholder="+0" value="{{ character.data['Wisdom-save'] }}"
+                                    type="text" />
+                                <label class="associated-carac" for="Wisdom-save">{{ _("wisdom") }}</label>
                             </li>
                             <li>
-                                <label for="Intelligence-save">{{ _("intelligence") }}</label>
-                                <input name="Intelligence-save" value="{{ character.data['Intelligence-save'] }}"
-                                    placeholder="+0" type="text" />
                                 <input name="Intelligence-save-prof" type="checkbox" {% if
                                     character.data['Intelligence-save-prof'] %}checked{% endif %} />
+                                <input name="Intelligence-save" value="{{ character.data['Intelligence-save'] }}"
+                                    placeholder="+0" type="text" />
+                                <label class="associated-carac" for="Intelligence-save">{{ _("intelligence") }}</label>
                             </li>
                             <li>
-                                <label for="Charisma-save">{{ _("charisma") }}</label>
-                                <input name="Charisma-save" placeholder="+0"
-                                    value="{{ character.data['Charisma-save'] }}" type="text" />
                                 <input name="Charisma-save-prof" type="checkbox" {% if
                                     character.data['Charisma-save-prof'] %}checked{% endif %} />
+                                <input name="Charisma-save" placeholder="+0"
+                                    value="{{ character.data['Charisma-save'] }}" type="text" />
+                                <label class="associated-carac" for="Charisma-save">{{ _("charisma") }}</label>
                             </li>
                         </ul>
                         <div class="label">
@@ -178,118 +178,149 @@
                     <div class="skills list-section box">
                         <ul>
                             <li>
-                                <label for="Acrobatics">{{ _("acrobatics") }} <span class="skill">({{
-                                        _("dexterity_abbr")
-                                        }})</span></label><input name="Acrobatics" placeholder="+0" type="text"
-                                    value="{{ character.data['Acrobatics'] }}" /><input name="Acrobatics-prof"
-                                    type="checkbox" {% if character.data['Acrobatics-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Animal Handling">{{ _("animal_handling") }} <span class="skill">({{
-                                        _("wisdom_abbr") }})</span></label><input name="Animal Handling"
-                                    placeholder="+0" type="text"
-                                    value="{{ character.data['Animal Handling'] }}" /><input name="Animal-Handling-prof"
-                                    type="checkbox" {% if character.data['Animal-Handling-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Arcana">{{ _("arcana") }} <span class="skill">({{ _("intelligence_abbr")
-                                        }})</span></label><input name="Arcana" placeholder="+0" type="text"
-                                    value="{{ character.data['Arcana'] }}" /><input name="Arcana-prof" type="checkbox"
-                                    {% if character.data['Arcana-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Athletics">{{ _("athletics") }} <span class="skill">({{ _("strength_abbr")
-                                        }})</span></label><input name="Athletics" placeholder="+0" type="text"
-                                    value="{{ character.data['Athletics'] }}" /><input name="Athletics-prof"
-                                    type="checkbox" {% if character.data['Athletics-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Deception">{{ _("deception") }} <span class="skill">({{ _("charisma_abbr")
-                                        }})</span></label><input name="Deception" placeholder="+0" type="text"
-                                    value="{{ character.data['Deception'] }}" /><input name="Deception-prof"
-                                    type="checkbox" {% if character.data['Deception-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="History">{{ _("history") }} <span class="skill">({{ _("intelligence_abbr")
-                                        }})</span></label><input name="History" placeholder="+0" type="text"
-                                    value="{{ character.data['History'] }}" /><input name="History-prof" type="checkbox"
-                                    {% if character.data['History-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Insight">{{ _("insight") }} <span class="skill">({{ _("wisdom_abbr")
-                                        }})</span></label><input name="Insight" placeholder="+0" type="text"
-                                    value="{{ character.data['Insight'] }}" /><input name="Insight-prof" type="checkbox"
-                                    {% if character.data['Insight-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Intimidation">{{ _("intimidation") }} <span class="skill">({{
-                                        _("charisma_abbr")
-                                        }})</span></label><input name="Intimidation" placeholder="+0" type="text"
-                                    value="{{ character.data['Intimidation'] }}" /><input name="Intimidation-prof"
-                                    type="checkbox" {% if character.data['Intimidation-prof'] %}checked{% endif %} />
-                            </li>
-                            <li>
-                                <label for="Investigation">{{ _("investigation") }} <span class="skill">({{
-                                        _("intelligence_abbr") }})</span></label><input name="Investigation"
-                                    placeholder="+0" type="text" value="{{ character.data['Investigation'] }}" /><input
-                                    name="Investigation-prof" type="checkbox" {% if character.data['Investigation-prof']
+                                <input name="Acrobatics-prof" type="checkbox" {% if character.data['Acrobatics-prof']
                                     %}checked{% endif %} />
+                                <input name="Acrobatics" placeholder="+0" type="text"
+                                    value="{{ character.data['Acrobatics'] }}" />
+                                <label class="associated-carac" for="Acrobatics">{{ _("acrobatics") }} <span
+                                        class="skill">({{ _("dexterity_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Medicine">{{ _("medicine") }} <span class="skill">({{ _("wisdom_abbr")
-                                        }})</span></label><input name="Medicine" placeholder="+0" type="text"
-                                    value="{{ character.data['Medicine'] }}" /><input name="Medicine-prof"
-                                    type="checkbox" {% if character.data['Medicine-prof'] %}checked{% endif %} />
+                                <input name="Animal-Handling-prof" type="checkbox" {% if
+                                    character.data['Animal-Handling-prof'] %}checked{% endif %} />
+                                <input name="Animal Handling" placeholder="+0" type="text"
+                                    value="{{ character.data['Animal Handling'] }}" />
+                                <label class="associated-carac" for="Animal Handling">{{ _("animal_handling") }} <span
+                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Nature">{{ _("nature") }} <span class="skill">({{ _("intelligence_abbr")
-                                        }})</span></label><input name="Nature" placeholder="+0" type="text"
-                                    value="{{ character.data['Nature'] }}" /><input name="Nature-prof" type="checkbox"
-                                    {% if character.data['Nature-prof'] %}checked{% endif %} />
+                                <input name="Arcana-prof" type="checkbox" {% if character.data['Arcana-prof']
+                                    %}checked{% endif %} />
+                                <input name="Arcana" placeholder="+0" type="text"
+                                    value="{{ character.data['Arcana'] }}" />
+                                <label class="associated-carac" for="Arcana">{{ _("arcana") }} <span class="skill">({{
+                                        _("intelligence_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Perception">{{ _("perception") }} <span class="skill">({{ _("wisdom_abbr")
-                                        }})</span></label><input name="Perception" placeholder="+0" type="text"
-                                    value="{{ character.data['Perception'] }}" /><input name="Perception-prof"
-                                    type="checkbox" {% if character.data['Perception-prof'] %}checked{% endif %} />
+                                <input name="Athletics-prof" type="checkbox" {% if character.data['Athletics-prof']
+                                    %}checked{% endif %} />
+                                <input name="Athletics" placeholder="+0" type="text"
+                                    value="{{ character.data['Athletics'] }}" />
+                                <label class="associated-carac" for="Athletics">{{ _("athletics") }} <span
+                                        class="skill">({{ _("strength_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Performance">{{ _("performance") }} <span class="skill">({{
-                                        _("charisma_abbr")
-                                        }})</span></label><input name="Performance" placeholder="+0" type="text"
-                                    value="{{ character.data['Performance'] }}" /><input name="Performance-prof"
-                                    type="checkbox" {% if character.data['Performance-prof'] %}checked{% endif %} />
+                                <input name="Deception-prof" type="checkbox" {% if character.data['Deception-prof']
+                                    %}checked{% endif %} />
+                                <input name="Deception" placeholder="+0" type="text"
+                                    value="{{ character.data['Deception'] }}" />
+                                <label class="associated-carac" for="Deception">{{ _("deception") }} <span
+                                        class="skill">({{ _("charisma_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Persuasion">{{ _("persuasion") }} <span class="skill">({{ _("charisma_abbr")
-                                        }})</span></label><input name="Persuasion" placeholder="+0" type="text"
-                                    value="{{ character.data['Persuasion'] }}" /><input name="Persuasion-prof"
-                                    type="checkbox" {% if character.data['Persuasion-prof'] %}checked{% endif %} />
+                                <input name="History-prof" type="checkbox" {% if character.data['History-prof']
+                                    %}checked{% endif %} />
+                                <input name="History" placeholder="+0" type="text"
+                                    value="{{ character.data['History'] }}" />
+                                <label class="associated-carac" for="History">{{ _("history") }} <span class="skill">({{
+                                        _("intelligence_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Religion">{{ _("religion") }} <span class="skill">({{ _("intelligence_abbr")
-                                        }})</span></label><input name="Religion" placeholder="+0" type="text"
-                                    value="{{ character.data['Religion'] }}" /><input name="Religion-prof"
-                                    type="checkbox" {% if character.data['Religion-prof'] %}checked{% endif %} />
+                                <input name="Insight-prof" type="checkbox" {% if character.data['Insight-prof']
+                                    %}checked{% endif %} />
+                                <input name="Insight" placeholder="+0" type="text"
+                                    value="{{ character.data['Insight'] }}" />
+                                <label class="associated-carac" for="Insight">{{ _("insight") }} <span class="skill">({{
+                                        _("wisdom_abbr")
+                                        }})</span></label>
                             </li>
                             <li>
-                                <label for="Sleight of Hand">{{ _("sleight_of_hand") }} <span class="skill">({{
-                                        _("dexterity_abbr") }})</span></label><input name="Sleight of Hand"
-                                    placeholder="+0" type="text"
-                                    value="{{ character.data['Sleight of Hand'] }}" /><input name="Sleight-of-Hand-prof"
-                                    type="checkbox" {% if character.data['Sleight-of-Hand-prof'] %}checked{% endif %} />
+                                <input name="Intimidation-prof" type="checkbox" {% if
+                                    character.data['Intimidation-prof'] %}checked{% endif %} />
+                                <input name="Intimidation" placeholder="+0" type="text"
+                                    value="{{ character.data['Intimidation'] }}" />
+                                <label class="associated-carac" for="Intimidation">{{ _("intimidation") }} <span
+                                        class="skill">({{ _("charisma_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Stealth">{{ _("stealth") }} <span class="skill">({{ _("dexterity_abbr")
-                                        }})</span></label><input name="Stealth" placeholder="+0" type="text"
-                                    value="{{ character.data['Stealth'] }}" /><input name="Stealth-prof" type="checkbox"
-                                    {% if character.data['Stealth-prof'] %}checked{% endif %} />
+                                <input name="Investigation-prof" type="checkbox" {% if
+                                    character.data['Investigation-prof'] %}checked{% endif %} />
+                                <input name="Investigation" placeholder="+0" type="text"
+                                    value="{{ character.data['Investigation'] }}" />
+                                <label class="associated-carac" for="Investigation">{{ _("investigation") }} <span
+                                        class="skill">({{ _("intelligence_abbr") }})</span></label>
                             </li>
                             <li>
-                                <label for="Survival">{{ _("survival") }} <span class="skill">({{ _("wisdom_abbr")
-                                        }})</span></label><input name="Survival" placeholder="+0" type="text"
-                                    value="{{ character.data['Survival'] }}" /><input name="Survival-prof"
-                                    type="checkbox" {% if character.data['Survival-prof'] %}checked{% endif %} />
+                                <input name="Medicine-prof" type="checkbox" {% if character.data['Medicine-prof']
+                                    %}checked{% endif %} />
+                                <input name="Medicine" placeholder="+0" type="text"
+                                    value="{{ character.data['Medicine'] }}" />
+                                <label class="associated-carac" for="Medicine">{{ _("medicine") }} <span
+                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Nature-prof" type="checkbox" {% if character.data['Nature-prof']
+                                    %}checked{% endif %} />
+                                <input name="Nature" placeholder="+0" type="text"
+                                    value="{{ character.data['Nature'] }}" />
+                                <label class="associated-carac" for="Nature">{{ _("nature") }} <span class="skill">({{
+                                        _("intelligence_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Perception-prof" type="checkbox" {% if character.data['Perception-prof']
+                                    %}checked{% endif %} />
+                                <input name="Perception" placeholder="+0" type="text"
+                                    value="{{ character.data['Perception'] }}" />
+                                <label class="associated-carac" for="Perception">{{ _("perception") }} <span
+                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Performance-prof" type="checkbox" {% if character.data['Performance-prof']
+                                    %}checked{% endif %} />
+                                <input name="Performance" placeholder="+0" type="text"
+                                    value="{{ character.data['Performance'] }}" />
+                                <label class="associated-carac" for="Performance">{{ _("performance") }} <span
+                                        class="skill">({{ _("charisma_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Persuasion-prof" type="checkbox" {% if character.data['Persuasion-prof']
+                                    %}checked{% endif %} />
+                                <input name="Persuasion" placeholder="+0" type="text"
+                                    value="{{ character.data['Persuasion'] }}" />
+                                <label class="associated-carac" for="Persuasion">{{ _("persuasion") }} <span
+                                        class="skill">({{ _("charisma_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Religion-prof" type="checkbox" {% if character.data['Religion-prof']
+                                    %}checked{% endif %} />
+                                <input name="Religion" placeholder="+0" type="text"
+                                    value="{{ character.data['Religion'] }}" />
+                                <label class="associated-carac" for="Religion">{{ _("religion") }} <span
+                                        class="skill">({{ _("intelligence_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Sleight-of-Hand-prof" type="checkbox" {% if
+                                    character.data['Sleight-of-Hand-prof'] %}checked{% endif %} />
+                                <input name="Sleight of Hand" placeholder="+0" type="text"
+                                    value="{{ character.data['Sleight of Hand'] }}" />
+                                <label class="associated-carac" for="Sleight of Hand">{{ _("sleight_of_hand") }} <span
+                                        class="skill">({{ _("dexterity_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Stealth-prof" type="checkbox" {% if character.data['Stealth-prof']
+                                    %}checked{% endif %} />
+                                <input name="Stealth" placeholder="+0" type="text"
+                                    value="{{ character.data['Stealth'] }}" />
+                                <label class="associated-carac" for="Stealth">{{ _("stealth") }} <span class="skill">({{
+                                        _("dexterity_abbr") }})</span></label>
+                            </li>
+                            <li>
+                                <input name="Survival-prof" type="checkbox" {% if character.data['Survival-prof']
+                                    %}checked{% endif %} />
+                                <input name="Survival" placeholder="+0" type="text"
+                                    value="{{ character.data['Survival'] }}" />
+                                <label class="associated-carac" for="Survival">{{ _("survival") }} <span
+                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
                             </li>
                         </ul>
                         <div class="label">{{ _("skills") }}</div>

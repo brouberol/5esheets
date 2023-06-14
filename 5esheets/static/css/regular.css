@@ -252,12 +252,6 @@ form.charsheet main > section section.attributes div.attr-applications div.list-
 form.charsheet main > section section.attributes div.attr-applications div.list-section ul li > * {
   margin-left: 5px;
 }
-form.charsheet main > section section.attributes div.attr-applications div.list-section ul li label {
-  text-transform: none;
-  font-size: 8px;
-  text-align: left;
-  order: 3;
-}
 form.charsheet main > section section.attributes div.attr-applications div.list-section ul li label span.skill {
   color: #bbb;
 }
@@ -267,7 +261,6 @@ form.charsheet main > section section.attributes div.attr-applications div.list-
   text-align: center;
   border: 0;
   border-bottom: 1px solid black;
-  order: 2;
 }
 form.charsheet main > section section.attributes div.attr-applications div.list-section ul li input[type=checkbox] {
   -webkit-appearance: none;
@@ -277,7 +270,6 @@ form.charsheet main > section section.attributes div.attr-applications div.list-
   height: 10px;
   border: 1px solid black;
   border-radius: 10px;
-  order: 1;
 }
 form.charsheet main > section div.passive-perception {
   display: flex;
