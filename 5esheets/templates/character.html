@@ -7,30 +7,32 @@
         <section class="misc">
             <ul>
                 <li>
-                    <label for="classlevel">{{ _("class_and_level" )}}</label><input name="classlevel"
-                        value="{{ character._class }} {{ character.level }}" />
+                    <label class="carac" for="classlevel">{{ _("class_and_level" )}}</label>
+                    <input name="classlevel" value="{{ character._class }} {{ character.level }}" />
                 </li>
                 <li>
-                    <label for="background">{{ _("background") }}</label><input name="background" placeholder="Acolyte"
-                        value="{{ character.data['background'] }}" />
+                    <label class="carac" for="background">{{ _("background") }}</label>
+                    <input name="background" placeholder="Acolyte" value="{{ character.data['background'] }}" />
                 </li>
                 <li>
-                    <label for="playername">{{ _("player_name") }}</label><input name="playername"
-                        placeholder="Player McPlayerface" value="{{ character.data['playername'] }}">
+                    <label class="carac" for="playername">{{ _("player_name") }}</label>
+                    <input name="playername" placeholder="Player McPlayerface"
+                        value="{{ character.data['playername'] }}">
                 </li>
             </ul>
             <ul>
                 <li>
-                    <label for="race">{{ _("race" )}}</label><input name="race" placeholder="Half-elf"
-                        value="{{ character.data['race'] }}" />
+                    <label class="carac" for="race">{{ _("race" )}}</label>
+                    <input name="race" placeholder="Half-elf" value="{{ character.data['race'] }}" />
                 </li>
                 <li>
-                    <label for="alignment">{{ _("alignment" )}}</label><input name="alignment" placeholder="Lawful Good"
-                        value="{{ character.data['alignment'] }}" />
+                    <label class="carac" for="alignment">{{ _("alignment" )}}</label>
+                    <input name="alignment" placeholder="Lawful Good" value="{{ character.data['alignment'] }}" />
                 </li>
                 <li>
-                    <label for="experiencepoints">{{ _("experience_points" )}}</label><input name="experiencepoints"
-                        value="{{ character.data['experiencepoints'] }}" placeholder="3240" />
+                    <label class="carac" for="experiencepoints">{{ _("experience_points" )}}</label>
+                    <input name="experiencepoints" value="{{ character.data['experiencepoints'] }}"
+                        placeholder="3240" />
                 </li>
             </ul>
         </section>

@@ -1,5 +1,6 @@
 :root {
     --font-size: 12px;
+    --font-size-ms: calc(var(--font-size) - 2px);
     --font-size-s: calc(var(--font-size) - 3px);
     --font-size-xs: calc(var(--font-size) - 4px);
     --interbox-spacing: 10px;
