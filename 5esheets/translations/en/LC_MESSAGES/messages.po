@@ -304,3 +304,4 @@ msgstr "extra spell attack bonus"
 #: 5esheets/templates/spells.html:33
 msgid "total_spell_attack_bonus"
 msgstr "total spell attack bonus"
+

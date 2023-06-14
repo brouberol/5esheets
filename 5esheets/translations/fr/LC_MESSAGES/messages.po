@@ -304,3 +304,4 @@ msgstr "bonus additionnel d'attaque magique"
 #: 5esheets/templates/spells.html:33
 msgid "total_spell_attack_bonus"
 msgstr "bonus total d'attaque magique"
+
