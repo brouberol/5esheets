@@ -1,3 +1,7 @@
+#character-sheet {
+  width: 95%;
+}
+
 div#character {
   display: flex;
   flex-direction: column;
@@ -9,7 +13,7 @@ form.charsheet header {
 
 form.charsheet main {
   flex-direction: column;
-  width: 100%;
+  width: 95%;
 }
 
 form.charsheet section {
@@ -40,4 +44,8 @@ form.charsheet main section.flavor, form.charsheet main section.features {
 
 div#cantrips {
   padding-top: 1.5em;
+}
+
+.box-textarea {
+  padding: 0;
 }
