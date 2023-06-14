@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-14 11:34+0200\n"
+"POT-Creation-Date: 2023-06-14 11:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,38 +45,34 @@ msgstr ""
 msgid "experience_points"
 msgstr ""
 
-#: 5esheets/templates/character.html:43 5esheets/templates/character.html:130
-#: 5esheets/templates/character.html:199
+#: 5esheets/templates/character.html:43 5esheets/templates/character.html:199
 msgid "strength_abbr"
 msgstr ""
 
-#: 5esheets/templates/character.html:53 5esheets/templates/character.html:137
-#: 5esheets/templates/character.html:180 5esheets/templates/character.html:275
-#: 5esheets/templates/character.html:281
+#: 5esheets/templates/character.html:53 5esheets/templates/character.html:180
+#: 5esheets/templates/character.html:275 5esheets/templates/character.html:281
 msgid "dexterity_abbr"
 msgstr ""
 
-#: 5esheets/templates/character.html:64 5esheets/templates/character.html:144
+#: 5esheets/templates/character.html:64
 msgid "constitution_abbr"
 msgstr ""
 
-#: 5esheets/templates/character.html:75 5esheets/templates/character.html:158
-#: 5esheets/templates/character.html:193 5esheets/templates/character.html:211
-#: 5esheets/templates/character.html:231 5esheets/templates/character.html:243
-#: 5esheets/templates/character.html:268
+#: 5esheets/templates/character.html:75 5esheets/templates/character.html:193
+#: 5esheets/templates/character.html:211 5esheets/templates/character.html:231
+#: 5esheets/templates/character.html:243 5esheets/templates/character.html:268
 msgid "intelligence_abbr"
 msgstr ""
 
-#: 5esheets/templates/character.html:86 5esheets/templates/character.html:151
-#: 5esheets/templates/character.html:187 5esheets/templates/character.html:217
-#: 5esheets/templates/character.html:237 5esheets/templates/character.html:249
-#: 5esheets/templates/character.html:287
+#: 5esheets/templates/character.html:86 5esheets/templates/character.html:187
+#: 5esheets/templates/character.html:217 5esheets/templates/character.html:237
+#: 5esheets/templates/character.html:249 5esheets/templates/character.html:287
 msgid "wisdom_abbr"
 msgstr ""
 
-#: 5esheets/templates/character.html:95 5esheets/templates/character.html:165
-#: 5esheets/templates/character.html:205 5esheets/templates/character.html:224
-#: 5esheets/templates/character.html:256 5esheets/templates/character.html:262
+#: 5esheets/templates/character.html:95 5esheets/templates/character.html:205
+#: 5esheets/templates/character.html:224 5esheets/templates/character.html:256
+#: 5esheets/templates/character.html:262
 msgid "charisma_abbr"
 msgstr ""
 
@@ -90,6 +86,30 @@ msgstr ""
 
 #: 5esheets/templates/character.html:122
 msgid "proficiency bonus"
+msgstr ""
+
+#: 5esheets/templates/character.html:130
+msgid "strength"
+msgstr ""
+
+#: 5esheets/templates/character.html:137
+msgid "dexterity"
+msgstr ""
+
+#: 5esheets/templates/character.html:144
+msgid "constitution"
+msgstr ""
+
+#: 5esheets/templates/character.html:151 5esheets/templates/spells.html:7
+msgid "wisdom"
+msgstr ""
+
+#: 5esheets/templates/character.html:158 5esheets/templates/spells.html:6
+msgid "intelligence"
+msgstr ""
+
+#: 5esheets/templates/character.html:165 5esheets/templates/spells.html:8
+msgid "charisma"
 msgstr ""
 
 #: 5esheets/templates/character.html:173
@@ -286,18 +306,6 @@ msgstr ""
 
 #: 5esheets/templates/spells.html:4
 msgid "spellcasting_ability"
-msgstr ""
-
-#: 5esheets/templates/spells.html:6
-msgid "intelligence"
-msgstr ""
-
-#: 5esheets/templates/spells.html:7
-msgid "wisdom"
-msgstr ""
-
-#: 5esheets/templates/spells.html:8
-msgid "charisma"
 msgstr ""
 
 #: 5esheets/templates/spells.html:14
