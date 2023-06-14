@@ -1,21 +1,21 @@
 <div id="spells">
   <header>
     <section class="spellcastingability">
-      <label for="spellcastingability">Spellcasting Ability</label>
+      <label for="spellcastingability">{{ _("spellcasting_ability") }}</label>
       <select id="spellcastingability-select" value="{{ character.data['spellcastingability'] }}">
-        <option value="Intelligence">Intelligence</option>
-        <option value="Wisdom">Wisdom</option>
-        <option value="Charisma">Charisma</option>
+        <option value="Intelligence">{{ _("intelligence") }}</option>
+        <option value="Wisdom">{{ _("wisdom") }}</option>
+        <option value="Charisma">{{ _("charisma") }}</option>
       </select>
     </section>
     <section class="misc">
       <ul id="dailyspells">
         <li>
-          <label for="dailyspells">Daily spells</label><input name="dailyspells"
+          <label for="dailyspells">{{ _("daily_spells") }}</label><input name="dailyspells"
             value="{{ character.data['dailyspells'] }}" />
         </li>
         <li>
-          <label for="dailypreparedspells">Preparable spells</label>
+          <label for="dailypreparedspells">{{ _("preparable_spells") }}</label>
           <div id="dailypreparedspells">
             <input id="remainingdailyspells" class="dailypreparedspells" name="remainingdailyspells" /> / <input
               id="totaldailypreparedspells" class="dailyspells" name="dailypreparedspells"
@@ -26,15 +26,15 @@
       </ul>
       <ul id="spellattack">
         <li>
-          <label for="spelldc">Spell DC</label><input id="spelldc" name="spelldc" placeholder="10"
+          <label for="spelldc">{{ _("spell_dc") }}</label><input id="spelldc" name="spelldc" placeholder="10"
             value="{{ character.data['spelldc'] }}" />
         </li>
         <li>
-          <label for="playername">Extra spell attack bonus</label><input id="extraspellattackbonus"
+          <label for="playername">{{ _("extra_spell_attack_bonus") }}</label><input id="extraspellattackbonus"
             name="extraspellattackbonus" placeholder="+1" value="{{ character.data['extraspellattackbonus'] }}">
         </li>
         <li>
-          <label for="playername">Total spell attack bonus</label><input id="totalspellattackbonus"
+          <label for="playername">{{ _("total_spell_attack_bonus") }}</label><input id="totalspellattackbonus"
             name="totalspellattackbonus" placeholder="+1" value="{{ character.data['totalspellattackbonus'] }}">
         </li>
       </ul>
