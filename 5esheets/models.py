@@ -1,6 +1,7 @@
 import json
 from collections import defaultdict
 from dataclasses import dataclass, field
+from typing import Self
 
 
 @dataclass
@@ -15,7 +16,7 @@ class Character:
     data: dict = field(default_factory=lambda: defaultdict(str))
 
     @classmethod
-    def from_dict(cls, d: dict):
+    def from_dict(cls, d: dict) -> Self:
         return Character(
             name=d["character_name"],
             level=d["character_level"],
@@ -31,5 +32,5 @@ class CharacterSheet:
     character: Character
 
     @classmethod
-    def from_dict(cls, d: dict):
+    def from_dict(cls, d: dict) -> Self:
         return CharacterSheet(id=d["id"], character=Character.from_dict(d))
