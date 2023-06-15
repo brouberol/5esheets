@@ -13,7 +13,7 @@ $(wildcard 5esheets/translations/*/*/messages.mo): $(wildcard 5esheets/translati
 dev:  ## Install the development environment
 	poetry install
 
-docker-build:  $(wildcard 5esheets/translations/*/*/messages.mo)  ## Build the docker image
+docker-build:  ## Build the docker image
 	docker build -t brouberol/5esheets .
 
 docker-run:  docker-build ## Run the docker image
