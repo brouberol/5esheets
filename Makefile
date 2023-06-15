@@ -10,15 +10,6 @@ $(wildcard 5esheets/translations/*/*/messages.po): 5esheets/translations/message
 $(wildcard 5esheets/translations/*/*/messages.mo): $(wildcard 5esheets/translations/*/*/messages.po)
 	poetry run pybabel compile --use-fuzzy -d 5esheets/translations
 
-run:  ## Run the server
-	cd 5esheets && poetry run flask run --port 8000 --reload --debug
-
-translations-extract: 5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
-
-translations-update: $(wildcard 5esheets/translations/*/*/messages.po)  ## Update the language catalogs with new translations
-
-translations-compile: $(wildcard 5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
-
 dev:  ## Install the development environment
 	poetry install
 
@@ -30,6 +21,15 @@ docker-run:  docker-build ## Run the docker image
 
 migratedb:  ## Run the SQL migrations
 	poetry run caribou upgrade 5esheets/db/5esheets.db 5esheets/migrations
+
+translations-extract: 5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
+
+translations-update: $(wildcard 5esheets/translations/*/*/messages.po)  ## Update the language catalogs with new translations
+
+translations-compile: $(wildcard 5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
+
+run:  ## Run the server
+	cd 5esheets && poetry run flask run --port 8000 --reload --debug
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
