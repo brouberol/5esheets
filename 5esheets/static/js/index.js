@@ -100,7 +100,7 @@ const updateSpellAttackBonus = (spellcastingAbility) => {
 };
 
 const updateRemainingDailyPreparedSpells = () => {
-  let totalDailyPeparedSpellsInput = parseInt(document.getElementById("totaldailypreparedspells").value);
+  let totalDailyPeparedSpellsInput = parseInt(document.getElementById("totaldailypreparedspells").value || 0);
   let remainingDailyPeparedSpellsInput = document.getElementById("remainingdailyspells");
   let currentlyPreparedSpells = document.querySelectorAll("div#spells input.bubble[type=checkbox]:checked").length;
   remainingDailyPeparedSpellsInput.value = totalDailyPeparedSpellsInput - currentlyPreparedSpells;
