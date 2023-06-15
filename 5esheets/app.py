@@ -88,7 +88,9 @@ def update_sheet(slug: str):
     with get_db_connection() as db:
         character_data = request.form.to_dict()
         character_name = character_data.pop("charname")
-        character_class, character_level = character_data.pop("classlevel").split()
+        classlevel_tokens = character_data.pop("classlevel").split()
+        character_class = " ".join(classlevel_tokens[:-1])
+        character_level = classlevel_tokens[-1]
         for k in character_data:
             if is_field_from_checkbox(k):
                 character_data[k] = True
