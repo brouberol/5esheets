@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: run docker-build docker-run help
+.PHONY: dev docker-build docker-run run help
 
 5esheets/translations/messages.pot: 5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o 5esheets/translations/messages.pot .
@@ -18,6 +18,9 @@ translations-extract: 5esheets/translations/messages.pot  ## Extract all strings
 translations-update: $(wildcard 5esheets/translations/*/*/messages.po)  ## Update the language catalogs with new translations
 
 translations-compile: $(wildcard 5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
+
+dev:  ## Install the development environment
+	poetry install
 
 docker-build:  $(wildcard 5esheets/translations/*/*/messages.mo)  ## Build the docker image
 	docker build -t brouberol/5esheets .
