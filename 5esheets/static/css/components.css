@@ -60,7 +60,7 @@ input.square-rounded {
   width: 2em;
   aspect-ratio: 1;
   text-align: center;
-  border:  var(--box-border);
+  border: var(--box-border);
   border-radius: var(--box-border-radius);
 }
 

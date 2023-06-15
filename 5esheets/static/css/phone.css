@@ -20,7 +20,7 @@ form.charsheet section {
   width: 100%;
 }
 
-form.charsheet main > section {
+form.charsheet main>section {
   width: 100%;
 }
 
@@ -39,7 +39,7 @@ section#combatcol {
 }
 
 form.charsheet main section.flavor, form.charsheet main section.features {
-  padding: 1.5em 0 0 0 ;
+  padding: 1.5em 0 0 0;
 }
 
 div#cantrips {
