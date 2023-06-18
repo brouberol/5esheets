@@ -490,6 +490,7 @@ section.equipment {
 
 section.equipment div.money {
   flex: 1;
+  padding-top: 2em;
 }
 
 section.equipment div.money ul {
