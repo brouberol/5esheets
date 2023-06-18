@@ -110,17 +110,16 @@ const generateCaracMacroRegex = (searchTerm) => {
   return new RegExp(`${searchTerm}`, 'g')
 }
 
-const replaceCaracModMacroByValue = () => {
+const replaceCaracModMacroByValue = (text) => {
   for (const [mod_str, carac] of Object.entries(modToCarac)) {
     let searchTerm = `@${mod_str}`
     let replacement = formatBonus(getCaracModifier(carac));
-    for (const node of document.querySelectorAll("textarea")) {
-      if (node.textContent.includes(searchTerm)) {
-        let re = generateCaracMacroRegex(searchTerm);
-        node.textContent = node.textContent.replace(re, replacement);
-      }
-      }
+    if (text.includes(searchTerm)) {
+      let re = generateCaracMacroRegex(searchTerm);
+      text = text.replace(re, replacement);
+    }
   }
+  return text;
 };
 
 const sortChildrenByText = (parent) => {
@@ -138,7 +137,8 @@ const hideRawTextareaShowRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
   textarea.textContent = textarea.value;
-  rendered = marked.parse(textarea.value, {mangle: false, headerIds: false});
+  textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
+  rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
   neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
   textarea.classList.add('hidden');
   neighbourDiv.classList.remove('hidden');
@@ -215,7 +215,6 @@ document.querySelectorAll('div#spells input.bubble[type=checkbox]').forEach((nod
 document.onreadystatechange = function () {
   if (document.readyState == "complete") {
     updateRemainingDailyPreparedSpells();
-    replaceCaracModMacroByValue();
     sortSkillsElements();
     ['features', 'equipment', 'otherprofs'].forEach((id) => {
       hideRawTextareaShowRenderedDiv(id);
