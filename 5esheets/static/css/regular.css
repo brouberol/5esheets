@@ -695,6 +695,10 @@ input.custom-resource-header {
   overflow-wrap: break-word;
 }
 
+.markdown-rendered {
+  font-size: var(--font-size);
+}
+
 .markdown-rendered li {
   margin-left: 1.5rem;
 }
