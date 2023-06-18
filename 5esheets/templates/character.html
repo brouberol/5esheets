@@ -345,7 +345,10 @@
                 <div class="box-subtitle">
                     <label class="subtitle" for="otherprofs">{{ _("other_proficiencies_and_languages") }}</label>
                 </div>
-                <textarea name="otherprofs">{{ character.data['otherprofs'] }}</textarea>
+                <textarea id="otherprofs-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('otherprofs')"
+                    name="otherprofs">{{ character.data['otherprofs'] }}</textarea>
+                <div class="markdown-rendered" id="otherprofs-rendered"
+                    onclick="showRawTextareHideRenderedDiv('otherprofs')"></div>
             </div>
         </section>
         <section id="combatcol">
@@ -516,8 +519,10 @@
             </section>
             <section class="equipment box roundedbox box-textarea">
                 <div>
-                    <textarea placeholder="Equipment list here"
-                        name="equipment">{{ character.data['equipment'] }}</textarea>
+                    <textarea id="equipment-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('equipment')"
+                        placeholder="Equipment list here" name="equipment">{{ character.data['equipment'] }}</textarea>
+                    <div class="markdown-rendered" id="equipment-rendered"
+                        onclick="showRawTextareHideRenderedDiv('equipment')"></div>
                     <div class="money">
                         <ul>
                             <li class="coin-type">
@@ -572,7 +577,11 @@
                     <div class="box-subtitle">
                         <label class="subtitle" for="features">{{ _("features_&_traits") }}</label>
                     </div>
-                    <textarea name="features">{{ character.data['features'] }}</textarea>
+                    <textarea id="features-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('features')"
+                        name="features">{{ character.data['features'] }}</textarea>
+                    <div class="markdown-rendered" id="features-rendered"
+                        onclick="showRawTextareHideRenderedDiv('features')">
+                        {{ character.data['features'] }}</div>
                 </div>
             </section>
         </section>

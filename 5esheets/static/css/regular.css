@@ -701,3 +701,7 @@ input.custom-resource-header {
   text-transform: uppercase;
   overflow-wrap: break-word;
 }
+
+.markdown-rendered li {
+  margin-left: 1.5rem;
+}
