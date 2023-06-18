@@ -8,6 +8,6 @@
 @import url(phone.css) screen and (max-width: 500px);
 
 
-.hide {
+.hidden {
   display: none !important;
 }

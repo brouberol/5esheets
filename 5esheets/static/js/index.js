@@ -134,6 +134,24 @@ const sortSkillsElements = () => {
 }
 
 
+const hideRawTextareaShowRenderedDiv = (id) => {
+  textarea = document.getElementById(`${id}-raw`);
+  neighbourDiv = document.getElementById(`${id}-rendered`);
+  textarea.textContent = textarea.value;
+  rendered = marked.parse(textarea.value, {mangle: false, headerIds: false});
+  neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
+  textarea.classList.add('hidden');
+  neighbourDiv.classList.remove('hidden');
+}
+
+const showRawTextareHideRenderedDiv = (id) => {
+  textarea = document.getElementById(`${id}-raw`);
+  neighbourDiv = document.getElementById(`${id}-rendered`);
+  textarea.classList.remove("hidden");
+  textarea.focus({preventScroll: true});
+  neighbourDiv.classList.add("hidden");
+}
+
 caracs.forEach((carac) => {
   let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
   caracScoreItem.addEventListener('change', () => {
@@ -199,5 +217,8 @@ document.onreadystatechange = function () {
     updateRemainingDailyPreparedSpells();
     replaceCaracModMacroByValue();
     sortSkillsElements();
+    ['features', 'equipment', 'otherprofs'].forEach((id) => {
+      hideRawTextareaShowRenderedDiv(id);
+    })
   }
 }
