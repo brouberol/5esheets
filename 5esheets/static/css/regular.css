@@ -77,14 +77,6 @@ form.charsheet ul {
   padding: 0;
 }
 
-form.charsheet ::-moz-placeholder {
-  color: #bbb;
-}
-
-form.charsheet :-ms-input-placeholder {
-  color: #bbb;
-}
-
 form.charsheet ::placeholder {
   color: #bbb;
 }
