@@ -1,0 +1,1851 @@
+<section class="spell-list-column">
+  <div id="col1" class="spell-list-column">
+    <div id="cantrips">
+      <div class="spells-header">
+        <div class="spells-level">0</div>
+        <div class="spells-slots-container"></div>
+      </div>
+
+      <div class="spell-list cantrips">
+        <ul>
+          <li>
+            <input
+              id="spells-lvl0-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-1"
+              value="{{ character.data['spells-lvl0-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-1')"
+            />
+            <div
+              id="spells-lvl0-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-1')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-2"
+              value="{{ character.data['spells-lvl0-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-2')"
+            />
+            <div
+              id="spells-lvl0-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-2')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-3"
+              value="{{ character.data['spells-lvl0-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-3')"
+            />
+            <div
+              id="spells-lvl0-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-3')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-4"
+              value="{{ character.data['spells-lvl0-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-4')"
+            />
+            <div
+              id="spells-lvl0-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-4')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-5"
+              value="{{ character.data['spells-lvl0-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-5')"
+            />
+            <div
+              id="spells-lvl0-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-5')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-6"
+              value="{{ character.data['spells-lvl0-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-6')"
+            />
+            <div
+              id="spells-lvl0-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-6')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-7"
+              value="{{ character.data['spells-lvl0-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-7')"
+            />
+            <div
+              id="spells-lvl0-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-7')"
+            ></div>
+          </li>
+          <li>
+            <input
+              id="spells-lvl0-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl0-8"
+              value="{{ character.data['spells-lvl0-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl0-8')"
+            />
+            <div
+              id="spells-lvl0-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl0-8')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl1" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">1</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl1" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl1" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl1-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-1"
+              value="{{ character.data['spells-lvl1-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-1')"
+            />
+            <div
+              id="spells-lvl1-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-2"
+              value="{{ character.data['spells-lvl1-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-2')"
+            />
+            <div
+              id="spells-lvl1-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-3"
+              value="{{ character.data['spells-lvl1-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-3')"
+            />
+            <div
+              id="spells-lvl1-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-4"
+              value="{{ character.data['spells-lvl1-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-4')"
+            />
+            <div
+              id="spells-lvl1-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-5"
+              value="{{ character.data['spells-lvl1-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-5')"
+            />
+            <div
+              id="spells-lvl1-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-6"
+              value="{{ character.data['spells-lvl1-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-6')"
+            />
+            <div
+              id="spells-lvl1-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-7"
+              value="{{ character.data['spells-lvl1-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-7')"
+            />
+            <div
+              id="spells-lvl1-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-8"
+              value="{{ character.data['spells-lvl1-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-8')"
+            />
+            <div
+              id="spells-lvl1-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-9"
+              value="{{ character.data['spells-lvl1-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-9')"
+            />
+            <div
+              id="spells-lvl1-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-9')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-10-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-10-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-10-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-10"
+              value="{{ character.data['spells-lvl1-10'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-10')"
+            />
+            <div
+              id="spells-lvl1-10-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-10')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-11-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-11-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-11-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-11"
+              value="{{ character.data['spells-lvl1-11'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-11')"
+            />
+            <div
+              id="spells-lvl1-11-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-11')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-12-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-12-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-12-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-12"
+              value="{{ character.data['spells-lvl1-12'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-12')"
+            />
+            <div
+              id="spells-lvl1-12-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-12')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl1-13-prepped" type="checkbox"
+            {% if character.data['spells-lvl1-13-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl1-13-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl1-13"
+              value="{{ character.data['spells-lvl1-13'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl1-13')"
+            />
+            <div
+              id="spells-lvl1-13-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl1-13')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl2" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">2</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl2" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl2" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl2-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-1"
+              value="{{ character.data['spells-lvl2-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-1')"
+            />
+            <div
+              id="spells-lvl2-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-2"
+              value="{{ character.data['spells-lvl2-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-2')"
+            />
+            <div
+              id="spells-lvl2-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-3"
+              value="{{ character.data['spells-lvl2-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-3')"
+            />
+            <div
+              id="spells-lvl2-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-4"
+              value="{{ character.data['spells-lvl2-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-4')"
+            />
+            <div
+              id="spells-lvl2-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-5"
+              value="{{ character.data['spells-lvl2-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-5')"
+            />
+            <div
+              id="spells-lvl2-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-6"
+              value="{{ character.data['spells-lvl2-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-6')"
+            />
+            <div
+              id="spells-lvl2-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-7"
+              value="{{ character.data['spells-lvl2-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-7')"
+            />
+            <div
+              id="spells-lvl2-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-8"
+              value="{{ character.data['spells-lvl2-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-8')"
+            />
+            <div
+              id="spells-lvl2-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-9"
+              value="{{ character.data['spells-lvl2-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-9')"
+            />
+            <div
+              id="spells-lvl2-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-9')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-10-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-10-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-10-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-10"
+              value="{{ character.data['spells-lvl2-10'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-10')"
+            />
+            <div
+              id="spells-lvl2-10-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-10')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-11-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-11-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-11-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-11"
+              value="{{ character.data['spells-lvl2-11'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-11')"
+            />
+            <div
+              id="spells-lvl2-11-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-11')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-12-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-12-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-12-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-12"
+              value="{{ character.data['spells-lvl2-12'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-12')"
+            />
+            <div
+              id="spells-lvl2-12-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-12')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl2-13-prepped" type="checkbox"
+            {% if character.data['spells-lvl2-13-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl2-13-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl2-13"
+              value="{{ character.data['spells-lvl2-13'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl2-13')"
+            />
+            <div
+              id="spells-lvl2-13-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl2-13')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="spell-list-column">
+  <div id="col2" class="spell-list-column">
+    <div id="spells-lvl3" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">3</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl3" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl3" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl3-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-1"
+              value="{{ character.data['spells-lvl3-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-1')"
+            />
+            <div
+              id="spells-lvl3-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-2"
+              value="{{ character.data['spells-lvl3-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-2')"
+            />
+            <div
+              id="spells-lvl3-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-3"
+              value="{{ character.data['spells-lvl3-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-3')"
+            />
+            <div
+              id="spells-lvl3-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-4"
+              value="{{ character.data['spells-lvl3-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-4')"
+            />
+            <div
+              id="spells-lvl3-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-5"
+              value="{{ character.data['spells-lvl3-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-5')"
+            />
+            <div
+              id="spells-lvl3-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-6"
+              value="{{ character.data['spells-lvl3-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-6')"
+            />
+            <div
+              id="spells-lvl3-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-7"
+              value="{{ character.data['spells-lvl3-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-7')"
+            />
+            <div
+              id="spells-lvl3-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-8"
+              value="{{ character.data['spells-lvl3-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-8')"
+            />
+            <div
+              id="spells-lvl3-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-9"
+              value="{{ character.data['spells-lvl3-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-9')"
+            />
+            <div
+              id="spells-lvl3-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-9')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-10-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-10-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-10-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-10"
+              value="{{ character.data['spells-lvl3-10'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-10')"
+            />
+            <div
+              id="spells-lvl3-10-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-10')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-11-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-11-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-11-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-11"
+              value="{{ character.data['spells-lvl3-11'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-11')"
+            />
+            <div
+              id="spells-lvl3-11-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-11')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-12-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-12-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-12-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-12"
+              value="{{ character.data['spells-lvl3-12'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-12')"
+            />
+            <div
+              id="spells-lvl3-12-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-12')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl3-13-prepped" type="checkbox"
+            {% if character.data['spells-lvl3-13-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl3-13-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl3-13"
+              value="{{ character.data['spells-lvl3-13'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl3-13')"
+            />
+            <div
+              id="spells-lvl3-13-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl3-13')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl4" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">4</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl4" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl4" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl4-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-1"
+              value="{{ character.data['spells-lvl4-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-1')"
+            />
+            <div
+              id="spells-lvl4-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-2"
+              value="{{ character.data['spells-lvl4-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-2')"
+            />
+            <div
+              id="spells-lvl4-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-3"
+              value="{{ character.data['spells-lvl4-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-3')"
+            />
+            <div
+              id="spells-lvl4-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-4"
+              value="{{ character.data['spells-lvl4-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-4')"
+            />
+            <div
+              id="spells-lvl4-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-5"
+              value="{{ character.data['spells-lvl4-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-5')"
+            />
+            <div
+              id="spells-lvl4-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-6"
+              value="{{ character.data['spells-lvl4-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-6')"
+            />
+            <div
+              id="spells-lvl4-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-7"
+              value="{{ character.data['spells-lvl4-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-7')"
+            />
+            <div
+              id="spells-lvl4-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-8"
+              value="{{ character.data['spells-lvl4-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-8')"
+            />
+            <div
+              id="spells-lvl4-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-9"
+              value="{{ character.data['spells-lvl4-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-9')"
+            />
+            <div
+              id="spells-lvl4-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-9')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-10-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-10-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-10-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-10"
+              value="{{ character.data['spells-lvl4-10'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-10')"
+            />
+            <div
+              id="spells-lvl4-10-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-10')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-11-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-11-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-11-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-11"
+              value="{{ character.data['spells-lvl4-11'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-11')"
+            />
+            <div
+              id="spells-lvl4-11-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-11')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl4-12-prepped" type="checkbox"
+            {% if character.data['spells-lvl4-12-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl4-12-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl4-12"
+              value="{{ character.data['spells-lvl4-12'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl4-12')"
+            />
+            <div
+              id="spells-lvl4-12-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl4-12')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl5" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">5</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl5" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl5" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl5-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-1"
+              value="{{ character.data['spells-lvl5-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-1')"
+            />
+            <div
+              id="spells-lvl5-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-2"
+              value="{{ character.data['spells-lvl5-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-2')"
+            />
+            <div
+              id="spells-lvl5-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-3"
+              value="{{ character.data['spells-lvl5-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-3')"
+            />
+            <div
+              id="spells-lvl5-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-4"
+              value="{{ character.data['spells-lvl5-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-4')"
+            />
+            <div
+              id="spells-lvl5-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-5"
+              value="{{ character.data['spells-lvl5-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-5')"
+            />
+            <div
+              id="spells-lvl5-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-6"
+              value="{{ character.data['spells-lvl5-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-6')"
+            />
+            <div
+              id="spells-lvl5-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-7"
+              value="{{ character.data['spells-lvl5-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-7')"
+            />
+            <div
+              id="spells-lvl5-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-8"
+              value="{{ character.data['spells-lvl5-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-8')"
+            />
+            <div
+              id="spells-lvl5-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl5-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl5-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl5-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl5-9"
+              value="{{ character.data['spells-lvl5-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl5-9')"
+            />
+            <div
+              id="spells-lvl5-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl5-9')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="spell-list-column">
+  <div id="col3" class="spell-list-column">
+    <div id="spells-lvl6" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">6</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl6" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl6" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl6-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-1"
+              value="{{ character.data['spells-lvl6-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-1')"
+            />
+            <div
+              id="spells-lvl6-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-2"
+              value="{{ character.data['spells-lvl6-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-2')"
+            />
+            <div
+              id="spells-lvl6-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-3"
+              value="{{ character.data['spells-lvl6-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-3')"
+            />
+            <div
+              id="spells-lvl6-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-4"
+              value="{{ character.data['spells-lvl6-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-4')"
+            />
+            <div
+              id="spells-lvl6-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-5"
+              value="{{ character.data['spells-lvl6-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-5')"
+            />
+            <div
+              id="spells-lvl6-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-6"
+              value="{{ character.data['spells-lvl6-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-6')"
+            />
+            <div
+              id="spells-lvl6-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-7"
+              value="{{ character.data['spells-lvl6-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-7')"
+            />
+            <div
+              id="spells-lvl6-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-8"
+              value="{{ character.data['spells-lvl6-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-8')"
+            />
+            <div
+              id="spells-lvl6-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-8')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl6-9-prepped" type="checkbox"
+            {% if character.data['spells-lvl6-9-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl6-9-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl6-9"
+              value="{{ character.data['spells-lvl6-9'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl6-9')"
+            />
+            <div
+              id="spells-lvl6-9-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl6-9')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl7" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">7</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl7" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl7" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl7-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-1"
+              value="{{ character.data['spells-lvl7-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-1')"
+            />
+            <div
+              id="spells-lvl7-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-2"
+              value="{{ character.data['spells-lvl7-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-2')"
+            />
+            <div
+              id="spells-lvl7-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-3"
+              value="{{ character.data['spells-lvl7-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-3')"
+            />
+            <div
+              id="spells-lvl7-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-4"
+              value="{{ character.data['spells-lvl7-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-4')"
+            />
+            <div
+              id="spells-lvl7-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-5"
+              value="{{ character.data['spells-lvl7-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-5')"
+            />
+            <div
+              id="spells-lvl7-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-6"
+              value="{{ character.data['spells-lvl7-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-6')"
+            />
+            <div
+              id="spells-lvl7-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-7"
+              value="{{ character.data['spells-lvl7-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-7')"
+            />
+            <div
+              id="spells-lvl7-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-7')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl7-8-prepped" type="checkbox"
+            {% if character.data['spells-lvl7-8-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl7-8-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl7-8"
+              value="{{ character.data['spells-lvl7-8'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl7-8')"
+            />
+            <div
+              id="spells-lvl7-8-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl7-8')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl8" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">8</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl8" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl8" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl8-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-1"
+              value="{{ character.data['spells-lvl8-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-1')"
+            />
+            <div
+              id="spells-lvl8-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-2"
+              value="{{ character.data['spells-lvl8-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-2')"
+            />
+            <div
+              id="spells-lvl8-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-3"
+              value="{{ character.data['spells-lvl8-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-3')"
+            />
+            <div
+              id="spells-lvl8-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-4"
+              value="{{ character.data['spells-lvl8-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-4')"
+            />
+            <div
+              id="spells-lvl8-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-5"
+              value="{{ character.data['spells-lvl8-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-5')"
+            />
+            <div
+              id="spells-lvl8-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-6"
+              value="{{ character.data['spells-lvl8-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-6')"
+            />
+            <div
+              id="spells-lvl8-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl8-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl8-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl8-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl8-7"
+              value="{{ character.data['spells-lvl8-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl8-7')"
+            />
+            <div
+              id="spells-lvl8-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl8-7')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="spells-lvl9" class="spell-list-for-lvl">
+      <div class="spells-header">
+        <div class="spells-level">9</div>
+        <div class="spells-slots-container">
+          <div class="spells-slots-available">
+            <input name="spells-slots-available-lvl9" type="text" />
+          </div>
+          <div class="spells-slots-total">
+            <input name="spells-slots-total-lvl9" type="text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="spell-list">
+        <ul>
+          <li>
+            <input class="bubble" name="spells-lvl9-1-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-1-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-1-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-1"
+              value="{{ character.data['spells-lvl9-1'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-1')"
+            />
+            <div
+              id="spells-lvl9-1-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-1')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-2-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-2-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-2-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-2"
+              value="{{ character.data['spells-lvl9-2'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-2')"
+            />
+            <div
+              id="spells-lvl9-2-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-2')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-3-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-3-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-3-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-3"
+              value="{{ character.data['spells-lvl9-3'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-3')"
+            />
+            <div
+              id="spells-lvl9-3-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-3')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-4-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-4-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-4-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-4"
+              value="{{ character.data['spells-lvl9-4'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-4')"
+            />
+            <div
+              id="spells-lvl9-4-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-4')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-5-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-5-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-5-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-5"
+              value="{{ character.data['spells-lvl9-5'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-5')"
+            />
+            <div
+              id="spells-lvl9-5-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-5')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-6-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-6-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-6-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-6"
+              value="{{ character.data['spells-lvl9-6'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-6')"
+            />
+            <div
+              id="spells-lvl9-6-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-6')"
+            ></div>
+          </li>
+          <li>
+            <input class="bubble" name="spells-lvl9-7-prepped" type="checkbox"
+            {% if character.data['spells-lvl9-7-prepped'] %}checked{% endif %}
+            />
+            <input
+              id="spells-lvl9-7-raw"
+              class="hidden spell"
+              type="text"
+              name="spells-lvl9-7"
+              value="{{ character.data['spells-lvl9-7'] }}"
+              onfocusout="hideRawTextareaShowRenderedDiv('spells-lvl9-7')"
+            />
+            <div
+              id="spells-lvl9-7-rendered"
+              onclick="showRawTextareHideRenderedDiv('spells-lvl9-7')"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

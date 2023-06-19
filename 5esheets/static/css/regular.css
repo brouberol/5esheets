@@ -568,7 +568,10 @@ div.spells-header {
   position: relative;
   text-align: center;
 }
-
+div.cantrips li > div {
+  padding-left: 1.8em;
+  width: 100%;
+}
 div.spell-list ul {
   padding-bottom: 3em;
   display: flex;
@@ -580,16 +583,16 @@ div.spell-list ul li {
   flex-direction: row;
   height: 25px;
   align-items: center;
-  justify-content: center;
+  height: 2em;
+  border-bottom: 1px solid #cccccc;
 }
 
-div.spell-list input[type=checkbox].bubble {
+div.spell-list input[type="checkbox"].bubble {
   margin-right: 10px;
 }
 
 div.spell-list input {
   border: none;
-  border-bottom: 1px solid #cccccc;
   width: 95%;
 }
 

@@ -226,8 +226,19 @@ document.onreadystatechange = function () {
   if (document.readyState == "complete") {
     updateRemainingDailyPreparedSpells();
     sortSkillsElements();
+
+    // Allow each textarea to be clicked on to change its markdown content, and rendered when unfocused
     markdownTextareaClasses.forEach((id) => {
-      hideRawTextareaShowRenderedDiv(id);
-    })
+      var _id = id;
+      hideRawTextareaShowRenderedDiv(_id);
+    });
+
+    // Allow each spell to be clicked on to change its markdown content, and rendered when unfocused
+    document
+      .querySelectorAll(".spell-list input[type=text]")
+      .forEach((node) => {
+        var id = node.attributes.name.nodeValue;
+        hideRawTextareaShowRenderedDiv(id);
+      });
   }
 }

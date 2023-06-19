@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: dev docker-build docker-run run help
+.PHONY: 5esheets/templates/spellbook.html dev docker-build docker-run run help
 
 5esheets/translations/messages.pot: 5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o 5esheets/translations/messages.pot .
@@ -9,6 +9,9 @@ $(wildcard 5esheets/translations/*/*/messages.po): 5esheets/translations/message
 
 $(wildcard 5esheets/translations/*/*/messages.mo): $(wildcard 5esheets/translations/*/*/messages.po)
 	poetry run pybabel compile --use-fuzzy -d 5esheets/translations
+
+5esheets/templates/spellbook.html:
+	python3 scripts/generate_spellbook.py > 5esheets/templates/spellbook.html
 
 dev:  ## Install the development environment
 	poetry install
