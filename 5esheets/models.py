@@ -3,7 +3,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Self
 
-from .utils import is_field_from_checkbox
+from .utils import is_field_from_checkbox, strip_empties_from_dict
 
 
 @dataclass
@@ -48,6 +48,9 @@ class CharacterSheet:
         for k in form:
             if is_field_from_checkbox(k):
                 character_data[k] = True
+
+        # Remove empty fields to keep the JSON payload as small as possible
+        character_data = strip_empties_from_dict(character_data)
 
         return CharacterSheet(
             id=-1,
