@@ -15,6 +15,7 @@ const modToCarac = {
   'cha_mod': 'Charisma',
   'con_mod': 'Constitution',
 };
+const hiddenClass = 'hidden';
 
 const scoreModifier = (score) => {
   return Math.ceil((score - 10) / 2);
@@ -141,22 +142,22 @@ const hideRawTextareaShowRenderedDiv = (id) => {
     textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
     rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
     neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
-    textarea.classList.add('hidden');
-    neighbourDiv.classList.remove('hidden');
+    textarea.classList.add(hiddenClass);
+    neighbourDiv.classList.remove(hiddenClass);
   } else {
     // The textarea does not contain any text, so hiding it would prevent us from
     // writing in it in the first place.
-    textarea.classList.remove('hidden');
-    neighbourDiv.classList.add('hidden');
+    textarea.classList.remove(hiddenClass);
+    neighbourDiv.classList.add(hiddenClass);
   }
 }
 
 const showRawTextareHideRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
-  textarea.classList.remove("hidden");
+  textarea.classList.remove(hiddenClass);
   textarea.focus({preventScroll: true});
-  neighbourDiv.classList.add("hidden");
+  neighbourDiv.classList.add(hiddenClass);
 }
 
 caracs.forEach((carac) => {
