@@ -29,6 +29,10 @@ header,
   font-family: var(--font-family-headings);
 }
 
+a {
+  color: var(--color-input-checkbox-checked);
+}
+
 #character-sheet {
   width: 70%;
   right: 0;
