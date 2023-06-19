@@ -506,7 +506,7 @@ section.attacksandspellcasting table {
 }
 
 section.attacksandspellcasting table th {
-  font-size: var(--font-size);
+  font-size: var(--font-size-s);
   color: #ddd;
 }
 
