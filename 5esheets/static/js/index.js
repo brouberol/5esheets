@@ -16,6 +16,8 @@ const modToCarac = {
   'con_mod': 'Constitution',
 };
 const hiddenClass = 'hidden';
+const markdownTextareaClasses = ['features', 'equipment', 'otherprofs']
+
 
 const scoreModifier = (score) => {
   return Math.ceil((score - 10) / 2);
@@ -224,7 +226,7 @@ document.onreadystatechange = function () {
   if (document.readyState == "complete") {
     updateRemainingDailyPreparedSpells();
     sortSkillsElements();
-    ['features', 'equipment', 'otherprofs'].forEach((id) => {
+    markdownTextareaClasses.forEach((id) => {
       hideRawTextareaShowRenderedDiv(id);
     })
   }
