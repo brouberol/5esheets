@@ -210,9 +210,16 @@ const hideRawTextareaShowRenderedDiv = (id) => {
   neighbourDiv = document.getElementById(`${id}-rendered`);
   if (textarea.value) {
     textarea.textContent = textarea.value;
+
+    // todo: extract into some less ad-hoc macro processor logic
     textContentWithRenderedMacros = replaceCaracModMacroByValue(
       textarea.textContent
     );
+    textContentWithRenderedMacros = replaceCantripNumberOfDieMacroByValue(
+      textarea.textContent
+    );
+    // end todo
+
     rendered = marked.parse(textContentWithRenderedMacros, {
       renderer: markdownRenderer,
     });
@@ -353,11 +360,5 @@ document.onreadystatechange = () => {
         var id = node.attributes.name.nodeValue;
         hideRawTextareaShowRenderedDiv(id);
       });
-
-    // For all cantrips, replace the @cantrip_die@ "macro" value by the number of die dependning
-    // on the character level
-    document.querySelectorAll('div#cantrips ul li div').forEach((node) => {
-      node.textContent = replaceCantripNumberOfDieMacroByValue(node.textContent);
-    })
   }
 };
