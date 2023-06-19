@@ -136,12 +136,19 @@ const sortSkillsElements = () => {
 const hideRawTextareaShowRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
-  textarea.textContent = textarea.value;
-  textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
-  rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
-  neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
-  textarea.classList.add('hidden');
-  neighbourDiv.classList.remove('hidden');
+  if (textarea.textContent) {
+    textarea.textContent = textarea.value;
+    textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
+    rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
+    neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
+    textarea.classList.add('hidden');
+    neighbourDiv.classList.remove('hidden');
+  } else {
+    // The textarea does not contain any text, so hiding it would prevent us from
+    // writing in it in the first place.
+    textarea.classList.remove('hidden');
+    neighbourDiv.classList.add('hidden');
+  }
 }
 
 const showRawTextareHideRenderedDiv = (id) => {
