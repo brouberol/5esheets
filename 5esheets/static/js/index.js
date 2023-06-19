@@ -216,7 +216,7 @@ const hideRawTextareaShowRenderedDiv = (id) => {
       textarea.textContent
     );
     textContentWithRenderedMacros = replaceCantripNumberOfDieMacroByValue(
-      textarea.textContent
+      textContentWithRenderedMacros
     );
     // end todo
 
