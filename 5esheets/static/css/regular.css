@@ -426,7 +426,7 @@ div.hitdice div.total label {
   font-size: var(--font-size-s);
   color: #bbb;
   margin: 0.25em;
-  text-transform: none;
+  text-transform: capitalize;
 }
 
 div.hitdice div.total input {
@@ -507,6 +507,7 @@ section.attacksandspellcasting table {
 section.attacksandspellcasting table th {
   font-size: var(--font-size-s);
   color: #ddd;
+  text-transform: capitalize;
 }
 
 section.attacksandspellcasting table input {
