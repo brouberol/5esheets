@@ -67,6 +67,19 @@ const proficiencyBonus = (level) => {
   }
 };
 
+const numberOfDieForCantrip = () => {
+  level = getCharacterLevel();
+  if (level < 5) {
+    return 1;
+  } else if (level < 11) {
+    return 2;
+  } else if (level < 17) {
+    return 3;
+  } else {
+    return 4;
+  }
+}
+
 const formatBonus = (bonus) => {
   if (bonus < 0) {
     return String(bonus);
@@ -176,6 +189,10 @@ const replaceCaracModMacroByValue = (text) => {
   return text;
 };
 
+const replaceCantripNumberOfDieMacroByValue = (text) => {
+  return text.replace('@cantrip_die@', numberOfDieForCantrip());
+};
+
 const sortChildrenByText = (parent) => {
   [...parent.children]
     .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
@@ -218,6 +235,11 @@ const showRawTextareHideRenderedDiv = (id) => {
   neighbourDiv.classList.add(hiddenClass);
 };
 
+const getCharacterLevel = () => {
+  let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
+  return parseInt(tokens[tokens.length - 1]);
+}
+
 // Recompute the modifier for each skill and saving throw when the base scores change
 caracs.forEach((carac) => {
   let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
@@ -245,8 +267,7 @@ caracs.forEach((carac) => {
 
 // Recompute the proficiency bonus when the level changes
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
-  let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
-  let level = parseInt(tokens[tokens.length - 1]);
+  let level = getCharacterLevel();
   let bonus = formatBonus(proficiencyBonus(level));
   let proficiencyBonusInput = document.getElementsByName("proficiencybonus")[0];
   proficiencyBonusInput.value = bonus;
@@ -332,5 +353,11 @@ document.onreadystatechange = () => {
         var id = node.attributes.name.nodeValue;
         hideRawTextareaShowRenderedDiv(id);
       });
+
+    // For all cantrips, replace the @cantrip_die@ "macro" value by the number of die dependning
+    // on the character level
+    document.querySelectorAll('div#cantrips ul li div').forEach((node) => {
+      node.textContent = replaceCantripNumberOfDieMacroByValue(node.textContent);
+    })
   }
 };
