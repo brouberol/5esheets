@@ -2,286 +2,286 @@
 msgid "character_name"
 msgstr "character name"
 
-#: 5esheets/templates/character.html:10
+#: 5esheets/templates/character.html:14
 msgid "class_and_level"
 msgstr "class & level"
 
-#: 5esheets/templates/character.html:14
+#: 5esheets/templates/character.html:21
 msgid "background"
 msgstr "background"
 
-#: 5esheets/templates/character.html:18
+#: 5esheets/templates/character.html:29
 msgid "player_name"
 msgstr "player name"
 
-#: 5esheets/templates/character.html:25
+#: 5esheets/templates/character.html:39
 msgid "race"
 msgstr "race"
 
-#: 5esheets/templates/character.html:29
+#: 5esheets/templates/character.html:47
 msgid "alignment"
 msgstr "alignment"
 
-#: 5esheets/templates/character.html:33
+#: 5esheets/templates/character.html:55
 msgid "experience_points"
 msgstr "experience points"
 
-#: 5esheets/templates/character.html:47 5esheets/templates/character.html:212
+#: 5esheets/templates/character.html:73 5esheets/templates/character.html:360
 msgid "strength_abbr"
 msgstr "str"
 
-#: 5esheets/templates/character.html:57 5esheets/templates/character.html:188
-#: 5esheets/templates/character.html:309 5esheets/templates/character.html:317
+#: 5esheets/templates/character.html:92 5esheets/templates/character.html:316
+#: 5esheets/templates/character.html:536 5esheets/templates/character.html:550
 msgid "dexterity_abbr"
 msgstr "dex"
 
-#: 5esheets/templates/character.html:68
+#: 5esheets/templates/character.html:111
 msgid "constitution_abbr"
 msgstr "con"
 
-#: 5esheets/templates/character.html:79 5esheets/templates/character.html:204
-#: 5esheets/templates/character.html:228 5esheets/templates/character.html:253
-#: 5esheets/templates/character.html:269 5esheets/templates/character.html:301
+#: 5esheets/templates/character.html:130 5esheets/templates/character.html:345
+#: 5esheets/templates/character.html:389 5esheets/templates/character.html:433
+#: 5esheets/templates/character.html:463 5esheets/templates/character.html:521
 msgid "intelligence_abbr"
 msgstr "int"
 
-#: 5esheets/templates/character.html:90 5esheets/templates/character.html:196
-#: 5esheets/templates/character.html:236 5esheets/templates/character.html:261
-#: 5esheets/templates/character.html:277 5esheets/templates/character.html:325
+#: 5esheets/templates/character.html:149 5esheets/templates/character.html:330
+#: 5esheets/templates/character.html:404 5esheets/templates/character.html:448
+#: 5esheets/templates/character.html:478 5esheets/templates/character.html:564
 msgid "wisdom_abbr"
 msgstr "wis"
 
-#: 5esheets/templates/character.html:99 5esheets/templates/character.html:220
-#: 5esheets/templates/character.html:245 5esheets/templates/character.html:285
-#: 5esheets/templates/character.html:293
+#: 5esheets/templates/character.html:168 5esheets/templates/character.html:374
+#: 5esheets/templates/character.html:418 5esheets/templates/character.html:492
+#: 5esheets/templates/character.html:506
 msgid "charisma_abbr"
 msgstr "cha"
 
-#: 5esheets/templates/character.html:112
+#: 5esheets/templates/character.html:190
 msgid "inspiration"
 msgstr "inspiration"
 
-#: 5esheets/templates/character.html:119
+#: 5esheets/templates/character.html:199
 msgid "darkvision"
 msgstr "darkvision"
 
-#: 5esheets/templates/character.html:126
+#: 5esheets/templates/character.html:208
 msgid "proficiency bonus"
 msgstr "proficiency bonus"
 
-#: 5esheets/templates/character.html:138
+#: 5esheets/templates/character.html:230
 msgid "strength"
 msgstr "strength"
 
-#: 5esheets/templates/character.html:145
+#: 5esheets/templates/character.html:243
 msgid "dexterity"
 msgstr "dexterity"
 
-#: 5esheets/templates/character.html:152
+#: 5esheets/templates/character.html:256
 msgid "constitution"
 msgstr "constitution"
 
-#: 5esheets/templates/character.html:159 5esheets/templates/spells.html:7
+#: 5esheets/templates/character.html:269 5esheets/templates/spells.html:12
 msgid "wisdom"
 msgstr "wisdom"
 
-#: 5esheets/templates/character.html:166 5esheets/templates/spells.html:6
+#: 5esheets/templates/character.html:282 5esheets/templates/spells.html:10
 msgid "intelligence"
 msgstr "intelligence"
 
-#: 5esheets/templates/character.html:173 5esheets/templates/spells.html:8
+#: 5esheets/templates/character.html:295 5esheets/templates/spells.html:13
 msgid "charisma"
 msgstr "charisma"
 
-#: 5esheets/templates/character.html:177
+#: 5esheets/templates/character.html:300
 msgid "saving_throws"
 msgstr "saving throws"
 
-#: 5esheets/templates/character.html:187
+#: 5esheets/templates/character.html:315
 msgid "acrobatics"
 msgstr "acrobatics"
 
-#: 5esheets/templates/character.html:195
+#: 5esheets/templates/character.html:329
 msgid "animal_handling"
 msgstr "animal handling"
 
-#: 5esheets/templates/character.html:203
+#: 5esheets/templates/character.html:343
 msgid "arcana"
 msgstr "arcana"
 
-#: 5esheets/templates/character.html:211
+#: 5esheets/templates/character.html:359
 msgid "athletics"
 msgstr "athletics"
 
-#: 5esheets/templates/character.html:219
+#: 5esheets/templates/character.html:373
 msgid "deception"
 msgstr "deception"
 
-#: 5esheets/templates/character.html:227
+#: 5esheets/templates/character.html:387
 msgid "history"
 msgstr "history"
 
-#: 5esheets/templates/character.html:235
+#: 5esheets/templates/character.html:403
 msgid "insight"
 msgstr "insight"
 
-#: 5esheets/templates/character.html:244
+#: 5esheets/templates/character.html:417
 msgid "intimidation"
 msgstr "intimidation"
 
-#: 5esheets/templates/character.html:252
+#: 5esheets/templates/character.html:431
 msgid "investigation"
 msgstr "investigation"
 
-#: 5esheets/templates/character.html:260
+#: 5esheets/templates/character.html:447
 msgid "medicine"
 msgstr "medicine"
 
-#: 5esheets/templates/character.html:268
+#: 5esheets/templates/character.html:461
 msgid "nature"
 msgstr "nature"
 
-#: 5esheets/templates/character.html:276
+#: 5esheets/templates/character.html:477
 msgid "perception"
 msgstr "perception"
 
-#: 5esheets/templates/character.html:284
+#: 5esheets/templates/character.html:491
 msgid "performance"
 msgstr "performance"
 
-#: 5esheets/templates/character.html:292
+#: 5esheets/templates/character.html:505
 msgid "persuasion"
 msgstr "persuasion"
 
-#: 5esheets/templates/character.html:300
+#: 5esheets/templates/character.html:519
 msgid "religion"
 msgstr "religion"
 
-#: 5esheets/templates/character.html:308
+#: 5esheets/templates/character.html:535
 msgid "sleight_of_hand"
 msgstr "sleight of hand"
 
-#: 5esheets/templates/character.html:316
+#: 5esheets/templates/character.html:549
 msgid "stealth"
 msgstr "stealth"
 
-#: 5esheets/templates/character.html:324
+#: 5esheets/templates/character.html:563
 msgid "survival"
 msgstr "survival"
 
-#: 5esheets/templates/character.html:328
+#: 5esheets/templates/character.html:569
 msgid "skills"
 msgstr "skills"
 
-#: 5esheets/templates/character.html:334
+#: 5esheets/templates/character.html:577
 msgid "passive_perception"
 msgstr "passive perception"
 
-#: 5esheets/templates/character.html:339
+#: 5esheets/templates/character.html:590
 msgid "other_proficiencies_and_languages"
 msgstr "other proficiencies and languages"
 
-#: 5esheets/templates/character.html:347
+#: 5esheets/templates/character.html:616
 msgid "armor_class"
 msgstr "armor class"
 
-#: 5esheets/templates/character.html:353
+#: 5esheets/templates/character.html:631
 msgid "initiative"
 msgstr "initiative"
 
-#: 5esheets/templates/character.html:359
+#: 5esheets/templates/character.html:646
 msgid "speed"
 msgstr "speed"
 
-#: 5esheets/templates/character.html:366
+#: 5esheets/templates/character.html:661
 msgid "hit_point_maximum"
 msgstr "max hp"
 
-#: 5esheets/templates/character.html:371
+#: 5esheets/templates/character.html:673
 msgid "temporary_hit_points"
 msgstr "temporary hp"
 
-#: 5esheets/templates/character.html:375
+#: 5esheets/templates/character.html:682
 msgid "current_hit_points"
 msgstr "current hp"
 
-#: 5esheets/templates/character.html:384
+#: 5esheets/templates/character.html:696
 msgid "total"
 msgstr "total"
 
-#: 5esheets/templates/character.html:388
+#: 5esheets/templates/character.html:706
 msgid "hit_dice"
 msgstr "hit dice"
 
-#: 5esheets/templates/character.html:396
+#: 5esheets/templates/character.html:716
 msgid "death_saves"
 msgstr "death saves"
 
-#: 5esheets/templates/character.html:400
+#: 5esheets/templates/character.html:719
 msgid "successes"
 msgstr "successes"
 
-#: 5esheets/templates/character.html:411
+#: 5esheets/templates/character.html:730
 msgid "failures"
 msgstr "failures"
 
-#: 5esheets/templates/character.html:456
-msgid "attacks"
-msgstr "attacks"
-
-#: 5esheets/templates/character.html:460
+#: 5esheets/templates/character.html:811
 msgid "name"
 msgstr "name"
 
-#: 5esheets/templates/character.html:461
+#: 5esheets/templates/character.html:812
 msgid "atk_bonus"
 msgstr "attack bonus"
 
-#: 5esheets/templates/character.html:462
+#: 5esheets/templates/character.html:813
 msgid "damage/type"
 msgstr "damage/type"
 
-#: 5esheets/templates/character.html:505
-msgid "equipment"
-msgstr "equipment"
+#: 5esheets/templates/character.html:889
+msgid "attacks"
+msgstr "attacks"
 
-#: 5esheets/templates/character.html:512
+#: 5esheets/templates/character.html:916
 msgid "cp"
 msgstr "cp"
 
-#: 5esheets/templates/character.html:516
+#: 5esheets/templates/character.html:923
 msgid "sp"
 msgstr "sp"
 
-#: 5esheets/templates/character.html:520
+#: 5esheets/templates/character.html:930
 msgid "ep"
 msgstr "ep"
 
-#: 5esheets/templates/character.html:524
+#: 5esheets/templates/character.html:937
 msgid "gp"
 msgstr "gp"
 
-#: 5esheets/templates/character.html:528
+#: 5esheets/templates/character.html:944
 msgid "pp"
 msgstr "pp"
 
-#: 5esheets/templates/character.html:538
+#: 5esheets/templates/character.html:949
+msgid "equipment"
+msgstr "equipment"
+
+#: 5esheets/templates/character.html:958
 msgid "personality"
 msgstr "personality"
 
-#: 5esheets/templates/character.html:542
+#: 5esheets/templates/character.html:965
 msgid "ideals"
 msgstr "ideals"
 
-#: 5esheets/templates/character.html:546
+#: 5esheets/templates/character.html:969
 msgid "bonds"
 msgstr "bonds"
 
-#: 5esheets/templates/character.html:550
+#: 5esheets/templates/character.html:973
 msgid "flaws"
 msgstr "flaws"
 
-#: 5esheets/templates/character.html:556
+#: 5esheets/templates/character.html:981
 msgid "features_&_traits"
 msgstr "features & traits"
 
@@ -289,19 +289,19 @@ msgstr "features & traits"
 msgid "spellcasting_ability"
 msgstr "spellcasting ability"
 
-#: 5esheets/templates/spells.html:14
+#: 5esheets/templates/spells.html:19
 msgid "preparable_spells"
 msgstr "daily preparable spells"
 
-#: 5esheets/templates/spells.html:22
+#: 5esheets/templates/spells.html:36
 msgid "spell_dc"
 msgstr "spell DC"
 
-#: 5esheets/templates/spells.html:28
+#: 5esheets/templates/spells.html:48
 msgid "extra_spell_attack_bonus"
 msgstr "extra spell attack bonus"
 
-#: 5esheets/templates/spells.html:33
+#: 5esheets/templates/spells.html:58
 msgid "total_spell_attack_bonus"
 msgstr "total spell attack bonus"
 
