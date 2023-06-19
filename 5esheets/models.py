@@ -3,6 +3,8 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Self
 
+from .utils import is_field_from_checkbox
+
 
 @dataclass
 class Character:
@@ -34,3 +36,26 @@ class CharacterSheet:
     @classmethod
     def from_dict(cls, d: dict) -> Self:
         return CharacterSheet(id=d["id"], character=Character.from_dict(d))
+
+    @classmethod
+    def from_form(cls, form: dict) -> Self:
+        character_name = form.pop("charname")
+        classlevel_tokens = form.pop("classlevel").split()
+        character_class = " ".join(classlevel_tokens[:-1])
+        character_level = int(classlevel_tokens[-1])
+
+        character_data = form.copy()
+        for k in form:
+            if is_field_from_checkbox(k):
+                character_data[k] = True
+
+        return CharacterSheet(
+            id=-1,
+            character=Character(
+                name=character_name,
+                level=character_level,
+                _class=character_class,
+                slug="",
+                data=character_data,
+            ),
+        )

@@ -33,14 +33,6 @@ def get_locale():
     )
 
 
-def is_field_from_checkbox(field_name):
-    return (
-        field_name.endswith(("-prof", "-prepped"))
-        or field_name in ("inspiration", "darkvision")
-        or field_name.startswith(("deathfail", "deathsuccess"))
-    )
-
-
 db_file = Path(__file__).parent / "db" / "5esheets.db"
 migrations_dir = Path(__file__).parent / "migrations"
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
@@ -86,14 +78,7 @@ def display_sheet(slug: str):
 @app.route("/<slug>", methods=["POST"])
 def update_sheet(slug: str):
     with get_db_connection() as db:
-        character_data = request.form.to_dict()
-        character_name = character_data.pop("charname")
-        classlevel_tokens = character_data.pop("classlevel").split()
-        character_class = " ".join(classlevel_tokens[:-1])
-        character_level = classlevel_tokens[-1]
-        for k in character_data:
-            if is_field_from_checkbox(k):
-                character_data[k] = True
+        sheet = CharacterSheet.from_form(request.form.to_dict())
         db.execute(
             """
             UPDATE sheets
@@ -106,10 +91,10 @@ def update_sheet(slug: str):
         """,
             {
                 "slug": slug,
-                "name": character_name,
-                "level": int(character_level),
-                "class": character_class,
-                "data": json.dumps(character_data),
+                "name": sheet.character.name,
+                "level": sheet.character.level,
+                "class": sheet.character._class,
+                "data": json.dumps(sheet.character.data),
             },
         )
         return redirect(url_for("display_sheet", slug=slug))
