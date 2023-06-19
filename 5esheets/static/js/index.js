@@ -78,7 +78,7 @@ const numberOfDieForCantrip = () => {
   } else {
     return 4;
   }
-}
+};
 
 const formatBonus = (bonus) => {
   if (bonus < 0) {
@@ -190,7 +190,7 @@ const replaceCaracModMacroByValue = (text) => {
 };
 
 const replaceCantripNumberOfDieMacroByValue = (text) => {
-  return text.replace('@cantrip_die@', numberOfDieForCantrip());
+  return text.replace("@cantrip_die@", numberOfDieForCantrip());
 };
 
 const sortChildrenByText = (parent) => {
@@ -238,7 +238,7 @@ const showRawTextareHideRenderedDiv = (id) => {
 const getCharacterLevel = () => {
   let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
   return parseInt(tokens[tokens.length - 1]);
-}
+};
 
 // Recompute the modifier for each skill and saving throw when the base scores change
 caracs.forEach((carac) => {
