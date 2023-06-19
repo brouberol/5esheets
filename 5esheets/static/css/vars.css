@@ -10,7 +10,32 @@
   --interbox-spacing: 10px;
   --innerbox-spacing: 5px;
   --box-border-radius: 10px;
-  --box-border: 1px solid black;
+  --box-border: 1px solid var(--color-primary-border);
   --font-family-text: "Bookinsanity";
   --font-family-headings: "MrEaves";
+  --color-primary-border: var(--color-primary-text);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-primary-background: #ffffff;
+    --color-secondary-background: #eeeeee;
+    --color-primary-text: #000000;
+    --color-secondary-text: #bbb;
+    --color-input-placeholder: var(--color-secondary-text);
+    --color-input-checkbox-checked: #000000;
+    --color-secondary-border: #cccccc;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary-background: #313131;
+    --color-secondary-background: var(--color-primary-background);
+    --color-primary-text: #ccc1c1;
+    --color-secondary-text: #c5c3c3;
+    --color-input-placeholder: var(--color-secondary-text);
+    --color-input-checkbox-checked: #eb9696;
+    --color-secondary-border: #8a8989;
+  }
 }

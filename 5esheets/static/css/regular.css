@@ -13,7 +13,9 @@ html,
 textarea,
 input {
   font-family: var(--font-family-text);
+  color: var(--color-primary-text);
   line-height: 1.3em;
+  background-color: var(--color-primary-background);
 }
 
 h1,
@@ -88,7 +90,7 @@ form.charsheet div.textblock {
 
 form.charsheet div.textblock label {
   text-align: center;
-  border: 1px solid black;
+  border: var(--box-border);
   border-top: 0;
   font-size: var(--font-size-s);
   width: calc(100% - 20px - 2px);
@@ -98,7 +100,7 @@ form.charsheet div.textblock label {
 }
 
 form.charsheet div.textblock textarea {
-  border: 1px solid black;
+  border: var(--box-border);
 }
 
 form.charsheet ul {
@@ -107,7 +109,7 @@ form.charsheet ul {
 }
 
 form.charsheet ::placeholder {
-  color: #bbb;
+  color: var(--color-input-placeholder);
 }
 
 form.charsheet header {
@@ -121,12 +123,10 @@ section.spellcastingability {
   border-right: 0;
   border-radius: var(--box-border-radius) 0 0 var(--box-border-radius);
   padding: 5px 0;
-  background-color: #eee;
+  background-color: var(--color-secondary-background);
   width: 30%;
   display: flex;
   flex-direction: column-reverse;
-  bottom: 0;
-  top: 0;
   margin: auto;
 }
 
@@ -170,7 +170,7 @@ section.misc label {
 
 form.charsheet header section.misc ul li input {
   border: 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-secondary-border);
   width: 80%;
 }
 
@@ -207,7 +207,7 @@ section.attributes > div:nth-child(2) {
 
 section.attributes div.scores {
   width: 30%;
-  background-color: #bbb;
+  background-color: var(--color-secondary-background);
   border-radius: 10px;
   padding-bottom: 5px;
 }
@@ -237,7 +237,6 @@ section.attributes div.scores ul li div.score input {
   text-align: center;
   font-size: var(--font-size-xxl);
   padding: 2px 0px 0px 0px;
-  background: white;
 }
 
 section.attributes div.scores div.modifier {
@@ -245,7 +244,6 @@ section.attributes div.scores div.modifier {
 }
 
 section.attributes div.scores div.modifier input {
-  background: white;
   width: 40%;
   border: var(--box-border);
   border-radius: 20px;
@@ -269,7 +267,7 @@ div.proficiencybonus,
   appearance: none;
   width: 2rem;
   height: 1.6rem;
-  border: 1px solid black;
+  border: var(--box-border);
   text-align: center;
   border-radius: 10px;
 }
@@ -284,7 +282,7 @@ li.score-mod-with-prof > * {
 }
 
 li.score-mod-with-prof label span.skill {
-  color: #bbb;
+  color: var(--color-secondary-text);
 }
 
 li.score-mod-with-prof input[type="text"] {
@@ -292,7 +290,7 @@ li.score-mod-with-prof input[type="text"] {
   font-size: var(--font-size-ms);
   text-align: center;
   border: 0;
-  border-bottom: 1px solid black;
+  border-bottom: var(--box-border);
 }
 
 li.score-mod-with-prof input[type="checkbox"] {
@@ -302,7 +300,7 @@ li.score-mod-with-prof input[type="checkbox"] {
   width: 0.7em;
   height: 0.7em;
   border-radius: 0.7em;
-  border: 1px solid black;
+  border: var(--box-border);
 }
 
 section div.passive-perception {
@@ -320,7 +318,7 @@ section.combat {
 }
 
 section.combat {
-  background-color: #eee;
+  background-color: var(--color-secondary-background);
   display: flex;
   flex-wrap: wrap;
   border-radius: 10px;
@@ -376,13 +374,13 @@ div.max {
 
 div.max label {
   text-transform: none;
-  color: #bbb;
+  color: var(--color-secondary-text);
 }
 
 div.max input {
   width: 40%;
   border: 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-secondary-border);
   text-align: center;
 }
 
@@ -424,14 +422,14 @@ div.hitdice div.total {
 
 div.hitdice div.total label {
   font-size: var(--font-size-s);
-  color: #bbb;
+  color: var(--color-secondary-text);
   margin: 0.25em;
   text-transform: capitalize;
 }
 
 div.hitdice div.total input {
   border: 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-secondary-border);
   width: 50%;
   padding: 0 0.25em;
   text-align: center;
@@ -486,12 +484,12 @@ input[type="checkbox"].bubble {
   appearance: none;
   width: 10px;
   height: 10px;
-  border: 1px solid black;
+  border: var(--box-border);
   border-radius: 10px;
 }
 
 input[type="checkbox"]:checked {
-  background-color: black;
+  background-color: var(--color-input-checkbox-checked);
 }
 
 section.attacksandspellcasting > div {
@@ -506,14 +504,14 @@ section.attacksandspellcasting table {
 
 section.attacksandspellcasting table th {
   font-size: var(--font-size-s);
-  color: #ddd;
+  color: var(--color-secondary-text);
   text-transform: capitalize;
 }
 
 section.attacksandspellcasting table input {
   width: calc(100% - 4px);
   border: 0;
-  background-color: #eee;
+  background-color: var(--color-secondary-background);
   font-size: var(--font-size-ms);
   padding: 3px;
 }
@@ -552,7 +550,7 @@ section.equipment div.money ul > li {
 }
 
 section.equipment div.money ul > li label {
-  border: 1px solid black;
+  border: var(--box-border);
   border-radius: 4px;
   border-top: 0px;
   width: 20px;
@@ -562,7 +560,7 @@ section.equipment div.money ul > li label {
 }
 
 section.equipment div.money ul > li input {
-  border: 1px solid black;
+  border: var(--box-border);
   border-radius: 10px;
   width: 60%;
   padding: 10px 3px;
@@ -636,7 +634,7 @@ div.spell-list ul li {
   height: 25px;
   align-items: center;
   height: 2em;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid var(--color-secondary-border);
 }
 
 div.spell-list input[type="checkbox"].bubble {
@@ -650,7 +648,7 @@ div.spell-list input {
 
 div.spells-slots-container {
   width: 100%;
-  border: 1px solid black;
+  border: var(--box-border);
   flex-direction: row;
   display: flex;
 }
@@ -669,13 +667,13 @@ div.spells-slots-total input {
 }
 
 div.spells-slots-available input {
-  border-right: 1px solid black;
+  border-right: var(--box-border);
 }
 
 header label {
   margin-top: 5px;
   padding-bottom: 5px;
-  color: gray;
+  color: var(--color-secondary-text);
 }
 
 section.spellcastingability select {
