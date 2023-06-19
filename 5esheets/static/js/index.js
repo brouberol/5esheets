@@ -139,7 +139,7 @@ const sortSkillsElements = () => {
 const hideRawTextareaShowRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
-  if (textarea.textContent) {
+  if (textarea.value) {
     textarea.textContent = textarea.value;
     textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
     rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
