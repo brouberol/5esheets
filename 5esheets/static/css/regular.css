@@ -598,6 +598,9 @@ div.spell-list ul {
   display: flex;
   flex-direction: column;
 }
+#col3 ul {
+  padding-bottom: 2em;
+}
 
 div.spell-list ul li {
   display: flex;
