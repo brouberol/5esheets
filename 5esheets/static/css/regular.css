@@ -758,3 +758,7 @@ input.custom-resource-header {
 .markdown-rendered li {
   margin-left: 1.5rem;
 }
+
+.attr-applications li {
+  line-height: 1.3em;
+}
