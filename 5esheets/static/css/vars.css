@@ -1,13 +1,13 @@
 :root {
-    --font-size-ms: calc(var(--font-size) - 2px);
-    --font-size-xs: calc(var(--font-size) - 4px);
-    --font-size-s: calc(var(--font-size) - 3px);
-    --font-size: 12px;
-    --font-size-l: calc(var(--font-size) * 2);
-    --font-size-xl: calc(var(--font-size) * 2.5);
-    --font-size-xxl: calc(var(--font-size) * 3);
-    --interbox-spacing: 10px;
-    --innerbox-spacing: 5px;
-    --box-border-radius: 10px;
-    --box-border: 1px solid black;
+  --font-size-ms: calc(var(--font-size) - 2px);
+  --font-size-xs: calc(var(--font-size) - 4px);
+  --font-size-s: calc(var(--font-size) - 3px);
+  --font-size: 14px;
+  --font-size-l: calc(var(--font-size) * 2);
+  --font-size-xl: calc(var(--font-size) * 2.5);
+  --font-size-xxl: calc(var(--font-size) * 3);
+  --interbox-spacing: 10px;
+  --innerbox-spacing: 5px;
+  --box-border-radius: 10px;
+  --box-border: 1px solid black;
 }

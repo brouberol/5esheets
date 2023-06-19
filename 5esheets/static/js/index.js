@@ -1,23 +1,29 @@
-const caracs = ['Strength', 'Dexterity', 'Constitution', 'Wisdom', 'Charisma', 'Intelligence'];
+const caracs = [
+  "Strength",
+  "Dexterity",
+  "Constitution",
+  "Wisdom",
+  "Charisma",
+  "Intelligence",
+];
 const skillsByCarac = {
-  'Strength': ['Athletics'],
-  'Dexterity': ['Acrobatics', 'Sleight of Hand', 'Stealth'],
-  'Constitution': [],
-  'Wisdom': ['Animal Handling', 'Insight', 'Medicine', 'Perception', 'Survival'],
-  'Charisma': ['Deception', 'Intimidation', 'Performance', 'Persuasion'],
-  'Intelligence': ['Arcana', 'History', 'Nature', 'Investigation', 'Religion']
+  Strength: ["Athletics"],
+  Dexterity: ["Acrobatics", "Sleight of Hand", "Stealth"],
+  Constitution: [],
+  Wisdom: ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+  Charisma: ["Deception", "Intimidation", "Performance", "Persuasion"],
+  Intelligence: ["Arcana", "History", "Nature", "Investigation", "Religion"],
 };
 const modToCarac = {
-  'int_mod': 'Intelligence',
-  'wis_mod': 'Wisdom',
-  'str_mod': 'Strength',
-  'dex_mod': 'Dexterity',
-  'cha_mod': 'Charisma',
-  'con_mod': 'Constitution',
+  int_mod: "Intelligence",
+  wis_mod: "Wisdom",
+  str_mod: "Strength",
+  dex_mod: "Dexterity",
+  cha_mod: "Charisma",
+  con_mod: "Constitution",
 };
-const hiddenClass = 'hidden';
-const markdownTextareaClasses = ['features', 'equipment', 'otherprofs']
-
+const hiddenClass = "hidden";
+const markdownTextareaClasses = ["features", "equipment", "otherprofs"];
 
 const scoreModifier = (score) => {
   return Math.ceil((score - 10) / 2);
@@ -55,10 +61,12 @@ const getCaracModifier = (carac) => {
 
 const updateCaracSavingThrowModifier = (carac) => {
   let caracModifier = getCaracModifier(carac);
-  let savingThrowModifierInput = document.getElementsByName(`${carac}-save`)[0]
-  let savingThrowProficiencyCheckbox = document.getElementsByName(`${carac}-save-prof`)[0];
+  let savingThrowModifierInput = document.getElementsByName(`${carac}-save`)[0];
+  let savingThrowProficiencyCheckbox = document.getElementsByName(
+    `${carac}-save-prof`
+  )[0];
   if (savingThrowProficiencyCheckbox.checked) {
-    var proficiencyBonus = getProficiencyBonus()
+    var proficiencyBonus = getProficiencyBonus();
     var savingThrowBonus = caracModifier + proficiencyBonus;
   } else {
     var savingThrowBonus = caracModifier;
@@ -67,12 +75,16 @@ const updateCaracSavingThrowModifier = (carac) => {
 };
 
 const updateSkillModifier = (carac, skill) => {
-  let skillDashed = skill.replace(/ /g, '-')
+  let skillDashed = skill.replace(/ /g, "-");
   let caracModifier = getCaracModifier(carac);
-  let skillModifierInput = document.getElementsByName(skill)[0]
-  let skillProficiencyCheckbox = document.getElementsByName(`${skillDashed}-prof`)[0];
+  let skillModifierInput = document.getElementsByName(skill)[0];
+  let skillProficiencyCheckbox = document.getElementsByName(
+    `${skillDashed}-prof`
+  )[0];
   if (skillProficiencyCheckbox.checked) {
-    var proficiencyBonus = parseInt(document.getElementsByName("proficiencybonus")[0].value);
+    var proficiencyBonus = parseInt(
+      document.getElementsByName("proficiencybonus")[0].value
+    );
     var skillBonus = caracModifier + proficiencyBonus;
   } else {
     var skillBonus = caracModifier;
@@ -80,7 +92,8 @@ const updateSkillModifier = (carac, skill) => {
   skillModifierInput.value = formatBonus(skillBonus);
 
   if (skill === "Perception") {
-    let passivePerceptionInput = document.getElementsByName("passiveperception")[0];
+    let passivePerceptionInput =
+      document.getElementsByName("passiveperception")[0];
     passivePerceptionInput.value = 10 + skillBonus;
   }
 };
@@ -93,29 +106,43 @@ const updateCaracScoreAndDependents = (carac) => {
   updateCaracSavingThrowModifier(carac);
   skillsByCarac[carac].forEach((skill) => {
     updateSkillModifier(carac, skill);
-  })
+  });
 };
 
 const updateSpellAttackBonus = (spellcastingAbility) => {
-  let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
-  let totalSpellAttackBonus = getCaracModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
-  document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
+  let extraSpellAttackBonus = parseInt(
+    document.getElementById("extraspellattackbonus").value || 0
+  );
+  let totalSpellAttackBonus =
+    getCaracModifier(spellcastingAbility) +
+    extraSpellAttackBonus +
+    getProficiencyBonus();
+  document.getElementById("totalspellattackbonus").value = formatBonus(
+    totalSpellAttackBonus
+  );
 };
 
 const updateRemainingDailyPreparedSpells = () => {
-  let totalDailyPeparedSpellsInput = parseInt(document.getElementById("totaldailypreparedspells").value || 0);
-  let remainingDailyPeparedSpellsInput = document.getElementById("remainingdailyspells");
-  let currentlyPreparedSpells = document.querySelectorAll("div#spells input.bubble[type=checkbox]:checked").length;
-  remainingDailyPeparedSpellsInput.value = totalDailyPeparedSpellsInput - currentlyPreparedSpells;
+  let totalDailyPeparedSpellsInput = parseInt(
+    document.getElementById("totaldailypreparedspells").value || 0
+  );
+  let remainingDailyPeparedSpellsInput = document.getElementById(
+    "remainingdailyspells"
+  );
+  let currentlyPreparedSpells = document.querySelectorAll(
+    "div#spells input.bubble[type=checkbox]:checked"
+  ).length;
+  remainingDailyPeparedSpellsInput.value =
+    totalDailyPeparedSpellsInput - currentlyPreparedSpells;
 };
 
 const generateCaracMacroRegex = (searchTerm) => {
-  return new RegExp(`${searchTerm}`, 'g')
-}
+  return new RegExp(`${searchTerm}`, "g");
+};
 
 const replaceCaracModMacroByValue = (text) => {
   for (const [mod_str, carac] of Object.entries(modToCarac)) {
-    let searchTerm = `@${mod_str}`
+    let searchTerm = `@${mod_str}`;
     let replacement = formatBonus(getCaracModifier(carac));
     if (text.includes(searchTerm)) {
       let re = generateCaracMacroRegex(searchTerm);
@@ -126,23 +153,29 @@ const replaceCaracModMacroByValue = (text) => {
 };
 
 const sortChildrenByText = (parent) => {
-  [...parent.children].sort((a,b)=>a.innerText>b.innerText?1:-1).forEach(node=>parent.appendChild(node));
-}
+  [...parent.children]
+    .sort((a, b) => (a.innerText > b.innerText ? 1 : -1))
+    .forEach((node) => parent.appendChild(node));
+};
 
 const sortSkillsElements = () => {
   // todo: fix class into id
   let skillList = document.querySelectorAll(".skills > ul")[0];
   sortChildrenByText(skillList);
-}
-
+};
 
 const hideRawTextareaShowRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
   if (textarea.value) {
     textarea.textContent = textarea.value;
-    textContentWithRenderedMacros = replaceCaracModMacroByValue(textarea.textContent)
-    rendered = marked.parse(textContentWithRenderedMacros, {mangle: false, headerIds: false});
+    textContentWithRenderedMacros = replaceCaracModMacroByValue(
+      textarea.textContent
+    );
+    rendered = marked.parse(textContentWithRenderedMacros, {
+      mangle: false,
+      headerIds: false,
+    });
     neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
     textarea.classList.add(hiddenClass);
     neighbourDiv.classList.remove(hiddenClass);
@@ -152,36 +185,39 @@ const hideRawTextareaShowRenderedDiv = (id) => {
     textarea.classList.remove(hiddenClass);
     neighbourDiv.classList.add(hiddenClass);
   }
-}
+};
 
 const showRawTextareHideRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
   neighbourDiv = document.getElementById(`${id}-rendered`);
   textarea.classList.remove(hiddenClass);
-  textarea.focus({preventScroll: true});
+  textarea.focus({ preventScroll: true });
   neighbourDiv.classList.add(hiddenClass);
-}
+};
 
 caracs.forEach((carac) => {
   let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
-  caracScoreItem.addEventListener('change', () => {
+  caracScoreItem.addEventListener("change", () => {
     updateCaracScoreAndDependents(carac);
-  })
+  });
 
-  let caracSavingThrowProficiencyCheckbox = document.getElementsByName(`${carac}-save-prof`)[0];
-  caracSavingThrowProficiencyCheckbox.addEventListener('change', () => {
+  let caracSavingThrowProficiencyCheckbox = document.getElementsByName(
+    `${carac}-save-prof`
+  )[0];
+  caracSavingThrowProficiencyCheckbox.addEventListener("change", () => {
     updateCaracSavingThrowModifier(carac);
   });
 
   skillsByCarac[carac].forEach((skill) => {
-    let skillDashed = skill.replace(/ /g, '-')
-    let skillProficiencyCheckbox = document.getElementsByName(`${skillDashed}-prof`)[0];
-    skillProficiencyCheckbox.addEventListener('change', () => {
-      updateSkillModifier(carac, skill)
-    })
-  })
+    let skillDashed = skill.replace(/ /g, "-");
+    let skillProficiencyCheckbox = document.getElementsByName(
+      `${skillDashed}-prof`
+    )[0];
+    skillProficiencyCheckbox.addEventListener("change", () => {
+      updateSkillModifier(carac, skill);
+    });
+  });
 });
-
 
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
   let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
@@ -189,40 +225,60 @@ document.getElementsByName("classlevel")[0].addEventListener("change", () => {
   let bonus = formatBonus(proficiencyBonus(level));
   let proficiencyBonusInput = document.getElementsByName("proficiencybonus")[0];
   proficiencyBonusInput.value = bonus;
-  proficiencyBonusInput.dispatchEvent(new Event('change'));
+  proficiencyBonusInput.dispatchEvent(new Event("change"));
 });
 
-document.getElementsByName('proficiencybonus')[0].addEventListener('change', () => {
-  caracs.forEach((carac) => {
-    updateCaracSavingThrowModifier(carac);
-    skillsByCarac[carac].forEach((skill) => {
-      updateSkillModifier(carac, skill);
-    })
-  })
-});
+document
+  .getElementsByName("proficiencybonus")[0]
+  .addEventListener("change", () => {
+    caracs.forEach((carac) => {
+      updateCaracSavingThrowModifier(carac);
+      skillsByCarac[carac].forEach((skill) => {
+        updateSkillModifier(carac, skill);
+      });
+    });
+  });
 
-document.getElementById("spellcastingability-select").addEventListener('change', () => {
-  let spellcastingAbility = document.getElementById("spellcastingability-select").value;
-  let spellDc = 8 + getProficiencyBonus() + getCaracModifier(spellcastingAbility);
-  document.getElementById("spelldc").value = spellDc;
+document
+  .getElementById("spellcastingability-select")
+  .addEventListener("change", () => {
+    let spellcastingAbility = document.getElementById(
+      "spellcastingability-select"
+    ).value;
+    let spellDc =
+      8 + getProficiencyBonus() + getCaracModifier(spellcastingAbility);
+    document.getElementById("spelldc").value = spellDc;
 
-  updateSpellAttackBonus(spellcastingAbility);
-});
+    updateSpellAttackBonus(spellcastingAbility);
+  });
 
-document.getElementById("extraspellattackbonus").addEventListener('change', () => {
-  let spellcastingAbility = document.getElementById("spellcastingability-select").value;
-  let extraSpellAttackBonus = parseInt(document.getElementById("extraspellattackbonus").value || 0);
-  let totalSpellAttackBonus = getCaracModifier(spellcastingAbility) + extraSpellAttackBonus + getProficiencyBonus();
-  document.getElementById("totalspellattackbonus").value = formatBonus(totalSpellAttackBonus);
-});
+document
+  .getElementById("extraspellattackbonus")
+  .addEventListener("change", () => {
+    let spellcastingAbility = document.getElementById(
+      "spellcastingability-select"
+    ).value;
+    let extraSpellAttackBonus = parseInt(
+      document.getElementById("extraspellattackbonus").value || 0
+    );
+    let totalSpellAttackBonus =
+      getCaracModifier(spellcastingAbility) +
+      extraSpellAttackBonus +
+      getProficiencyBonus();
+    document.getElementById("totalspellattackbonus").value = formatBonus(
+      totalSpellAttackBonus
+    );
+  });
 
-document.querySelectorAll('div#spells input.bubble[type=checkbox]').forEach((node) => {
-  node.addEventListener("change", () => {
-    updateRemainingDailyPreparedSpells();
-  })
-});
+document
+  .querySelectorAll("div#spells input.bubble[type=checkbox]")
+  .forEach((node) => {
+    node.addEventListener("change", () => {
+      updateRemainingDailyPreparedSpells();
+    });
+  });
 
-document.onreadystatechange = function () {
+document.onreadystatechange = () => {
   if (document.readyState == "complete") {
     updateRemainingDailyPreparedSpells();
     sortSkillsElements();
@@ -241,4 +297,4 @@ document.onreadystatechange = function () {
         hideRawTextareaShowRenderedDiv(id);
       });
   }
-}
+};

@@ -2,8 +2,13 @@
   <header>
     <section class="spellcastingability">
       <label for="spellcastingability">{{ _("spellcasting_ability") }}</label>
-      <select id="spellcastingability-select" value="{{ character.data['spellcastingability'] }}">
-        <option value="Intelligence">{{ _("intelligence") | capitalize }}</option>
+      <select
+        id="spellcastingability-select"
+        value="{{ character.data['spellcastingability'] }}"
+      >
+        <option value="Intelligence">
+          {{ _("intelligence") | capitalize }}
+        </option>
         <option value="Wisdom">{{ _("wisdom") | capitalize }}</option>
         <option value="Charisma">{{ _("charisma") | capitalize }}</option>
       </select>

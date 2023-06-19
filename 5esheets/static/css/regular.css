@@ -36,7 +36,7 @@ textarea {
   height: 15em;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   cursor: pointer;
 }
 
@@ -86,7 +86,8 @@ form.charsheet header {
   align-items: stretch;
 }
 
-section.charname, section.spellcastingability {
+section.charname,
+section.spellcastingability {
   border: var(--box-border);
   border-right: 0;
   border-radius: var(--box-border-radius) 0 0 var(--box-border-radius);
@@ -100,14 +101,16 @@ section.charname, section.spellcastingability {
   margin: auto;
 }
 
-section.charname input, section.spellcastingability input {
+section.charname input,
+section.spellcastingability input {
   padding: 0.5em;
   margin: 5px;
   border: 0;
   background-color: inherit;
 }
 
-section.charname label, section.spellcastingability label {
+section.charname label,
+section.spellcastingability label {
   padding-left: 1em;
 }
 
@@ -152,7 +155,7 @@ div.box-label-container {
   text-align: center;
 }
 
-main>section {
+main > section {
   width: 32%;
   display: flex;
   flex-direction: column;
@@ -165,11 +168,11 @@ section.attributes {
   justify-content: space-between;
 }
 
-section.attributes>div:nth-child(1) {
+section.attributes > div:nth-child(1) {
   width: 30%;
 }
 
-section.attributes>div:nth-child(2) {
+section.attributes > div:nth-child(2) {
   width: 65%;
 }
 
@@ -220,7 +223,8 @@ section.attributes div.scores div.modifier input {
   text-align: center;
 }
 
-div.proficiencybonus, .large-checkbox {
+div.proficiencybonus,
+.large-checkbox {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
@@ -246,7 +250,7 @@ section.attributes li {
   align-items: center;
 }
 
-li.score-mod-with-prof>* {
+li.score-mod-with-prof > * {
   margin-left: 5px;
 }
 
@@ -254,7 +258,7 @@ li.score-mod-with-prof label span.skill {
   color: #bbb;
 }
 
-li.score-mod-with-prof input[type=text] {
+li.score-mod-with-prof input[type="text"] {
   width: 30px;
   font-size: 12px;
   text-align: center;
@@ -262,7 +266,7 @@ li.score-mod-with-prof input[type=text] {
   border-bottom: 1px solid black;
 }
 
-li.score-mod-with-prof input[type=checkbox] {
+li.score-mod-with-prof input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -278,7 +282,7 @@ section div.passive-perception {
   justify-content: flex-end;
 }
 
-form.charsheet main>section div.otherprofs textarea {
+form.charsheet main > section div.otherprofs textarea {
   height: 24em;
 }
 
@@ -293,29 +297,36 @@ section.combat {
   border-radius: 10px;
 }
 
-section.combat>div {
+section.combat > div {
   overflow: hidden;
 }
 
-div#combat-stats, div#hitdice-deathsaves {
+div#combat-stats,
+div#hitdice-deathsaves {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
 }
 
-div.armorclass>div, div.initiative>div, div.speed>div {
+div.armorclass > div,
+div.initiative > div,
+div.speed > div {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
 }
 
-div.armorclass label, div.initiative label, div.speed label {
+div.armorclass label,
+div.initiative label,
+div.speed label {
   font-size: var(--font-size-xs);
   width: 70%;
 }
 
-div.armorclass input, div.initiative input, div.speed input {
+div.armorclass input,
+div.initiative input,
+div.speed input {
   width: 85%;
   aspect-ratio: 1;
   border-radius: var(--box-border-radius);
@@ -353,12 +364,14 @@ div#current-temporary-hp {
   flex-direction: row;
 }
 
-div#current-hp, div#temporary-hp {
+div#current-hp,
+div#temporary-hp {
   display: flex;
   flex-direction: column-reverse;
 }
 
-div#current-hp input, div#temporary-hp input {
+div#current-hp input,
+div#temporary-hp input {
   border: 0;
   width: 100%;
   padding: 1em 0;
@@ -370,7 +383,8 @@ div#hitdice-deathsaves {
   justify-content: space-between;
 }
 
-div.hitdice, div.deathsaves {
+div.hitdice,
+div.deathsaves {
   width: 45%;
 }
 
@@ -420,13 +434,15 @@ div.deathsaves div.marks {
   justify-content: center;
 }
 
-div.deathsaves div.marks div.deathsuccesses, div.deathsaves div.marks div.deathfails {
+div.deathsaves div.marks div.deathsuccesses,
+div.deathsaves div.marks div.deathfails {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-div.deathsaves div.marks div.deathsuccesses label, div.deathsaves div.marks div.deathfails label {
+div.deathsaves div.marks div.deathsuccesses label,
+div.deathsaves div.marks div.deathfails label {
   font-size: var(--font-size-xs);
 }
 
@@ -437,7 +453,7 @@ div.deathsaves div.bubbles {
   justify-content: space-between;
 }
 
-input[type=checkbox].bubble {
+input[type="checkbox"].bubble {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -447,11 +463,11 @@ input[type=checkbox].bubble {
   border-radius: 10px;
 }
 
-input[type=checkbox]:checked {
+input[type="checkbox"]:checked {
   background-color: black;
 }
 
-section.attacksandspellcasting>div {
+section.attacksandspellcasting > div {
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -474,7 +490,7 @@ section.attacksandspellcasting table input {
   padding: 3px;
 }
 
-section.attacksandspellcasting>div textarea {
+section.attacksandspellcasting > div textarea {
   border: 0;
 }
 
@@ -501,13 +517,13 @@ section.equipment div.money ul {
   padding-bottom: 1em;
 }
 
-section.equipment div.money ul>li {
+section.equipment div.money ul > li {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-section.equipment div.money ul>li label {
+section.equipment div.money ul > li label {
   border: 1px solid black;
   border-radius: 4px;
   border-top: 0px;
@@ -517,7 +533,7 @@ section.equipment div.money ul>li label {
   padding: 3px 0;
 }
 
-section.equipment div.money ul>li input {
+section.equipment div.money ul > li input {
   border: 1px solid black;
   border-radius: 10px;
   width: 60%;
@@ -530,7 +546,7 @@ section.flavor div {
   display: flex;
   flex-direction: column-reverse;
   padding: 5px;
-  border: var(--box-border)
+  border: var(--box-border);
 }
 
 section.flavor textarea {
@@ -559,6 +575,7 @@ section.features div textarea {
 div.spell-list-column {
   width: 100%;
   flex-shrink: 0;
+  font-size: var(--font-size);
 }
 
 div.spells-header {
@@ -603,11 +620,13 @@ div.spells-slots-container {
   display: flex;
 }
 
-div.spells-slots-available, div.spells-slots-total {
+div.spells-slots-available,
+div.spells-slots-total {
   display: flex;
 }
 
-div.spells-slots-available input, div.spells-slots-total input {
+div.spells-slots-available input,
+div.spells-slots-total input {
   flex: 1;
   width: 49%;
   border: 0;
@@ -621,7 +640,7 @@ div.spells-slots-available input {
 header label {
   margin-top: 5px;
   padding-bottom: 5px;
-  color: gray
+  color: gray;
 }
 
 section.spellcastingability select {
@@ -631,7 +650,7 @@ section.spellcastingability select {
   border: 0;
 }
 
-input[name=charname] {
+input[name="charname"] {
   font-weight: bold;
   font-size: 0.95rem;
 }
@@ -651,7 +670,7 @@ input#remainingdailyspells {
   text-align: right;
 }
 
-header>h1 {
+header > h1 {
   text-align: center;
 }
 

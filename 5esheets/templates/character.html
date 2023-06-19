@@ -1,589 +1,1003 @@
 <div id="character">
-    <header>
-        <section class="charname">
-            <label for="charname">{{ _("character_name")}}</label><input name="charname" placeholder="Irene Wun Kmout"
-                value="{{ character.name }}" />
-        </section>
-        <section class="misc">
-            <ul>
-                <li>
-                    <label for="classlevel">{{ _("class_and_level" )}}</label>
-                    <input name="classlevel" value="{{ character._class }} {{ character.level }}" />
-                </li>
-                <li>
-                    <label for="background">{{ _("background") }}</label>
-                    <input name="background" placeholder="Acolyte" value="{{ character.data['background'] }}" />
-                </li>
-                <li>
-                    <label for="playername">{{ _("player_name") }}</label>
-                    <input name="playername" placeholder="Player McPlayerface"
-                        value="{{ character.data['playername'] }}">
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <label for="race">{{ _("race" )}}</label>
-                    <input name="race" placeholder="Half-elf" value="{{ character.data['race'] }}" />
-                </li>
-                <li>
-                    <label for="alignment">{{ _("alignment" )}}</label>
-                    <input name="alignment" placeholder="Lawful Good" value="{{ character.data['alignment'] }}" />
-                </li>
-                <li>
-                    <label for="experiencepoints">{{ _("experience_points" )}}</label>
-                    <input name="experiencepoints" value="{{ character.data['experiencepoints'] }}"
-                        placeholder="3240" />
-                </li>
-            </ul>
-        </section>
-    </header>
-    <main>
-        <section>
-            <section class="attributes">
-                <div class="scores">
-                    <ul>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Strengthscore">{{ _("strength_abbr") }}</label>
-                                <input name="Strengthscore" placeholder="10"
-                                    value="{{ character.data['Strengthscore'] }}" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Strengthmod" placeholder="+0"
-                                    value="{{ character.data['Strengthmod'] }}" />
-                            </div>
-                        </li>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Dexterityscore">{{ _("dexterity_abbr") }}</label>
-                                <input name="Dexterityscore" placeholder="10"
-                                    value="{{ character.data['Dexterityscore'] }}" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Dexteritymod" placeholder="+0"
-                                    value="{{ character.data['Dexteritymod'] }}" />
-                            </div>
-                        </li>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Constitutionscore">{{ _("constitution_abbr") }}</label>
-                                <input name="Constitutionscore" placeholder="10"
-                                    value="{{ character.data['Constitutionscore'] }}" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Constitutionmod" placeholder="+0"
-                                    value="{{ character.data['Constitutionmod'] }}" />
-                            </div>
-                        </li>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Intelligencescore">{{ _("intelligence_abbr") }}</label>
-                                <input name="Intelligencescore" value="{{ character.data['Intelligencescore'] }}"
-                                    placeholder="10" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Intelligencemod" placeholder="+0"
-                                    value="{{ character.data['Intelligencemod'] }}" />
-                            </div>
-                        </li>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Wisdomscore">{{ _("wisdom_abbr") }}</label>
-                                <input name="Wisdomscore" placeholder="10"
-                                    value="{{ character.data['Wisdomscore'] }}" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Wisdommod" placeholder="+0" value="{{ character.data['Wisdommod'] }}" />
-                            </div>
-                        </li>
-                        <li class="box roundedbox">
-                            <div class="score">
-                                <label class="carac" for="Charismascore">{{ _("charisma_abbr") }}</label>
-                                <input name="Charismascore" placeholder="10"
-                                    value="{{ character.data['Charismascore'] }}" />
-                            </div>
-                            <div class="modifier">
-                                <input name="Charismamod" placeholder="+0"
-                                    value="{{ character.data['Charismamod'] }}" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="attr-applications">
-                    <div class="inspiration large-checkbox">
-                        <div class="box-label-container">
-                            <label class="subtitle" for="inspiration">{{ _("inspiration") }}</label>
-                        </div>
-                        <input name="inspiration" type="checkbox" {% if character.data['inspiration'] %}checked{% endif
-                            %} />
-                    </div>
-                    <div class="darkvision large-checkbox">
-                        <div class="box-label-container">
-                            <label class="subtitle" for="darkvision">{{ _("darkvision") }}</label>
-                        </div>
-                        <input name="darkvision" type="checkbox" {% if character.data['darkvision'] %}checked{% endif
-                            %} />
-                    </div>
-                    <div class="proficiencybonus box">
-                        <div class="box-label-container">
-                            <label class="subtitle" for="proficiencybonus">{{ _("proficiency bonus") }}</label>
-                        </div>
-                        <input class="square-rounded" name="proficiencybonus" placeholder="+2"
-                            value="{{ character.data['proficiencybonus'] }}" />
-                    </div>
-                    <div class="saves box roundedbox">
-                        <ul>
-                            <li class="score-mod-with-prof">
-                                <input name="Strength-save-prof" type="checkbox" {% if
-                                    character.data['Strength-save-prof'] %}checked{% endif %} />
-                                <input name="Strength-save" placeholder="+0"
-                                    value="{{ character.data['Strength-save'] }}" type="text" />
-                                <label class="associated-carac" for="Strength-save">{{ _("strength") }}</label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Dexterity-save-prof" type="checkbox" {% if
-                                    character.data['Dexterity-save-prof'] %}checked{% endif %} />
-                                <input name="Dexterity-save" value="{{ character.data['Dexterity-save'] }}"
-                                    placeholder="+0" type="text" />
-                                <label class="associated-carac" for="Dexterity-save">{{ _("dexterity") }}</label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Constitution-save-prof" type="checkbox" {% if
-                                    character.data['Constitution-save-prof'] %}checked{% endif %} />
-                                <input name="Constitution-save" value="{{ character.data['Constitution-save'] }}"
-                                    placeholder="+0" type="text" />
-                                <label class="associated-carac" for="Constitution-save">{{ _("constitution") }}</label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Wisdom-save-prof" type="checkbox" {% if character.data['Wisdom-save-prof']
-                                    %}checked{% endif %} />
-                                <input name="Wisdom-save" placeholder="+0" value="{{ character.data['Wisdom-save'] }}"
-                                    type="text" />
-                                <label class="associated-carac" for="Wisdom-save">{{ _("wisdom") }}</label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Intelligence-save-prof" type="checkbox" {% if
-                                    character.data['Intelligence-save-prof'] %}checked{% endif %} />
-                                <input name="Intelligence-save" value="{{ character.data['Intelligence-save'] }}"
-                                    placeholder="+0" type="text" />
-                                <label class="associated-carac" for="Intelligence-save">{{ _("intelligence") }}</label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Charisma-save-prof" type="checkbox" {% if
-                                    character.data['Charisma-save-prof'] %}checked{% endif %} />
-                                <input name="Charisma-save" placeholder="+0"
-                                    value="{{ character.data['Charisma-save'] }}" type="text" />
-                                <label class="associated-carac" for="Charisma-save">{{ _("charisma") }}</label>
-                            </li>
-                        </ul>
-                        <div class="box-subtitle">
-                            <label class="subtitle">{{ _("saving_throws") }}</label>
-                        </div>
-                    </div>
-                    <div class="skills box roundedbox">
-                        <ul>
-                            <li class="score-mod-with-prof">
-                                <input name="Acrobatics-prof" type="checkbox" {% if character.data['Acrobatics-prof']
-                                    %}checked{% endif %} />
-                                <input name="Acrobatics" placeholder="+0" type="text"
-                                    value="{{ character.data['Acrobatics'] }}" />
-                                <label class="associated-carac" for="Acrobatics">{{ _("acrobatics") }} <span
-                                        class="skill">({{ _("dexterity_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Animal-Handling-prof" type="checkbox" {% if
-                                    character.data['Animal-Handling-prof'] %}checked{% endif %} />
-                                <input name="Animal Handling" placeholder="+0" type="text"
-                                    value="{{ character.data['Animal Handling'] }}" />
-                                <label class="associated-carac" for="Animal Handling">{{ _("animal_handling") }} <span
-                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Arcana-prof" type="checkbox" {% if character.data['Arcana-prof']
-                                    %}checked{% endif %} />
-                                <input name="Arcana" placeholder="+0" type="text"
-                                    value="{{ character.data['Arcana'] }}" />
-                                <label class="associated-carac" for="Arcana">{{ _("arcana") }} <span class="skill">({{
-                                        _("intelligence_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Athletics-prof" type="checkbox" {% if character.data['Athletics-prof']
-                                    %}checked{% endif %} />
-                                <input name="Athletics" placeholder="+0" type="text"
-                                    value="{{ character.data['Athletics'] }}" />
-                                <label class="associated-carac" for="Athletics">{{ _("athletics") }} <span
-                                        class="skill">({{ _("strength_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Deception-prof" type="checkbox" {% if character.data['Deception-prof']
-                                    %}checked{% endif %} />
-                                <input name="Deception" placeholder="+0" type="text"
-                                    value="{{ character.data['Deception'] }}" />
-                                <label class="associated-carac" for="Deception">{{ _("deception") }} <span
-                                        class="skill">({{ _("charisma_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="History-prof" type="checkbox" {% if character.data['History-prof']
-                                    %}checked{% endif %} />
-                                <input name="History" placeholder="+0" type="text"
-                                    value="{{ character.data['History'] }}" />
-                                <label class="associated-carac" for="History">{{ _("history") }} <span class="skill">({{
-                                        _("intelligence_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Insight-prof" type="checkbox" {% if character.data['Insight-prof']
-                                    %}checked{% endif %} />
-                                <input name="Insight" placeholder="+0" type="text"
-                                    value="{{ character.data['Insight'] }}" />
-                                <label class="associated-carac" for="Insight">{{ _("insight") }} <span class="skill">({{
-                                        _("wisdom_abbr")
-                                        }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Intimidation-prof" type="checkbox" {% if
-                                    character.data['Intimidation-prof'] %}checked{% endif %} />
-                                <input name="Intimidation" placeholder="+0" type="text"
-                                    value="{{ character.data['Intimidation'] }}" />
-                                <label class="associated-carac" for="Intimidation">{{ _("intimidation") }} <span
-                                        class="skill">({{ _("charisma_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Investigation-prof" type="checkbox" {% if
-                                    character.data['Investigation-prof'] %}checked{% endif %} />
-                                <input name="Investigation" placeholder="+0" type="text"
-                                    value="{{ character.data['Investigation'] }}" />
-                                <label class="associated-carac" for="Investigation">{{ _("investigation") }} <span
-                                        class="skill">({{ _("intelligence_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Medicine-prof" type="checkbox" {% if character.data['Medicine-prof']
-                                    %}checked{% endif %} />
-                                <input name="Medicine" placeholder="+0" type="text"
-                                    value="{{ character.data['Medicine'] }}" />
-                                <label class="associated-carac" for="Medicine">{{ _("medicine") }} <span
-                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Nature-prof" type="checkbox" {% if character.data['Nature-prof']
-                                    %}checked{% endif %} />
-                                <input name="Nature" placeholder="+0" type="text"
-                                    value="{{ character.data['Nature'] }}" />
-                                <label class="associated-carac" for="Nature">{{ _("nature") }} <span class="skill">({{
-                                        _("intelligence_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Perception-prof" type="checkbox" {% if character.data['Perception-prof']
-                                    %}checked{% endif %} />
-                                <input name="Perception" placeholder="+0" type="text"
-                                    value="{{ character.data['Perception'] }}" />
-                                <label class="associated-carac" for="Perception">{{ _("perception") }} <span
-                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Performance-prof" type="checkbox" {% if character.data['Performance-prof']
-                                    %}checked{% endif %} />
-                                <input name="Performance" placeholder="+0" type="text"
-                                    value="{{ character.data['Performance'] }}" />
-                                <label class="associated-carac" for="Performance">{{ _("performance") }} <span
-                                        class="skill">({{ _("charisma_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Persuasion-prof" type="checkbox" {% if character.data['Persuasion-prof']
-                                    %}checked{% endif %} />
-                                <input name="Persuasion" placeholder="+0" type="text"
-                                    value="{{ character.data['Persuasion'] }}" />
-                                <label class="associated-carac" for="Persuasion">{{ _("persuasion") }} <span
-                                        class="skill">({{ _("charisma_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Religion-prof" type="checkbox" {% if character.data['Religion-prof']
-                                    %}checked{% endif %} />
-                                <input name="Religion" placeholder="+0" type="text"
-                                    value="{{ character.data['Religion'] }}" />
-                                <label class="associated-carac" for="Religion">{{ _("religion") }} <span
-                                        class="skill">({{ _("intelligence_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Sleight-of-Hand-prof" type="checkbox" {% if
-                                    character.data['Sleight-of-Hand-prof'] %}checked{% endif %} />
-                                <input name="Sleight of Hand" placeholder="+0" type="text"
-                                    value="{{ character.data['Sleight of Hand'] }}" />
-                                <label class="associated-carac" for="Sleight of Hand">{{ _("sleight_of_hand") }} <span
-                                        class="skill">({{ _("dexterity_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Stealth-prof" type="checkbox" {% if character.data['Stealth-prof']
-                                    %}checked{% endif %} />
-                                <input name="Stealth" placeholder="+0" type="text"
-                                    value="{{ character.data['Stealth'] }}" />
-                                <label class="associated-carac" for="Stealth">{{ _("stealth") }} <span class="skill">({{
-                                        _("dexterity_abbr") }})</span></label>
-                            </li>
-                            <li class="score-mod-with-prof">
-                                <input name="Survival-prof" type="checkbox" {% if character.data['Survival-prof']
-                                    %}checked{% endif %} />
-                                <input name="Survival" placeholder="+0" type="text"
-                                    value="{{ character.data['Survival'] }}" />
-                                <label class="associated-carac" for="Survival">{{ _("survival") }} <span
-                                        class="skill">({{ _("wisdom_abbr") }})</span></label>
-                            </li>
-                        </ul>
-                        <div class="box-subtitle">
-                            <label class="subtitle">{{ _("skills") }}</label>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <div class="passive-perception box">
-                <div class="box-label-container">
-                    <label class="subtitle" for="passiveperception">{{ _("passive_perception") }}</label>
-                </div>
-                <input class="square-rounded" name="passiveperception" placeholder="10"
-                    value="{{ character.data['passiveperception'] }}" />
+  <header>
+    <section class="charname">
+      <label for="charname">{{ _("character_name")}}</label
+      ><input
+        name="charname"
+        placeholder="Irene Wun Kmout"
+        value="{{ character.name }}"
+      />
+    </section>
+    <section class="misc">
+      <ul>
+        <li>
+          <label for="classlevel">{{ _("class_and_level" )}}</label>
+          <input
+            name="classlevel"
+            value="{{ character._class }} {{ character.level }}"
+          />
+        </li>
+        <li>
+          <label for="background">{{ _("background") }}</label>
+          <input
+            name="background"
+            placeholder="Acolyte"
+            value="{{ character.data['background'] }}"
+          />
+        </li>
+        <li>
+          <label for="playername">{{ _("player_name") }}</label>
+          <input
+            name="playername"
+            placeholder="Player McPlayerface"
+            value="{{ character.data['playername'] }}"
+          />
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <label for="race">{{ _("race" )}}</label>
+          <input
+            name="race"
+            placeholder="Half-elf"
+            value="{{ character.data['race'] }}"
+          />
+        </li>
+        <li>
+          <label for="alignment">{{ _("alignment" )}}</label>
+          <input
+            name="alignment"
+            placeholder="Lawful Good"
+            value="{{ character.data['alignment'] }}"
+          />
+        </li>
+        <li>
+          <label for="experiencepoints">{{ _("experience_points" )}}</label>
+          <input
+            name="experiencepoints"
+            value="{{ character.data['experiencepoints'] }}"
+            placeholder="3240"
+          />
+        </li>
+      </ul>
+    </section>
+  </header>
+  <main>
+    <section>
+      <section class="attributes">
+        <div class="scores">
+          <ul>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Strengthscore"
+                  >{{ _("strength_abbr") }}</label
+                >
+                <input
+                  name="Strengthscore"
+                  placeholder="10"
+                  value="{{ character.data['Strengthscore'] }}"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Strengthmod"
+                  placeholder="+0"
+                  value="{{ character.data['Strengthmod'] }}"
+                />
+              </div>
+            </li>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Dexterityscore"
+                  >{{ _("dexterity_abbr") }}</label
+                >
+                <input
+                  name="Dexterityscore"
+                  placeholder="10"
+                  value="{{ character.data['Dexterityscore'] }}"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Dexteritymod"
+                  placeholder="+0"
+                  value="{{ character.data['Dexteritymod'] }}"
+                />
+              </div>
+            </li>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Constitutionscore"
+                  >{{ _("constitution_abbr") }}</label
+                >
+                <input
+                  name="Constitutionscore"
+                  placeholder="10"
+                  value="{{ character.data['Constitutionscore'] }}"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Constitutionmod"
+                  placeholder="+0"
+                  value="{{ character.data['Constitutionmod'] }}"
+                />
+              </div>
+            </li>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Intelligencescore"
+                  >{{ _("intelligence_abbr") }}</label
+                >
+                <input
+                  name="Intelligencescore"
+                  value="{{ character.data['Intelligencescore'] }}"
+                  placeholder="10"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Intelligencemod"
+                  placeholder="+0"
+                  value="{{ character.data['Intelligencemod'] }}"
+                />
+              </div>
+            </li>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Wisdomscore"
+                  >{{ _("wisdom_abbr") }}</label
+                >
+                <input
+                  name="Wisdomscore"
+                  placeholder="10"
+                  value="{{ character.data['Wisdomscore'] }}"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Wisdommod"
+                  placeholder="+0"
+                  value="{{ character.data['Wisdommod'] }}"
+                />
+              </div>
+            </li>
+            <li class="box roundedbox">
+              <div class="score">
+                <label class="carac" for="Charismascore"
+                  >{{ _("charisma_abbr") }}</label
+                >
+                <input
+                  name="Charismascore"
+                  placeholder="10"
+                  value="{{ character.data['Charismascore'] }}"
+                />
+              </div>
+              <div class="modifier">
+                <input
+                  name="Charismamod"
+                  placeholder="+0"
+                  value="{{ character.data['Charismamod'] }}"
+                />
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="attr-applications">
+          <div class="inspiration large-checkbox">
+            <div class="box-label-container">
+              <label class="subtitle" for="inspiration"
+                >{{ _("inspiration") }}</label
+              >
             </div>
-            <div class="otherprofs box roundedbox box-textarea">
-                <div class="box-subtitle">
-                    <label class="subtitle" for="otherprofs">{{ _("other_proficiencies_and_languages") }}</label>
-                </div>
-                <textarea id="otherprofs-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('otherprofs')"
-                    name="otherprofs">{{ character.data['otherprofs'] }}</textarea>
-                <div class="markdown-rendered" id="otherprofs-rendered"
-                    onclick="showRawTextareHideRenderedDiv('otherprofs')"></div>
+            <input name="inspiration" type="checkbox" {% if
+            character.data['inspiration'] %}checked{% endif %} />
+          </div>
+          <div class="darkvision large-checkbox">
+            <div class="box-label-container">
+              <label class="subtitle" for="darkvision"
+                >{{ _("darkvision") }}</label
+              >
             </div>
-        </section>
-        <section id="combatcol">
-            <section class="combat">
-                <div id="combat-stats">
-                    <div class="armorclass">
-                        <div class="box">
-                            <label class="subtitle roundedbox-bottom-only no-top-border" for="ac">{{ _("armor_class")
-                                }}</label>
-                            <input name="ac" placeholder="10" type="text" value="{{ character.data['ac']}}" />
-                        </div>
-                    </div>
-                    <div class="initiative">
-                        <div class="box">
-                            <label class="subtitle roundedbox-bottom-only no-top-border" for="initiative">{{
-                                _("initiative") }}</label>
-                            <input name="initiative" placeholder="+0" type="text"
-                                value="{{ character.data['initiative'] }}" />
-                        </div>
-                    </div>
-                    <div class="speed">
-                        <div class="box">
-                            <label class="subtitle roundedbox-bottom-only no-top-border" for="speed">{{ _("speed")
-                                }}</label>
-                            <input name="speed" placeholder="30" type="text" value="{{ character.data['speed'] }}" />
-                        </div>
-                    </div>
+            <input name="darkvision" type="checkbox" {% if
+            character.data['darkvision'] %}checked{% endif %} />
+          </div>
+          <div class="proficiencybonus box">
+            <div class="box-label-container">
+              <label class="subtitle" for="proficiencybonus"
+                >{{ _("proficiency bonus") }}</label
+              >
+            </div>
+            <input
+              class="square-rounded"
+              name="proficiencybonus"
+              placeholder="+2"
+              value="{{ character.data['proficiencybonus'] }}"
+            />
+          </div>
+          <div class="saves box roundedbox">
+            <ul>
+              <li class="score-mod-with-prof">
+                <input name="Strength-save-prof" type="checkbox" {% if
+                character.data['Strength-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Strength-save"
+                  placeholder="+0"
+                  value="{{ character.data['Strength-save'] }}"
+                  type="text"
+                />
+                <label class="associated-carac" for="Strength-save"
+                  >{{ _("strength") }}</label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Dexterity-save-prof" type="checkbox" {% if
+                character.data['Dexterity-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Dexterity-save"
+                  value="{{ character.data['Dexterity-save'] }}"
+                  placeholder="+0"
+                  type="text"
+                />
+                <label class="associated-carac" for="Dexterity-save"
+                  >{{ _("dexterity") }}</label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Constitution-save-prof" type="checkbox" {% if
+                character.data['Constitution-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Constitution-save"
+                  value="{{ character.data['Constitution-save'] }}"
+                  placeholder="+0"
+                  type="text"
+                />
+                <label class="associated-carac" for="Constitution-save"
+                  >{{ _("constitution") }}</label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Wisdom-save-prof" type="checkbox" {% if
+                character.data['Wisdom-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Wisdom-save"
+                  placeholder="+0"
+                  value="{{ character.data['Wisdom-save'] }}"
+                  type="text"
+                />
+                <label class="associated-carac" for="Wisdom-save"
+                  >{{ _("wisdom") }}</label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Intelligence-save-prof" type="checkbox" {% if
+                character.data['Intelligence-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Intelligence-save"
+                  value="{{ character.data['Intelligence-save'] }}"
+                  placeholder="+0"
+                  type="text"
+                />
+                <label class="associated-carac" for="Intelligence-save"
+                  >{{ _("intelligence") }}</label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Charisma-save-prof" type="checkbox" {% if
+                character.data['Charisma-save-prof'] %}checked{% endif %} />
+                <input
+                  name="Charisma-save"
+                  placeholder="+0"
+                  value="{{ character.data['Charisma-save'] }}"
+                  type="text"
+                />
+                <label class="associated-carac" for="Charisma-save"
+                  >{{ _("charisma") }}</label
+                >
+              </li>
+            </ul>
+            <div class="box-subtitle">
+              <label class="subtitle">{{ _("saving_throws") }}</label>
+            </div>
+          </div>
+          <div class="skills box roundedbox">
+            <ul>
+              <li class="score-mod-with-prof">
+                <input name="Acrobatics-prof" type="checkbox" {% if
+                character.data['Acrobatics-prof'] %}checked{% endif %} />
+                <input
+                  name="Acrobatics"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Acrobatics'] }}"
+                />
+                <label class="associated-carac" for="Acrobatics"
+                  >{{ _("acrobatics") }}
+                  <span class="skill">({{ _("dexterity_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Animal-Handling-prof" type="checkbox" {% if
+                character.data['Animal-Handling-prof'] %}checked{% endif %} />
+                <input
+                  name="Animal Handling"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Animal Handling'] }}"
+                />
+                <label class="associated-carac" for="Animal Handling"
+                  >{{ _("animal_handling") }}
+                  <span class="skill">({{ _("wisdom_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Arcana-prof" type="checkbox" {% if
+                character.data['Arcana-prof'] %}checked{% endif %} />
+                <input
+                  name="Arcana"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Arcana'] }}"
+                />
+                <label class="associated-carac" for="Arcana"
+                  >{{ _("arcana") }}
+                  <span class="skill"
+                    >({{ _("intelligence_abbr") }})</span
+                  ></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Athletics-prof" type="checkbox" {% if
+                character.data['Athletics-prof'] %}checked{% endif %} />
+                <input
+                  name="Athletics"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Athletics'] }}"
+                />
+                <label class="associated-carac" for="Athletics"
+                  >{{ _("athletics") }}
+                  <span class="skill">({{ _("strength_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Deception-prof" type="checkbox" {% if
+                character.data['Deception-prof'] %}checked{% endif %} />
+                <input
+                  name="Deception"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Deception'] }}"
+                />
+                <label class="associated-carac" for="Deception"
+                  >{{ _("deception") }}
+                  <span class="skill">({{ _("charisma_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="History-prof" type="checkbox" {% if
+                character.data['History-prof'] %}checked{% endif %} />
+                <input
+                  name="History"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['History'] }}"
+                />
+                <label class="associated-carac" for="History"
+                  >{{ _("history") }}
+                  <span class="skill"
+                    >({{ _("intelligence_abbr") }})</span
+                  ></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Insight-prof" type="checkbox" {% if
+                character.data['Insight-prof'] %}checked{% endif %} />
+                <input
+                  name="Insight"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Insight'] }}"
+                />
+                <label class="associated-carac" for="Insight"
+                  >{{ _("insight") }}
+                  <span class="skill">({{ _("wisdom_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Intimidation-prof" type="checkbox" {% if
+                character.data['Intimidation-prof'] %}checked{% endif %} />
+                <input
+                  name="Intimidation"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Intimidation'] }}"
+                />
+                <label class="associated-carac" for="Intimidation"
+                  >{{ _("intimidation") }}
+                  <span class="skill">({{ _("charisma_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Investigation-prof" type="checkbox" {% if
+                character.data['Investigation-prof'] %}checked{% endif %} />
+                <input
+                  name="Investigation"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Investigation'] }}"
+                />
+                <label class="associated-carac" for="Investigation"
+                  >{{ _("investigation") }}
+                  <span class="skill"
+                    >({{ _("intelligence_abbr") }})</span
+                  ></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Medicine-prof" type="checkbox" {% if
+                character.data['Medicine-prof'] %}checked{% endif %} />
+                <input
+                  name="Medicine"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Medicine'] }}"
+                />
+                <label class="associated-carac" for="Medicine"
+                  >{{ _("medicine") }}
+                  <span class="skill">({{ _("wisdom_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Nature-prof" type="checkbox" {% if
+                character.data['Nature-prof'] %}checked{% endif %} />
+                <input
+                  name="Nature"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Nature'] }}"
+                />
+                <label class="associated-carac" for="Nature"
+                  >{{ _("nature") }}
+                  <span class="skill"
+                    >({{ _("intelligence_abbr") }})</span
+                  ></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Perception-prof" type="checkbox" {% if
+                character.data['Perception-prof'] %}checked{% endif %} />
+                <input
+                  name="Perception"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Perception'] }}"
+                />
+                <label class="associated-carac" for="Perception"
+                  >{{ _("perception") }}
+                  <span class="skill">({{ _("wisdom_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Performance-prof" type="checkbox" {% if
+                character.data['Performance-prof'] %}checked{% endif %} />
+                <input
+                  name="Performance"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Performance'] }}"
+                />
+                <label class="associated-carac" for="Performance"
+                  >{{ _("performance") }}
+                  <span class="skill">({{ _("charisma_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Persuasion-prof" type="checkbox" {% if
+                character.data['Persuasion-prof'] %}checked{% endif %} />
+                <input
+                  name="Persuasion"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Persuasion'] }}"
+                />
+                <label class="associated-carac" for="Persuasion"
+                  >{{ _("persuasion") }}
+                  <span class="skill">({{ _("charisma_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Religion-prof" type="checkbox" {% if
+                character.data['Religion-prof'] %}checked{% endif %} />
+                <input
+                  name="Religion"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Religion'] }}"
+                />
+                <label class="associated-carac" for="Religion"
+                  >{{ _("religion") }}
+                  <span class="skill"
+                    >({{ _("intelligence_abbr") }})</span
+                  ></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Sleight-of-Hand-prof" type="checkbox" {% if
+                character.data['Sleight-of-Hand-prof'] %}checked{% endif %} />
+                <input
+                  name="Sleight of Hand"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Sleight of Hand'] }}"
+                />
+                <label class="associated-carac" for="Sleight of Hand"
+                  >{{ _("sleight_of_hand") }}
+                  <span class="skill">({{ _("dexterity_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Stealth-prof" type="checkbox" {% if
+                character.data['Stealth-prof'] %}checked{% endif %} />
+                <input
+                  name="Stealth"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Stealth'] }}"
+                />
+                <label class="associated-carac" for="Stealth"
+                  >{{ _("stealth") }}
+                  <span class="skill">({{ _("dexterity_abbr") }})</span></label
+                >
+              </li>
+              <li class="score-mod-with-prof">
+                <input name="Survival-prof" type="checkbox" {% if
+                character.data['Survival-prof'] %}checked{% endif %} />
+                <input
+                  name="Survival"
+                  placeholder="+0"
+                  type="text"
+                  value="{{ character.data['Survival'] }}"
+                />
+                <label class="associated-carac" for="Survival"
+                  >{{ _("survival") }}
+                  <span class="skill">({{ _("wisdom_abbr") }})</span></label
+                >
+              </li>
+            </ul>
+            <div class="box-subtitle">
+              <label class="subtitle">{{ _("skills") }}</label>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="passive-perception box">
+        <div class="box-label-container">
+          <label class="subtitle" for="passiveperception"
+            >{{ _("passive_perception") }}</label
+          >
+        </div>
+        <input
+          class="square-rounded"
+          name="passiveperception"
+          placeholder="10"
+          value="{{ character.data['passiveperception'] }}"
+        />
+      </div>
+      <div class="otherprofs box roundedbox box-textarea">
+        <div class="box-subtitle">
+          <label class="subtitle" for="otherprofs"
+            >{{ _("other_proficiencies_and_languages") }}</label
+          >
+        </div>
+        <textarea
+          id="otherprofs-raw"
+          class="hidden"
+          onfocusout="hideRawTextareaShowRenderedDiv('otherprofs')"
+          name="otherprofs"
+        >
+{{ character.data['otherprofs'] }}</textarea
+        >
+        <div
+          class="markdown-rendered"
+          id="otherprofs-rendered"
+          onclick="showRawTextareHideRenderedDiv('otherprofs')"
+        ></div>
+      </div>
+    </section>
+    <section id="combatcol">
+      <section class="combat">
+        <div id="combat-stats">
+          <div class="armorclass">
+            <div class="box">
+              <label
+                class="subtitle roundedbox-bottom-only no-top-border"
+                for="ac"
+                >{{ _("armor_class") }}</label
+              >
+              <input
+                name="ac"
+                placeholder="10"
+                type="text"
+                value="{{ character.data['ac']}}"
+              />
+            </div>
+          </div>
+          <div class="initiative">
+            <div class="box">
+              <label
+                class="subtitle roundedbox-bottom-only no-top-border"
+                for="initiative"
+                >{{ _("initiative") }}</label
+              >
+              <input
+                name="initiative"
+                placeholder="+0"
+                type="text"
+                value="{{ character.data['initiative'] }}"
+              />
+            </div>
+          </div>
+          <div class="speed">
+            <div class="box">
+              <label
+                class="subtitle roundedbox-bottom-only no-top-border"
+                for="speed"
+                >{{ _("speed") }}</label
+              >
+              <input
+                name="speed"
+                placeholder="30"
+                type="text"
+                value="{{ character.data['speed'] }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="hp">
+          <div class="box roundedbox">
+            <div class="max">
+              <label class="subtitle" for="maxhp"
+                >{{ _("hit_point_maximum") }}</label
+              >
+              <input
+                name="maxhp"
+                placeholder="10"
+                type="text"
+                value="{{ character.data['maxhp'] }}"
+              />
+            </div>
+            <div id="current-temporary-hp">
+              <div id="temporary-hp">
+                <label class="subtitle" for="temphp"
+                  >{{ _("temporary_hit_points") }}</label
+                ><input
+                  name="temphp"
+                  type="text"
+                  value="{{ character.data['temphp'] }}"
+                />
+              </div>
+              <div id="current-hp">
+                <label class="subtitle" for="currenthp"
+                  >{{ _("current_hit_points") }}</label
+                >
+                <input
+                  name="currenthp"
+                  type="text"
+                  value="{{ character.data['currenthp'] }}"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="hitdice-deathsaves">
+          <div class="hitdice box roundedbox">
+            <div class="total">
+              <label for="totalhd">{{ _("total") }}</label>
+              <input
+                name="totalhd"
+                placeholder="2d10"
+                type="text"
+                value="{{ character.data['totalhd'] }}"
+              />
+            </div>
+            <div class="remaining">
+              <label class="subtitle" for="remaininghd"
+                >{{ _("hit_dice") }}</label
+              >
+              <input
+                name="remaininghd"
+                type="text"
+                value="{{ character.data['remaininghd'] }}"
+              />
+            </div>
+          </div>
+          <div class="deathsaves box roundedbox">
+            <label class="subtitle">{{ _("death_saves") }}</label>
+            <div class="marks">
+              <div class="deathsuccesses">
+                <label>{{ _("successes") }}</label>
+                <div class="bubbles">
+                  <input class="bubble" name="deathsuccess1" type="checkbox" {%
+                  if character.data['deathsuccess1'] %}checked{% endif %} />
+                  <input class="bubble" name="deathsuccess2" type="checkbox" {%
+                  if character.data['deathsuccess2'] %}checked{% endif %} />
+                  <input class="bubble" name="deathsuccess3" type="checkbox" {%
+                  if character.data['deathsuccess3'] %}checked{% endif %} />
                 </div>
-                <div class="hp">
-                    <div class="box roundedbox">
-                        <div class="max">
-                            <label class="subtitle" for="maxhp">{{
-                                _("hit_point_maximum") }}</label>
-                            <input name="maxhp" placeholder="10" type="text" value="{{ character.data['maxhp'] }}" />
-                        </div>
-                        <div id="current-temporary-hp">
-                            <div id="temporary-hp">
-                                <label class="subtitle" for="temphp">{{ _("temporary_hit_points") }}</label><input
-                                    name="temphp" type="text" value="{{ character.data['temphp'] }}" />
-                            </div>
-                            <div id="current-hp">
-                                <label class="subtitle" for="currenthp">{{
-                                    _("current_hit_points") }}</label>
-                                <input name="currenthp" type="text" value="{{ character.data['currenthp'] }}" />
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="deathfails">
+                <label class="subtitle">{{ _("failures") }}</label>
+                <div class="bubbles">
+                  <input class="bubble" name="deathfail1" type="checkbox" {% if
+                  character.data['deathfail1'] %}checked{% endif %} /> <input
+                  class="bubble" name="deathfail2" type="checkbox" {% if
+                  character.data['deathfail2'] %}checked{% endif %} /> <input
+                  class="bubble" name="deathfail3" type="checkbox" {% if
+                  character.data['deathfail3'] %}checked{% endif %} />
                 </div>
-                <div id="hitdice-deathsaves">
-                    <div class="hitdice box roundedbox">
-                        <div class="total">
-                            <label for="totalhd">{{ _("total") }}</label>
-                            <input name="totalhd" placeholder="2d10" type="text"
-                                value="{{ character.data['totalhd'] }}" />
-                        </div>
-                        <div class="remaining">
-                            <label class="subtitle" for="remaininghd">{{ _("hit_dice") }}</label>
-                            <input name="remaininghd" type="text" value="{{ character.data['remaininghd'] }}" />
-                        </div>
-                    </div>
-                    <div class="deathsaves box roundedbox">
-                        <label class="subtitle">{{ _("death_saves") }}</label>
-                        <div class="marks">
-                            <div class="deathsuccesses">
-                                <label>{{ _("successes") }}</label>
-                                <div class="bubbles">
-                                    <input class="bubble" name="deathsuccess1" type="checkbox" {% if
-                                        character.data['deathsuccess1'] %}checked{% endif %} />
-                                    <input class="bubble" name="deathsuccess2" type="checkbox" {% if
-                                        character.data['deathsuccess2'] %}checked{% endif %} />
-                                    <input class="bubble" name="deathsuccess3" type="checkbox" {% if
-                                        character.data['deathsuccess3'] %}checked{% endif %} />
-                                </div>
-                            </div>
-                            <div class="deathfails">
-                                <label class="subtitle">{{ _("failures") }}</label>
-                                <div class="bubbles">
-                                    <input class="bubble" name="deathfail1" type="checkbox" {% if
-                                        character.data['deathfail1'] %}checked{% endif %} />
-                                    <input class="bubble" name="deathfail2" type="checkbox" {% if
-                                        character.data['deathfail2'] %}checked{% endif %} />
-                                    <input class="bubble" name="deathfail3" type="checkbox" {% if
-                                        character.data['deathfail3'] %}checked{% endif %} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </section>
-            <section id="custom-resources" class="box roundedbox">
-                <div class="custom-resource" id="custom-1">
-                    <input class="custom-resource-header" name="custom-1-header" type="text"
-                        value="{{ character.data['custom-1-header'] }}" placeholder="Resource 1" />
-                    <div class="custom-resources-inputs">
-                        <input name="custom-1-remaining" type="text"
-                            value="{{ character.data['custom-1-remaining'] }}" />/<input name="custom-1-available"
-                            type="text" value="{{ character.data['custom-1-available'] }}" />
-                    </div>
-                </div>
-                <div class="custom-resource" id="custom-2">
-                    <input class="custom-resource-header" name="custom-2-header" type="text"
-                        value="{{ character.data['custom-2-header'] }}" placeholder="Resource 2" />
-                    <div class="custom-resources-inputs">
-                        <input name="custom-2-remaining" type="text"
-                            value="{{ character.data['custom-2-remaining'] }}" />/<input name="custom-2-available"
-                            type="text" value="{{ character.data['custom-2-available'] }}" />
-                    </div>
-                </div>
-                <div class="custom-resource" id="custom-3">
-                    <input class="custom-resource-header" name="custom-3-header" type="text"
-                        value="{{ character.data['custom-3-header'] }}" placeholder="Resource 3" />
-                    <div class="custom-resources-inputs">
-                        <input name="custom-3-remaining" type="text"
-                            value="{{ character.data['custom-3-remaining'] }}" />/<input name="custom-3-available"
-                            type="text" value="{{ character.data['custom-3-available'] }}" />
-                    </div>
-                </div>
-            </section>
-            <section class="attacksandspellcasting box roundedbox">
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>{{ _("name") }}</th>
-                                <th>{{ _("atk_bonus") }}</th>
-                                <th>{{ _("damage/type") }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input name="atkname1" type="text" value="{{ character.data['atkname1'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkbonus1" type="text" value="{{ character.data['atkbonus1'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkdamage1" type="text" value="{{ character.data['atkdamage1'] }}" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input name="atkname2" type="text" value="{{ character.data['atkname2'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkbonus2" type="text" value="{{ character.data['atkbonus2'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkdamage2" type="text" value="{{ character.data['atkdamage2'] }}" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input name="atkname3" type="text" value="{{ character.data['atkname3'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkbonus3" type="text" value="{{ character.data['atkbonus3'] }}" />
-                                </td>
-                                <td>
-                                    <input name="atkdamage3" type="text" value="{{ character.data['atkdamage3'] }}" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="box-subtitle">
-                        <label class="subtitle">{{ _("attacks") }}</label>
-                    </div>
-                </div>
-            </section>
-            <section class="equipment box roundedbox box-textarea">
-                <div>
-                    <textarea id="equipment-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('equipment')"
-                        placeholder="Equipment list here" name="equipment">{{ character.data['equipment'] }}</textarea>
-                    <div class="markdown-rendered" id="equipment-rendered"
-                        onclick="showRawTextareHideRenderedDiv('equipment')"></div>
-                    <div class="money">
-                        <ul>
-                            <li class="coin-type">
-                                <input placeholder="0" name="cp" value="{{ character.data['cp'] }}" /><label for="cp">{{
-                                    _("cp") }}</label>
-                            </li>
-                            <li class="coin-type">
-                                <input placeholder="0" name="sp" value="{{ character.data['sp'] }}" /><label for="sp">{{
-                                    _("sp") }}</label>
-                            </li>
-                            <li class="coin-type">
-                                <input placeholder="0" name="ep" value="{{ character.data['ep'] }}" /><label for="ep">{{
-                                    _("ep") }}</label>
-                            </li>
-                            <li class="coin-type">
-                                <input placeholder="0" name="gp" value="{{ character.data['gp'] }}" /><label for="gp">{{
-                                    _("gp") }}</label>
-                            </li>
-                            <li class="coin-type">
-                                <input placeholder="0" name="pp" value="{{ character.data['pp'] }}" /><label for="pp">{{
-                                    _("pp") }}</label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="box-subtitle">
-                        <label class="subtitle">{{ _("equipment") }}</label>
-                    </div>
-                </div>
-            </section>
-        </section>
-        <section>
-            <section class="flavor box">
-                <div class="personality">
-                    <label class="subtitle" for="personality">{{ _("personality") }}</label>
-                    <textarea name="personality">{{ character.data['personality'] }}</textarea>
-                </div>
-                <div class="ideals">
-                    <label class="subtitle" for="ideals">{{ _("ideals") }}</label>
-                    <textarea name="ideals">{{ character.data['ideals'] }}</textarea>
-                </div>
-                <div class="bonds">
-                    <label class="subtitle" for="bonds">{{ _("bonds") }}</label>
-                    <textarea name="bonds">{{ character.data['bonds'] }}</textarea>
-                </div>
-                <div class="flaws">
-                    <label class="subtitle" for="flaws">{{ _("flaws") }}</label>
-                    <textarea name="flaws">{{ character.data['flows'] }}</textarea>
-                </div>
-            </section>
-            <section class="features">
-                <div class="box roundedbox box-textarea">
-                    <div class="box-subtitle">
-                        <label class="subtitle" for="features">{{ _("features_&_traits") }}</label>
-                    </div>
-                    <textarea id="features-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('features')"
-                        name="features">{{ character.data['features'] }}</textarea>
-                    <div class="markdown-rendered" id="features-rendered"
-                        onclick="showRawTextareHideRenderedDiv('features')">
-                        {{ character.data['features'] }}</div>
-                </div>
-            </section>
-        </section>
-    </main>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="custom-resources" class="box roundedbox">
+        <div class="custom-resource" id="custom-1">
+          <input
+            class="custom-resource-header"
+            name="custom-1-header"
+            type="text"
+            value="{{ character.data['custom-1-header'] }}"
+            placeholder="Resource 1"
+          />
+          <div class="custom-resources-inputs">
+            <input
+              name="custom-1-remaining"
+              type="text"
+              value="{{ character.data['custom-1-remaining'] }}"
+            />/<input
+              name="custom-1-available"
+              type="text"
+              value="{{ character.data['custom-1-available'] }}"
+            />
+          </div>
+        </div>
+        <div class="custom-resource" id="custom-2">
+          <input
+            class="custom-resource-header"
+            name="custom-2-header"
+            type="text"
+            value="{{ character.data['custom-2-header'] }}"
+            placeholder="Resource 2"
+          />
+          <div class="custom-resources-inputs">
+            <input
+              name="custom-2-remaining"
+              type="text"
+              value="{{ character.data['custom-2-remaining'] }}"
+            />/<input
+              name="custom-2-available"
+              type="text"
+              value="{{ character.data['custom-2-available'] }}"
+            />
+          </div>
+        </div>
+        <div class="custom-resource" id="custom-3">
+          <input
+            class="custom-resource-header"
+            name="custom-3-header"
+            type="text"
+            value="{{ character.data['custom-3-header'] }}"
+            placeholder="Resource 3"
+          />
+          <div class="custom-resources-inputs">
+            <input
+              name="custom-3-remaining"
+              type="text"
+              value="{{ character.data['custom-3-remaining'] }}"
+            />/<input
+              name="custom-3-available"
+              type="text"
+              value="{{ character.data['custom-3-available'] }}"
+            />
+          </div>
+        </div>
+      </section>
+      <section class="attacksandspellcasting box roundedbox">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>{{ _("name") }}</th>
+                <th>{{ _("atk_bonus") }}</th>
+                <th>{{ _("damage/type") }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    name="atkname1"
+                    type="text"
+                    value="{{ character.data['atkname1'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkbonus1"
+                    type="text"
+                    value="{{ character.data['atkbonus1'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkdamage1"
+                    type="text"
+                    value="{{ character.data['atkdamage1'] }}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    name="atkname2"
+                    type="text"
+                    value="{{ character.data['atkname2'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkbonus2"
+                    type="text"
+                    value="{{ character.data['atkbonus2'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkdamage2"
+                    type="text"
+                    value="{{ character.data['atkdamage2'] }}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    name="atkname3"
+                    type="text"
+                    value="{{ character.data['atkname3'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkbonus3"
+                    type="text"
+                    value="{{ character.data['atkbonus3'] }}"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="atkdamage3"
+                    type="text"
+                    value="{{ character.data['atkdamage3'] }}"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box-subtitle">
+            <label class="subtitle">{{ _("attacks") }}</label>
+          </div>
+        </div>
+      </section>
+      <section class="equipment box roundedbox box-textarea">
+        <div>
+          <textarea
+            id="equipment-raw"
+            class="hidden"
+            onfocusout="hideRawTextareaShowRenderedDiv('equipment')"
+            placeholder="Equipment list here"
+            name="equipment"
+          >
+{{ character.data['equipment'] }}</textarea
+          >
+          <div
+            class="markdown-rendered"
+            id="equipment-rendered"
+            onclick="showRawTextareHideRenderedDiv('equipment')"
+          ></div>
+          <div class="money">
+            <ul>
+              <li class="coin-type">
+                <input
+                  placeholder="0"
+                  name="cp"
+                  value="{{ character.data['cp'] }}"
+                /><label for="cp">{{ _("cp") }}</label>
+              </li>
+              <li class="coin-type">
+                <input
+                  placeholder="0"
+                  name="sp"
+                  value="{{ character.data['sp'] }}"
+                /><label for="sp">{{ _("sp") }}</label>
+              </li>
+              <li class="coin-type">
+                <input
+                  placeholder="0"
+                  name="ep"
+                  value="{{ character.data['ep'] }}"
+                /><label for="ep">{{ _("ep") }}</label>
+              </li>
+              <li class="coin-type">
+                <input
+                  placeholder="0"
+                  name="gp"
+                  value="{{ character.data['gp'] }}"
+                /><label for="gp">{{ _("gp") }}</label>
+              </li>
+              <li class="coin-type">
+                <input
+                  placeholder="0"
+                  name="pp"
+                  value="{{ character.data['pp'] }}"
+                /><label for="pp">{{ _("pp") }}</label>
+              </li>
+            </ul>
+          </div>
+          <div class="box-subtitle">
+            <label class="subtitle">{{ _("equipment") }}</label>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section>
+      <section class="flavor box">
+        <div class="personality">
+          <label class="subtitle" for="personality"
+            >{{ _("personality") }}</label
+          >
+          <textarea name="personality">
+{{ character.data['personality'] }}</textarea
+          >
+        </div>
+        <div class="ideals">
+          <label class="subtitle" for="ideals">{{ _("ideals") }}</label>
+          <textarea name="ideals">{{ character.data['ideals'] }}</textarea>
+        </div>
+        <div class="bonds">
+          <label class="subtitle" for="bonds">{{ _("bonds") }}</label>
+          <textarea name="bonds">{{ character.data['bonds'] }}</textarea>
+        </div>
+        <div class="flaws">
+          <label class="subtitle" for="flaws">{{ _("flaws") }}</label>
+          <textarea name="flaws">{{ character.data['flows'] }}</textarea>
+        </div>
+      </section>
+      <section class="features">
+        <div class="box roundedbox box-textarea">
+          <div class="box-subtitle">
+            <label class="subtitle" for="features"
+              >{{ _("features_&_traits") }}</label
+            >
+          </div>
+          <textarea
+            id="features-raw"
+            class="hidden"
+            onfocusout="hideRawTextareaShowRenderedDiv('features')"
+            name="features"
+          >
+{{ character.data['features'] }}</textarea
+          >
+          <div
+            class="markdown-rendered"
+            id="features-rendered"
+            onclick="showRawTextareHideRenderedDiv('features')"
+          >
+            {{ character.data['features'] }}
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
 </div>
