@@ -32,10 +32,10 @@ for column, spell_levels in columns.items():
                 <div class="spells-level">{spell_level}</div>
                 <div class="spells-slots-container">
                     <div class="spells-slots-available">
-                        <input name="spells-slots-available-lvl{spell_level}" type="text">
+                        <input name="spells-slots-available-lvl{spell_level}" type="text" value="{{{{ character.data['spells-slots-available-lvl{spell_level}'] }}}}" />
                     </div>
                     <div class="spells-slots-total">
-                        <input name="spells-slots-total-lvl{spell_level}" type="text">
+                        <input name="spells-slots-total-lvl{spell_level}" type="text" value="{{{{ character.data['spells-slots-total-lvl{spell_level}'] }}}}" />
                     </div>
                 </div>
             </div>
