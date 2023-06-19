@@ -218,6 +218,7 @@ const showRawTextareHideRenderedDiv = (id) => {
   neighbourDiv.classList.add(hiddenClass);
 };
 
+// Recompute the modifier for each skill and saving throw when the base scores change
 caracs.forEach((carac) => {
   let caracScoreItem = document.getElementsByName(`${carac}score`)[0];
   caracScoreItem.addEventListener("change", () => {
@@ -242,6 +243,7 @@ caracs.forEach((carac) => {
   });
 });
 
+// Recompute the proficiency bonus when the level changes
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
   let tokens = document.getElementsByName("classlevel")[0].value.split(" ");
   let level = parseInt(tokens[tokens.length - 1]);
@@ -251,6 +253,8 @@ document.getElementsByName("classlevel")[0].addEventListener("change", () => {
   proficiencyBonusInput.dispatchEvent(new Event("change"));
 });
 
+// Recompute all saving throw modifers as well as skill modifiers when the
+// proficiency bonus changes
 document
   .getElementsByName("proficiencybonus")[0]
   .addEventListener("change", () => {
@@ -262,6 +266,8 @@ document
     });
   });
 
+// Recompute the spell DC and the spell attack bonus when the spellcasting
+// ability changes
 document
   .getElementById("spellcastingability-select")
   .addEventListener("change", () => {
@@ -275,6 +281,8 @@ document
     updateSpellAttackBonus(spellcastingAbility);
   });
 
+// When the extra spell attack bonus (ex: provided by a magic object) value changes,
+// recompute the total spell attack bonus
 document
   .getElementById("extraspellattackbonus")
   .addEventListener("change", () => {
@@ -293,6 +301,8 @@ document
     );
   });
 
+// Update the number of remaining spells to prepare when the state of a
+// spell "prepared" checkbox changes
 document
   .querySelectorAll("div#spells input.bubble[type=checkbox]")
   .forEach((node) => {
@@ -303,7 +313,10 @@ document
 
 document.onreadystatechange = () => {
   if (document.readyState == "complete") {
+    // Update the number of remaining spells to prepare depending on the state of the checkboxes
     updateRemainingDailyPreparedSpells();
+
+    // Sort the skill according to their translated names
     sortSkillsElements();
 
     // Allow each textarea to be clicked on to change its markdown content, and rendered when unfocused
