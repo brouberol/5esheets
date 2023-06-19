@@ -68,3 +68,7 @@ input.square-rounded {
   text-align: center;
   padding-top: var(--innerbox-spacing);
 }
+
+.hidden {
+  display: none !important;
+}
