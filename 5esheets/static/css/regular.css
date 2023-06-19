@@ -90,7 +90,7 @@ form.charsheet div.textblock label {
   text-align: center;
   border: 1px solid black;
   border-top: 0;
-  font-size: 10px;
+  font-size: var(--font-size-s);
   width: calc(100% - 20px - 2px);
   border-radius: 0 0 10px 10px;
   padding: 4px 0;
@@ -289,7 +289,7 @@ li.score-mod-with-prof label span.skill {
 
 li.score-mod-with-prof input[type="text"] {
   width: 30px;
-  font-size: 12px;
+  font-size: var(--font-size-ms);
   text-align: center;
   border: 0;
   border-bottom: 1px solid black;
@@ -375,7 +375,6 @@ div.max {
 }
 
 div.max label {
-  font-size: 10px;
   text-transform: none;
   color: #bbb;
 }
@@ -384,7 +383,6 @@ div.max input {
   width: 40%;
   border: 0;
   border-bottom: 1px solid #ddd;
-  font-size: 12px;
   text-align: center;
 }
 
@@ -404,7 +402,7 @@ div#temporary-hp input {
   border: 0;
   width: 100%;
   padding: 1em 0;
-  font-size: 20px;
+  font-size: var(--font-size-m);
   text-align: center;
 }
 
@@ -425,7 +423,7 @@ div.hitdice div.total {
 }
 
 div.hitdice div.total label {
-  font-size: 10px;
+  font-size: var(--font-size-s);
   color: #bbb;
   margin: 0.25em;
   text-transform: none;
@@ -557,7 +555,7 @@ section.equipment div.money ul > li label {
   border-radius: 4px;
   border-top: 0px;
   width: 20px;
-  font-size: 8px;
+  font-size: var(--font-size-xs);
   text-align: center;
   padding: 3px 0;
 }
@@ -567,7 +565,7 @@ section.equipment div.money ul > li input {
   border-radius: 10px;
   width: 60%;
   padding: 10px 3px;
-  font-size: 12px;
+  font-size: var(--font-size-s);
   text-align: center;
 }
 

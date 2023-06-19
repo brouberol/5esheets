@@ -3,6 +3,7 @@
   --font-size-xs: calc(var(--font-size) - 4px);
   --font-size-s: calc(var(--font-size) - 3px);
   --font-size: 14px;
+  --font-size-m: calc(var(--font-size) * 1.5);
   --font-size-l: calc(var(--font-size) * 2);
   --font-size-xl: calc(var(--font-size) * 2.5);
   --font-size-xxl: calc(var(--font-size) * 3);
