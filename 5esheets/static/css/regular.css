@@ -585,9 +585,13 @@ div.spells-header {
   position: relative;
   text-align: center;
 }
+
+div.spell-list li > div {
+  width: 100%;
+}
+
 div.cantrips li > div {
   padding-left: 1.8em;
-  width: 100%;
 }
 div.spell-list ul {
   padding-bottom: 3em;
