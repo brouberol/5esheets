@@ -25,6 +25,30 @@ const modToCarac = {
 const hiddenClass = "hidden";
 const markdownTextareaClasses = ["features", "equipment", "otherprofs"];
 
+const markdownRenderer = new marked.Renderer();
+const linkRenderer = markdownRenderer.link;
+marked.setOptions({
+  mangle: false,
+  headerIds: false,
+});
+
+// always render links so they open in a new tab
+markdownRenderer.link = (href, title, text) => {
+  const html = linkRenderer.call(markdownRenderer, href, title, text);
+  return html.replace(/^<a /, '<a target="_blank"');
+};
+
+// DOMPurify sees target blank lnks as a security issue, so massage it
+// into accepting then.
+// Source: https://github.com/cure53/DOMPurify/issues/317#issuecomment-698800327
+DOMPurify.addHook("afterSanitizeAttributes", function (node) {
+  // set all elements owning target to target=_blank
+  if ("target" in node) {
+    node.setAttribute("target", "_blank");
+    node.setAttribute("rel", "noopener");
+  }
+});
+
 const scoreModifier = (score) => {
   return Math.ceil((score - 10) / 2);
 };
@@ -173,8 +197,7 @@ const hideRawTextareaShowRenderedDiv = (id) => {
       textarea.textContent
     );
     rendered = marked.parse(textContentWithRenderedMacros, {
-      mangle: false,
-      headerIds: false,
+      renderer: markdownRenderer,
     });
     neighbourDiv.innerHTML = DOMPurify.sanitize(rendered);
     textarea.classList.add(hiddenClass);
