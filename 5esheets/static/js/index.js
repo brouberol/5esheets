@@ -35,7 +35,7 @@ marked.setOptions({
 // always render links so they open in a new tab
 markdownRenderer.link = (href, title, text) => {
   const html = linkRenderer.call(markdownRenderer, href, title, text);
-  return html.replace(/^<a /, '<a target="_blank"');
+  return html.replace(/^<a /, '<a target="_blank" ');
 };
 
 // DOMPurify sees target blank lnks as a security issue, so massage it
