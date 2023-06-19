@@ -7,7 +7,7 @@
 }
 
 .roundedbox {
-  background-color: white;
+  background-color: var(--color-primary-background);
   border: var(--box-border);
   border-radius: var(--box-border-radius);
   padding: var(--innerbox-spacing);
@@ -15,7 +15,7 @@
 
 .roundedbox-bottom-only {
   border: var(--box-border);
-  background-color: white;
+  background-color: var(--color-primary-background);
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
