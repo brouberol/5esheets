@@ -25,7 +25,8 @@ h4,
 h5,
 h6,
 header,
-.subtitle {
+.subtitle,
+th {
   font-family: var(--font-family-headings);
 }
 
@@ -151,8 +152,8 @@ form.charsheet header section.misc {
   width: 70%;
   border: var(--box-border);
   border-radius: var(--box-border-radius);
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: var(--innerbox-spacing);
+  padding-right: var(--innerbox-spacing);
 }
 
 form.charsheet header section.misc ul {
@@ -162,10 +163,10 @@ form.charsheet header section.misc ul {
 }
 
 form.charsheet header section.misc ul li {
-  width: 30%;
   display: flex;
   flex-direction: column-reverse;
   padding-left: 1em;
+  flex: 1;
 }
 
 section.misc label {
@@ -176,6 +177,11 @@ form.charsheet header section.misc ul li input {
   border: 0;
   border-bottom: 1px solid var(--color-secondary-border);
   width: 80%;
+  text-align: center;
+}
+
+section.misc #dailypreparedspells input {
+  width: 40%;
 }
 
 div.box-label-container {
@@ -195,7 +201,6 @@ main > section {
 }
 
 section.attributes {
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -282,7 +287,7 @@ section.attributes li {
 }
 
 li.score-mod-with-prof > * {
-  margin-left: 5px;
+  margin-left: var(--innerbox-spacing);
 }
 
 li.score-mod-with-prof label span.skill {
@@ -290,7 +295,7 @@ li.score-mod-with-prof label span.skill {
 }
 
 li.score-mod-with-prof input[type="text"] {
-  width: 30px;
+  width: 1.7em;
   font-size: var(--font-size-ms);
   text-align: center;
   border: 0;
@@ -706,6 +711,9 @@ div#dailypreparedspells {
 input#remainingdailyspells {
   text-align: right;
 }
+input#totaldailypreparedspells {
+  text-align: left;
+}
 
 header > h1 {
   text-align: center;
@@ -749,7 +757,7 @@ header > h1 {
 }
 
 input.custom-resource-header {
-  font-size: var(--font-size-s);
+  font-size: var(--font-size-xs);
   text-transform: uppercase;
   overflow-wrap: break-word;
 }

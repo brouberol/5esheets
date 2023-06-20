@@ -1,3 +1,36 @@
 #character-sheet {
-    width: 95%;
+  width: 100%;
+}
+
+li.score-mod-with-prof {
+  margin-left: 3px;
+}
+
+li.score-mod-with-prof > * {
+  margin-left: 0;
+}
+
+.associated-carac {
+  padding-left: var(--innerbox-spacing);
+}
+
+.box-textarea {
+  padding: calc(var(--interbox-spacing) * 1.2);
+}
+
+main > section:first-child {
+  padding-left: calc(var(--interbox-spacing) / 2);
+}
+
+main > section:last-child {
+  padding-right: calc(var(--interbox-spacing) / 2);
+}
+
+.hitdice,
+.deathsaves {
+  width: 43% !important;
+}
+
+form.charsheet header section.misc ul li {
+  flex: 1;
 }
