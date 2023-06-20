@@ -22,8 +22,11 @@ docker-build:  ## Build the docker image
 docker-run:  docker-build ## Run the docker image
 	docker run -it --rm -v $$(pwd)/5esheets/db:/usr/src/app/db/ -p 8000:8000 brouberol/5esheets
 
-migratedb:  ## Run the SQL migrations
+db-migrate:  ## Run the SQL migrations
 	poetry run caribou upgrade 5esheets/db/5esheets.db 5esheets/migrations
+
+db-dev-fixtures:  ## Populate the local database with development fixtures
+	cd 5esheets && poetry run flask db populate
 
 translations-extract: 5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
 
