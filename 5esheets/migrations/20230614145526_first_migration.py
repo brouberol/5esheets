@@ -8,18 +8,16 @@ Migration Version: 20230614145526
 
 def upgrade(connection):
     statements = [
-        """CREATE TABLE IF NOT EXISTS sheets(
+        """CREATE TABLE IF NOT EXISTS character(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        character_name VARCHAR(255),
-        character_slug VARCHAR(255),
-        character_class VARCHAR(50),
-        character_level INTEGER,
-        character_json_data TEXT NOT NULL
-    );
-    """,
-        """
-    CREATE INDEX IF NOT EXISTS sheets_character_slug ON sheets(character_slug);
-    """,
+        name VARCHAR(255),
+        slug VARCHAR(255),
+        class VARCHAR(80),
+        level INTEGER,
+        json_data TEXT NOT NULL DEFAULT '{}'
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS character_slug ON character(slug);",
     ]
     for statement in statements:
         connection.execute(statement)
