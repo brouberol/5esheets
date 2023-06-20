@@ -5,6 +5,7 @@ import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 
+from .db import db_file
 from .commands import db_commands
 from .models import Character
 from .utils import is_field_from_checkbox, strip_empties_from_dict
@@ -19,7 +20,6 @@ def get_locale():
     )
 
 
-db_file = Path(__file__).parent / "db" / "5esheets.db"
 migrations_dir = Path(__file__).parent / "migrations"
 app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
 babel = Babel(app, locale_selector=get_locale)
