@@ -9,9 +9,9 @@
 
 {% block content %}
 <ul>
-    {% for sheet in sheets %}
-    <a href="/{{ sheet.character.slug }}">
-        <li>{{ sheet.character.name }} - {{ sheet.character._class }} lvl {{ sheet.character.level }}
+    {% for character in characters %}
+    <a href="/{{ character.slug }}">
+        <li>{{ character.name }} - {{ character._class }} lvl {{ character.level }}
     </a></li>
     {% endfor %}
 </ul>
