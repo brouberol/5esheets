@@ -12,11 +12,6 @@ from .utils import is_field_from_checkbox, strip_empties_from_dict
 SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
 
 
-def dict_factory(cursor, row):
-    fields = [column[0] for column in cursor.description]
-    return {key: value for key, value in zip(fields, row)}
-
-
 def get_locale():
     # From https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-i18n-and-l10n-legacy
     return request.accept_languages.best_match(
