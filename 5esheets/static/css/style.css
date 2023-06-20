@@ -4,5 +4,5 @@
 
 /* screen size-depending overrides */
 @import url(largescreen.css) screen and (min-width: 2000px);
-@import url(tablet.css) screen and (max-width: 1000px);
-@import url(phone.css) screen and (max-width: 500px);
+@import url(tablet.css) screen and (max-width: 1200px);
+@import url(phone.css) screen and (max-width: 700px);

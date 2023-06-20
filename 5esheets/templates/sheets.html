@@ -11,8 +11,8 @@
 <ul>
     {% for sheet in sheets %}
     <a href="/{{ sheet.character.slug }}">
-        <li>{{ sheet.character.name }} - {{ sheet.character._class }} lvl {{ sheet.character.level }}
-    </a></li>
+        <li>{{ sheet.character.name }} - {{ sheet.character._class }} lvl {{ sheet.character.level }}</li>
+    </a>
     {% endfor %}
 </ul>
 {% endblock %}
