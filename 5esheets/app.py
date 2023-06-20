@@ -1,13 +1,12 @@
 import json
-import sqlite3
-from contextlib import contextmanager
 from pathlib import Path
 
 import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 
-from .models import Character, CharacterSheet
+from .models import Character
+from .utils import is_field_from_checkbox, strip_empties_from_dict
 
 SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
 
@@ -15,15 +14,6 @@ SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
     return {key: value for key, value in zip(fields, row)}
-
-
-@contextmanager
-def get_db_connection():
-    conn = sqlite3.connect(db_file)
-    conn.row_factory = dict_factory
-    yield conn
-    conn.commit()
-    conn.close()
 
 
 def get_locale():
@@ -43,58 +33,39 @@ with app.app_context():
 
 
 @app.route("/", methods=["GET"])
-def list_sheets():
-    sheets = []
-    with get_db_connection() as db:
-        res = db.execute(
-            """
-            SELECT id, character_name, character_class, character_level, character_slug
-            FROM sheets
-            ORDER BY character_name;
-            """
-        )
-        for row in res.fetchall():
-            sheets.append(CharacterSheet.from_dict(row))
-
-        return render_template("sheets.html", sheets=sheets)
+def list_characters():
+    characters = Character.select()
+    return render_template("characters.html", characters=characters)
 
 
 @app.route("/<slug>", methods=["GET"])
 def display_sheet(slug: str):
-    with get_db_connection() as db:
-        row = db.execute(
-            """
-            SELECT character_name, character_class, character_level, character_slug, character_json_data
-            FROM sheets
-            WHERE character_slug=:slug;
-            """,
-            {"slug": slug},
-        ).fetchone()
-        character = Character.from_dict(row)
-
-        return render_template("sheet.html", character=character)
+    character = Character.get(Character.slug == slug)
+    return render_template("sheet.html", character=character)
 
 
 @app.route("/<slug>", methods=["POST"])
 def update_sheet(slug: str):
-    with get_db_connection() as db:
-        sheet = CharacterSheet.from_form(request.form.to_dict())
-        db.execute(
-            """
-            UPDATE sheets
-            SET
-                character_name=:name,
-                character_class=:class,
-                character_level=:level,
-                character_json_data=:data
-            WHERE character_slug=:slug
-        """,
-            {
-                "slug": slug,
-                "name": sheet.character.name,
-                "level": sheet.character.level,
-                "class": sheet.character._class,
-                "data": json.dumps(sheet.character.data),
-            },
-        )
-        return redirect(url_for("display_sheet", slug=slug))
+    form = request.form.to_dict()
+
+    character_name = form.pop("charname")
+    classlevel_tokens = form.pop("classlevel").split()
+    character_class = " ".join(classlevel_tokens[:-1])
+    character_level = int(classlevel_tokens[-1])
+
+    character_data = form.copy()
+    for k in form:
+        if is_field_from_checkbox(k):
+            character_data[k] = True
+
+    # Remove empty fields to keep the JSON payload as small as possible
+    character_data = strip_empties_from_dict(character_data)
+
+    Character.update(
+        name=character_name,
+        level=character_level,
+        _class=character_class,
+        json_data=json.dumps(character_data),
+    ).execute()
+
+    return redirect(url_for("display_sheet", slug=slug))
