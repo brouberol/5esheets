@@ -26,3 +26,6 @@ class Character(BaseModel):
         d = defaultdict(str)
         d.update(json.loads(self.json_data))
         return d
+
+    def __str__(self):
+        return self.name
