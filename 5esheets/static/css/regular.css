@@ -32,10 +32,11 @@ th {
 
 a {
   color: var(--color-input-checkbox-checked);
+  text-decoration: none;
 }
 
 #character-sheet {
-  width: 70%;
+  width: 1000px;
   right: 0;
   left: 0;
   margin-right: auto;
@@ -772,4 +773,29 @@ input.custom-resource-header {
 
 .caracmod {
   font-weight: bold;
+}
+
+div.fancy-border {
+  --border-top: 99px;
+  --border-side: 27px;
+  --border-bottom: 84px;
+}
+
+div.border-1 {
+  border-style: solid;
+  border-image: url(/static/images/border-1.png) 198 54 168 repeat;
+  border-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+}
+
+div.border-1 > :first-child {
+  margin-top: calc(12px - var(--border-top));
+}
+
+div.border-1 > :last-child {
+  margin-bottom: calc(12px - var(--border-bottom));
+}
+
+div.border-1 > ul, div.border-1 > div {
+  margin-left: calc(12px - var(--border-side));
+  margin-right: calc(12px - var(--border-side));
 }
