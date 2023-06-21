@@ -24,4 +24,4 @@ def upgrade(connection):
 
 
 def downgrade(connection):
-    connection.execute("DROP TABLE sheets;")
+    connection.execute("DROP TABLE character;")
