@@ -405,7 +405,7 @@
       <section id="custom-resources" class="box roundedbox">
         <div class="custom-resource" id="custom-1">
           <input class="custom-resource-header" name="custom-1-header" type="text"
-            value="{{ character.data['custom-1-header'] }}" placeholder="{{ _('resource') }} 1" />
+            value="{{ character.data['custom-1-header'] }}" placeholder="{{ _('resource') | capitalize }} 1" />
           <div class="custom-resources-inputs">
             <input name="custom-1-remaining" type="text" value="{{ character.data['custom-1-remaining'] }}" />/<input
               name="custom-1-available" type="text" value="{{ character.data['custom-1-available'] }}" />
@@ -413,7 +413,7 @@
         </div>
         <div class="custom-resource" id="custom-2">
           <input class="custom-resource-header" name="custom-2-header" type="text"
-            value="{{ character.data['custom-2-header'] }}" placeholder="{{ _('resource') }} 2" />
+            value="{{ character.data['custom-2-header'] }}" placeholder="{{ _('resource') | capitalize }} 2" />
           <div class="custom-resources-inputs">
             <input name="custom-2-remaining" type="text" value="{{ character.data['custom-2-remaining'] }}" />/<input
               name="custom-2-available" type="text" value="{{ character.data['custom-2-available'] }}" />
@@ -421,7 +421,7 @@
         </div>
         <div class="custom-resource" id="custom-3">
           <input class="custom-resource-header" name="custom-3-header" type="text"
-            value="{{ character.data['custom-3-header'] }}" placeholder="{{ _('resource') }} 3" />
+            value="{{ character.data['custom-3-header'] }}" placeholder="{{ _('resource') | capitalize }} 3" />
           <div class="custom-resources-inputs">
             <input name="custom-3-remaining" type="text" value="{{ character.data['custom-3-remaining'] }}" />/<input
               name="custom-3-available" type="text" value="{{ character.data['custom-3-available'] }}" />
