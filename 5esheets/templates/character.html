@@ -15,13 +15,14 @@
           <input
             name="classlevel"
             value="{{ character._class }} {{ character.level }}"
+            placeholder="{{ _('wizard') | capitalize }} 2"
           />
         </li>
         <li>
           <label for="background">{{ _("background") }}</label>
           <input
             name="background"
-            placeholder="Acolyte"
+            placeholder="{{ _('acolyte') | capitalize }}"
             value="{{ character.data['background'] }}"
           />
         </li>
@@ -29,7 +30,7 @@
           <label for="playername">{{ _("player_name") }}</label>
           <input
             name="playername"
-            placeholder="Player McPlayerface"
+            placeholder="{{ _('player-mcplayerface') }}"
             value="{{ character.data['playername'] }}"
           />
         </li>
@@ -39,7 +40,7 @@
           <label for="race">{{ _("race" )}}</label>
           <input
             name="race"
-            placeholder="Half-elf"
+            placeholder="{{ _('half-elf') | capitalize }}"
             value="{{ character.data['race'] }}"
           />
         </li>
@@ -47,7 +48,7 @@
           <label for="alignment">{{ _("alignment" )}}</label>
           <input
             name="alignment"
-            placeholder="Lawful Good"
+            placeholder="{{ _('lawful-good') | capitalize }}"
             value="{{ character.data['alignment'] }}"
           />
         </li>
@@ -755,7 +756,7 @@
             name="custom-1-header"
             type="text"
             value="{{ character.data['custom-1-header'] }}"
-            placeholder="Resource 1"
+            placeholder="{{ _('resource') }} 1"
           />
           <div class="custom-resources-inputs">
             <input
@@ -775,7 +776,7 @@
             name="custom-2-header"
             type="text"
             value="{{ character.data['custom-2-header'] }}"
-            placeholder="Resource 2"
+            placeholder="{{ _('resource') }} 2"
           />
           <div class="custom-resources-inputs">
             <input
@@ -795,7 +796,7 @@
             name="custom-3-header"
             type="text"
             value="{{ character.data['custom-3-header'] }}"
-            placeholder="Resource 3"
+            placeholder="{{ _('resource') }} 3"
           />
           <div class="custom-resources-inputs">
             <input
@@ -903,7 +904,7 @@
             id="equipment-raw"
             class="hidden"
             onfocusout="hideRawTextareaShowRenderedDiv('equipment')"
-            placeholder="Equipment list here"
+            placeholder="{{ _('equipment_list') | capitalize }}"
             name="equipment"
           >
 {{ character.data['equipment'] }}</textarea
