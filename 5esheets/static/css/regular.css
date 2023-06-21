@@ -24,7 +24,7 @@ h3,
 h4,
 h5,
 h6,
-header,
+header label,
 .subtitle,
 th {
   font-family: var(--font-family-headings);
@@ -799,4 +799,9 @@ div.border-1 > :last-child {
 div.border-1 > ul, div.border-1 > div {
   margin-left: calc(12px - var(--border-side));
   margin-right: calc(12px - var(--border-side));
+}
+
+header span#playername {
+  font-size: var(--font-size);
+  text-align: center;
 }
