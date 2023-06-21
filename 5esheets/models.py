@@ -24,9 +24,7 @@ class Character(BaseModel):
     _class = CharField(max_length=80, column_name="class")
     level = IntegerField()
     json_data = TextField()
-
-    class Meta:
-        table_name = "character"
+    player = ForeignKeyField(Player, backref="characters")
 
     @property
     def data(self):

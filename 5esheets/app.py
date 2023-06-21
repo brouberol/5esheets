@@ -5,8 +5,8 @@ import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 
-from .db import db_file
 from .commands import db_commands
+from .db import db_file
 from .models import Character
 from .utils import is_field_from_checkbox, strip_empties_from_dict
 
