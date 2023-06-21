@@ -59,7 +59,6 @@ section {
 }
 
 label {
-  text-transform: uppercase;
   font-size: var(--font-size);
 }
 
@@ -759,7 +758,6 @@ header > h1 {
 
 input.custom-resource-header {
   font-size: var(--font-size-xs);
-  text-transform: uppercase;
   overflow-wrap: break-word;
 }
 
