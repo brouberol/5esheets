@@ -4,7 +4,7 @@ import click
 from flask.cli import AppGroup
 
 from .db import db, db_dir
-from .models import Character
+from .models import Character, Player
 
 db_commands = AppGroup("db")
 
@@ -13,8 +13,12 @@ db_commands = AppGroup("db")
 def populate_db():
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
         dev_fixtures = json.load(dev_fixtures_fd)
-    with db.atomic():
-        for character_attrs in dev_fixtures["characters"]:
-            json_data = json.dumps(character_attrs.pop("json_data"))
-            character = Character.create(json_data=json_data, **character_attrs)
-            click.echo(f"Character {character} saved")
+    for player_attrs in dev_fixtures["players"]:
+        Player.replace(**player_attrs).execute()
+        player = Player.get_by_id(player_attrs["id"])
+        click.echo(f"Player {player} saved")
+    for character_attrs in dev_fixtures["characters"]:
+        json_data = json.dumps(character_attrs.pop("json_data"))
+        Character.replace(json_data=json_data, **character_attrs).execute()
+        character = Character.get_by_id(character_attrs["id"])
+        click.echo(f"Character {character} saved")
