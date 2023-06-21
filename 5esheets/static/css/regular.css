@@ -661,6 +661,8 @@ div.spells-slots-container {
   border: var(--box-border);
   flex-direction: row;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div.spells-slots-available,

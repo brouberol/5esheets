@@ -229,90 +229,94 @@ msgstr "current hp"
 msgid "total"
 msgstr "total"
 
-#: 5esheets/templates/character.html:714
+#: 5esheets/templates/character.html:713
 msgid "hit_dice"
 msgstr "hit dice"
 
-#: 5esheets/templates/character.html:724
+#: 5esheets/templates/character.html:723
 msgid "death_saves"
 msgstr "death saves"
 
-#: 5esheets/templates/character.html:727
+#: 5esheets/templates/character.html:726
 msgid "successes"
 msgstr "successes"
 
-#: 5esheets/templates/character.html:738
+#: 5esheets/templates/character.html:737
 msgid "failures"
 msgstr "failures"
 
-#: 5esheets/templates/character.html:759 5esheets/templates/character.html:779
-#: 5esheets/templates/character.html:799
+#: 5esheets/templates/character.html:758 5esheets/templates/character.html:778
+#: 5esheets/templates/character.html:798
 msgid "resource"
 msgstr "resource"
 
-#: 5esheets/templates/character.html:819
+#: 5esheets/templates/character.html:818
 msgid "name"
 msgstr "name"
 
-#: 5esheets/templates/character.html:820
+#: 5esheets/templates/character.html:819
 msgid "atk_bonus"
 msgstr "attack bonus"
 
-#: 5esheets/templates/character.html:821
+#: 5esheets/templates/character.html:820
 msgid "damage/type"
 msgstr "damage/type"
 
-#: 5esheets/templates/character.html:897
+#: 5esheets/templates/character.html:896
 msgid "attacks"
 msgstr "attacks"
 
-#: 5esheets/templates/character.html:907
+#: 5esheets/templates/character.html:906
 msgid "equipment_list"
 msgstr "your equipment"
 
-#: 5esheets/templates/character.html:924
+#: 5esheets/templates/character.html:923
 msgid "cp"
 msgstr "cp"
 
-#: 5esheets/templates/character.html:931
+#: 5esheets/templates/character.html:930
 msgid "sp"
 msgstr "sp"
 
-#: 5esheets/templates/character.html:938
+#: 5esheets/templates/character.html:937
 msgid "ep"
 msgstr "ep"
 
-#: 5esheets/templates/character.html:945
+#: 5esheets/templates/character.html:944
 msgid "gp"
 msgstr "gp"
 
-#: 5esheets/templates/character.html:952
+#: 5esheets/templates/character.html:951
 msgid "pp"
 msgstr "pp"
 
-#: 5esheets/templates/character.html:957
+#: 5esheets/templates/character.html:956
 msgid "equipment"
 msgstr "equipment"
 
-#: 5esheets/templates/character.html:966
+#: 5esheets/templates/character.html:965
 msgid "personality"
 msgstr "personality"
 
-#: 5esheets/templates/character.html:973
+#: 5esheets/templates/character.html:972
 msgid "ideals"
 msgstr "ideals"
 
-#: 5esheets/templates/character.html:977
+#: 5esheets/templates/character.html:976
 msgid "bonds"
 msgstr "bonds"
 
-#: 5esheets/templates/character.html:981
+#: 5esheets/templates/character.html:980
 msgid "flaws"
 msgstr "flaws"
 
-#: 5esheets/templates/character.html:989
+#: 5esheets/templates/character.html:988
 msgid "features_&_traits"
 msgstr "features & traits"
+
+#: 5esheets/templates/spellbook.html:6
+msgid "cantrips"
+msgstr "cantrips"
 
 #: 5esheets/templates/spells.html:4
 msgid "spellcasting_ability"

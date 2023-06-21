@@ -21,7 +21,7 @@ for column, spell_levels in columns.items():
                 f"""<div id="cantrips">
             <div class="spells-header">
             <div class="spells-level">{spell_level}</div>
-            <div class="spells-slots-container"></div>
+            <div class="spells-slots-container">{{{{ _('cantrips') }}}}</div>
           </div>
         """
             )
