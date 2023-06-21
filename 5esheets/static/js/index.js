@@ -88,6 +88,10 @@ const formatBonus = (bonus) => {
   }
 };
 
+const shortenCaracName = (carac) => {
+  return carac.slice(0, 3).toUpperCase();
+}
+
 const getProficiencyBonusInput = () => {
   return document.getElementsByName("proficiencybonus")[0];
 }
@@ -124,28 +128,37 @@ const updateCaracSavingThrowModifier = (carac) => {
   savingThrowModifierInput.value = formatBonus(savingThrowBonus);
 };
 
+const updateTooltipMessage = (id, message) => {
+  document.getElementById(`${id}-tooltip`).textContent = message;
+}
+
 const updateSkillModifier = (carac, skill) => {
   let skillDashed = skill.replace(/ /g, "-");
   let caracModifier = getCaracModifier(carac);
   if (isNaN(caracModifier)) {
     return
   }
-  let skillModifierInput = document.getElementsByName(skill)[0];
+  let skillModifierInput = document.getElementsByName(skillDashed)[0];
   let skillProficiencyCheckbox = document.getElementsByName(
     `${skillDashed}-prof`
   )[0];
+  var tooltipMessage = `${formatBonus(caracModifier)} (${shortenCaracName(carac)} modifier)`;
+
   if (skillProficiencyCheckbox.checked) {
     var proficiencyBonus = getProficiencyBonus();
     var skillBonus = caracModifier + proficiencyBonus;
+    var tooltipMessage = tooltipMessage + ` + ${proficiencyBonus} (proficiency)`;
   } else {
     var skillBonus = caracModifier;
   }
   skillModifierInput.value = formatBonus(skillBonus);
+  updateTooltipMessage(`${skillDashed}`, tooltipMessage);
 
   if (skill === "Perception") {
     let passivePerceptionInput =
       document.getElementsByName("passiveperception")[0];
     passivePerceptionInput.value = 10 + skillBonus;
+    updateTooltipMessage("passiveperception", `10 ${tooltipMessage}`)
   }
 };
 
@@ -160,17 +173,40 @@ const updateCaracScoreAndDependents = (carac) => {
   });
 };
 
-const updateSpellAttackBonus = (spellcastingAbility) => {
+const updateSpellAttackBonusAndDc = () => {
+
+  let spellcastingAbility = document.getElementById(
+    "spellcastingability-select"
+  ).value;
+  let proficiencyBonus = getProficiencyBonus();
+  let spellcastingAbilityModifier = getCaracModifier(spellcastingAbility);
+  let spellDc =
+    8 + proficiencyBonus + spellcastingAbilityModifier;
   let extraSpellAttackBonus = parseInt(
     document.getElementById("extraspellattackbonus").value || 0
   );
   let totalSpellAttackBonus =
     getCaracModifier(spellcastingAbility) +
     extraSpellAttackBonus +
-    getProficiencyBonus();
+    proficiencyBonus;
+
+  document.getElementById("spelldc").value = spellDc;
+  tooltipMessageExtraPoints = `${spellcastingAbilityModifier}
+    (${shortenCaracName(spellcastingAbility)} modifier)
+    + ${proficiencyBonus} (proficiency)`;
+  updateTooltipMessage("spelldc", `8 + ${tooltipMessageExtraPoints}`)
+
   document.getElementById("totalspellattackbonus").value = formatBonus(
     totalSpellAttackBonus
   );
+
+  let totalSpellAttackBonusTooltipMessage;
+  if (extraSpellAttackBonus) {
+    totalSpellAttackBonusTooltipMessage = `${tooltipMessageExtraPoints} + ${extraSpellAttackBonus} (extra bonus)`;
+  } else {
+    totalSpellAttackBonusTooltipMessage = tooltipMessageExtraPoints;
+  }
+  updateTooltipMessage("totalspellattackbonus", totalSpellAttackBonusTooltipMessage);
 };
 
 const updateRemainingDailyPreparedSpells = () => {
@@ -218,6 +254,14 @@ const sortSkillsElements = () => {
   let skillList = document.querySelectorAll(".skills > ul")[0];
   sortChildrenByText(skillList);
 };
+
+const updateSkillModifiers = () => {
+  caracs.forEach((carac) => {
+    skillsByCarac[carac].forEach((skill) => {
+      updateSkillModifier(carac, skill);
+    });
+  });
+}
 
 const hideRawTextareaShowRenderedDiv = (id) => {
   textarea = document.getElementById(`${id}-raw`);
@@ -313,14 +357,7 @@ document
 document
   .getElementById("spellcastingability-select")
   .addEventListener("change", () => {
-    let spellcastingAbility = document.getElementById(
-      "spellcastingability-select"
-    ).value;
-    let spellDc =
-      8 + getProficiencyBonus() + getCaracModifier(spellcastingAbility);
-    document.getElementById("spelldc").value = spellDc;
-
-    updateSpellAttackBonus(spellcastingAbility);
+    updateSpellAttackBonusAndDc();
   });
 
 // When the extra spell attack bonus (ex: provided by a magic object) value changes,
@@ -328,19 +365,7 @@ document
 document
   .getElementById("extraspellattackbonus")
   .addEventListener("change", () => {
-    let spellcastingAbility = document.getElementById(
-      "spellcastingability-select"
-    ).value;
-    let extraSpellAttackBonus = parseInt(
-      document.getElementById("extraspellattackbonus").value || 0
-    );
-    let totalSpellAttackBonus =
-      getCaracModifier(spellcastingAbility) +
-      extraSpellAttackBonus +
-      getProficiencyBonus();
-    document.getElementById("totalspellattackbonus").value = formatBonus(
-      totalSpellAttackBonus
-    );
+    updateSpellAttackBonusAndDc();
   });
 
 // Update the number of remaining spells to prepare when the state of a
@@ -357,6 +382,12 @@ document.onreadystatechange = () => {
   if (document.readyState == "complete") {
     // Sort the skill according to their translated names
     sortSkillsElements();
+
+    // Update the skill modifiers and explanation tooltips
+    updateSkillModifiers();
+
+    // Update the spell DC and attack, and associated tooltips
+    updateSpellAttackBonusAndDc();
 
     // Update the proficiency bonus according to the level
     updateProficiencyBonus();

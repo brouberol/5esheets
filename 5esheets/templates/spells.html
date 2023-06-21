@@ -22,8 +22,11 @@
           </div>
         </li>
         <li>
-          <label for="spelldc">{{ _("spell_dc") }}</label><input id="spelldc" name="spelldc" placeholder="10"
-            value="{{ character.data['spelldc'] }}" />
+          <div class="tooltip">
+            <label for="spelldc">{{ _("spell_dc") }}</label><input id="spelldc" name="spelldc" placeholder="10"
+              value="{{ character.data['spelldc'] }}" />
+            <span class="tooltiptext" id="spelldc-tooltip"></span>
+          </div>
         </li>
       </ul>
       <ul id="spellattack">
@@ -33,9 +36,12 @@
             value="{{ character.data['extraspellattackbonus'] }}" />
         </li>
         <li>
-          <label for="extraspellattackbonus">{{ _("total_spell_attack_bonus") }}</label><input
-            id="totalspellattackbonus" name="totalspellattackbonus" placeholder="+1"
-            value="{{ character.data['totalspellattackbonus'] }}" />
+          <div class="tooltip">
+            <label for="totalspellattackbonus">{{ _("total_spell_attack_bonus") }}</label><input
+              id="totalspellattackbonus" name="totalspellattackbonus" placeholder="+1"
+              value="{{ character.data['totalspellattackbonus'] }}" />
+            <span class="tooltiptext" id="totalspellattackbonus-tooltip"></span>
+          </div>
         </li>
       </ul>
     </section>
