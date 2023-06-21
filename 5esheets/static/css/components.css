@@ -89,7 +89,6 @@ input.square-rounded {
   padding: 3px 0;
   border-radius: 6px;
   font-size: var(--font-size-s);
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
 }
