@@ -88,13 +88,23 @@ const formatBonus = (bonus) => {
   }
 };
 
+const getProficiencyBonusInput = () => {
+  return document.getElementsByName("proficiencybonus")[0];
+}
+
 const getProficiencyBonus = () => {
-  return parseInt(document.getElementsByName("proficiencybonus")[0].value);
+  return parseInt(getProficiencyBonusInput().value);
 };
 
 const getCaracModifier = (carac) => {
   return parseInt(document.getElementsByName(`${carac}mod`)[0].value);
 };
+
+const updateProficiencyBonus = () => {
+  level = getCharacterLevel();
+  bonus = proficiencyBonus(level);
+  getProficiencyBonusInput().value = formatBonus(bonus);
+}
 
 const updateCaracSavingThrowModifier = (carac) => {
   let caracModifier = getCaracModifier(carac);
@@ -119,9 +129,7 @@ const updateSkillModifier = (carac, skill) => {
     `${skillDashed}-prof`
   )[0];
   if (skillProficiencyCheckbox.checked) {
-    var proficiencyBonus = parseInt(
-      document.getElementsByName("proficiencybonus")[0].value
-    );
+    var proficiencyBonus = getProficiencyBonus();
     var skillBonus = caracModifier + proficiencyBonus;
   } else {
     var skillBonus = caracModifier;
@@ -276,7 +284,7 @@ caracs.forEach((carac) => {
 document.getElementsByName("classlevel")[0].addEventListener("change", () => {
   let level = getCharacterLevel();
   let bonus = formatBonus(proficiencyBonus(level));
-  let proficiencyBonusInput = document.getElementsByName("proficiencybonus")[0];
+  let proficiencyBonusInput = getProficiencyBonusInput();
   proficiencyBonusInput.value = bonus;
   proficiencyBonusInput.dispatchEvent(new Event("change"));
 });
@@ -346,6 +354,9 @@ document.onreadystatechange = () => {
 
     // Sort the skill according to their translated names
     sortSkillsElements();
+
+    // Update the proficiency bonus according to the level
+    updateProficiencyBonus();
 
     // Allow each textarea to be clicked on to change its markdown content, and rendered when unfocused
     markdownTextareaClasses.forEach((id) => {
