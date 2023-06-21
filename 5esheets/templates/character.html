@@ -177,126 +177,199 @@
               <li class="score-mod-with-prof">
                 <input name="Acrobatics-prof" type="checkbox" {% if character.data['Acrobatics-prof'] %}checked{% endif
                   %} />
-                <input name="Acrobatics" placeholder="+0" type="text" value="{{ character.data['Acrobatics'] }}" />
+                <div class="tooltip">
+                  <input name="Acrobatics" placeholder="+0" type="text" value="{{ character.data['Acrobatics'] }}" />
+                  <span class="tooltiptext" id="Acrobatics-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Acrobatics">{{ _("acrobatics") }}
-                  <span class="skill">({{ _("dexterity_abbr") }})</span></label>
+                  <span class="skill">({{ _("dexterity_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Animal-Handling-prof" type="checkbox" {% if character.data['Animal-Handling-prof']
                   %}checked{% endif %} />
-                <input name="Animal Handling" placeholder="+0" type="text"
-                  value="{{ character.data['Animal Handling'] }}" />
+                <div class="tooltip">
+                  <input name="Animal-Handling" placeholder="+0" type="text"
+                    value="{{ character.data['Animal Handling'] }}" />
+                  <span class="tooltiptext" id="Animal-Handling-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Animal Handling">{{ _("animal_handling") }}
-                  <span class="skill">({{ _("wisdom_abbr") }})</span></label>
+                  <span class="skill">({{ _("wisdom_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Arcana-prof" type="checkbox" {% if character.data['Arcana-prof'] %}checked{% endif %} />
-                <input name="Arcana" placeholder="+0" type="text" value="{{ character.data['Arcana'] }}" />
+                <div class="tooltip">
+                  <input name="Arcana" placeholder="+0" type="text" value="{{ character.data['Arcana'] }}" />
+                  <span class="tooltiptext" id="Arcana-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Arcana">{{ _("arcana") }}
-                  <span class="skill">({{ _("intelligence_abbr") }})</span></label>
+                  <span class="skill">({{ _("intelligence_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Athletics-prof" type="checkbox" {% if character.data['Athletics-prof'] %}checked{% endif
                   %} />
-                <input name="Athletics" placeholder="+0" type="text" value="{{ character.data['Athletics'] }}" />
+                <div class="tooltip">
+                  <input name="Athletics" placeholder="+0" type="text" value="{{ character.data['Athletics'] }}" />
+                  <span class="tooltiptext" id="Athletics-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Athletics">{{ _("athletics") }}
-                  <span class="skill">({{ _("strength_abbr") }})</span></label>
+                  <span class="skill">({{ _("strength_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Deception-prof" type="checkbox" {% if character.data['Deception-prof'] %}checked{% endif
                   %} />
-                <input name="Deception" placeholder="+0" type="text" value="{{ character.data['Deception'] }}" />
+                <div class="tooltip">
+                  <input name="Deception" placeholder="+0" type="text" value="{{ character.data['Deception'] }}" />
+                  <span class="tooltiptext" id="Deception-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Deception">{{ _("deception") }}
-                  <span class="skill">({{ _("charisma_abbr") }})</span></label>
+                  <span class="skill">({{ _("charisma_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="History-prof" type="checkbox" {% if character.data['History-prof'] %}checked{% endif %} />
-                <input name="History" placeholder="+0" type="text" value="{{ character.data['History'] }}" />
+                <div class="tooltip">
+                  <input name="History" placeholder="+0" type="text" value="{{ character.data['History'] }}" />
+                  <span class="tooltiptext" id="History-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="History">{{ _("history") }}
-                  <span class="skill">({{ _("intelligence_abbr") }})</span></label>
+                  <span class="skill">({{ _("intelligence_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Insight-prof" type="checkbox" {% if character.data['Insight-prof'] %}checked{% endif %} />
-                <input name="Insight" placeholder="+0" type="text" value="{{ character.data['Insight'] }}" />
+                <div class="tooltip">
+                  <input name="Insight" placeholder="+0" type="text" value="{{ character.data['Insight'] }}" />
+                  <span class="tooltiptext" id="Insight-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Insight">{{ _("insight") }}
-                  <span class="skill">({{ _("wisdom_abbr") }})</span></label>
+                  <span class="skill">({{ _("wisdom_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Intimidation-prof" type="checkbox" {% if character.data['Intimidation-prof'] %}checked{%
                   endif %} />
-                <input name="Intimidation" placeholder="+0" type="text" value="{{ character.data['Intimidation'] }}" />
+                <div class="tooltip">
+                  <input name="Intimidation" placeholder="+0" type="text"
+                    value="{{ character.data['Intimidation'] }}" />
+                  <span class="tooltiptext" id="Intimidation-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Intimidation">{{ _("intimidation") }}
-                  <span class="skill">({{ _("charisma_abbr") }})</span></label>
+                  <span class="skill">({{ _("charisma_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Investigation-prof" type="checkbox" {% if character.data['Investigation-prof'] %}checked{%
                   endif %} />
-                <input name="Investigation" placeholder="+0" type="text"
-                  value="{{ character.data['Investigation'] }}" />
+                <div class="tooltip">
+                  <input name="Investigation" placeholder="+0" type="text"
+                    value="{{ character.data['Investigation'] }}" />
+                  <span class="tooltiptext" id="Investigation-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Investigation">{{ _("investigation") }}
-                  <span class="skill">({{ _("intelligence_abbr") }})</span></label>
+                  <span class="skill">({{ _("intelligence_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Medicine-prof" type="checkbox" {% if character.data['Medicine-prof'] %}checked{% endif
                   %} />
-                <input name="Medicine" placeholder="+0" type="text" value="{{ character.data['Medicine'] }}" />
+                <div class="tooltip">
+                  <input name="Medicine" placeholder="+0" type="text" value="{{ character.data['Medicine'] }}" />
+                  <span class="tooltiptext" id="Medicine-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Medicine">{{ _("medicine") }}
-                  <span class="skill">({{ _("wisdom_abbr") }})</span></label>
+                  <span class="skill">({{ _("wisdom_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Nature-prof" type="checkbox" {% if character.data['Nature-prof'] %}checked{% endif %} />
-                <input name="Nature" placeholder="+0" type="text" value="{{ character.data['Nature'] }}" />
+                <div class="tooltip">
+                  <input name="Nature" placeholder="+0" type="text" value="{{ character.data['Nature'] }}" />
+                  <span class="tooltiptext" id="Nature-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Nature">{{ _("nature") }}
-                  <span class="skill">({{ _("intelligence_abbr") }})</span></label>
+                  <span class="skill">({{ _("intelligence_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Perception-prof" type="checkbox" {% if character.data['Perception-prof'] %}checked{% endif
                   %} />
-                <input name="Perception" placeholder="+0" type="text" value="{{ character.data['Perception'] }}" />
+                <div class="tooltip">
+                  <input name="Perception" placeholder="+0" type="text" value="{{ character.data['Perception'] }}" />
+                  <span class="tooltiptext" id="Perception-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Perception">{{ _("perception") }}
-                  <span class="skill">({{ _("wisdom_abbr") }})</span></label>
+                  <span class="skill">({{ _("wisdom_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Performance-prof" type="checkbox" {% if character.data['Performance-prof'] %}checked{%
                   endif %} />
-                <input name="Performance" placeholder="+0" type="text" value="{{ character.data['Performance'] }}" />
+                <div class="tooltip">
+                  <input name="Performance" placeholder="+0" type="text" value="{{ character.data['Performance'] }}" />
+                  <span class="tooltiptext" id="Performance-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Performance">{{ _("performance") }}
-                  <span class="skill">({{ _("charisma_abbr") }})</span></label>
+                  <span class="skill">({{ _("charisma_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Persuasion-prof" type="checkbox" {% if character.data['Persuasion-prof'] %}checked{% endif
                   %} />
-                <input name="Persuasion" placeholder="+0" type="text" value="{{ character.data['Persuasion'] }}" />
+                <div class="tooltip">
+                  <input name="Persuasion" placeholder="+0" type="text" value="{{ character.data['Persuasion'] }}" />
+                  <span class="tooltiptext" id="Persuasion-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Persuasion">{{ _("persuasion") }}
-                  <span class="skill">({{ _("charisma_abbr") }})</span></label>
+                  <span class="skill">({{ _("charisma_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Religion-prof" type="checkbox" {% if character.data['Religion-prof'] %}checked{% endif
                   %} />
-                <input name="Religion" placeholder="+0" type="text" value="{{ character.data['Religion'] }}" />
+                <div class="tooltip">
+                  <input name="Religion" placeholder="+0" type="text" value="{{ character.data['Religion'] }}" />
+                  <span class="tooltiptext" id="Religion-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Religion">{{ _("religion") }}
-                  <span class="skill">({{ _("intelligence_abbr") }})</span></label>
+                  <span class="skill">({{ _("intelligence_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Sleight-of-Hand-prof" type="checkbox" {% if character.data['Sleight-of-Hand-prof']
                   %}checked{% endif %} />
-                <input name="Sleight of Hand" placeholder="+0" type="text"
-                  value="{{ character.data['Sleight of Hand'] }}" />
+                <div class="tooltip">
+                  <input name="Sleight-of-Hand" placeholder="+0" type="text"
+                    value="{{ character.data['Sleight-of-Hand'] }}" />
+                  <span class="tooltiptext" id="Sleight-of-Hand-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Sleight of Hand">{{ _("sleight_of_hand") }}
-                  <span class="skill">({{ _("dexterity_abbr") }})</span></label>
+                  <span class="skill">({{ _("dexterity_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Stealth-prof" type="checkbox" {% if character.data['Stealth-prof'] %}checked{% endif %} />
-                <input name="Stealth" placeholder="+0" type="text" value="{{ character.data['Stealth'] }}" />
+                <div class="tooltip">
+                  <input name="Stealth" placeholder="+0" type="text" value="{{ character.data['Stealth'] }}" />
+                  <span class="tooltiptext" id="Stealth-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Stealth">{{ _("stealth") }}
-                  <span class="skill">({{ _("dexterity_abbr") }})</span></label>
+                  <span class="skill">({{ _("dexterity_abbr") }})</span>
+                </label>
               </li>
               <li class="score-mod-with-prof">
                 <input name="Survival-prof" type="checkbox" {% if character.data['Survival-prof'] %}checked{% endif
                   %} />
-                <input name="Survival" placeholder="+0" type="text" value="{{ character.data['Survival'] }}" />
+                <div class="tooltip">
+                  <input name="Survival" placeholder="+0" type="text" value="{{ character.data['Survival'] }}" />
+                  <span class="tooltiptext" id="Survival-tooltip"></span>
+                </div>
                 <label class="associated-carac" for="Survival">{{ _("survival") }}
-                  <span class="skill">({{ _("wisdom_abbr") }})</span></label>
+                  <span class="skill">({{ _("wisdom_abbr") }})</span>
+                </label>
               </li>
             </ul>
             <div class="box-subtitle">
@@ -309,8 +382,11 @@
         <div class="box-label-container">
           <label class="subtitle" for="passiveperception">{{ _("passive_perception") }}</label>
         </div>
-        <input class="square-rounded" name="passiveperception" placeholder="10"
-          value="{{ character.data['passiveperception'] }}" />
+        <div class="tooltip">
+          <input class="square-rounded" name="passiveperception" placeholder="10"
+            value="{{ character.data['passiveperception'] }}" />
+          <span class="tooltiptext" id="passiveperception-tooltip"></span>
+        </div>
       </div>
       <div class="otherprofs box roundedbox box-textarea">
         <div class="box-subtitle">
