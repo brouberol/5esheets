@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict
 
-from peewee import CharField, IntegerField, Model, TextField
+from peewee import CharField, ForeignKeyField, IntegerField, Model, TextField
 
 from .db import db
 
@@ -9,6 +9,13 @@ from .db import db
 class BaseModel(Model):
     class Meta:
         database = db
+
+
+class Player(BaseModel):
+    name = CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Character(BaseModel):
