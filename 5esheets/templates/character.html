@@ -401,77 +401,86 @@
     </section>
     <section id="combatcol">
       <section class="combat">
-        <div id="combat-stats">
-          <div class="armorclass">
-            <div class="box">
-              <label class="subtitle roundedbox-bottom-only no-top-border" for="ac">{{ _("armor_class") }}</label>
-              <input name="ac" placeholder="10" type="text" value="{{ character.data['ac']}}" />
-            </div>
-          </div>
-          <div class="initiative">
-            <div class="box">
-              <label class="subtitle roundedbox-bottom-only no-top-border" for="initiative">{{ _("initiative")
-                }}</label>
-              <input name="initiative" placeholder="+0" type="text" value="{{ character.data['initiative'] }}" />
-            </div>
-          </div>
-          <div class="speed">
-            <div class="box">
-              <label class="subtitle roundedbox-bottom-only no-top-border" for="speed">{{ _("speed") }}</label>
-              <input name="speed" placeholder="30" type="text" value="{{ character.data['speed'] }}" />
-            </div>
-          </div>
-        </div>
-        <div class="hp">
-          <div class="box roundedbox">
-            <div class="max">
-              <label class="subtitle" for="maxhp">{{ _("hit_point_maximum") }}</label>
-              <input name="maxhp" placeholder="10" type="text" value="{{ character.data['maxhp'] }}" />
-            </div>
-            <div id="current-temporary-hp">
-              <div id="temporary-hp">
-                <label class="subtitle" for="temphp">{{ _("temporary_hit_points") }}</label><input name="temphp"
-                  type="text" value="{{ character.data['temphp'] }}" />
-              </div>
-              <div id="current-hp">
-                <label class="subtitle" for="currenthp">{{ _("current_hit_points") }}</label>
-                <input name="currenthp" type="text" value="{{ character.data['currenthp'] }}" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="hitdice-deathsaves">
-          <div class="hitdice box roundedbox">
-            <div class="total">
-              <label for="totalhd">{{ _("total") }}</label>
-              <input name="totalhd" placeholder="2d10" type="text" value="{{ character.data['totalhd'] }}" />
-            </div>
-            <div class="remaining">
-              <label class="subtitle" for="remaininghd">{{ _("hit_dice") }}</label>
-              <input name="remaininghd" type="text" value="{{ character.data['remaininghd'] }}" />
-            </div>
-          </div>
-          <div class="deathsaves box roundedbox">
-            <label class="subtitle">{{ _("death_saves") }}</label>
-            <div class="marks">
-              <div class="deathsuccesses">
-                <label class="subtitle">{{ _("successes") }}</label>
-                <div class="bubbles">
-                  <input class="bubble" name="deathsuccess1" type="checkbox" {% if character.data['deathsuccess1']
-                    %}checked{% endif %} />
-                  <input class="bubble" name="deathsuccess2" type="checkbox" {% if character.data['deathsuccess2']
-                    %}checked{% endif %} />
-                  <input class="bubble" name="deathsuccess3" type="checkbox" {% if character.data['deathsuccess3']
-                    %}checked{% endif %} />
+        <div class="border-4">
+          <div class="combat-container">
+            <div id="combat-stats">
+              <div class="armorclass">
+                <div>
+                  <label class="subtitle roundedbox-bottom-only no-top-border" for="ac">{{ _("armor_class") }}</label>
+                  <input name="ac" placeholder="10" type="text" value="{{ character.data['ac']}}" />
                 </div>
               </div>
-              <div class="deathfails">
-                <label class="subtitle">{{ _("failures") }}</label>
-                <div class="bubbles">
-                  <input class="bubble" name="deathfail1" type="checkbox" {% if character.data['deathfail1'] %}checked{%
-                    endif %} /> <input class="bubble" name="deathfail2" type="checkbox" {% if
-                    character.data['deathfail2'] %}checked{% endif %} /> <input class="bubble" name="deathfail3"
-                    type="checkbox" {% if character.data['deathfail3'] %}checked{% endif %} />
+              <div class="initiative">
+                <div>
+                  <label class="subtitle roundedbox-bottom-only no-top-border" for="initiative">{{ _("initiative") }}</label>
+                  <input name="initiative" placeholder="+0" type="text" value="{{ character.data['initiative'] }}" />
+                </div>
+              </div>
+              <div class="speed">
+                <div>
+                  <label class="subtitle roundedbox-bottom-only no-top-border" for="speed">{{ _("speed") }}</label>
+                  <input name="speed" placeholder="30" type="text" value="{{ character.data['speed'] }}"/>
+                </div>
+              </div>
+            </div>
+            <div class="hp">
+              <div class="box border-6">
+                <div class="max">
+                  <label class="subtitle" for="maxhp">{{ _("hit_point_maximum") }}</label>
+                  <input name="maxhp" placeholder="10" type="text" value="{{ character.data['maxhp'] }}" />
+                </div>
+                <div id="current-temporary-hp">
+                  <div id="temporary-hp">
+                    <label class="subtitle" for="temphp">{{ _("temporary_hit_points") }}</label>
+                    <input name="temphp" type="text" value="{{ character.data['temphp'] }}" />
+                  </div>
+                  <div id="current-hp">
+                    <label class="subtitle" for="currenthp">{{ _("current_hit_points") }}</label>
+                    <input name="currenthp" type="text" value="{{ character.data['currenthp'] }}" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="hitdice-deathsaves">
+              <div class="hitdice box border-6">
+                <div>
+                  <div class="total">
+                    <label for="totalhd">{{ _("total") }}</label>
+                    <input class="subtitle" name="totalhd" placeholder="2d10" type="text" value="{{ character.data['totalhd'] }}" />
+                  </div>
+                  <div class="remaining">
+                    <label class="subtitle" for="remaininghd">{{ _("hit_dice") }}</label>
+                    <input name="remaininghd" type="text" value="{{ character.data['remaininghd'] }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="deathsaves box border-6">
+                <div>
+                  <label class="subtitle">{{ _("death_saves") }}</label>
+                  <div class="marks">
+                    <div class="deathsuccesses">
+                      <label>{{ _("successes") }}</label>
+                      <div class="bubbles">
+                        <input class="bubble" name="deathsuccess1" type="checkbox" {%
+                        if character.data['deathsuccess1'] %}checked{% endif %} />
+                        <input class="bubble" name="deathsuccess2" type="checkbox" {%
+                        if character.data['deathsuccess2'] %}checked{% endif %} />
+                        <input class="bubble" name="deathsuccess3" type="checkbox" {%
+                        if character.data['deathsuccess3'] %}checked{% endif %} />
+                      </div>
+                    </div>
+                    <div class="deathfails">
+                      <label class="subtitle">{{ _("failures") }}</label>
+                      <div class="bubbles">
+                        <input class="bubble" name="deathfail1" type="checkbox" {% if
+                        character.data['deathfail1'] %}checked{% endif %} /> <input
+                        class="bubble" name="deathfail2" type="checkbox" {% if
+                        character.data['deathfail2'] %}checked{% endif %} /> <input
+                        class="bubble" name="deathfail3" type="checkbox" {% if
+                        character.data['deathfail3'] %}checked{% endif %} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -504,8 +513,8 @@
           </div>
         </div>
       </section>
-      <section class="attacksandspellcasting box roundedbox">
-        <div>
+      <section class="attacksandspellcasting">
+        <div class="box border-3">
           <table>
             <thead>
               <tr>
@@ -555,8 +564,8 @@
           </div>
         </div>
       </section>
-      <section class="equipment box roundedbox box-textarea">
-        <div>
+      <section class="equipment box-textarea">
+        <div class="border-6">
           <textarea id="equipment-raw" class="hidden" onfocusout="hideRawTextareaShowRenderedDiv('equipment')"
             placeholder="{{ _('equipment_list') | capitalize }}" name="equipment">
 {{ character.data['equipment'] }}</textarea>
@@ -593,27 +602,30 @@
       </section>
     </section>
     <section>
-      <section class="flavor box">
-        <div class="personality">
-          <label class="subtitle" for="personality">{{ _("personality") }}</label>
-          <textarea name="personality">
-{{ character.data['personality'] }}</textarea>
-        </div>
-        <div class="ideals">
-          <label class="subtitle" for="ideals">{{ _("ideals") }}</label>
-          <textarea name="ideals">{{ character.data['ideals'] }}</textarea>
-        </div>
-        <div class="bonds">
-          <label class="subtitle" for="bonds">{{ _("bonds") }}</label>
-          <textarea name="bonds">{{ character.data['bonds'] }}</textarea>
-        </div>
-        <div class="flaws">
-          <label class="subtitle" for="flaws">{{ _("flaws") }}</label>
-          <textarea name="flaws">{{ character.data['flaws'] }}</textarea>
+      <section class="flavor">
+        <div class="border-4">
+          <div class="flavor-container">
+            <div class="personality border-5-top">
+              <textarea name="personality">{{ character.data['personality'] }}</textarea>
+              <label class="subtitle" for="personality">{{ _("personality") }}</label>
+            </div>
+            <div class="ideals border-5-middle">
+              <textarea name="ideals">{{ character.data['ideals'] }}</textarea>
+              <label class="subtitle" for="ideals">{{ _("ideals") }}</label>
+            </div>
+            <div class="bonds border-5-middle">
+              <textarea name="bonds">{{ character.data['bonds'] }}</textarea>
+              <label class="subtitle" for="bonds">{{ _("bonds") }}</label>
+            </div>
+            <div class="flaws border-5-bottom">
+              <textarea name="flaws">{{ character.data['flaws'] }}</textarea>
+              <label class="subtitle" for="flaws">{{ _("flaws") }}</label>
+            </div>
+          </div>
         </div>
       </section>
       <section class="features">
-        <div class="box roundedbox box-textarea">
+        <div class="box border-3 box-textarea">
           <div class="box-subtitle">
             <label class="subtitle" for="features">{{ _("features_&_traits") }}</label>
           </div>
