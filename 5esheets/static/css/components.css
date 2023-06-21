@@ -83,7 +83,7 @@ input.square-rounded {
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
-  background-color: var(--color-secondary-background);
+  background-color: var(--color-tooltip-background);
   color: var(--color-primary-text);
   text-align: center;
   padding: 3px 0;

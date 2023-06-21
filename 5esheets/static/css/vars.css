@@ -20,6 +20,7 @@
   :root {
     --color-primary-background: #ffffff;
     --color-secondary-background: #eeeeee;
+    --color-tooltip-background: var(--color-secondary-background);
     --color-primary-text: #000000;
     --color-secondary-text: #bbb;
     --color-input-placeholder: var(--color-secondary-text);
@@ -32,6 +33,7 @@
   :root {
     --color-primary-background: #313131;
     --color-secondary-background: var(--color-primary-background);
+    --color-tooltip-background: #1c1b1b;
     --color-primary-text: #ccc1c1;
     --color-secondary-text: #c5c3c3;
     --color-input-placeholder: var(--color-secondary-text);
