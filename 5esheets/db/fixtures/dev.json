@@ -9,10 +9,17 @@
             "name": "Étienne"
         }
     ],
+    "parties": [
+        {
+            "id": 1,
+            "name": "Famille McTrickfoot"
+        }
+    ],
     "characters": [
         {
             "id": 1,
             "player_id": 1,
+            "party_id": 1,
             "name": "Douglas McTrickfoot",
             "slug": "douglas-mctrickfoot",
             "_class": "Artilleur",
@@ -128,6 +135,7 @@
         {
             "id": 2,
             "player_id": 2,
+            "party_id": 1,
             "name": "Trevor McTrickfoot",
             "slug": "trevor-mctrickfoot",
             "_class": "Soulknife",

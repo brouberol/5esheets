@@ -11,26 +11,30 @@ class BaseModel(Model):
         database = db
 
 
-class Player(BaseModel):
-    name = CharField(max_length=255)
-
+class NameStrMixin:
     def __str__(self):
         return self.name
 
 
-class Character(BaseModel):
+class Player(NameStrMixin, BaseModel):
+    name = CharField(max_length=255)
+
+
+class Party(NameStrMixin, BaseModel):
+    name = CharField(max_length=255)
+
+
+class Character(NameStrMixin, BaseModel):
     name = CharField(max_length=255)
     slug = CharField(max_length=255)
     _class = CharField(max_length=80, column_name="class")
     level = IntegerField()
     json_data = TextField()
     player = ForeignKeyField(Player, backref="characters")
+    party = ForeignKeyField(Party, backref="members")
 
     @property
     def data(self):
         d = defaultdict(str)
         d.update(json.loads(self.json_data))
         return d
-
-    def __str__(self):
-        return self.name
