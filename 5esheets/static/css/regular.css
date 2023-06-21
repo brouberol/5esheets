@@ -53,6 +53,10 @@ main {
   margin-bottom: 40px;
 }
 
+#character {
+  margin-top: 1em;
+}
+
 section {
   margin-bottom: var(--interbox-spacing);
   padding: var(--innerbox-spacing);
