@@ -349,14 +349,14 @@ document
 
 document.onreadystatechange = () => {
   if (document.readyState == "complete") {
-    // Update the number of remaining spells to prepare depending on the state of the checkboxes
-    updateRemainingDailyPreparedSpells();
-
     // Sort the skill according to their translated names
     sortSkillsElements();
 
     // Update the proficiency bonus according to the level
     updateProficiencyBonus();
+
+    // Update the number of remaining spells to prepare depending on the state of the checkboxes
+    updateRemainingDailyPreparedSpells();
 
     // Allow each textarea to be clicked on to change its markdown content, and rendered when unfocused
     markdownTextareaClasses.forEach((id) => {
