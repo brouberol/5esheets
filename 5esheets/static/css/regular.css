@@ -79,6 +79,7 @@ input[type="checkbox"] {
 label.carac {
   font-size: var(--font-size-ms);
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 label.subtitle {
