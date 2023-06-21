@@ -19,7 +19,7 @@ dev:  ## Install the development environment
 docker-build:  ## Build the docker image
 	docker build -t brouberol/5esheets .
 
-docker-run:  docker-build ## Run the docker image
+docker-run:  docker-build  ## Run the docker image
 	docker run -it --rm -v $$(pwd)/5esheets/db:/usr/src/app/db/ -p 8000:8000 brouberol/5esheets
 
 db-migrate:  ## Run the SQL migrations
