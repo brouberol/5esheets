@@ -108,6 +108,9 @@ const updateProficiencyBonus = () => {
 
 const updateCaracSavingThrowModifier = (carac) => {
   let caracModifier = getCaracModifier(carac);
+  if (isNaN(caracModifier)) {
+    return
+  }
   let savingThrowModifierInput = document.getElementsByName(`${carac}-save`)[0];
   let savingThrowProficiencyCheckbox = document.getElementsByName(
     `${carac}-save-prof`
@@ -124,6 +127,9 @@ const updateCaracSavingThrowModifier = (carac) => {
 const updateSkillModifier = (carac, skill) => {
   let skillDashed = skill.replace(/ /g, "-");
   let caracModifier = getCaracModifier(carac);
+  if (isNaN(caracModifier)) {
+    return
+  }
   let skillModifierInput = document.getElementsByName(skill)[0];
   let skillProficiencyCheckbox = document.getElementsByName(
     `${skillDashed}-prof`
