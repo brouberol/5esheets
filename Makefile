@@ -38,7 +38,7 @@ translations-update: $(wildcard dnd5esheets/translations/*/*/messages.po)  ## Up
 translations-compile: $(wildcard dnd5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
 
 run:  ## Run the server
-	cd dnd5esheets && poetry run flask run --port 8000 --reload --debug
+	cd dnd5esheets && poetry run uvicorn dnd5esheets.app:app --reload
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
