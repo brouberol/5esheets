@@ -20,7 +20,7 @@ docker-build:  ## Build the docker image
 	docker build -t brouberol/5esheets .
 
 docker-run:  docker-build  ## Run the docker image
-	docker run -it --rm -v $$(pwd)/dnd5esheets/db:/usr/src/app/db/ -p 8000:8000 brouberol/5esheets
+	docker run -it --rm -v $$(pwd)/dnd5esheets/db:/usr/src/app/dnd5esheets/db/ -p 8000:8000 brouberol/5esheets
 
 db-migrate:  ## Run the SQL migrations
 	poetry run alembic upgrade head
