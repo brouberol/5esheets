@@ -26,7 +26,22 @@ class Json(TypeDecorator):
 
 
 class BaseModel(DeclarativeBase):
-    ...
+    def update_from_dict(self, fields_to_update: dict) -> Self:
+        """Update all columns of a given model instance to the provided values.
+
+        If a field maps to a Json column, the underlying JSON object will be updated.
+
+        """
+        for field_name, value in fields_to_update.items():
+            field_type = getattr(self.__class__, field_name).type.__class__
+            if field_type is Json:
+                new_value = getattr(self, field_name).copy()  # a python dict
+                for key, val in value.items():
+                    new_value[key] = val
+                setattr(self, field_name, new_value)
+            else:
+                setattr(self, field_name, value)
+        return self
 
 
 class NameReprMixin:
