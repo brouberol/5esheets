@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 
 from .db import create_scoped_session
 
-# from .utils import is_field_from_checkbox, strip_empties_from_dict
 from .schemas import ListCharacterSchema, CharacterSchema, UpdateCharacterSchema
 from .repositories import CharacterRepository
 
