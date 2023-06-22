@@ -13,6 +13,9 @@ $(wildcard dnd5esheets/translations/*/*/messages.mo): $(wildcard dnd5esheets/tra
 dnd5esheets/templates/spellbook.html:
 	python3 scripts/generate_spellbook.py > dnd5esheets/templates/spellbook.html
 
+api-doc:  ## Open the 5esheets API documentation
+	open http://localhost:8000/redoc
+
 dev:  ## Install the development environment
 	poetry install
 
