@@ -13,7 +13,7 @@ python-slugify = "^8.0.1"
 babel = "^2.12.1"
 flask-babel = "^3.1.0"
 caribou = "^0.3.0"
-peewee = "^3.16.2"
+sqlalchemy = "^2.0.16"
 
 
 [build-system]

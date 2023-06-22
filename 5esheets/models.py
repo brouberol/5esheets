@@ -1,37 +1,52 @@
 import json
 from collections import defaultdict
 
-from peewee import CharField, ForeignKeyField, IntegerField, Model, TextField
-
-from .db import db
-
-
-class BaseModel(Model):
-    class Meta:
-        database = db
+from sqlalchemy import ForeignKey, Integer, String, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
-class NameStrMixin:
-    def __str__(self):
-        return self.name
+class BaseModel(DeclarativeBase):
+    ...
 
 
-class Player(NameStrMixin, BaseModel):
-    name = CharField(max_length=255)
+class NameReprMixin:
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: {self.name}>"
 
 
-class Party(NameStrMixin, BaseModel):
-    name = CharField(max_length=255)
+class Player(NameReprMixin, BaseModel):
+    __tablename__ = "player"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    characters: Mapped["Character"] = relationship(
+        back_populates="player", cascade="all, delete-orphan"
+    )
 
 
-class Character(NameStrMixin, BaseModel):
-    name = CharField(max_length=255)
-    slug = CharField(max_length=255)
-    _class = CharField(max_length=80, column_name="class")
-    level = IntegerField()
-    json_data = TextField()
-    player = ForeignKeyField(Player, backref="characters")
-    party = ForeignKeyField(Party, backref="members")
+class Party(NameReprMixin, BaseModel):
+    __tablename__ = "party"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    members: Mapped["Character"] = relationship(
+        back_populates="party", cascade="all, delete-orphan"
+    )
+
+
+class Character(NameReprMixin, BaseModel):
+    __tablename__ = "character"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(255))
+    slug: Mapped[str] = mapped_column(String(255))
+    _class: Mapped[str] = mapped_column(String(80), name="class")
+    level: Mapped[int] = mapped_column(Integer)
+    json_data: Mapped[str] = mapped_column(Text)
+    player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
+    player: Mapped[Player] = relationship(back_populates="characters")
+    party_id: Mapped[int] = mapped_column(ForeignKey("party.id"))
+    party: Mapped[Party] = relationship(back_populates="members")
 
     @property
     def data(self):
