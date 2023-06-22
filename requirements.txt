@@ -1,3 +1,6 @@
+aiosqlite==0.19.0 ; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:95ee77b91c8d2808bd08a59fbebf66270e9090c3d92ffbf260dc0db0b979577d \
+    --hash=sha256:edba222e03453e094a3ce605db1b970c4b3376264e56f32e2a4959f948d66a96
 alembic==1.11.1 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:6a810a6b012c88b33458fceb869aef09ac75d6ace5291915ba7fae44de372c01 \
     --hash=sha256:dc871798a601fab38332e38d6ddb38d5e734f60034baeb8e2db5b642fccd8ab8

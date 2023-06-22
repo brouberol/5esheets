@@ -6,38 +6,41 @@ discouraged.
 
 """
 
-from sqlalchemy.orm import Session, defer, joinedload
+from sqlalchemy import select
+from sqlalchemy.orm import defer, joinedload
 from .models import Character
 from .schemas import UpdateCharacterSchema
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class CharacterRepository:
     @staticmethod
-    def list_all(session: Session) -> list[Character]:
+    async def list_all(session: AsyncSession) -> list[Character]:
         """List all existing characters, with their associated related data"""
-        return (
-            session.query(Character)
-            # efficiently join the player and party tables
+        result = await session.execute(
+            select(Character)
+            # exclude the large json pay;oad
             .options(joinedload(Character.player), joinedload(Character.party))
-            # exclude the large json patyload
-            .options(defer(Character.data)).all()
+            # efficiently join the player and party tables
+            .options(defer(Character.data))
         )
+        return result.scalars().all()
 
     @staticmethod
-    def get_by_slug(session: Session, slug: str) -> Character | None:
+    async def get_by_slug(session: AsyncSession, slug: str) -> Character | None:
         """Return a Character given an argument slug"""
-        return (
-            session.query(Character)
+        result = await session.execute(
+            select(Character)
             .options(joinedload(Character.player), joinedload(Character.party))
             .filter(Character.slug == slug)
-            .one_or_none()
         )
+        return result.scalars().one_or_none()
 
     @staticmethod
-    def update_character(
-        session: Session, slug: str, body: UpdateCharacterSchema
+    async def update_character(
+        session: AsyncSession, slug: str, body: UpdateCharacterSchema
     ) -> Character | None:
-        character = CharacterRepository.get_by_slug(session, slug)
+        character = await CharacterRepository.get_by_slug(session, slug)
         if not character:
             return None
 
@@ -50,6 +53,6 @@ class CharacterRepository:
 
         # Persist the changes
         session.add(character)
-        session.commit()
+        await session.commit()
 
         return character
