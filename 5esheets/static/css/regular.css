@@ -327,19 +327,10 @@ form.charsheet main > section div.otherprofs textarea {
   height: 24em;
 }
 
-section.combat {
-  padding: var(--innerbox-spacing);
-}
-
-section.combat {
-  background-color: var(--color-secondary-background);
+.combat-container {
   display: flex;
-  flex-wrap: wrap;
-  border-radius: 10px;
-}
-
-section.combat > div {
-  overflow: hidden;
+  gap: 10px;
+  flex-direction: column;
 }
 
 div#combat-stats,
@@ -347,7 +338,7 @@ div#hitdice-deathsaves {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 100%;
+  gap: 10px;
 }
 
 div.armorclass > div,
@@ -420,6 +411,7 @@ div#temporary-hp input {
 
 div#hitdice-deathsaves {
   justify-content: space-between;
+  gap: 10px;
 }
 
 div.hitdice,
@@ -459,6 +451,7 @@ div.hitdice div.remaining input {
   text-align: center;
   border: 0;
   flex: 1;
+  width: 100%;
 }
 
 div.deathsaves {
@@ -507,7 +500,6 @@ input[type="checkbox"]:checked {
 }
 
 section.attacksandspellcasting > div {
-  margin: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -584,9 +576,7 @@ section.equipment div.money ul > li input {
 
 section.flavor div {
   display: flex;
-  flex-direction: column-reverse;
-  padding: 5px;
-  border: var(--box-border);
+  flex-direction: column;
 }
 
 section.flavor textarea {
@@ -596,20 +586,13 @@ section.flavor textarea {
   width: initial;
 }
 
-section.flavor div:first-child {
-  border-radius: 10px 10px 0 0;
-}
-
-section.flavor div:not(:first-child) {
-  margin-top: 10px;
-}
-
-section.flavor div:last-child {
-  border-radius: 0 0 10px 10px;
+section.flavor .flavor-container {
+  display: flex;
+  gap: 10px;
 }
 
 section.features div textarea {
-  height: 42em;
+  height: 32em;
 }
 
 div.spell-list-column {
@@ -780,13 +763,19 @@ input.custom-resource-header {
   font-weight: bold;
 }
 
-div.fancy-border {
-  --border-top: 99px;
-  --border-side: 27px;
-  --border-bottom: 84px;
+.labeled-box {
+  display: flex;
+}
+
+.labeled-box > label {
+  order: 1;
 }
 
 div.border-1 {
+  --border-top: 99px;
+  --border-side: 27px;
+  --border-bottom: 84px;
+
   border-style: solid;
   border-image: url(/static/images/border-1.png) 198 54 168 repeat;
   border-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
@@ -808,4 +797,165 @@ div.border-1 > ul, div.border-1 > div {
 header span#playername {
   font-size: var(--font-size);
   text-align: center;
+}
+
+div.border-3 {
+  --border-top: 25px;
+  --border-side: 30px;
+  --border-bottom: 60px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-3.png) 50 60 120 repeat;
+  border-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+}
+
+div.border-3 > :first-child {
+  margin-top: calc(12px - var(--border-top));
+}
+
+div.border-3 > :last-child {
+  margin-bottom: calc(12px - var(--border-bottom));
+}
+
+div.border-3 > ul, div.border-3 > div, div.border-3 > textarea {
+  margin-left: calc(12px - var(--border-side));
+  margin-right: calc(12px - var(--border-side));
+}
+
+
+div.border-4 {
+  --border-top: 49px;
+  --border-side: 159px;
+  --border-bottom: 49px;
+  --margin-top: 18px;
+  --margin-side: 12px;
+  --margin-bottom: 18px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-4.png) 98 318 repeat;
+  border-image-outset: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  border-image-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  margin: var(--border-top) var(--border-side) var(--border-bottom);
+  background: #dedfdf;
+}
+
+div.border-4 > :first-child {
+  margin-top: calc(var(--margin-top) - var(--border-top));
+}
+
+div.border-4 > :last-child {
+  margin-bottom: calc(var(--margin-bottom) - var(--border-bottom));
+}
+
+div.border-4 > ul, div.border-4 > div, div.border-4 > textarea {
+  margin-left: calc(var(--margin-side) - var(--border-side));
+  margin-right: calc(var(--margin-side) - var(--border-side));
+}
+
+
+div.border-5-top {
+  --border-top: 25px;
+  --border-side: 27px;
+  --border-bottom: 55px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-5-top.png) 50 54 110 repeat;
+  border-image-outset: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  border-image-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  margin: var(--border-top) var(--border-side) var(--border-bottom);
+  background: white;
+}
+
+div.border-5-top > :first-child {
+  margin-top: calc(12px - var(--border-top));
+}
+
+div.border-5-top > :last-child {
+  margin-bottom: calc(12px - var(--border-bottom));
+}
+
+div.border-5-top > ul, div.border-5-top > div {
+  margin-left: calc(12px - var(--border-side));
+  margin-right: calc(12px - var(--border-side));
+}
+
+
+
+div.border-5-middle {
+  --border-top: 51px;
+  --border-side: 27px;
+  --border-bottom: 51px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-5-middle.png) 102 54 102 round;
+  border-image-outset: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  border-image-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  margin: var(--border-top) var(--border-side) var(--border-bottom);
+  background: white;
+}
+
+div.border-5-middle > :first-child {
+  margin-top: calc(5px - var(--border-top));
+}
+
+div.border-5-middle > :last-child {
+  margin-bottom: calc(5px - var(--border-bottom));
+}
+
+div.border-5-middle > ul, div.border-5-middle > div {
+  margin-left: calc(-10px - var(--border-side));
+  margin-right: calc(-10px - var(--border-side));
+}
+
+
+div.border-5-bottom {
+  --border-top: 50px;
+  --border-side: 27px;
+  --border-bottom: 25px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-5-bottom.png) 100 55 50 repeat;
+  border-image-outset: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  border-image-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  margin: var(--border-top) var(--border-side) var(--border-bottom);
+  background: white;
+}
+
+div.border-5-bottom > :first-child {
+  margin-top: calc(12px - var(--border-top));
+}
+
+div.border-5-bottom > :last-child {
+  margin-bottom: calc(12px - var(--border-bottom));
+}
+
+div.border-5-bottom > ul, div.border-5-bottom > div {
+  margin-left: calc(12px - var(--border-side));
+  margin-right: calc(12px - var(--border-side));
+}
+
+div.border-6 {
+  --border-top: 25px;
+  --border-side: 25px;
+  --border-bottom: 25px;
+
+  border-style: solid;
+  border-image: url(/static/images/border-6.png) 49 49 repeat;
+  border-image-outset: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  border-image-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+  margin: var(--border-top) var(--border-side) var(--border-bottom);
+  background: white;
+}
+
+div.border-6 > :first-child {
+  margin-top: calc(0 - var(--border-top));
+}
+
+div.border-6 > :last-child {
+  margin-bottom: calc(0 - var(--border-bottom));
+}
+
+div.border-6 > ul, div.border-6 > div {
+  margin-left: calc(0 - var(--border-side));
+  margin-right: calc(0 - var(--border-side));
 }

@@ -16,7 +16,7 @@
   --color-primary-border: var(--color-primary-text);
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) { */
   :root {
     --color-primary-background: #ffffff;
     --color-secondary-background: #eeeeee;
@@ -27,7 +27,7 @@
     --color-input-checkbox-checked: #000000;
     --color-secondary-border: #cccccc;
   }
-}
+/* }
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -40,4 +40,4 @@
     --color-input-checkbox-checked: #eb9696;
     --color-secondary-border: #8a8989;
   }
-}
+} */
