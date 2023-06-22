@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: dnd5esheets/templates/spellbook.html dev docker-build docker-run run help
+.PHONY: api-doc api-explorer dev dnd5esheets/templates/spellbook.html docker-build docker-run run help
 
 dnd5esheets/translations/messages.pot: dnd5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o dnd5esheets/translations/messages.pot .
@@ -15,6 +15,9 @@ dnd5esheets/templates/spellbook.html:
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:8000/redoc
+
+api-explorer:  ## Open the 5esheets API explorer (allowing request executiojs)
+	open http://localhost:8000/docs
 
 dev:  ## Install the development environment
 	poetry install
