@@ -12,8 +12,6 @@ from sqlalchemy.orm import Session, defer, joinedload
 from .models import Character
 from .schemas import UpdateCharacterSchema
 
-# from .utils import is_field_from_checkbox, strip_empties_from_dict
-
 
 class CharacterRepository:
     @staticmethod
