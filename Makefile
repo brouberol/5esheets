@@ -23,7 +23,7 @@ docker-run:  docker-build  ## Run the docker image
 	docker run -it --rm -v $$(pwd)/dnd5esheets/db:/usr/src/app/db/ -p 8000:8000 brouberol/5esheets
 
 db-migrate:  ## Run the SQL migrations
-	poetry run caribou upgrade dnd5esheets/db/5esheets.db dnd5esheets/migrations
+	poetry run alembic upgrade head
 
 db-dev-fixtures:  ## Populate the local database with development fixtures
 	cd dnd5esheets && poetry run flask db populate
