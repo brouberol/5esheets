@@ -1,5 +1,4 @@
 import json
-from contextlib import closing
 
 import click
 
@@ -22,8 +21,7 @@ def populate_db():
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
         dev_fixtures = json.load(dev_fixtures_fd)
 
-    session = create_session()
-    with closing(session):
+    with create_session() as session:
         for player_attrs in dev_fixtures["players"]:
             player = Player(**player_attrs)
             session.merge(player)
