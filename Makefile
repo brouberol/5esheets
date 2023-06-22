@@ -28,7 +28,7 @@ docker-run:  docker-build  ## Run the docker image
 db-migrate:  ## Run the SQL migrations
 	poetry run alembic upgrade head
 
-db-dev-fixtures:  ## Populate the local database with development fixtures
+db-dev-fixtures:  db-migrate ## Populate the local database with development fixtures
 	poetry run python3 dnd5esheets/cli.py db populate
 
 translations-extract: dnd5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
