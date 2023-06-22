@@ -1,13 +1,12 @@
 import json
 from pathlib import Path
 
-import caribou
 from flask import Flask, redirect, render_template, request, url_for
 from flask_babel import Babel
 from sqlalchemy.orm import scoped_session
 
 from .commands import db_commands
-from .db import db_file, session_factory
+from .db import session_factory
 from .models import Character
 from .utils import is_field_from_checkbox, strip_empties_from_dict
 
@@ -27,9 +26,6 @@ babel = Babel(app, locale_selector=get_locale)
 app.cli.add_command(db_commands)
 
 session = scoped_session(session_factory)
-
-with app.app_context():
-    caribou.upgrade(db_url=db_file, migration_dir=migrations_dir)
 
 
 @app.teardown_appcontext
