@@ -1,0 +1,339 @@
+#: dnd5esheets/templates/character.html:4
+msgid "character_name"
+msgstr "character name"
+
+#: dnd5esheets/templates/character.html:14
+msgid "class_and_level"
+msgstr "class & level"
+
+#: dnd5esheets/templates/character.html:18
+msgid "wizard"
+msgstr "wizard"
+
+#: dnd5esheets/templates/character.html:22
+msgid "background"
+msgstr "background"
+
+#: dnd5esheets/templates/character.html:25
+msgid "acolyte"
+msgstr "acolyte"
+
+#: dnd5esheets/templates/character.html:30
+msgid "player_name"
+msgstr "player name"
+
+#: dnd5esheets/templates/character.html:33
+msgid "player-mcplayerface"
+msgstr "Player McPlayerface"
+
+#: dnd5esheets/templates/character.html:40
+msgid "race"
+msgstr "race"
+
+#: dnd5esheets/templates/character.html:43
+msgid "half-elf"
+msgstr "half-elf"
+
+#: dnd5esheets/templates/character.html:48
+msgid "alignment"
+msgstr "alignment"
+
+#: dnd5esheets/templates/character.html:51
+msgid "lawful-good"
+msgstr "lawful good"
+
+#: dnd5esheets/templates/character.html:56
+msgid "experience_points"
+msgstr "experience points"
+
+#: dnd5esheets/templates/character.html:74 dnd5esheets/templates/character.html:367
+msgid "strength_abbr"
+msgstr "str"
+
+#: dnd5esheets/templates/character.html:94 dnd5esheets/templates/character.html:323
+#: dnd5esheets/templates/character.html:543 dnd5esheets/templates/character.html:557
+msgid "dexterity_abbr"
+msgstr "dex"
+
+#: dnd5esheets/templates/character.html:114
+msgid "constitution_abbr"
+msgstr "con"
+
+#: dnd5esheets/templates/character.html:134 dnd5esheets/templates/character.html:352
+#: dnd5esheets/templates/character.html:396 dnd5esheets/templates/character.html:440
+#: dnd5esheets/templates/character.html:470 dnd5esheets/templates/character.html:528
+msgid "intelligence_abbr"
+msgstr "int"
+
+#: dnd5esheets/templates/character.html:154 dnd5esheets/templates/character.html:337
+#: dnd5esheets/templates/character.html:411 dnd5esheets/templates/character.html:455
+#: dnd5esheets/templates/character.html:485 dnd5esheets/templates/character.html:571
+msgid "wisdom_abbr"
+msgstr "wis"
+
+#: dnd5esheets/templates/character.html:174 dnd5esheets/templates/character.html:381
+#: dnd5esheets/templates/character.html:425 dnd5esheets/templates/character.html:499
+#: dnd5esheets/templates/character.html:513
+msgid "charisma_abbr"
+msgstr "cha"
+
+#: dnd5esheets/templates/character.html:197
+msgid "inspiration"
+msgstr "inspiration"
+
+#: dnd5esheets/templates/character.html:206
+msgid "darkvision"
+msgstr "darkvision"
+
+#: dnd5esheets/templates/character.html:215
+msgid "proficiency bonus"
+msgstr "proficiency bonus"
+
+#: dnd5esheets/templates/character.html:237
+msgid "strength"
+msgstr "strength"
+
+#: dnd5esheets/templates/character.html:250
+msgid "dexterity"
+msgstr "dexterity"
+
+#: dnd5esheets/templates/character.html:263
+msgid "constitution"
+msgstr "constitution"
+
+#: dnd5esheets/templates/character.html:276 dnd5esheets/templates/spells.html:12
+msgid "wisdom"
+msgstr "wisdom"
+
+#: dnd5esheets/templates/character.html:289 dnd5esheets/templates/spells.html:10
+msgid "intelligence"
+msgstr "intelligence"
+
+#: dnd5esheets/templates/character.html:302 dnd5esheets/templates/spells.html:13
+msgid "charisma"
+msgstr "charisma"
+
+#: dnd5esheets/templates/character.html:307
+msgid "saving_throws"
+msgstr "saving throws"
+
+#: dnd5esheets/templates/character.html:322
+msgid "acrobatics"
+msgstr "acrobatics"
+
+#: dnd5esheets/templates/character.html:336
+msgid "animal_handling"
+msgstr "animal handling"
+
+#: dnd5esheets/templates/character.html:350
+msgid "arcana"
+msgstr "arcana"
+
+#: dnd5esheets/templates/character.html:366
+msgid "athletics"
+msgstr "athletics"
+
+#: dnd5esheets/templates/character.html:380
+msgid "deception"
+msgstr "deception"
+
+#: dnd5esheets/templates/character.html:394
+msgid "history"
+msgstr "history"
+
+#: dnd5esheets/templates/character.html:410
+msgid "insight"
+msgstr "insight"
+
+#: dnd5esheets/templates/character.html:424
+msgid "intimidation"
+msgstr "intimidation"
+
+#: dnd5esheets/templates/character.html:438
+msgid "investigation"
+msgstr "investigation"
+
+#: dnd5esheets/templates/character.html:454
+msgid "medicine"
+msgstr "medicine"
+
+#: dnd5esheets/templates/character.html:468
+msgid "nature"
+msgstr "nature"
+
+#: dnd5esheets/templates/character.html:484
+msgid "perception"
+msgstr "perception"
+
+#: dnd5esheets/templates/character.html:498
+msgid "performance"
+msgstr "performance"
+
+#: dnd5esheets/templates/character.html:512
+msgid "persuasion"
+msgstr "persuasion"
+
+#: dnd5esheets/templates/character.html:526
+msgid "religion"
+msgstr "religion"
+
+#: dnd5esheets/templates/character.html:542
+msgid "sleight_of_hand"
+msgstr "sleight of hand"
+
+#: dnd5esheets/templates/character.html:556
+msgid "stealth"
+msgstr "stealth"
+
+#: dnd5esheets/templates/character.html:570
+msgid "survival"
+msgstr "survival"
+
+#: dnd5esheets/templates/character.html:576
+msgid "skills"
+msgstr "skills"
+
+#: dnd5esheets/templates/character.html:584
+msgid "passive_perception"
+msgstr "passive perception"
+
+#: dnd5esheets/templates/character.html:597
+msgid "other_proficiencies_and_languages"
+msgstr "other proficiencies and languages"
+
+#: dnd5esheets/templates/character.html:623
+msgid "armor_class"
+msgstr "armor class"
+
+#: dnd5esheets/templates/character.html:638
+msgid "initiative"
+msgstr "initiative"
+
+#: dnd5esheets/templates/character.html:653
+msgid "speed"
+msgstr "speed"
+
+#: dnd5esheets/templates/character.html:668
+msgid "hit_point_maximum"
+msgstr "max hp"
+
+#: dnd5esheets/templates/character.html:680
+msgid "temporary_hit_points"
+msgstr "temporary hp"
+
+#: dnd5esheets/templates/character.html:689
+msgid "current_hit_points"
+msgstr "current hp"
+
+#: dnd5esheets/templates/character.html:703
+msgid "total"
+msgstr "total"
+
+#: dnd5esheets/templates/character.html:713
+msgid "hit_dice"
+msgstr "hit dice"
+
+#: dnd5esheets/templates/character.html:723
+msgid "death_saves"
+msgstr "death saves"
+
+#: dnd5esheets/templates/character.html:726
+msgid "successes"
+msgstr "successes"
+
+#: dnd5esheets/templates/character.html:737
+msgid "failures"
+msgstr "failures"
+
+#: dnd5esheets/templates/character.html:758 dnd5esheets/templates/character.html:778
+#: dnd5esheets/templates/character.html:798
+msgid "resource"
+msgstr "resource"
+
+#: dnd5esheets/templates/character.html:818
+msgid "name"
+msgstr "name"
+
+#: dnd5esheets/templates/character.html:819
+msgid "atk_bonus"
+msgstr "attack bonus"
+
+#: dnd5esheets/templates/character.html:820
+msgid "damage/type"
+msgstr "damage/type"
+
+#: dnd5esheets/templates/character.html:896
+msgid "attacks"
+msgstr "attacks"
+
+#: dnd5esheets/templates/character.html:906
+msgid "equipment_list"
+msgstr "your equipment"
+
+#: dnd5esheets/templates/character.html:923
+msgid "cp"
+msgstr "cp"
+
+#: dnd5esheets/templates/character.html:930
+msgid "sp"
+msgstr "sp"
+
+#: dnd5esheets/templates/character.html:937
+msgid "ep"
+msgstr "ep"
+
+#: dnd5esheets/templates/character.html:944
+msgid "gp"
+msgstr "gp"
+
+#: dnd5esheets/templates/character.html:951
+msgid "pp"
+msgstr "pp"
+
+#: dnd5esheets/templates/character.html:956
+msgid "equipment"
+msgstr "equipment"
+
+#: dnd5esheets/templates/character.html:965
+msgid "personality"
+msgstr "personality"
+
+#: dnd5esheets/templates/character.html:972
+msgid "ideals"
+msgstr "ideals"
+
+#: dnd5esheets/templates/character.html:976
+msgid "bonds"
+msgstr "bonds"
+
+#: dnd5esheets/templates/character.html:980
+msgid "flaws"
+msgstr "flaws"
+
+#: dnd5esheets/templates/character.html:988
+msgid "features_&_traits"
+msgstr "features & traits"
+
+#: dnd5esheets/templates/spellbook.html:6
+msgid "cantrips"
+msgstr "cantrips"
+
+#: dnd5esheets/templates/spells.html:4
+msgid "spellcasting_ability"
+msgstr "spellcasting ability"
+
+#: dnd5esheets/templates/spells.html:19
+msgid "preparable_spells"
+msgstr "daily preparable spells"
+
+#: dnd5esheets/templates/spells.html:36
+msgid "spell_dc"
+msgstr "spell DC"
+
+#: dnd5esheets/templates/spells.html:48
+msgid "extra_spell_attack_bonus"
+msgstr "extra spell attack bonus"
+
+#: dnd5esheets/templates/spells.html:58
+msgid "total_spell_attack_bonus"
+msgstr "total spell attack bonus"
