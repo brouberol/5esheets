@@ -24,7 +24,7 @@
             "slug": "douglas-mctrickfoot",
             "class_": "Artilleur",
             "level": 4,
-            "json_data": {
+            "data": {
                 "background": "Artistan",
                 "playername": "Balthazar",
                 "race": "Gnome",
@@ -140,7 +140,7 @@
             "slug": "trevor-mctrickfoot",
             "class_": "Soulknife",
             "level": 4,
-            "json_data": {}
+            "data": {}
         }
     ]
 }
