@@ -5,6 +5,7 @@ from sqlalchemy import ForeignKey, Integer, String, Text, TypeDecorator, types
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
+# Taken from https://stackoverflow.com/a/49933601
 class Json(TypeDecorator):
     @property
     def python_type(self):
