@@ -22,7 +22,7 @@
             "party_id": 1,
             "name": "Douglas McTrickfoot",
             "slug": "douglas-mctrickfoot",
-            "_class": "Artilleur",
+            "class_": "Artilleur",
             "level": 4,
             "json_data": {
                 "background": "Artistan",
@@ -138,7 +138,7 @@
             "party_id": 1,
             "name": "Trevor McTrickfoot",
             "slug": "trevor-mctrickfoot",
-            "_class": "Soulknife",
+            "class_": "Soulknife",
             "level": 4,
             "json_data": {}
         }

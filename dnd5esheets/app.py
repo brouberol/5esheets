@@ -1,74 +1,40 @@
-import json
-from pathlib import Path
+from fastapi import FastAPI, Depends, HTTPException
 
-from flask import Flask, redirect, render_template, request, url_for
-from flask_babel import Babel
-from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import Session
 
-from .commands import db_commands
-from .db import session_factory
-from .models import Character
-from .utils import is_field_from_checkbox, strip_empties_from_dict
+from .db import create_scoped_session
 
-SUPPORTED_TRANSLATION_LANGUAGES = ["fr", "en"]
+# from .utils import is_field_from_checkbox, strip_empties_from_dict
+from .schemas import ListCharacterSchema, CharacterSchema, UpdateCharacterSchema
+from .repositories import CharacterRepository
+
+app = FastAPI()
 
 
-def get_locale():
-    # From https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xiv-i18n-and-l10n-legacy
-    return request.accept_languages.best_match(
-        SUPPORTED_TRANSLATION_LANGUAGES, default="en"
-    )
+@app.get("/characters/")
+def list_characters(
+    session: Session = Depends(create_scoped_session),
+) -> list[ListCharacterSchema]:
+    return CharacterRepository.list_all(session)
 
 
-migrations_dir = Path(__file__).parent / "migrations"
-app = Flask("5esheets", template_folder=Path(__file__).parent / "templates")
-babel = Babel(app, locale_selector=get_locale)
-app.cli.add_command(db_commands)
-
-session = scoped_session(session_factory)
-
-
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    session.remove()
+@app.get("/characters/{slug}")
+def display_character(
+    slug: str, session: Session = Depends(create_scoped_session)
+) -> CharacterSchema:
+    character = CharacterRepository.get_by_slug(session, slug=slug)
+    if character is None:
+        raise HTTPException(status_code=404, detail="Character not found")
+    return character
 
 
-@app.route("/", methods=["GET"])
-def list_characters():
-    characters = session.query(Character).all()
-    return render_template("characters.html", characters=characters)
-
-
-@app.route("/<slug>", methods=["GET"])
-def display_sheet(slug: str):
-    character = session.query(Character).filter_by(slug=slug).first()
-    return render_template("sheet.html", character=character)
-
-
-@app.route("/<slug>", methods=["POST"])
-def update_sheet(slug: str):
-    form = request.form.to_dict()
-
-    character_name = form.pop("charname")
-    classlevel_tokens = form.pop("classlevel").split()
-    character_class = " ".join(classlevel_tokens[:-1])
-    character_level = int(classlevel_tokens[-1])
-
-    character_data = form.copy()
-    for k in form:
-        if is_field_from_checkbox(k):
-            character_data[k] = True
-
-    # Remove empty fields to keep the JSON payload as small as possible
-    character_data = strip_empties_from_dict(character_data)
-    session.query(Character).filter_by(slug=slug).update(
-        {
-            Character.name: character_name,
-            Character._class: character_class,
-            Character.level: character_level,
-            Character.json_data: json.dumps(character_data),
-        },
-        synchronize_session=False,
-    )
-    session.commit()
-    return redirect(url_for("display_sheet", slug=slug))
+@app.put("/characters/{slug}")
+def update_character(
+    slug: str,
+    character_data: UpdateCharacterSchema,
+    session: Session = Depends(create_scoped_session),
+) -> dict:
+    character = CharacterRepository.update_character(session, slug, character_data)
+    if character is None:
+        raise HTTPException(status_code=404, detail="Character not found")
+    return {"status": "ok"}

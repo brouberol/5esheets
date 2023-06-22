@@ -2,15 +2,22 @@ import json
 from contextlib import closing
 
 import click
-from flask.cli import AppGroup
 
-from .db import create_session, db_dir
-from .models import Character, Party, Player
-
-db_commands = AppGroup("db")
+from dnd5esheets.db import create_session, db_dir
+from dnd5esheets.models import Character, Party, Player
 
 
-@db_commands.command("populate")
+@click.group()
+def cli():
+    ...
+
+
+@cli.group()
+def db():
+    ...
+
+
+@db.command("populate")
 def populate_db():
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
         dev_fixtures = json.load(dev_fixtures_fd)
@@ -33,3 +40,7 @@ def populate_db():
             session.merge(character)
             click.echo(f"Character {character} saved")
         session.commit()
+
+
+if __name__ == "__main__":
+    cli()

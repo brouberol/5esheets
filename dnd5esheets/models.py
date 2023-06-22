@@ -40,7 +40,7 @@ class Character(NameReprMixin, BaseModel):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
-    _class: Mapped[str] = mapped_column(String(80), name="class")
+    class_: Mapped[str] = mapped_column(String(80), name="class")
     level: Mapped[int] = mapped_column(Integer)
     json_data: Mapped[str] = mapped_column(Text)
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
@@ -48,6 +48,7 @@ class Character(NameReprMixin, BaseModel):
     party_id: Mapped[int] = mapped_column(ForeignKey("party.id"))
     party: Mapped[Party] = relationship(back_populates="members")
 
+    # TODO: investigate hybrid_property to make sure json encoding/decoding is always done DB side? Or implement a Json type for sqlite?
     @property
     def data(self):
         d = defaultdict(str)
