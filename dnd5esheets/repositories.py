@@ -46,19 +46,10 @@ class CharacterRepository:
             field: val for field, val in body.dict().items() if val is not None
         }
 
-        # if body has a `data` attribute, we peform updates of the associated nested fields
-        # in the character.json_data json object
-        if "data" in fields_to_update:
-            data = character.data.copy()
-            for key, value in fields_to_update["data"].items():
-                data[key] = value
-            character.json_data = json.dumps(data)
-            fields_to_update.pop("data")
-
-        # Update the character other fields
-        for field, value in fields_to_update.items():
-            setattr(character, field, value)
+        character.update_from_dict(fields_to_update)
 
         # Persist the changes
         session.add(character)
         session.commit()
+
+        return character
