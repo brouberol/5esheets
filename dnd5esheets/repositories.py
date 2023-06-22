@@ -6,8 +6,6 @@ discouraged.
 
 """
 
-import json
-
 from sqlalchemy.orm import Session, defer, joinedload
 from .models import Character
 from .schemas import UpdateCharacterSchema
@@ -22,7 +20,7 @@ class CharacterRepository:
             # efficiently join the player and party tables
             .options(joinedload(Character.player), joinedload(Character.party))
             # exclude the large json patyload
-            .options(defer(Character.json_data)).all()
+            .options(defer(Character.data)).all()
         )
 
     @staticmethod

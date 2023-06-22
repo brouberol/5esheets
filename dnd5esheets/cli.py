@@ -35,8 +35,7 @@ def populate_db():
             click.echo(f"Party {party} saved")
 
         for character_attrs in dev_fixtures["characters"]:
-            json_data = json.dumps(character_attrs.pop("json_data"))
-            character = Character(json_data=json_data, **character_attrs)
+            character = Character(**character_attrs)
             session.merge(character)
             click.echo(f"Character {character} saved")
         session.commit()

@@ -1,8 +1,28 @@
 import json
 from collections import defaultdict
-
-from sqlalchemy import ForeignKey, Integer, String, Text
+from typing import Self
+from sqlalchemy import ForeignKey, Integer, String, Text, TypeDecorator, types
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+
+class Json(TypeDecorator):
+    @property
+    def python_type(self):
+        return object
+
+    impl = types.Text
+
+    def process_bind_param(self, value, dialect):
+        return json.dumps(value)
+
+    def process_literal_param(self, value, dialect):
+        return value
+
+    def process_result_value(self, value, dialect):
+        try:
+            return json.loads(value)
+        except (ValueError, TypeError):
+            return None
 
 
 class BaseModel(DeclarativeBase):
@@ -42,15 +62,8 @@ class Character(NameReprMixin, BaseModel):
     slug: Mapped[str] = mapped_column(String(255))
     class_: Mapped[str] = mapped_column(String(80), name="class")
     level: Mapped[int] = mapped_column(Integer)
-    json_data: Mapped[str] = mapped_column(Text)
+    data: Mapped[str] = mapped_column(Json, name="json_data")
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
     player: Mapped[Player] = relationship(back_populates="characters")
     party_id: Mapped[int] = mapped_column(ForeignKey("party.id"))
     party: Mapped[Party] = relationship(back_populates="members")
-
-    # TODO: investigate hybrid_property to make sure json encoding/decoding is always done DB side? Or implement a Json type for sqlite?
-    @property
-    def data(self):
-        d = defaultdict(str)
-        d.update(json.loads(self.json_data))
-        return d
