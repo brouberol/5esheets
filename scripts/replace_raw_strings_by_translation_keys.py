@@ -7,7 +7,7 @@ from pathlib import Path
 TEXT_WITHIN_TAG = re.compile(r">\s*([^\{>]+)\s*<")
 
 parent_dir = Path(__file__).parent.parent
-templates_dir = parent_dir / "5esheets" / "templates"
+templates_dir = parent_dir / "dnd5esheets" / "templates"
 filename = sys.argv[1]
 
 
