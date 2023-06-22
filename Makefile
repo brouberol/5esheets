@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer dev dnd5esheets/templates/spellbook.html docker-build docker-run run help
+.PHONY: api-doc api-explorer dev dnd5esheets/templates/spellbook.html docker-build docker-run init run help
 
 dnd5esheets/translations/messages.pot: dnd5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o dnd5esheets/translations/messages.pot .
@@ -33,6 +33,8 @@ db-migrate:  ## Run the SQL migrations
 
 db-dev-fixtures:  db-migrate ## Populate the local database with development fixtures
 	poetry run python3 dnd5esheets/cli.py db populate
+
+init:  dev db-dev-fixtures run  ## Run the application for the first time
 
 translations-extract: dnd5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
 
