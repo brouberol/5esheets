@@ -1,7 +1,6 @@
 import json
-from collections import defaultdict
 from typing import Self
-from sqlalchemy import ForeignKey, Integer, String, Text, TypeDecorator, types
+from sqlalchemy import ForeignKey, Integer, String, TypeDecorator, types
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
