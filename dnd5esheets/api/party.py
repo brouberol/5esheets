@@ -5,7 +5,7 @@ from dnd5esheets.db import create_scoped_session
 from dnd5esheets.repositories.party import PartyRepository
 from dnd5esheets.schemas import DisplayPartySchema, UpdatePartySchema
 
-party_api = APIRouter(prefix="/party", tags=["player"])
+party_api = APIRouter(prefix="/party", tags=["party"])
 
 
 @party_api.get("/{id}", response_model=DisplayPartySchema)

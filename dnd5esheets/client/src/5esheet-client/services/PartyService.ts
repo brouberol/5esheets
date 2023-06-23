@@ -1,28 +1,28 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DisplayPlayerSchema } from '../models/DisplayPlayerSchema';
-import type { UpdatePlayerSchema } from '../models/UpdatePlayerSchema';
+import type { DisplayPartySchema } from '../models/DisplayPartySchema';
+import type { UpdatePartySchema } from '../models/UpdatePartySchema';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class PlayerService {
+export class PartyService {
 
     /**
-     * Display Player
-     * Display all details of a given player.
+     * Display Party
+     * Display all details of a given party.
      * @param id
-     * @returns DisplayPlayerSchema Successful Response
+     * @returns DisplayPartySchema Successful Response
      * @throws ApiError
      */
-    public static displayPlayer(
+    public static displayParty(
         id: number,
-    ): CancelablePromise<DisplayPlayerSchema> {
+    ): CancelablePromise<DisplayPartySchema> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/player/{id}',
+            url: '/api/party/{id}',
             path: {
                 'id': id,
             },
@@ -33,8 +33,8 @@ export class PlayerService {
     }
 
     /**
-     * Update Player
-     * Update a player details.
+     * Update Party
+     * Update a party details.
      *
      * Examples of JSON body paylods:
      * @param id
@@ -42,13 +42,13 @@ export class PlayerService {
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static updatePlayer(
+    public static updateParty(
         id: number,
-        requestBody: UpdatePlayerSchema,
+        requestBody: UpdatePartySchema,
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/player/{id}',
+            url: '/api/party/{id}',
             path: {
                 'id': id,
             },

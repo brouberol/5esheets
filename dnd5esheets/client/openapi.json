@@ -224,7 +224,7 @@
     "/api/party/{id}": {
       "get": {
         "tags": [
-          "player"
+          "party"
         ],
         "summary": "Display Party",
         "description": "Display all details of a given party.",
@@ -265,7 +265,7 @@
       },
       "put": {
         "tags": [
-          "player"
+          "party"
         ],
         "summary": "Update Party",
         "description": "Update a party details.\n\nExamples of JSON body paylods:",
@@ -297,7 +297,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Player-Update Party",
+                  "title": "Response Party-Update Party",
                   "type": "object"
                 }
               }

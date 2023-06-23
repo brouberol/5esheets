@@ -21,4 +21,5 @@ export type { UpdatePlayerSchema } from './models/UpdatePlayerSchema';
 export type { ValidationError } from './models/ValidationError';
 
 export { CharacterService } from './services/CharacterService';
+export { PartyService } from './services/PartyService';
 export { PlayerService } from './services/PlayerService';
