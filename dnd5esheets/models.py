@@ -57,6 +57,8 @@ class Player(NameReprMixin, BaseModel):
     characters: Mapped[list["Character"]] = relationship(
         back_populates="player",
         cascade="all, delete-orphan",
+        # always load the characters through a selectinload, avoiding N+1 queries
+        lazy="selectin",
     )
 
 
@@ -68,6 +70,8 @@ class Party(NameReprMixin, BaseModel):
     members: Mapped[list["Character"]] = relationship(
         back_populates="party",
         cascade="all, delete-orphan",
+        # always load the members through a selectinload, avoiding N+1 queries
+        lazy="selectin",
     )
 
 
@@ -81,6 +85,14 @@ class Character(NameReprMixin, BaseModel):
     level: Mapped[int] = mapped_column(Integer)
     data: Mapped[str] = mapped_column(Json, name="json_data")
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
-    player: Mapped[Player] = relationship(back_populates="characters")
+    player: Mapped[Player] = relationship(
+        back_populates="characters",
+        # always load the player via a joinedload
+        lazy="joined",
+    )
     party_id: Mapped[int] = mapped_column(ForeignKey("party.id"))
-    party: Mapped[Party] = relationship(back_populates="members")
+    party: Mapped[Party] = relationship(
+        back_populates="members",
+        # always load the party via a joinedload
+        lazy="joined",
+    )
