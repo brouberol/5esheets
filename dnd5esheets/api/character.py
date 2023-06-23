@@ -50,5 +50,5 @@ async def update(
     as well as an attribute nested in the character JSON data.
 
     """
-    await CharacterRepository.update_character(session, slug, character_data)
+    await CharacterRepository.update(session, slug, character_data)
     return {"status": "ok"}

@@ -2,7 +2,7 @@ from typing import Sequence
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import defer, joinedload
+from sqlalchemy.orm import defer
 
 from dnd5esheets.models import Character
 from dnd5esheets.repositories import BaseRepository

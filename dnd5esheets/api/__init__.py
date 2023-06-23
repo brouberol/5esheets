@@ -1,1 +1,1 @@
-from .root import api
+from .root import api  # noqa

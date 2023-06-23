@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from dnd5esheets.models import Player
 from dnd5esheets.repositories import BaseRepository
