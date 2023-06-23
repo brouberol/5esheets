@@ -35,16 +35,13 @@ pyproject.toml:
 poetry.lock: pyproject.toml
 	@echo "\n[+] Locking dependencies"
 	@poetry lock
-	@echo "\n[+] Installing python dependencies"
-	@poetry install
+
 
 requirements.txt: poetry.lock
 	@echo "\n[+] Updating requirements.txt"
 	@poetry export --without=dev -o requirements.txt
 
 dnd5esheets/client/package-lock.json: dnd5esheets/client/package.json
-	@echo "\n[+] Installing js dependencies"
-	@$(npm) install
 
 $(app-root)/client/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas.py
 	@echo "\n[+] Generating the $(app-root)/client/openapi.json file"
@@ -76,8 +73,12 @@ black:
 check: black mypy ruff svelte-check ## Run all checks on the python codebase
 
 deps-js: $(app-root)/client/package-lock.json
+	@echo "\n[+] Installing js dependencies"
+	@$(npm) install
 
 deps-python: requirements.txt
+	@echo "\n[+] Installing python dependencies"
+	@poetry install
 
 deps: deps-python deps-js  ## Install the development dependencies
 
