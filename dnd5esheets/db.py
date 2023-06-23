@@ -1,9 +1,8 @@
 from pathlib import Path
-from typing import Generator
-from contextlib import contextmanager
-from sqlalchemy.orm import sessionmaker, Session
+from typing import AsyncGenerator
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from sqlalchemy import create_engine
 
 
@@ -22,14 +21,14 @@ engine = create_engine(
     connect_args={"check_same_thread": False},  # only for sqlite
 )
 
-async_session_factory = sessionmaker(
+async_session_factory = async_sessionmaker(
     autocommit=False, autoflush=False, bind=async_engine, class_=AsyncSession
 )
 
 session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-async def create_scoped_session() -> Generator[AsyncSession, None, None]:
+async def create_scoped_session() -> AsyncGenerator[AsyncSession, None]:
     session = async_session_factory()
     try:
         yield session

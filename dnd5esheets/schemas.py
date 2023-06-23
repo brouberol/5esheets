@@ -2,7 +2,7 @@
 Definition of the pydandic models used for type validation and output serialization.
 """
 
-from pydantic import BaseModel as BaseSchema, constr, Field
+from pydantic import BaseModel as BaseSchema, Field
 
 
 class BaseORMSchema(BaseSchema):
