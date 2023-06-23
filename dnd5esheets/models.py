@@ -54,8 +54,9 @@ class Player(NameReprMixin, BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255))
-    characters: Mapped["Character"] = relationship(
-        back_populates="player", cascade="all, delete-orphan"
+    characters: Mapped[list["Character"]] = relationship(
+        back_populates="player",
+        cascade="all, delete-orphan",
     )
 
 
@@ -64,8 +65,9 @@ class Party(NameReprMixin, BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255))
-    members: Mapped["Character"] = relationship(
-        back_populates="party", cascade="all, delete-orphan"
+    members: Mapped[list["Character"]] = relationship(
+        back_populates="party",
+        cascade="all, delete-orphan",
     )
 
 
