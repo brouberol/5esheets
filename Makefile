@@ -1,7 +1,6 @@
 .DEFAULT_GOAL = help
 .PHONY: api-doc api-explorer black check dev dnd5esheets/templates/spellbook.html \
-	docker-build docker-run init mypy ruff run svelte-check svelte-build \
-	svelte-generate-api-client help
+	docker-build docker-run init mypy ruff run svelte-check svelte-build help
 
 ifeq (, $(shell which poetry))
 $(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
@@ -39,6 +38,9 @@ $(app-root)/client/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/sc
 $(app-root)/schemas.py:
 
 $(wildcard $(app-root)/api/*.py):
+
+$(wildcard $(app-root)/client/src/5esheet-client/*/*.ts):
+	$(npm-run) generate-client
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
@@ -88,8 +90,7 @@ svelte-build: svelte-generate-api-client
 svelte-check:
 	$(npm-run) check
 
-svelte-generate-api-client: $(app-root)/client/openapi.json  ## Generate the typescript client for the 5esheet API
-	$(npm-run) generate-client
+svelte-generate-api-client: $(app-root)/client/openapi.json  ## Generate the API openapi.json file
 
 ruff:
 	poetry run ruff --fix $(app-root)/
