@@ -1,1 +1,1 @@
-from .base import BaseRepository, ModelNotFound
+from .base import BaseRepository, ModelNotFound  # noqa
