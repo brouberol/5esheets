@@ -1,5 +1,7 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check dev dnd5esheets/templates/spellbook.html docker-build docker-run init mypy ruff run help
+.PHONY: api-doc api-explorer black check dev dnd5esheets/templates/spellbook.html \
+	docker-build docker-run init mypy ruff run svelte-check svelte-build \
+	svelte-generate-api-client help
 
 dnd5esheets/translations/messages.pot: dnd5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o dnd5esheets/translations/messages.pot .
@@ -12,6 +14,11 @@ $(wildcard dnd5esheets/translations/*/*/messages.mo): $(wildcard dnd5esheets/tra
 
 dnd5esheets/templates/spellbook.html:
 	python3 scripts/generate_spellbook.py > dnd5esheets/templates/spellbook.html
+
+dnd5esheets/client/openapi.json:
+	curl http://localhost:8000/openapi.json | python3 -m json.tool > dnd5esheets/client/openapi.json
+
+dnd5esheets/schemas.py:
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:8000/redoc
@@ -61,6 +68,9 @@ svelte-build:
 svelte-check:
 	cd dnd5esheets/client && npm run check
 
+svelte-generate-api-client: dnd5esheets/client/openapi.json  ## Generate the typescript client for the 5esheet API
+	cd dnd5esheets/client && npm run generate-client
+
 ruff:
 	poetry run ruff --fix dnd5esheets/
 
@@ -76,4 +86,4 @@ translations-compile: $(wildcard dnd5esheets/translations/*/*/messages.mo)  ## C
 
 
 help:  ## Display help
-	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-26s\033[0m %s\n", $$1, $$2}'

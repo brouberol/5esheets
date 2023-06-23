@@ -1,0 +1,354 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/characters/": {
+            "get": {
+                "summary": "List Characters",
+                "description": "List all characters.\n\nThe returned payload will not include the character sheet details.",
+                "operationId": "list_characters_api_characters__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response List Characters Api Characters  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListCharacterSchema"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/characters/{slug}": {
+            "get": {
+                "summary": "Display Character",
+                "description": "Display all details of a given character.",
+                "operationId": "display_character_api_characters__slug__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Slug",
+                            "type": "string"
+                        },
+                        "name": "slug",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharacterSchema"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Character",
+                "description": "Update a character details.\n\nExamples of JSON body paylods:\n\n- `{\"level\": 5 }`\n- `{\"name\": \"Toto\"}`\n- `{\"class_\": \"Guerrier\", \"data\": {\"background\": \"Folk Hero\"}}`\n\nIn the last example, we update both a direct character attribute\nas well as an attribute nested in the character JSON data.",
+                "operationId": "update_character_api_characters__slug__put",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Slug",
+                            "type": "string"
+                        },
+                        "name": "slug",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCharacterSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Update Character Api Characters  Slug  Put",
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CharacterSchema": {
+                "title": "CharacterSchema",
+                "required": [
+                    "id",
+                    "name",
+                    "slug",
+                    "class_",
+                    "level",
+                    "data",
+                    "player",
+                    "party"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "The character primary key in database",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "name": {
+                        "title": "The character name",
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "slug": {
+                        "title": "The character slug, used to identify it in the API",
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "class_": {
+                        "title": "The character class",
+                        "maxLength": 80,
+                        "type": "string"
+                    },
+                    "level": {
+                        "title": "The character level",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "type": "object",
+                        "description": "The embdedded character sheet JSON data"
+                    },
+                    "player": {
+                        "title": "The embedded character's player schema",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PlayerSchema"
+                            }
+                        ]
+                    },
+                    "party": {
+                        "title": "The embedded character's party schema",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PartySchema"
+                            }
+                        ]
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "ListCharacterSchema": {
+                "title": "ListCharacterSchema",
+                "required": [
+                    "id",
+                    "name",
+                    "slug",
+                    "class_",
+                    "level",
+                    "player",
+                    "party"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "The character primary key in database",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "name": {
+                        "title": "The character name",
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "slug": {
+                        "title": "The character slug, used to identify it in the API",
+                        "maxLength": 255,
+                        "type": "string"
+                    },
+                    "class_": {
+                        "title": "The character class",
+                        "maxLength": 80,
+                        "type": "string"
+                    },
+                    "level": {
+                        "title": "The character level",
+                        "maximum": 20.0,
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "player": {
+                        "title": "The embedded character's player schema",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PlayerSchema"
+                            }
+                        ]
+                    },
+                    "party": {
+                        "title": "The embedded character's party schema",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PartySchema"
+                            }
+                        ]
+                    }
+                }
+            },
+            "PartySchema": {
+                "title": "PartySchema",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "The party primary key in database",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "name": {
+                        "title": "The party name",
+                        "maxLength": 255,
+                        "type": "string"
+                    }
+                }
+            },
+            "PlayerSchema": {
+                "title": "PlayerSchema",
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "The player primary key in database",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "name": {
+                        "title": "The player name",
+                        "maxLength": 255,
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateCharacterSchema": {
+                "title": "UpdateCharacterSchema",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "A new character name (Optional)",
+                        "type": "string"
+                    },
+                    "class_": {
+                        "title": "A new character class (Optional)",
+                        "maxLength": 80,
+                        "type": "string"
+                    },
+                    "level": {
+                        "title": "A new character level (Optional)",
+                        "minimum": 1.0,
+                        "type": "integer"
+                    },
+                    "data": {
+                        "title": "Updates to the character sheet fields (Optional)",
+                        "type": "object"
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
