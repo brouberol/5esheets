@@ -86,7 +86,7 @@ mypy:
 	@poetry run mypy $(app-root)/
 
 poetry.lock: pyproject.toml
-	@ echo "\n[+] Locking dependencies"
+	@echo "\n[+] Locking dependencies"
 	@poetry lock
 
 pyproject.toml:
