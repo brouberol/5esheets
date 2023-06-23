@@ -27,7 +27,7 @@ check: black mypy ruff ## Run all checks on the python codebase
 dev:  ## Install the development environment
 	poetry install
 
-docker-build:  ## Build the docker image
+docker-build:  requirements.txt  ## Build the docker image
 	docker build -t brouberol/5esheets .
 
 docker-run:  docker-build  ## Run the docker image
@@ -44,6 +44,13 @@ init:  dev db-dev-fixtures run  ## Run the application for the first time
 mypy:
 	poetry run mypy dnd5esheets/
 
+poetry.lock: pyproject.toml
+	poetry lock
+
+pyproject.toml:
+
+requirements.txt: poetry.lock
+	poetry export --without=dev -o requirements.txt
 
 ruff:
 	poetry run ruff --fix dnd5esheets/
