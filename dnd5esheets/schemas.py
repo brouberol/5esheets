@@ -11,8 +11,20 @@ class BaseORMSchema(BaseSchema):
 
 
 class PlayerSchema(BaseORMSchema):
+    """The basic details of a player"""
+
     id: int = Field(ge=1, title="The player primary key in database")
     name: str = Field(max_length=255, title="The player name")
+
+
+class DisplayPlayerSchema(PlayerSchema):
+    """A player details including the list of their characters"""
+
+    characters: list["CharacterSchemaNoPlayer"] = Field(title="The player's characters")
+
+
+class UpdatePlayerSchema(BaseSchema):
+    name: str | None = Field(max_length=255, title="The player new name")
 
 
 class PartySchema(BaseORMSchema):
@@ -64,4 +76,5 @@ class UpdateCharacterSchema(BaseSchema):
     data: dict | None = Field(title="Updates to the character sheet fields (Optional)")
 
 
+DisplayPlayerSchema.update_forward_refs()
 DisplayPartySchema.update_forward_refs()
