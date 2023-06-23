@@ -16,8 +16,20 @@ class PlayerSchema(BaseORMSchema):
 
 
 class PartySchema(BaseORMSchema):
+    """The basic details of a party"""
+
     id: int = Field(ge=1, title="The party primary key in database")
     name: str = Field(max_length=255, title="The party name")
+
+
+class DisplayPartySchema(PartySchema):
+    """A party details, including the members"""
+
+    members: list["CharacterSchemaNoPartyNoData"] = Field(title="The party members")
+
+
+class UpdatePartySchema(BaseSchema):
+    name: str | None = Field(max_length=255, title="The party new name")
 
 
 class CharacterSchema(BaseORMSchema):
@@ -50,3 +62,6 @@ class UpdateCharacterSchema(BaseSchema):
     class_: str | None = Field(max_length=80, title="A new character class (Optional)")
     level: int | None = Field(ge=1, title="A new character level (Optional)")
     data: dict | None = Field(title="Updates to the character sheet fields (Optional)")
+
+
+DisplayPartySchema.update_forward_refs()
