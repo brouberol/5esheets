@@ -1,2 +1,4 @@
 **/*.po
 **/*.pot
+dnd5esheets/client/node_modules
+dnd5esheets/client/dist
