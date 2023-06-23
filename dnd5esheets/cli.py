@@ -21,7 +21,7 @@ def populate_db():
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
         dev_fixtures = json.load(dev_fixtures_fd)
 
-    with create_session() as session:
+    with create_session(commit_at_end=True) as session:
         for player_attrs in dev_fixtures["players"]:
             player = Player(**player_attrs)
             session.merge(player)
@@ -36,7 +36,6 @@ def populate_db():
             character = Character(**character_attrs)
             session.merge(character)
             click.echo(f"Character {character} saved")
-        session.commit()
 
 
 if __name__ == "__main__":
