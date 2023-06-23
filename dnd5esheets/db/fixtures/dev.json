@@ -7,6 +7,14 @@
         {
             "id": 2,
             "name": "Étienne"
+        },
+        {
+            "id": 3,
+            "name": "Lola"
+        },
+        {
+            "id": 4,
+            "name": "Marine"
         }
     ],
     "parties": [
@@ -139,6 +147,26 @@
             "name": "Trevor McTrickfoot",
             "slug": "trevor-mctrickfoot",
             "class_": "Soulknife",
+            "level": 4,
+            "data": {}
+        },
+        {
+            "id": 3,
+            "player_id": 3,
+            "party_id": 1,
+            "name": "Lenora McTrickfoot",
+            "slug": "lenora-mctrickfoot",
+            "class_": "Paladin - Oath of Glory",
+            "level": 4,
+            "data": {}
+        },
+        {
+            "id": 4,
+            "player_id": 4,
+            "party_id": 1,
+            "name": "Crounch McTrickfoot",
+            "slug": "crounch-mctrickfoot",
+            "class_": "Barbare - Voie du Zélote",
             "level": 4,
             "data": {}
         }
