@@ -22,7 +22,7 @@ export class CharacterService {
     public static listCharacters(): CancelablePromise<Array<ListCharacterSchema>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/characters/',
+            url: '/api/character/',
         });
     }
 
@@ -38,7 +38,7 @@ export class CharacterService {
     ): CancelablePromise<CharacterSchema> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/characters/{slug}',
+            url: '/api/character/{slug}',
             path: {
                 'slug': slug,
             },
@@ -49,7 +49,7 @@ export class CharacterService {
     }
 
     /**
-     * Update Character
+     * Update
      * Update a character details.
      *
      * Examples of JSON body paylods:
@@ -65,13 +65,13 @@ export class CharacterService {
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static updateCharacter(
+    public static update(
         slug: string,
         requestBody: UpdateCharacterSchema,
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/characters/{slug}',
+            url: '/api/character/{slug}',
             path: {
                 'slug': slug,
             },

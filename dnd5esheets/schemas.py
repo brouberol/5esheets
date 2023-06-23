@@ -45,6 +45,8 @@ class UpdatePartySchema(BaseSchema):
 
 
 class CharacterSchema(BaseORMSchema):
+    """All details associated with a character"""
+
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(
@@ -53,8 +55,21 @@ class CharacterSchema(BaseORMSchema):
     class_: str = Field(max_length=80, title="The character class")
     level: int = Field(ge=1, title="The character level")
     data: dict = Field(description="The embdedded character sheet JSON data")
-    player: PlayerSchema = Field(title="The embedded character's player schema")
     party: PartySchema = Field(title="The embedded character's party schema")
+    player: PlayerSchema = Field(title="The embedded character's player schema")
+
+
+class CharacterSchemaNoPlayer(CharacterSchema):
+    """The details of a character, excluding the player"""
+
+    player: PlayerSchema = Field(exclude=True)
+
+
+class CharacterSchemaNoPartyNoData(CharacterSchema):
+    """The details of a character, excluding the party"""
+
+    party: PartySchema = Field(exclude=True)
+    data: dict = Field(exclude=True)
 
 
 class ListCharacterSchema(BaseORMSchema):

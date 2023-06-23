@@ -6,9 +6,9 @@ import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
 
 /**
- * All details associated with a character
+ * The details of a character, excluding the player
  */
-export type CharacterSchema = {
+export type CharacterSchemaNoPlayer = {
     id: number;
     name: string;
     slug: string;

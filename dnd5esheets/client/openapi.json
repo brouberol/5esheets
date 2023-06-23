@@ -5,7 +5,7 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/api/characters/": {
+    "/api/character/": {
       "get": {
         "tags": [
           "character"
@@ -31,7 +31,7 @@
         }
       }
     },
-    "/api/characters/{slug}": {
+    "/api/character/{slug}": {
       "get": {
         "tags": [
           "character"
@@ -77,9 +77,9 @@
         "tags": [
           "character"
         ],
-        "summary": "Update Character",
+        "summary": "Update",
         "description": "Update a character details.\n\nExamples of JSON body paylods:\n\n- `{\"level\": 5 }`\n- `{\"name\": \"Toto\"}`\n- `{\"class_\": \"Guerrier\", \"data\": {\"background\": \"Folk Hero\"}}`\n\nIn the last example, we update both a direct character attribute\nas well as an attribute nested in the character JSON data.",
-        "operationId": "update_character",
+        "operationId": "update",
         "parameters": [
           {
             "required": true,
@@ -107,7 +107,197 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Character-Update Character",
+                  "title": "Response Character-Update",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/player/{id}": {
+      "get": {
+        "tags": [
+          "player"
+        ],
+        "summary": "Display Player",
+        "description": "Display all details of a given player.",
+        "operationId": "display_player",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisplayPlayerSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "player"
+        ],
+        "summary": "Update Player",
+        "description": "Update a player details.\n\nExamples of JSON body paylods:",
+        "operationId": "update_player",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlayerSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Player-Update Player",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/party/{id}": {
+      "get": {
+        "tags": [
+          "player"
+        ],
+        "summary": "Display Party",
+        "description": "Display all details of a given party.",
+        "operationId": "display_party",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisplayPartySchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "player"
+        ],
+        "summary": "Update Party",
+        "description": "Update a party details.\n\nExamples of JSON body paylods:",
+        "operationId": "update_party",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePartySchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Player-Update Party",
                   "type": "object"
                 }
               }
@@ -138,8 +328,8 @@
           "class_",
           "level",
           "data",
-          "player",
-          "party"
+          "party",
+          "player"
         ],
         "type": "object",
         "properties": {
@@ -173,6 +363,14 @@
             "type": "object",
             "description": "The embdedded character sheet JSON data"
           },
+          "party": {
+            "title": "The embedded character's party schema",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PartySchema"
+              }
+            ]
+          },
           "player": {
             "title": "The embedded character's player schema",
             "allOf": [
@@ -180,6 +378,110 @@
                 "$ref": "#/components/schemas/PlayerSchema"
               }
             ]
+          }
+        },
+        "description": "All details associated with a character"
+      },
+      "CharacterSchemaNoPartyNoData": {
+        "title": "CharacterSchemaNoPartyNoData",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "class_",
+          "level",
+          "data",
+          "party",
+          "player"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "The character primary key in database",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "name": {
+            "title": "The character name",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "slug": {
+            "title": "The character slug, used to identify it in the API",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "class_": {
+            "title": "The character class",
+            "maxLength": 80,
+            "type": "string"
+          },
+          "level": {
+            "title": "The character level",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "object"
+          },
+          "party": {
+            "$ref": "#/components/schemas/PartySchema"
+          },
+          "player": {
+            "title": "The embedded character's player schema",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PlayerSchema"
+              }
+            ]
+          }
+        },
+        "description": "The details of a character, excluding the party"
+      },
+      "CharacterSchemaNoPlayer": {
+        "title": "CharacterSchemaNoPlayer",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "class_",
+          "level",
+          "data",
+          "party",
+          "player"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "The character primary key in database",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "name": {
+            "title": "The character name",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "slug": {
+            "title": "The character slug, used to identify it in the API",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "class_": {
+            "title": "The character class",
+            "maxLength": 80,
+            "type": "string"
+          },
+          "level": {
+            "title": "The character level",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "data": {
+            "title": "Data",
+            "type": "object",
+            "description": "The embdedded character sheet JSON data"
           },
           "party": {
             "title": "The embedded character's party schema",
@@ -188,8 +490,70 @@
                 "$ref": "#/components/schemas/PartySchema"
               }
             ]
+          },
+          "player": {
+            "$ref": "#/components/schemas/PlayerSchema"
           }
-        }
+        },
+        "description": "The details of a character, excluding the player"
+      },
+      "DisplayPartySchema": {
+        "title": "DisplayPartySchema",
+        "required": [
+          "id",
+          "name",
+          "members"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "The party primary key in database",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "name": {
+            "title": "The party name",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "members": {
+            "title": "The party members",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterSchemaNoPartyNoData"
+            }
+          }
+        },
+        "description": "A party details, including the members"
+      },
+      "DisplayPlayerSchema": {
+        "title": "DisplayPlayerSchema",
+        "required": [
+          "id",
+          "name",
+          "characters"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "The player primary key in database",
+            "minimum": 1.0,
+            "type": "integer"
+          },
+          "name": {
+            "title": "The player name",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "characters": {
+            "title": "The player's characters",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CharacterSchemaNoPlayer"
+            }
+          }
+        },
+        "description": "A player details including the list of their characters"
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
@@ -279,7 +643,8 @@
             "maxLength": 255,
             "type": "string"
           }
-        }
+        },
+        "description": "The basic details of a party"
       },
       "PlayerSchema": {
         "title": "PlayerSchema",
@@ -299,7 +664,8 @@
             "maxLength": 255,
             "type": "string"
           }
-        }
+        },
+        "description": "The basic details of a player"
       },
       "UpdateCharacterSchema": {
         "title": "UpdateCharacterSchema",
@@ -322,6 +688,28 @@
           "data": {
             "title": "Updates to the character sheet fields (Optional)",
             "type": "object"
+          }
+        }
+      },
+      "UpdatePartySchema": {
+        "title": "UpdatePartySchema",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "The party new name",
+            "maxLength": 255,
+            "type": "string"
+          }
+        }
+      },
+      "UpdatePlayerSchema": {
+        "title": "UpdatePlayerSchema",
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "The player new name",
+            "maxLength": 255,
+            "type": "string"
           }
         }
       },

@@ -6,17 +6,14 @@ import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
 
 /**
- * All details associated with a character
+ * The details of a character, excluding the party
  */
-export type CharacterSchema = {
+export type CharacterSchemaNoPartyNoData = {
     id: number;
     name: string;
     slug: string;
     class_: string;
     level: number;
-    /**
-     * The embdedded character sheet JSON data
-     */
     data: Record<string, any>;
     party: PartySchema;
     player: PlayerSchema;
