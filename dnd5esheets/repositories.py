@@ -24,10 +24,9 @@ class BaseRepository:
     @classmethod
     def one_or_raise(cls, result: Result) -> BaseModel | None:
         """Return the one result from the argument query or raise a ModelNotFound exception if empty"""
-        model = result.scalars().one_or_none()
-        if not model:
-            raise ModelNotFound(f"{cls.model.__name__} not found")
-        return model
+        if model := result.scalars().one_or_none():
+            return model
+        raise ModelNotFound(f"{cls.model.__name__} not found")
 
 
 class CharacterRepository(BaseRepository):
