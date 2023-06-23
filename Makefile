@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer dev dnd5esheets/templates/spellbook.html docker-build docker-run init run help
+.PHONY: api-doc api-explorer black check dev dnd5esheets/templates/spellbook.html docker-build docker-run init mypy ruff run help
 
 dnd5esheets/translations/messages.pot: dnd5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o dnd5esheets/translations/messages.pot .
@@ -19,6 +19,11 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (allowing request executiojs)
 	open http://localhost:8000/docs
 
+black:
+	poetry run black dnd5esheets/
+
+check: black mypy ruff ## Run all checks on the python codebase
+
 dev:  ## Install the development environment
 	poetry install
 
@@ -35,6 +40,13 @@ db-dev-fixtures:  db-migrate ## Populate the local database with development fix
 	poetry run python3 dnd5esheets/cli.py db populate
 
 init:  dev db-dev-fixtures run  ## Run the application for the first time
+
+mypy:
+	poetry run mypy dnd5esheets/
+
+
+ruff:
+	poetry run ruff --fix dnd5esheets/
 
 translations-extract: dnd5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
 

@@ -18,10 +18,10 @@ def raise_404_exception_on_model_not_found(_: Request, exc: Exception):
     return JSONResponse(content={"detail": str(exc)}, status_code=404)
 
 
-@app.get("/characters/")
+@app.get("/characters/", response_model=list[ListCharacterSchema])
 async def list_characters(
     session: AsyncSession = Depends(create_scoped_session),
-) -> list[ListCharacterSchema]:
+):
     """List all characters.
 
     The returned payload will not include the character sheet details.
@@ -30,10 +30,10 @@ async def list_characters(
     return await CharacterRepository.list_all(session)
 
 
-@app.get("/characters/{slug}")
+@app.get("/characters/{slug}", response_model=CharacterSchema)
 async def display_character(
     slug: str, session: AsyncSession = Depends(create_scoped_session)
-) -> CharacterSchema:
+):
     """Display all details of a given character."""
     return await CharacterRepository.get_by_slug(session, slug=slug)
 
