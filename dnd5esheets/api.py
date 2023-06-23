@@ -7,6 +7,7 @@ from .repositories import CharacterRepository
 from .schemas import CharacterSchema, ListCharacterSchema, UpdateCharacterSchema
 
 
+# https://fastapi.tiangolo.com/advanced/generate-clients/#custom-operation-ids-and-better-method-names
 def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0]}-{route.name}"
 
