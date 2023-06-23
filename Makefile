@@ -3,6 +3,11 @@
 	docker-build docker-run init mypy ruff run svelte-check svelte-build \
 	svelte-generate-api-client help
 
+ifeq (, $(shell which poetry))
+$(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
+https://python-poetry.org/docs/#installing-with-the-official-installer")
+endif
+
 dnd5esheets/translations/messages.pot: dnd5esheets/templates/*.html
 	poetry run pybabel extract --omit-header -F babel.cfg -o dnd5esheets/translations/messages.pot .
 
@@ -85,8 +90,6 @@ translations-extract: dnd5esheets/translations/messages.pot  ## Extract all stri
 translations-update: $(wildcard dnd5esheets/translations/*/*/messages.po)  ## Update the language catalogs with new translations
 
 translations-compile: $(wildcard dnd5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
-
-
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-26s\033[0m %s\n", $$1, $$2}'
