@@ -22,7 +22,7 @@ class BaseRepository:
     model: BaseModel = None
 
     @classmethod
-    def one_or_raise(cls, result: Result) -> BaseModel | None:
+    def one_or_raise(cls, result: Result) -> BaseModel:
         """Return the one result from the argument query or raise a ModelNotFound exception if empty"""
         if model := result.scalars().one_or_none():
             return model
@@ -45,7 +45,7 @@ class CharacterRepository(BaseRepository):
         return result.scalars().all()
 
     @classmethod
-    async def get_by_slug(cls, session: AsyncSession, slug: str) -> Character | None:
+    async def get_by_slug(cls, session: AsyncSession, slug: str) -> Character:
         """Return a Character given an argument slug"""
         result = await session.execute(
             select(Character)
