@@ -19,7 +19,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY dnd5esheets ./dnd5esheets
+COPY alembic.ini .
+COPY scripts/start-app.sh .
 RUN rm -r ./dnd5esheets/client/*
 COPY --from=build /app/dist ./dnd5esheets/client/dist
 
-CMD ["uvicorn", "dnd5esheets.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ./start-app.sh
