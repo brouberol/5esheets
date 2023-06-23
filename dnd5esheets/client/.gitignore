@@ -1,11 +1,3 @@
-.DS_Store
-*.pyc
-__pycache__/
-*.db
-*.code-workspace
-*.mypy_cache
-*.ruff_cache
-
 # Logs
 logs
 *.log
