@@ -9,7 +9,7 @@ import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
-export class DefaultService {
+export class CharacterService {
 
     /**
      * List Characters
@@ -19,7 +19,7 @@ export class DefaultService {
      * @returns ListCharacterSchema Successful Response
      * @throws ApiError
      */
-    public static listCharactersApiCharactersGet(): CancelablePromise<Array<ListCharacterSchema>> {
+    public static listCharacters(): CancelablePromise<Array<ListCharacterSchema>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/characters/',
@@ -33,7 +33,7 @@ export class DefaultService {
      * @returns CharacterSchema Successful Response
      * @throws ApiError
      */
-    public static displayCharacterApiCharactersSlugGet(
+    public static displayCharacter(
         slug: string,
     ): CancelablePromise<CharacterSchema> {
         return __request(OpenAPI, {
@@ -65,7 +65,7 @@ export class DefaultService {
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static updateCharacterApiCharactersSlugPut(
+    public static updateCharacter(
         slug: string,
         requestBody: UpdateCharacterSchema,
     ): CancelablePromise<Record<string, any>> {

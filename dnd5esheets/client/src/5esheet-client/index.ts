@@ -14,4 +14,4 @@ export type { PlayerSchema } from './models/PlayerSchema';
 export type { UpdateCharacterSchema } from './models/UpdateCharacterSchema';
 export type { ValidationError } from './models/ValidationError';
 
-export { DefaultService } from './services/DefaultService';
+export { CharacterService } from './services/CharacterService';
