@@ -8,14 +8,33 @@ discouraged.
 
 from sqlalchemy import select
 from sqlalchemy.orm import defer, joinedload
-from .models import Character
+from sqlalchemy.engine import Result
+from .models import Character, BaseModel
 from .schemas import UpdateCharacterSchema
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-class CharacterRepository:
-    @staticmethod
-    async def list_all(session: AsyncSession) -> list[Character]:
+class ModelNotFound(Exception):
+    ...
+
+
+class BaseRepository:
+    model: BaseModel = None
+
+    @classmethod
+    def one_or_raise(cls, result: Result) -> BaseModel | None:
+        """Return the one result from the argument query or raise a ModelNotFound exception if empty"""
+        model = result.scalars().one_or_none()
+        if not model:
+            raise ModelNotFound(f"{cls.model.__name__} not found")
+        return model
+
+
+class CharacterRepository(BaseRepository):
+    model = Character
+
+    @classmethod
+    async def list_all(cls, session: AsyncSession) -> list[Character]:
         """List all existing characters, with their associated related data"""
         result = await session.execute(
             select(Character)
@@ -26,23 +45,21 @@ class CharacterRepository:
         )
         return result.scalars().all()
 
-    @staticmethod
-    async def get_by_slug(session: AsyncSession, slug: str) -> Character | None:
+    @classmethod
+    async def get_by_slug(cls, session: AsyncSession, slug: str) -> Character | None:
         """Return a Character given an argument slug"""
         result = await session.execute(
             select(Character)
             .options(joinedload(Character.player), joinedload(Character.party))
             .filter(Character.slug == slug)
         )
-        return result.scalars().one_or_none()
+        return cls.one_or_raise(result)
 
-    @staticmethod
+    @classmethod
     async def update_character(
-        session: AsyncSession, slug: str, body: UpdateCharacterSchema
-    ) -> Character | None:
+        cls, session: AsyncSession, slug: str, body: UpdateCharacterSchema
+    ) -> Character:
         character = await CharacterRepository.get_by_slug(session, slug)
-        if not character:
-            return None
 
         # Any non-nil field should be taken as the new value
         fields_to_update = {

@@ -1,14 +1,21 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends
+from fastapi.responses import JSONResponse
+from fastapi.requests import Request
 
-from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .db import create_scoped_session
 
 from .schemas import ListCharacterSchema, CharacterSchema, UpdateCharacterSchema
-from .repositories import CharacterRepository
+from .repositories import CharacterRepository, ModelNotFound
 
 app = FastAPI()
+
+
+@app.exception_handler(ModelNotFound)
+def raise_404_exception_on_model_not_found(_: Request, exc: Exception):
+    """Return a 404 response when handling a ModelNotFound exception"""
+    return JSONResponse(content={"detail": str(exc)}, status_code=404)
 
 
 @app.get("/characters/")
@@ -28,10 +35,7 @@ async def display_character(
     slug: str, session: AsyncSession = Depends(create_scoped_session)
 ) -> CharacterSchema:
     """Display all details of a given character."""
-    character = await CharacterRepository.get_by_slug(session, slug=slug)
-    if character is None:
-        raise HTTPException(status_code=404, detail="Character not found")
-    return character
+    return await CharacterRepository.get_by_slug(session, slug=slug)
 
 
 @app.put("/characters/{slug}")
@@ -52,9 +56,5 @@ async def update_character(
     as well as an attribute nested in the character JSON data.
 
     """
-    character = await CharacterRepository.update_character(
-        session, slug, character_data
-    )
-    if character is None:
-        raise HTTPException(status_code=404, detail="Character not found")
+    await CharacterRepository.update_character(session, slug, character_data)
     return {"status": "ok"}
