@@ -37,7 +37,7 @@ dnd5esheets/api.py:
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:8000/redoc
 
-api-explorer:  ## Open the 5esheets API explorer (allowing request executiojs)
+api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:8000/docs
 
 build: svelte-build  ## Build the application
