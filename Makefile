@@ -15,10 +15,13 @@ $(wildcard dnd5esheets/translations/*/*/messages.mo): $(wildcard dnd5esheets/tra
 dnd5esheets/templates/spellbook.html:
 	python3 scripts/generate_spellbook.py > dnd5esheets/templates/spellbook.html
 
-dnd5esheets/client/openapi.json:
-	curl http://localhost:8000/openapi.json | python3 -m json.tool > dnd5esheets/client/openapi.json
+dnd5esheets/client/openapi.json: dnd5esheets/api.py dnd5esheets/schemas.py
+	curl http://localhost:8000/openapi.json > dnd5esheets/client/openapi.json
+	python3 scripts/preprocess_openapi_json.py
 
 dnd5esheets/schemas.py:
+
+dnd5esheets/api.py:
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:8000/redoc
