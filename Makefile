@@ -19,15 +19,18 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (allowing request executiojs)
 	open http://localhost:8000/docs
 
+build: svelte-build  ## Build the application
+
 black:
 	poetry run black dnd5esheets/
 
-check: black mypy ruff ## Run all checks on the python codebase
+check: black mypy ruff svelte-check ## Run all checks on the python codebase
 
 dev:  ## Install the development environment
 	poetry install
+	cd dnd5esheets/client && npm install
 
-docker-build:  requirements.txt  ## Build the docker image
+docker-build:  build requirements.txt  ## Build the docker image
 	docker build -t brouberol/5esheets .
 
 docker-run:  docker-build  ## Run the docker image
@@ -52,8 +55,17 @@ pyproject.toml:
 requirements.txt: poetry.lock
 	poetry export --without=dev -o requirements.txt
 
+svelte-build:
+	cd dnd5esheets/client && npm run build
+
+svelte-check:
+	cd dnd5esheets/client && npm run check
+
 ruff:
 	poetry run ruff --fix dnd5esheets/
+
+run: build  ## Run the app
+	cd dnd5esheets && poetry run uvicorn dnd5esheets.app:app --reload
 
 translations-extract: dnd5esheets/translations/messages.pot  ## Extract all strings to translate from jinja templates
 
@@ -61,8 +73,7 @@ translations-update: $(wildcard dnd5esheets/translations/*/*/messages.po)  ## Up
 
 translations-compile: $(wildcard dnd5esheets/translations/*/*/messages.mo)  ## Compile translations into a .mo file
 
-run:  ## Run the server
-	cd dnd5esheets && poetry run uvicorn dnd5esheets.app:app --reload
+
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
