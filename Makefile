@@ -47,7 +47,7 @@ $(app-root)/client/src/5esheet-client: $(app-root)/client/openapi.json
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
 
-apixplorer:  ## Open the 5esheets API explorer (with interactive requests)
+api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
 build: svelte-build  ## Build the application
