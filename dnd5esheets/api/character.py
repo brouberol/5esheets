@@ -1,21 +1,18 @@
 from fastapi import APIRouter, Depends
-from fastapi.routing import APIRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .db import create_scoped_session
-from .repositories import CharacterRepository
-from .schemas import CharacterSchema, ListCharacterSchema, UpdateCharacterSchema
+from dnd5esheets.db import create_scoped_session
+from dnd5esheets.repositories.character import CharacterRepository
+from dnd5esheets.schemas import (
+    CharacterSchema,
+    ListCharacterSchema,
+    UpdateCharacterSchema,
+)
+
+character_api = APIRouter(prefix="/character", tags=["character"])
 
 
-# https://fastapi.tiangolo.com/advanced/generate-clients/#custom-operation-ids-and-better-method-names
-def custom_generate_unique_id(route: APIRoute):
-    return f"{route.tags[0]}-{route.name}"
-
-
-api = APIRouter(prefix="/api", generate_unique_id_function=custom_generate_unique_id)
-
-
-@api.get("/characters/", response_model=list[ListCharacterSchema], tags=["character"])
+@character_api.get("/", response_model=list[ListCharacterSchema])
 async def list_characters(
     session: AsyncSession = Depends(create_scoped_session),
 ):
@@ -27,7 +24,7 @@ async def list_characters(
     return await CharacterRepository.list_all(session)
 
 
-@api.get("/characters/{slug}", response_model=CharacterSchema, tags=["character"])
+@character_api.get("/{slug}", response_model=CharacterSchema)
 async def display_character(
     slug: str, session: AsyncSession = Depends(create_scoped_session)
 ):
@@ -35,8 +32,8 @@ async def display_character(
     return await CharacterRepository.get_by_slug(session, slug=slug)
 
 
-@api.put("/characters/{slug}", tags=["character"])
-async def update_character(
+@character_api.put("/{slug}")
+async def update(
     slug: str,
     character_data: UpdateCharacterSchema,
     session: AsyncSession = Depends(create_scoped_session),
