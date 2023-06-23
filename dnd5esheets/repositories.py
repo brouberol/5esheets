@@ -37,7 +37,7 @@ class CharacterRepository(BaseRepository):
         """List all existing characters, with their associated related data"""
         result = await session.execute(
             select(Character)
-            # exclude the large json pay;oad
+            # exclude the large json payload
             .options(joinedload(Character.player), joinedload(Character.party))
             # efficiently join the player and party tables
             .options(defer(Character.data))
