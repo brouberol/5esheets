@@ -4,3 +4,5 @@ __pycache__/
 *.db
 *.code-workspace
 .vscode/
+*.mypy_cache
+*.ruff_cache
