@@ -5,13 +5,16 @@ const ScoreBox: Component<{
   label: string;
   score: number;
   modifier: number;
-}> = ({ label, score, modifier }) => {
+  onChange: (update: number) => void;
+}> = (props) => {
   css`
     .score-box {
+      width: 18mm;
       display: flex;
       flex-direction: column;
       border: 1px solid black;
-      padding: 2mm;
+      padding: 2mm 0;
+      gap: 2mm;
       margin-bottom: 2mm;
       align-items: center;
     }
@@ -31,8 +34,11 @@ const ScoreBox: Component<{
 
     .score {
       font-size: 20pt;
-      padding: 2mm;
-      width: 3rem;
+      width: 100%;
+      border: none;
+      background: none;
+      font-family: var(--font-family-text);
+      overflow: visible;
     }
 
     .modifier {
@@ -45,15 +51,18 @@ const ScoreBox: Component<{
     }
   `;
 
+  console.log("score box", props.label);
+
   return (
     <div class="score-box">
-      <label>{label}</label>
-      <div class="score" contentEditable>
-        {score}
-      </div>
-      <div class="modifier" contentEditable>
-        {modifier}
-      </div>
+      <label>{props.label}</label>
+      <input
+        class="score"
+        type="text"
+        value={props.score}
+        oninput={(event) => props.onChange(parseInt(event.target.value ?? "0"))}
+      />
+      <div class="modifier">{props.modifier}</div>
     </div>
   );
 };

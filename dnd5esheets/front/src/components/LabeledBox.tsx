@@ -1,7 +1,7 @@
 import { Component } from "solid-js";
 import { css } from "solid-styled";
 
-const LabeledBox: Component<{ label: string; children: any }> = ({
+const LabeledBox: Component<{ label: string; children?: any }> = ({
   label,
   children,
 }) => {

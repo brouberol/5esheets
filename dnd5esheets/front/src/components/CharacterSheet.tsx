@@ -2,17 +2,19 @@ import { For, createSignal } from "solid-js";
 import { css } from "solid-styled";
 import { useI18n } from "@solid-primitives/i18n";
 
-import { CharacterSchema } from "~/5esheet-client";
-import LabeledInput from "./LabeledInput";
-import ProficientAttribute from "./ProficientAttribute";
-import LabeledBox from "./LabeledBox";
-import ScoreBox from "./ScoreBox";
-import BorderBox from "./BorderBox";
+import { CharacterSchema } from "~/5esheets-client";
+import LabeledInput from "~/components/LabeledInput";
+import ProficientAttribute from "~/components/ProficientAttribute";
+import LabeledBox from "~/components/LabeledBox";
+import ScoreBox from "~/components/ScoreBox";
+import BorderBox from "~/components/BorderBox";
 
 export default function CharacterSheet({
   character,
+  onChange,
 }: {
   character: CharacterSchema;
+  onChange: (change: Partial<CharacterSchema>) => void;
 }) {
   const [t] = useI18n();
 
@@ -114,6 +116,7 @@ export default function CharacterSheet({
             label={t("character_name")}
             placeholder="Irene Wun Kmout"
             value={character.name}
+            onChange={(name: string) => onChange({ name })}
           />
         </div>
         <div class="misc">
@@ -122,36 +125,56 @@ export default function CharacterSheet({
             label={t("class_and_level")}
             placeholder={`${t("wizard")} 2`}
             value={`${character.class_} ${character.level}`}
+            onChange={(classAndLevel: string) => {
+              const sanitizedInput = classAndLevel.trim();
+              const index = sanitizedInput.lastIndexOf(" ");
+              const [class_, level] = [
+                sanitizedInput.slice(0, index).trim(),
+                sanitizedInput.slice(index).trim() || 0,
+              ];
+              onChange({ class_, level });
+            }}
           />
           <LabeledInput
             id="background"
             label={t("background")}
             placeholder={t("acolyte")}
             value={character.data.background}
+            onChange={(background: string) =>
+              onChange({ data: { background } })
+            }
           />
           <LabeledInput
             id="playername"
             label={t("player_name")}
             placeholder={t("player-mcplayerface")}
             value={character.data.playername}
+            onChange={(playername: string) =>
+              onChange({ data: { playername } })
+            }
           />
           <LabeledInput
             id="race"
             label={t("race")}
             placeholder={t("half-elf")}
             value={character.data.race}
+            onChange={(race: string) => onChange({ data: { race } })}
           />
           <LabeledInput
             id="alignment"
             label={t("alignment")}
             placeholder={t("lawful-good")}
             value={character.data.alignment}
+            onChange={(alignment: string) => onChange({ data: { alignment } })}
           />
           <LabeledInput
             id="experiencepoints"
             label={t("experience_points")}
-            value={character.data.experiencepoints}
             placeholder="3240"
+            value={character.data.experiencepoints}
+            onChange={(experiencepoints: string) =>
+              onChange({ data: { experiencepoints } })
+            }
           />
         </div>
       </header>
@@ -163,40 +186,25 @@ export default function CharacterSheet({
                 <For
                   each={
                     [
-                      {
-                        label: t("strength_abbr"),
-                        score: character.data.Strengthscore,
-                        modifier: character.data.Strengthmod,
-                      },
-                      {
-                        label: t("dexterity_abbr"),
-                        score: character.data.Dexterityscore,
-                        modifier: character.data.Dexteritymod,
-                      },
-                      {
-                        label: t("constitution_abbr"),
-                        score: character.data.Constitutionscore,
-                        modifier: character.data.Constitutionmod,
-                      },
-                      {
-                        label: t("intelligence_abbr"),
-                        score: character.data.Intelligencescore,
-                        modifier: character.data.Intelligencemod,
-                      },
-                      {
-                        label: t("wisdom_abbr"),
-                        score: character.data.Wisdomscore,
-                        modifier: character.data.Wisdommod,
-                      },
-                      {
-                        label: t("charisma_abbr"),
-                        score: character.data.Charismascore,
-                        modifier: character.data.Charismamod,
-                      },
+                      "Strength",
+                      "Dexterity",
+                      "Constitution",
+                      "Intelligence",
+                      "Wisdom",
+                      "Charisma",
                     ] as const
                   }
                 >
-                  {(score) => <ScoreBox {...score} />}
+                  {(label) => (
+                    <ScoreBox
+                      label={t(`${label.toLowerCase()}_abbr`)}
+                      score={character.data[`${label}score`]}
+                      modifier={character.data[`${label}mod`]}
+                      onChange={(score: number) =>
+                        onChange({ data: { [`${label}score`]: score } })
+                      }
+                    />
+                  )}
                 </For>
               </div>
             </BorderBox>
@@ -234,7 +242,7 @@ export default function CharacterSheet({
                     {
                       id: "strength",
                       label: t("strength"),
-                      proficiency: character.data["Strength-prof"]
+                      proficiency: character.data["Strength-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Strength-save"],
@@ -242,7 +250,7 @@ export default function CharacterSheet({
                     {
                       id: "dexterity",
                       label: t("dexterity"),
-                      proficiency: character.data["Dexterity-prof"]
+                      proficiency: character.data["Dexterity-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Dexterity-save"],
@@ -250,7 +258,7 @@ export default function CharacterSheet({
                     {
                       id: "constitution",
                       label: t("constitution"),
-                      proficiency: character.data["Constitution-prof"]
+                      proficiency: character.data["Constitution-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Constitution-save"],
@@ -258,7 +266,7 @@ export default function CharacterSheet({
                     {
                       id: "intelligence",
                       label: t("intelligence"),
-                      proficiency: character.data["Intelligence-prof"]
+                      proficiency: character.data["Intelligence-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Intelligence-save"],
@@ -266,7 +274,7 @@ export default function CharacterSheet({
                     {
                       id: "wisdom",
                       label: t("wisdom"),
-                      proficiency: character.data["Wisdom-prof"]
+                      proficiency: character.data["Wisdom-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Wisdom-save"],
@@ -274,7 +282,7 @@ export default function CharacterSheet({
                     {
                       id: "charisma",
                       label: t("charisma"),
-                      proficiency: character.data["Charisma-prof"]
+                      proficiency: character.data["Charisma-save-prof"]
                         ? "master"
                         : "none",
                       value: character.data["Charisma-save"],
@@ -353,7 +361,7 @@ export default function CharacterSheet({
                       proficiency: character.data["Insight-prof"]
                         ? "master"
                         : "none",
-                      labelSecondary: t("wisdom_abbrv"),
+                      labelSecondary: t("wisdom_abbr"),
                       value: character.data.Insight,
                     },
                     {

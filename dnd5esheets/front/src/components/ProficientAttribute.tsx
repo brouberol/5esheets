@@ -1,8 +1,6 @@
 import { Show, createSignal } from "solid-js";
 import { css } from "solid-styled";
-
-const proficiencies = ["none", "master", "expert"] as const;
-type Proficiency = (typeof proficiencies)[number];
+import { Proficiency, proficiencies } from "~/store";
 
 function cycleProficiency(proficiency: Proficiency): Proficiency {
   const index = proficiencies.indexOf(proficiency);

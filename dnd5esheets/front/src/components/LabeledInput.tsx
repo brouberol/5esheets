@@ -1,3 +1,4 @@
+import { createSignal } from "solid-js";
 import { css } from "solid-styled";
 
 export default function LabeledInput({
@@ -5,11 +6,13 @@ export default function LabeledInput({
   label,
   placeholder,
   value,
+  onChange,
 }: {
   id: string;
   label: string;
   placeholder: string;
   value: string;
+  onChange: (value: string) => void;
 }) {
   css`
     .labeled-input {
@@ -31,6 +34,7 @@ export default function LabeledInput({
       padding: 3pt 0;
       outline: none;
       font-family: var(--font-family-text);
+      transition: border-color .5s;
     }
 
     input:hover {
@@ -49,10 +53,17 @@ export default function LabeledInput({
     }
   `;
 
+  console.log("labeled input", label);
+
   return (
     <div class="labeled-input">
       <label for={id}>{label}</label>
-      <input name={id} placeholder={placeholder} value={value} />
+      <input
+        name={id}
+        placeholder={placeholder}
+        value={value}
+        oninput={(event) => onChange(event.target.value)}
+      />
     </div>
   );
 }
