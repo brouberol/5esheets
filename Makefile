@@ -64,7 +64,7 @@ dev:  ## Install the development environment
 	@echo "\n[+] Installing js dependencies"
 	@$(npm) install
 
-docker-build:  build requirements.txt  ## Build the docker image
+docker-build:  requirements.txt  ## Build the docker image
 	@echo "\n[+] Building the docker image"
 	@docker build -t brouberol/5esheets .
 
