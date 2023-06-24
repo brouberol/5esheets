@@ -126,6 +126,101 @@
         }
       }
     },
+    "/api/party/{id}": {
+      "get": {
+        "tags": [
+          "party"
+        ],
+        "summary": "Display Party",
+        "description": "Display all details of a given party.",
+        "operationId": "display_party",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisplayPartySchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "party"
+        ],
+        "summary": "Update Party",
+        "description": "Update a party details.\n\nExamples of JSON body paylods:",
+        "operationId": "update_party",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePartySchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Party-Update Party",
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/player/{id}": {
       "get": {
         "tags": [
@@ -221,71 +316,19 @@
         }
       }
     },
-    "/api/party/{id}": {
-      "get": {
+    "/api/login/token": {
+      "post": {
         "tags": [
-          "party"
+          "login"
         ],
-        "summary": "Display Party",
-        "description": "Display all details of a given party.",
-        "operationId": "display_party",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Id",
-              "type": "integer"
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DisplayPartySchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "party"
-        ],
-        "summary": "Update Party",
-        "description": "Update a party details.\n\nExamples of JSON body paylods:",
-        "operationId": "update_party",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Id",
-              "type": "integer"
-            },
-            "name": "id",
-            "in": "path"
-          }
-        ],
+        "summary": "Login For Access Token",
+        "description": "Submit a player's username and password to login.\n\nIf the password verifies, returns a JWT usable to communicate with the API.\nIf not, raise a 401 error.",
+        "operationId": "login_for_access_token",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
-                "$ref": "#/components/schemas/UpdatePartySchema"
+                "$ref": "#/components/schemas/Body_login-login_for_access_token"
               }
             }
           },
@@ -297,8 +340,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Party-Update Party",
-                  "type": "object"
+                  "$ref": "#/components/schemas/JsonWebToken"
                 }
               }
             }
@@ -319,6 +361,42 @@
   },
   "components": {
     "schemas": {
+      "Body_login-login_for_access_token": {
+        "title": "Body_login-login_for_access_token",
+        "required": [
+          "username",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "title": "Grant Type",
+            "pattern": "password",
+            "type": "string"
+          },
+          "username": {
+            "title": "Username",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string",
+            "default": ""
+          },
+          "client_id": {
+            "title": "Client Id",
+            "type": "string"
+          },
+          "client_secret": {
+            "title": "Client Secret",
+            "type": "string"
+          }
+        }
+      },
       "CharacterSchema": {
         "title": "CharacterSchema",
         "required": [
@@ -565,6 +643,24 @@
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             }
+          }
+        }
+      },
+      "JsonWebToken": {
+        "title": "JsonWebToken",
+        "required": [
+          "access_token",
+          "token_type"
+        ],
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "title": "Token Type",
+            "type": "string"
           }
         }
       },

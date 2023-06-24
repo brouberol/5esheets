@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from fastapi.routing import APIRoute
 
 from dnd5esheets.api.character import character_api
+from dnd5esheets.api.login import login_api
 from dnd5esheets.api.party import party_api
 from dnd5esheets.api.player import player_api
 
@@ -13,5 +14,6 @@ def custom_generate_unique_id(route: APIRoute):
 
 api = APIRouter(prefix="/api", generate_unique_id_function=custom_generate_unique_id)
 api.include_router(character_api)
-api.include_router(player_api)
 api.include_router(party_api)
+api.include_router(player_api)
+api.include_router(login_api)

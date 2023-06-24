@@ -4,6 +4,7 @@ import click
 
 from dnd5esheets.db import create_session, db_dir
 from dnd5esheets.models import Character, Party, Player
+from dnd5esheets.security.hashing import get_password_hash
 
 
 @click.group()
@@ -23,6 +24,8 @@ def populate_db():
 
     with create_session(commit_at_end=True) as session:
         for player_attrs in dev_fixtures["players"]:
+            plaintext_password = player_attrs.pop("plaintext_password")
+            player_attrs["hashed_password"] = get_password_hash(plaintext_password)
             player = Player(**player_attrs)
             session.merge(player)
             click.echo(f"Player {player} saved")

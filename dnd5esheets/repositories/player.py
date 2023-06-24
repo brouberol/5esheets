@@ -11,8 +11,14 @@ class PlayerRepository(BaseRepository):
 
     @classmethod
     async def get_by_id(cls, session: AsyncSession, id: int) -> Player:
-        """Return a Player given an argument slug"""
+        """Return a Player given an argument id"""
         result = await session.execute(select(Player).filter(Player.id == id))
+        return cls.one_or_raise(result)  # type: ignore
+
+    @classmethod
+    async def get_by_email(cls, session: AsyncSession, email: str) -> Player:
+        """Return a Player given an argument email"""
+        result = await session.execute(select(Player).filter(Player.email == email))
         return cls.one_or_raise(result)  # type: ignore
 
     @classmethod
