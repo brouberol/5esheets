@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check trash-env dev dnd5esheets/templates/spellbook.html \
+.PHONY: api-doc api-explorer black check trash-env dev \
 	docker-build docker-run init mypy ruff run front-check help
 
 ifeq (, $(shell which poetry))
@@ -14,18 +14,6 @@ front-root = $(app-root)/front
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
 
-
-$(app-root)/translations/messages.pot: $(app-root)/templates/*.html
-	poetry run pybabel extract --omit-header -F babel.cfg -o $(app-root)/translations/messages.pot .
-
-$(wildcard $(app-root)/translations/*/*/messages.po): $(app-root)/translations/messages.pot
-	poetry run pybabel update --omit-header --no-fuzzy-matching -i $(app-root)/translations/messages.pot -d $(app-root)/translations
-
-$(wildcard $(app-root)/translations/*/*/messages.mo): $(wildcard $(app-root)/translations/*/*/messages.po)
-	poetry run pybabel compile --use-fuzzy -d $(app-root)/translations
-
-$(app-root)/templates/spellbook.html:
-	python3 scripts/generate_spellbook.py > $(app-root)/templates/spellbook.html
 
 $(app-root)/schemas.py:
 
@@ -121,12 +109,6 @@ ruff:
 run: build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn $(app-root).app:app --reload
-
-translations-extract: $(app-root)/translations/messages.pot  ## Extract all strings to translate from jinja templates
-
-translations-update: $(wildcard $(app-root)/translations/*/*/messages.po)  ## Update the language catalogs with new translations
-
-translations-compile: $(wildcard $(app-root)/translations/*/*/messages.mo)  ## Compile translations into a .mo file
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
 	@echo "\n [+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"
