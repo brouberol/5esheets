@@ -130,7 +130,7 @@ export default function CharacterSheet({
               const index = sanitizedInput.lastIndexOf(" ");
               const [class_, level] = [
                 sanitizedInput.slice(0, index).trim(),
-                sanitizedInput.slice(index).trim() || 0,
+                parseInt(sanitizedInput.slice(index).trim()) || 0,
               ];
               onChange({ class_, level });
             }}
