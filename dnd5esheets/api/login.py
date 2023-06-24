@@ -10,7 +10,7 @@ from dnd5esheets.db import create_scoped_session
 from dnd5esheets.models import Player
 from dnd5esheets.repositories import ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
-from dnd5esheets.schemas import JsonWebToken
+from dnd5esheets.schemas import JsonWebToken, JsonWebTokenData
 from dnd5esheets.security.hashing import verify_password
 from dnd5esheets.security.jwt import create_access_token
 

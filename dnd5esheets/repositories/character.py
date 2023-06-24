@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
-from dnd5esheets.models import Character
+from dnd5esheets.models import Character, Player
 from dnd5esheets.repositories import BaseRepository
 from dnd5esheets.schemas import UpdateCharacterSchema
 
@@ -13,10 +13,12 @@ class CharacterRepository(BaseRepository):
     model = Character
 
     @classmethod
-    async def list_all(cls, session: AsyncSession) -> Sequence[Character]:
+    async def list_all(
+        cls, session: AsyncSession, player: Player
+    ) -> Sequence[Character]:
         """List all existing characters, with their associated related data"""
         result = await session.execute(
-            select(Character)
+            select(Character).filter(Character.player_id == player.id)
             # exclude the large json payload
             .options(defer(Character.data))
         )

@@ -11,6 +11,10 @@ class JsonWebToken(BaseSchema):
     token_type: str
 
 
+class JsonWebTokenData(BaseSchema):
+    username: str | None = None
+
+
 class BaseORMSchema(BaseSchema):
     class Config:
         orm_mode = True
