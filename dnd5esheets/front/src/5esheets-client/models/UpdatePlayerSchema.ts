@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdatePartySchema = {
-  name?: string;
+export type UpdatePlayerSchema = {
+    name?: string;
 };
+

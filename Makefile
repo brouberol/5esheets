@@ -112,7 +112,7 @@ svelte-check:
 	@echo "\n[+ Running js checks]"
 	@$(npm-run) check
 
-svelte-generate-api-client: $(front-root)/src/5esheet-client ## Generate the API openapi.json file
+front-generate-api-client: $(front-root)/src/5esheets-client ## Generate the API openapi.json file
 
 ruff:
 	@echo "\n[+] Running linter"

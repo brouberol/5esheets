@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
-    "start": "solid-start start"
+    "start": "solid-start start",
+    "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client --client axios"
   },
   "type": "module",
   "devDependencies": {
@@ -19,6 +20,8 @@
     "@solid-primitives/i18n": "^1.4.0",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
+    "axios": "^1.4.0",
+    "openapi-typescript-codegen": "^0.24.0",
     "solid-js": "^1.7.2",
     "solid-start": "^0.2.26",
     "solid-styled": "^0.8.1",

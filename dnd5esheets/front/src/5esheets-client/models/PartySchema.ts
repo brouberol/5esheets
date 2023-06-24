@@ -6,6 +6,7 @@
  * The basic details of a party
  */
 export type PartySchema = {
-  id: number;
-  name: string;
+    id: number;
+    name: string;
 };
+

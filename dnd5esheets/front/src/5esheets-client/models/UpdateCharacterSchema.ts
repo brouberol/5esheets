@@ -3,8 +3,9 @@
 /* eslint-disable */
 
 export type UpdateCharacterSchema = {
-  name?: string;
-  class_?: string;
-  level?: number;
-  data?: Record<string, any>;
+    name?: string;
+    class_?: string;
+    level?: number;
+    data?: Record<string, any>;
 };
+
