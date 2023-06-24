@@ -1,4 +1,4 @@
-# -- Build step, in charge of compiling the Svelte app
+# -- Build step, in charge of compiling the frontend app
 FROM node:20.2.0-bullseye-slim AS build
 
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY dnd5esheets/front/ ./
 RUN npm run build
 
 
-# -- Main build combining the FastAPI and compiled Svelte apps
+# -- Main build combining the FastAPI and compiled frontend apps
 FROM python:3.11.4-slim
 
 WORKDIR /usr/src/app
