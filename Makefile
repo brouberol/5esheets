@@ -1,6 +1,6 @@
 .DEFAULT_GOAL = help
 .PHONY: api-doc apixplorer black check dev dnd5esheets/templates/spellbook.html \
-	docker-build docker-run init mypy ruff run svelte-check help
+	docker-build docker-run init mypy ruff run front-check help
 
 ifeq (, $(shell which poetry))
 $(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
@@ -64,13 +64,13 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: deps svelte-build  ## Build the application
+build: front-build  ## Build the application
 
 black:
 	@echo "\n[+] Reformatting python files"
 	@poetry run black $(app-root)/
 
-check: black mypy ruff svelte-check ## Run all checks on the python codebase
+check: black mypy ruff front-check ## Run all checks on the python codebase
 
 deps-js: $(front-root)/package-lock.json
 	@echo "\n[+] Installing js dependencies"
@@ -104,11 +104,11 @@ mypy:
 	@echo "\n[+] Checking Python types"
 	@poetry run mypy $(app-root)/
 
-svelte-build: svelte-generate-api-client
-	@echo "\n[+] Building the svelte app"
+front-build: front-generate-api-client
+	@echo "\n[+] Building the front app"
 	@$(npm-run) build
 
-svelte-check:
+front-check:
 	@echo "\n[+ Running js checks]"
 	@$(npm-run) check
 
