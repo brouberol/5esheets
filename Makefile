@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc apixplorer black check dev dnd5esheets/templates/spellbook.html \
+.PHONY: api-doc api-explorer black check trash-env dev dnd5esheets/templates/spellbook.html \
 	docker-build docker-run init mypy ruff run front-check help
 
 ifeq (, $(shell which poetry))
@@ -127,6 +127,11 @@ translations-extract: $(app-root)/translations/messages.pot  ## Extract all stri
 translations-update: $(wildcard $(app-root)/translations/*/*/messages.po)  ## Update the language catalogs with new translations
 
 translations-compile: $(wildcard $(app-root)/translations/*/*/messages.mo)  ## Compile translations into a .mo file
+
+trash-env:  ## Delete all js dependencies and the python virtualenv
+	@echo "\n [+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"
+	@rm -rf $(front-root)/node_modules
+	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-26s\033[0m %s\n", $$1, $$2}'
