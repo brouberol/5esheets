@@ -29,12 +29,12 @@ async def authenticate_player(
     return True, player
 
 
-@login_api.post("/token")
+@login_api.post("/token", response_model=JsonWebToken)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(create_scoped_session),
     settings=Depends(get_settings),
-) -> JsonWebToken:
+):
     """Submit a player's username and password to login.
 
     If the password verifies, returns a JWT usable to communicate with the API.
@@ -44,7 +44,7 @@ async def login_for_access_token(
     authenticated, player = await authenticate_player(
         username=form_data.username, password=form_data.password, session=session
     )
-    if not authenticated:
+    if not (authenticated and player):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",

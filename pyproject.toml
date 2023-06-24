@@ -23,6 +23,8 @@ python-multipart = "^0.0.6"
 mypy = "^1.4.0"
 ruff = "^0.0.275"
 black = "^23.3.0"
+types-python-jose = "^3.3.4.7"
+types-passlib = "^1.7.7.12"
 
 [build-system]
 requires = ["poetry-core"]
