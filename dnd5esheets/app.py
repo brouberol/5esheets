@@ -11,7 +11,7 @@ from .repositories import ModelNotFound
 app = FastAPI()
 app.include_router(api)
 
-dist_dir = Path(__file__).parent / "client" / "dist"
+dist_dir = Path(__file__).parent / "front" / "dist"
 
 
 @app.exception_handler(ModelNotFound)

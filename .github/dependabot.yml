@@ -15,7 +15,7 @@ updates:
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
-    directory: "/dnd5esheets/client"
+    directory: "/dnd5esheets/front"
     schedule:
       interval: "weekly"
     commit-message:

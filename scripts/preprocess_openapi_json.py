@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 openapi_json_fileppath = (
-    Path(__file__).parent.parent / "dnd5esheets" / "client" / "openapi.json"
+    Path(__file__).parent.parent / "dnd5esheets" / "front" / "openapi.json"
 )
 
 openapi_content = json.loads(openapi_json_fileppath.read_text())

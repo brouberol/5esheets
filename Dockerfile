@@ -3,10 +3,10 @@ FROM node:20.2.0-bullseye-slim AS build
 
 WORKDIR /app
 
-COPY dnd5esheets/client/package.json ./
-COPY dnd5esheets/client/package-lock.json ./
+COPY dnd5esheets/front/package.json ./
+COPY dnd5esheets/front/package-lock.json ./
 RUN npm install
-COPY dnd5esheets/client/ ./
+COPY dnd5esheets/front/ ./
 RUN npm run build
 
 
@@ -21,7 +21,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY dnd5esheets ./dnd5esheets
 COPY alembic.ini .
 COPY scripts/start-app.sh .
-RUN rm -r ./dnd5esheets/client/*
-COPY --from=build /app/dist ./dnd5esheets/client/dist
+RUN rm -r ./dnd5esheets/front/*
+COPY --from=build /app/dist ./dnd5esheets/front/dist
 
 CMD ./start-app.sh
