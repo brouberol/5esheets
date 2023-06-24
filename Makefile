@@ -54,7 +54,7 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
 	@python3 scripts/preprocess_openapi_json.py
 
-$(front-root)/src/5esheet-client: $(front-root)/openapi.json
+$(front-root)/src/5esheets-client: $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
 
