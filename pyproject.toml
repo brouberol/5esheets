@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "5esheets"
+name = "dnd5esheets"
 version = "0.1.0"
 description = "Character sheets for D&D 5e"
 authors = ["Balthazar Rouberol"]
