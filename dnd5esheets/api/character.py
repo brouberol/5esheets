@@ -8,6 +8,7 @@ from dnd5esheets.schemas import (
     ListCharacterSchema,
     UpdateCharacterSchema,
 )
+from dnd5esheets.security.user import get_current_user
 
 character_api = APIRouter(prefix="/character", tags=["character"])
 
@@ -15,13 +16,14 @@ character_api = APIRouter(prefix="/character", tags=["character"])
 @character_api.get("/", response_model=list[ListCharacterSchema])
 async def list_characters(
     session: AsyncSession = Depends(create_scoped_session),
+    current_player=Depends(get_current_user),
 ):
     """List all characters.
 
     The returned payload will not include the character sheet details.
 
     """
-    return await CharacterRepository.list_all(session)
+    return await CharacterRepository.list_all(session, player=current_player)
 
 
 @character_api.get("/{slug}", response_model=CharacterSchema)
