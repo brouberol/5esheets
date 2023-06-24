@@ -15,10 +15,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+.netlify
+.output
+.solid
+.vercel
+*.local
 dist
 dist-ssr
-*.local
+netlify
+node_modules
 
 # Editor directories and files
 .vscode/*
