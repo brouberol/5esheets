@@ -2,19 +2,27 @@
     "players": [
         {
             "id": 1,
-            "name": "Balthazar"
+            "name": "Balthazar",
+            "email": "br@test.com",
+            "plaintext_password": "azerty"
         },
         {
             "id": 2,
-            "name": "Étienne"
+            "name": "Étienne",
+            "email": "eb@test.com",
+            "plaintext_password": "azerty"
         },
         {
             "id": 3,
-            "name": "Lola"
+            "name": "Lola",
+            "email": "lb@test.com",
+            "plaintext_password": "azerty"
         },
         {
             "id": 4,
-            "name": "Marine"
+            "name": "Marine",
+            "email": "ml@test.com",
+            "plaintext_password": "azerty"
         }
     ],
     "parties": [

@@ -1,5 +1,6 @@
 import json
 from typing import Self
+
 from sqlalchemy import ForeignKey, Integer, String, TypeDecorator, types
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -53,7 +54,11 @@ class Player(NameReprMixin, BaseModel):
     __tablename__ = "player"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(255))
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(255), nullable=False, unique=True, index=True
+    )
+    hashed_password: Mapped[str] = mapped_column(String, nullable=False)
     characters: Mapped[list["Character"]] = relationship(
         back_populates="player",
         cascade="all, delete-orphan",

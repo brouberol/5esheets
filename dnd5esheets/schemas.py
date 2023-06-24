@@ -2,7 +2,13 @@
 Definition of the pydandic models used for type validation and output serialization.
 """
 
-from pydantic import BaseModel as BaseSchema, Field
+from pydantic import BaseModel as BaseSchema
+from pydantic import Field
+
+
+class JsonWebToken(BaseSchema):
+    access_token: str
+    token_type: str
 
 
 class BaseORMSchema(BaseSchema):
