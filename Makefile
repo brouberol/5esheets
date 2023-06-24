@@ -82,7 +82,7 @@ deps-python: requirements.txt
 
 deps: deps-python deps-js  ## Install the development dependencies
 
-docker-build: build  ## Build the docker image
+docker-build: requirements.txt  ## Build the docker image
 	@echo "\n[+] Building the docker image"
 	@docker build -t brouberol/5esheets .
 
