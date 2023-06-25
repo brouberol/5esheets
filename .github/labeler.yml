@@ -1,4 +1,7 @@
 # https://github.com/actions/labeler
+api:
+- dnd5esheets/api/*.py
+- dnd5esheets/front/openapi.json
 
 database:
 - dnd5esheets/migrations/versions/*.py
