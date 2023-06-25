@@ -79,15 +79,13 @@ export default function CharacterSheet({
     }
 
     .scores {
-      display: flex;
-      flex-direction: column;
-
+      align-items: center;
       justify-content: space-between;
     }
 
     .scores, .skills, .saving_throws {
       margin: 0;
-      padding: 2mm;
+      padding: 0;
 
       li {
         list-style: none;
@@ -184,24 +182,22 @@ export default function CharacterSheet({
             <BorderBox>
               <div class="scores flex-container">
                 <For
-                  each={
-                    [
-                      "Strength",
-                      "Dexterity",
-                      "Constitution",
-                      "Intelligence",
-                      "Wisdom",
-                      "Charisma",
-                    ] as const
-                  }
+                  each={[
+                    "strength",
+                    "dexterity",
+                    "constitution",
+                    "intelligence",
+                    "wisdom",
+                    "charisma",
+                  ]}
                 >
-                  {(label) => (
+                  {(attribute) => (
                     <ScoreBox
-                      label={t(`${label.toLowerCase()}_abbr`)}
-                      score={character.data[`${label}score`]}
-                      modifier={character.data[`${label}mod`]}
+                      label={t(`${attribute}_abbr`)}
+                      score={character.data[attribute]}
+                      modifier={character.data[`${attribute}_mod`]}
                       onChange={(score: number) =>
-                        onChange({ data: { [`${label}score`]: score } })
+                        onChange({ data: { [attribute]: score } })
                       }
                     />
                   )}
@@ -239,59 +235,29 @@ export default function CharacterSheet({
               <ul class="saving_throws">
                 <For
                   each={[
-                    {
-                      id: "strength",
-                      label: t("strength"),
-                      proficiency: character.data["Strength-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Strength-save"],
-                    },
-                    {
-                      id: "dexterity",
-                      label: t("dexterity"),
-                      proficiency: character.data["Dexterity-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Dexterity-save"],
-                    },
-                    {
-                      id: "constitution",
-                      label: t("constitution"),
-                      proficiency: character.data["Constitution-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Constitution-save"],
-                    },
-                    {
-                      id: "intelligence",
-                      label: t("intelligence"),
-                      proficiency: character.data["Intelligence-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Intelligence-save"],
-                    },
-                    {
-                      id: "wisdom",
-                      label: t("wisdom"),
-                      proficiency: character.data["Wisdom-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Wisdom-save"],
-                    },
-                    {
-                      id: "charisma",
-                      label: t("charisma"),
-                      proficiency: character.data["Charisma-save-prof"]
-                        ? "master"
-                        : "none",
-                      value: character.data["Charisma-save"],
-                    },
+                    "strength",
+                    "dexterity",
+                    "constitution",
+                    "intelligence",
+                    "wisdom",
+                    "charisma",
                   ]}
                 >
-                  {(skill) => (
+                  {(attribute) => (
                     <li>
-                      <ProficientAttribute {...skill} />
+                      <ProficientAttribute
+                        id={attribute}
+                        label={t(attribute)}
+                        proficiency={character.data.proficiencies[attribute]}
+                        value={character.data[`${attribute}_save_mod`]}
+                        onChange={(proficiency: number) =>
+                          onChange({
+                            data: {
+                              proficiencies: { [attribute]: proficiency },
+                            },
+                          })
+                        }
+                      />
                     </li>
                   )}
                 </For>
@@ -301,173 +267,42 @@ export default function CharacterSheet({
               <ul class="skills">
                 <For
                   each={[
-                    {
-                      id: "acrobatics",
-                      label: t("acrobatics"),
-                      proficiency: character.data["Acrobatics-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("dexterity_abbr"),
-                      value: character.data.Acrobatics,
-                    },
-                    {
-                      id: "animal-handling",
-                      label: t("animal_handling"),
-                      proficiency: character.data["Animal Handling-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("wisdom_abbr"),
-                      value: character.data["Animal Handling"],
-                    },
-                    {
-                      id: "arcana",
-                      label: t("arcana"),
-                      proficiency: character.data["Arcana-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("intelligence_abbr"),
-                      value: character.data.Arcana,
-                    },
-                    {
-                      id: "athletics",
-                      label: t("athletics"),
-                      proficiency: character.data["Athletics-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("strength_abbr"),
-                      value: character.data.Athletics,
-                    },
-                    {
-                      id: "deception",
-                      label: t("deception"),
-                      proficiency: character.data["Deception-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("dexterity_abbr"),
-                      value: character.data.Deception,
-                    },
-                    {
-                      id: "history",
-                      label: t("history"),
-                      proficiency: character.data["History-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("intelligence_abbr"),
-                      value: character.data.History,
-                    },
-                    {
-                      id: "insight",
-                      label: t("insight"),
-                      proficiency: character.data["Insight-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("wisdom_abbr"),
-                      value: character.data.Insight,
-                    },
-                    {
-                      id: "intimidation",
-                      label: t("intimidation"),
-                      proficiency: character.data["Intimidation-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("charisma_abbr"),
-                      value: character.data.Intimidation,
-                    },
-                    {
-                      id: "investigation",
-                      label: t("investigation"),
-                      proficiency: character.data["Investigation-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("intelligence_abbr"),
-                      value: character.data.Investigation,
-                    },
-                    {
-                      id: "medicine",
-                      label: t("medicine"),
-                      proficiency: character.data["Medicine-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("wisdom_abbr"),
-                      value: character.data.Medicine,
-                    },
-                    {
-                      id: "nature",
-                      label: t("nature"),
-                      proficiency: character.data["Nature-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("intelligence_abbr"),
-                      value: character.data.Nature,
-                    },
-                    {
-                      id: "perception",
-                      label: t("perception"),
-                      proficiency: character.data["Perception-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("wisdom_abbr"),
-                      value: character.data.Perception,
-                    },
-                    {
-                      id: "performance",
-                      label: t("performance"),
-                      proficiency: character.data["Performance-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("charisma_abbr"),
-                      value: character.data.Performance,
-                    },
-                    {
-                      id: "persuasion",
-                      label: t("persuasion"),
-                      proficiency: character.data["Persuasion-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("charisma_abbr"),
-                      value: character.data.Persuasion,
-                    },
-                    {
-                      id: "religion",
-                      label: t("religion"),
-                      proficiency: character.data["Religion-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("intelligence_abbr"),
-                      value: character.data.Religion,
-                    },
-                    {
-                      id: "sleight-of-hand",
-                      label: t("sleight_of_hand"),
-                      proficiency: character.data["Sleight of Hand-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("dexterity_abbr"),
-                      value: character.data["Sleight of Hand"],
-                    },
-                    {
-                      id: "stealth",
-                      label: t("stealth"),
-                      proficiency: character.data["Stealth-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("dexterity_abbr"),
-                      value: character.data["Stealth"],
-                    },
-                    {
-                      id: "survival",
-                      label: t("survival"),
-                      proficiency: character.data["Survival-prof"]
-                        ? "master"
-                        : "none",
-                      labelSecondary: t("wisdom_abbr"),
-                      value: character.data["Survival"],
-                    },
-                  ].sort((a, b) => (a.label > b.label ? 1 : -1))}
+                    [t("acrobatics"), "acrobatics", "dexterity"],
+                    [t("animal_handling"), "animal_handling", "wisdom"],
+                    [t("arcana"), "arcana", "intelligence"],
+                    [t("athletics"), "athletics", "strength"],
+                    [t("deception"), "deception", "dexterity"],
+                    [t("history"), "history", "intelligence"],
+                    [t("insight"), "insight", "wisdom"],
+                    [t("intimidation"), "intimidation", "charisma"],
+                    [t("investigation"), "investigation", "intelligence"],
+                    [t("medicine"), "medicine", "wisdom"],
+                    [t("nature"), "nature", "intelligence"],
+                    [t("perception"), "perception", "wisdom"],
+                    [t("performance"), "performance", "charisma"],
+                    [t("persuasion"), "persuasion", "charisma"],
+                    [t("religion"), "religion", "intelligence"],
+                    [t("sleight_of_hand"), "sleight_of_hand", "dexterity"],
+                    [t("stealth"), "stealth", "dexterity"],
+                    [t("survival"), "survival", "wisdom"],
+                  ].sort()}
                 >
-                  {(skill) => (
+                  {([label, attribute, secondary]) => (
                     <li>
-                      <ProficientAttribute {...skill} />
+                      <ProficientAttribute
+                        id={attribute}
+                        label={label}
+                        proficiency={character.data.proficiencies[attribute]}
+                        labelSecondary={t(`${secondary}_abbr`)}
+                        value={character.data[attribute]}
+                        onChange={(proficiency: number) =>
+                          onChange({
+                            data: {
+                              proficiencies: { [attribute]: proficiency },
+                            },
+                          })
+                        }
+                      />
                     </li>
                   )}
                 </For>

@@ -53,8 +53,6 @@ export default function LabeledInput({
     }
   `;
 
-  console.log("labeled input", label);
-
   return (
     <div class="labeled-input">
       <label for={id}>{label}</label>

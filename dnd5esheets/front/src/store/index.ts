@@ -1,15 +1,11 @@
-import { onCleanup } from "solid-js";
+import { createEffect, createSignal, onCleanup } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
-import { CharacterSchema } from '~/5esheets-client';
+import { CharacterSchema } from "~/5esheets-client";
 
-export const proficiencies = ["none", "master", "expert"] as const;
+export const proficiencies = [0, 1, 2] as const // none | master | expert
 export type Proficiency = (typeof proficiencies)[number];
 
-const proficiencyMultiplier: Record<Proficiency, 0 | 1 | 2> = {
-  none: 0,
-  master: 1,
-  expert: 2,
-}
+export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3
 
 const douglas: CharacterSchema = {
   id: 1,
@@ -20,55 +16,56 @@ const douglas: CharacterSchema = {
   class_: "Artilleur",
   level: 4,
   data: {
+    strength: 8,
+    dexterity: 14,
+    constitution: 12,
+    intelligence: 18,
+    wisdom: 12,
+    charisma: 14,
+
+    strength_mod: 0,
+    dexterity_mod: 0,
+    constitution_mod: 0,
+    intelligence_mod: 0,
+    wisdom_mod: 0,
+    charisma_mod: 0,
+
+    proficiencies: {
+      strength: 0,
+      dexterity: 0,
+      constitution: 1,
+      intelligence: 1,
+      wisdom: 0,
+      charisma: 0,
+
+      acrobatics: 0,
+      arcana: 0,
+      athletics: 0,
+      stealth: 0,
+      animal_handling: 0,
+      sleight_of_hand: 0,
+      history: 1,
+      intimidation: 0,
+      investigation: 0,
+      medicine: 0,
+      nature: 0,
+      perception: 1,
+      insight: 1,
+      persuasion: 1,
+      religion: 0,
+      performance: 0,
+      survival: 0,
+      deception: 0,
+    },
+
+    proficiency_bonus: 2,
+
     experiencepoints: 0,
     background: "Artistan",
     playername: "Balthazar",
     race: "Gnome",
     alignment: "Chaotique Bon",
-    Strengthscore: "8",
-    Strengthmod: "-1",
-    Dexterityscore: "14",
-    Dexteritymod: "+2",
-    Constitutionscore: "12",
-    Constitutionmod: "+1",
-    Intelligencescore: "18",
-    Intelligencemod: "+4",
-    Wisdomscore: "12",
-    Wisdommod: "+1",
-    Charismascore: "14",
-    Charismamod: "+2",
     darkvision: true,
-    proficiencybonus: "+2",
-    "Strength-save": "-1",
-    "Dexterity-save": "+2",
-    "Constitution-save-prof": true,
-    "Constitution-save": "+3",
-    "Wisdom-save": "+1",
-    "Intelligence-save-prof": true,
-    "Intelligence-save": "+6",
-    "Charisma-save": "+2",
-    Acrobatics: "+2",
-    Arcana: "+4",
-    Athletics: "-1",
-    Stealth: "+2",
-    "Animal Handling": "+1",
-    "Sleight of Hand": "+2",
-    "History-prof": true,
-    History: "+6",
-    Intimidation: "+2",
-    Investigation: "+4",
-    Medicine: "+1",
-    Nature: "+4",
-    "Perception-prof": true,
-    Perception: "+3",
-    "Insight-prof": true,
-    Insight: "+3",
-    "Persuasion-prof": true,
-    Persuasion: "+4",
-    Religion: "+4",
-    Performance: "+2",
-    Survival: "+1",
-    Deception: "+2",
     passiveperception: "13",
     otherprofs:
       "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
@@ -145,36 +142,111 @@ const douglas: CharacterSchema = {
       "🆎 🗣️ 👋 💎 [Sanctuary](https://5e.tools/spells.html#sanctuary_phb)",
   },
 };
-const store = {[douglas.slug]: douglas}
 
+const scoreToSkillModifier = (score: number): number =>
+  Math.floor((score - 10) / 2);
+
+const scoreToProficiencyModifier = (
+  score: number,
+  proficiency: Proficiency,
+  proficiencyBonus: number
+): number =>
+    scoreToSkillModifier(score) + proficiency * proficiencyBonus
+
+const store = { [douglas.slug]: douglas };
 const [characters, setCharacters] = createStore(store);
+
+const effects = {
+  ...Object.fromEntries(
+    [
+      "strength",
+      "dexterity",
+      "constitution",
+      "intelligence",
+      "wisdom",
+      "charisma",
+    ].map((attribute) => [
+      `${attribute}_mod`,
+      (character: CharacterSchema) =>
+        scoreToSkillModifier(character.data[attribute]),
+    ])
+  ),
+
+  ...Object.fromEntries(
+    [
+      "strength",
+      "dexterity",
+      "constitution",
+      "intelligence",
+      "wisdom",
+      "charisma",
+    ].map((attribute) => [
+      `${attribute}_save_mod`,
+      (character: CharacterSchema) =>
+        scoreToProficiencyModifier(character.data[attribute], character.data.proficiencies[attribute], character.data.proficiency_bonus)
+    ])
+  ),
+
+  ...Object.fromEntries(
+    [
+      ["acrobatics", "dexterity"],
+      ["animal_handling", "wisdom"],
+      ["arcana", "intelligence"],
+      ["athletics", "strength"],
+      ["deception", "dexterity"],
+      ["history", "intelligence"],
+      ["insight", "wisdom"],
+      ["intimidation", "charisma"],
+      ["investigation", "intelligence"],
+      ["medicine", "wisdom"],
+      ["nature", "intelligence"],
+      ["perception", "wisdom"],
+      ["performance", "charisma"],
+      ["persuasion", "charisma"],
+      ["religion", "intelligence"],
+      ["sleight_of_hand", "dexterity"],
+      ["stealth", "dexterity"],
+      ["survival", "wisdom"],
+    ].map(([attribute, secondary]) => [
+      attribute,
+      (character: CharacterSchema) =>
+        scoreToProficiencyModifier(character.data[secondary], character.data.proficiencies[attribute], character.data.proficiency_bonus)
+    ])
+  ),
+};
+
+
+for (const derivedAttribute in effects) {
+  createEffect(() =>
+  setCharacters(
+    douglas.slug,
+    "data",
+    derivedAttribute,
+    effects[derivedAttribute](characters[douglas.slug])
+    )
+  );
+}
 
 export default function useStore() {
   return [
     characters,
     {
       update: (characterSlug: string, update: Partial<CharacterSchema>) => {
-        const proficiencyBonus = parseInt(update.data?.proficiencyBonus|| characters[characterSlug].data.proficiencyBonus || 0)
-
-        const computedData = {
-          ...('Charismascore' in update.data! ? {
-            Charismamod: scoreToSkillModifier(update.data.Charismascore),
-            "Charisma-save": scoreToProficiencyModifier(update.data.Charismascore, update.data["Charisma-prof"] ? 'master' : 'none', proficiencyBonus),
-            "Intimidation": scoreToProficiencyModifier(update.data.Charismascore, update.data["Intimidation-prof"] ? 'master' : 'none', proficiencyBonus),
-            "Persuasion": scoreToProficiencyModifier(update.data.Charismascore, update.data["Persuasion-prof"] ? 'master' : 'none', proficiencyBonus)
-          } : {}),
+        setCharacters(characterSlug, reconcile({
+          ...characters[characterSlug],
+          ...update,
+          data: {
+            ...characters[characterSlug].data,
+            ...update.data,
+            proficiencies: {
+              ...characters[characterSlug].data.proficiencies,
+              ...update.data?.proficiencies,
+            }
+          },
         }
+      ))
 
-        setCharacters(characterSlug, {...characters[characterSlug], ...update, data: {...characters[characterSlug].data, ...update.data, ...computedData}})
-      }
-    }
-  ] as const
+      },
+    },
+  ] as const;
 }
-
-const scoreToSkillModifier = (score: number): string =>
-  formatModifier(Math.floor((score - 10) / 2))
-
-const scoreToProficiencyModifier = (score: number, proficiency: Proficiency, proficiencyBonus: number): string =>
-  formatModifier(Math.floor((score - 10) / 2) + proficiencyMultiplier[proficiency] * proficiencyBonus)
-
-const formatModifier = (mod: number): string => mod > 0 ? `+${mod}` : `${mod}`

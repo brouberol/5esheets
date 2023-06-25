@@ -1,4 +1,3 @@
-import { ComponentProps, For } from "solid-js";
 import { Title, useParams } from "solid-start";
 
 import Character from "~/components/CharacterSheet";
