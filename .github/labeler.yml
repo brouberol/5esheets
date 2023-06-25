@@ -14,3 +14,9 @@ security:
 
 ci:
 - .github/**
+
+dependencies:
+- poetry.lock
+- pyproject.toml
+- dnd5esheets/front/package.json
+- dnd5esheets/front/package-lock.json
