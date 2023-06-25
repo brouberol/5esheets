@@ -7,6 +7,6 @@ from .prod import ProdSettings
 
 @lru_cache
 def get_settings():
-    if os.getenv("5ESHEETS_ENV") == "prod":
+    if os.getenv("DND5ESHEETS_ENV") == "prod":
         return ProdSettings()
     return DevSettings()
