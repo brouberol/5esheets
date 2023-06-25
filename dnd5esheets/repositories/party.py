@@ -1,7 +1,6 @@
 from typing import Sequence
 
 from sqlalchemy import select
-from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.models import Character, Party, Player
@@ -13,7 +12,9 @@ class PartyRepository(BaseRepository):
     model = Party
 
     @classmethod
-    async def list_all(cls, session: AsyncSession, owner_id: int) -> Sequence[Party]:
+    async def list_all(
+        cls, session: AsyncSession, owner_id: int | None
+    ) -> Sequence[Party]:
         result = await session.execute(
             select(Party)
             .join(Character, Party.members)
@@ -24,20 +25,27 @@ class PartyRepository(BaseRepository):
 
     @classmethod
     async def get_by_id_if_member_of(
-        cls, session: AsyncSession, id: int, member_id: int
+        cls, session: AsyncSession, id: int, member_id: int | None
     ) -> Party:
         """Return a Party given an argument id if it is owned by the argument player id"""
-        result = await session.execute(
+        query = (
             select(Party)
             .join(Character, Party.members)
             .join(Player, Character.player)
-            .filter(Player.id == member_id, Party.id == id)
+            .filter(Party.id == id)
         )
+        if member_id is not None:
+            query = query.filter(Player.id == member_id)
+        result = await session.execute(query)
         return cls.one_or_raise_model_not_found(result)
 
     @classmethod
     async def update_if_member_of(
-        cls, session: AsyncSession, id: int, body: UpdatePartySchema, member_id: int
+        cls,
+        session: AsyncSession,
+        id: int,
+        body: UpdatePartySchema,
+        member_id: int | None,
     ) -> Party:
         party = await cls.get_by_id_if_member_of(
             session=session, id=id, member_id=member_id

@@ -2,11 +2,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.ext.asyncio import AsyncSession
-from starlette.requests import Request
 
 from dnd5esheets.config import get_settings
 from dnd5esheets.db import create_scoped_session
-from dnd5esheets.models import Player
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.schemas import JsonWebTokenData
 
@@ -39,8 +37,8 @@ async def get_current_user_id(
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[settings.JWT_ENCODING_ALGORITHM]
         )
-        username: str = payload.get("sub")
-        if username is None:
+        username: str | None = payload.get("sub")
+        if not username:
             raise credentials_exception
         token_data = JsonWebTokenData(username=username)
     except JWTError:

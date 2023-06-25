@@ -30,8 +30,8 @@ class BaseRepository:
         cls.raise_exc(ModelNotFound)
 
     @classmethod
-    def one_or_raise_model_not_found(cls, result: Result) -> BaseModel:
+    def one_or_raise_model_not_found(cls, result: Result):
         """Return the result from the argument query or raise a ModelNotFound exception if empty"""
-        if model := result.scalars().one_or_none():
-            return model
-        cls.raise_model_not_found()
+        if not (model := result.scalars().one_or_none()):
+            cls.raise_model_not_found()
+        return model

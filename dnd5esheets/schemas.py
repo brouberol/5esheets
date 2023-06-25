@@ -12,7 +12,7 @@ class JsonWebToken(BaseSchema):
 
 
 class JsonWebTokenData(BaseSchema):
-    username: str | None = None
+    username: str
 
 
 class BaseORMSchema(BaseSchema):
