@@ -9,5 +9,8 @@ backend:
 frontend:
 - dnd5esheets/front/**
 
+security:
+- dnd5esheets/security*.py
+
 ci:
 - .github/**
