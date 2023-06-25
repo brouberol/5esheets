@@ -2,17 +2,19 @@ import { For, createSignal } from "solid-js";
 import { css } from "solid-styled";
 import { useI18n } from "@solid-primitives/i18n";
 
-import { CharacterSchema } from "~/5esheet-client";
-import LabeledInput from "./LabeledInput";
-import ProficientAttribute from "./ProficientAttribute";
-import LabeledBox from "./LabeledBox";
-import ScoreBox from "./ScoreBox";
-import BorderBox from "./BorderBox";
+import { CharacterSchema } from "~/5esheets-client";
+import LabeledInput from "~/components/LabeledInput";
+import ProficientAttribute from "~/components/ProficientAttribute";
+import LabeledBox from "~/components/LabeledBox";
+import ScoreBox from "~/components/ScoreBox";
+import BorderBox from "~/components/BorderBox";
 
 export default function CharacterSheet({
   character,
+  onChange,
 }: {
   character: CharacterSchema;
+  onChange: (change: Partial<CharacterSchema>) => void;
 }) {
   const [t] = useI18n();
 
@@ -112,6 +114,7 @@ export default function CharacterSheet({
             label={t("character_name")}
             placeholder="Irene Wun Kmout"
             value={character.name}
+            onChange={(name: string) => onChange({ name })}
           />
         </div>
         <div class="misc">
@@ -120,36 +123,56 @@ export default function CharacterSheet({
             label={t("class_and_level")}
             placeholder={`${t("wizard")} 2`}
             value={`${character.class_} ${character.level}`}
+            onChange={(classAndLevel: string) => {
+              const sanitizedInput = classAndLevel.trim();
+              const index = sanitizedInput.lastIndexOf(" ");
+              const [class_, level] = [
+                sanitizedInput.slice(0, index).trim(),
+                parseInt(sanitizedInput.slice(index).trim()) || 0,
+              ];
+              onChange({ class_, level });
+            }}
           />
           <LabeledInput
             id="background"
             label={t("background")}
             placeholder={t("acolyte")}
             value={character.data.background}
+            onChange={(background: string) =>
+              onChange({ data: { background } })
+            }
           />
           <LabeledInput
             id="playername"
             label={t("player_name")}
             placeholder={t("player-mcplayerface")}
             value={character.data.playername}
+            onChange={(playername: string) =>
+              onChange({ data: { playername } })
+            }
           />
           <LabeledInput
             id="race"
             label={t("race")}
             placeholder={t("half-elf")}
             value={character.data.race}
+            onChange={(race: string) => onChange({ data: { race } })}
           />
           <LabeledInput
             id="alignment"
             label={t("alignment")}
             placeholder={t("lawful-good")}
             value={character.data.alignment}
+            onChange={(alignment: string) => onChange({ data: { alignment } })}
           />
           <LabeledInput
             id="experiencepoints"
             label={t("experience_points")}
-            value={character.data.experiencepoints}
             placeholder="3240"
+            value={character.data.experiencepoints}
+            onChange={(experiencepoints: string) =>
+              onChange({ data: { experiencepoints } })
+            }
           />
         </div>
       </header>

@@ -5,14 +5,16 @@ const ScoreBox: Component<{
   label: string;
   score: number;
   modifier: number;
-}> = ({ label, score, modifier }) => {
+  onChange: (update: number) => void;
+}> = (props) => {
   css`
     .score-box {
       width: 16mm;
       display: flex;
       flex-direction: column;
       border: 1px solid black;
-      padding: 2mm;
+      padding: 2mm 0;
+      gap: 2mm;
       margin-bottom: 2mm;
       align-items: center;
     }
@@ -32,8 +34,11 @@ const ScoreBox: Component<{
 
     .score {
       font-size: 20pt;
-      padding: 2mm;
-      width: 3rem;
+      width: 100%;
+      border: none;
+      background: none;
+      font-family: var(--font-family-text);
+      overflow: visible;
     }
 
     .modifier {
