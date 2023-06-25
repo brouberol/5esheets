@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { DisplayPartySchema } from '../models/DisplayPartySchema';
+import type { PartySchema } from '../models/PartySchema';
 import type { UpdatePartySchema } from '../models/UpdatePartySchema';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -9,6 +10,19 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 
 export class PartyService {
+
+    /**
+     * List All Parties
+     * List all parties the current player has characters in
+     * @returns PartySchema Successful Response
+     * @throws ApiError
+     */
+    public static listAllParties(): CancelablePromise<Array<PartySchema>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/party/',
+        });
+    }
 
     /**
      * Display Party

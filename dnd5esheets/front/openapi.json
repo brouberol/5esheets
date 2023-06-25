@@ -31,7 +31,7 @@
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "OptionalOAuth2PasswordBearer": []
           }
         ]
       }
@@ -79,7 +79,7 @@
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "OptionalOAuth2PasswordBearer": []
           }
         ]
       },
@@ -136,7 +136,38 @@
         },
         "security": [
           {
-            "OAuth2PasswordBearer": []
+            "OptionalOAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/party/": {
+      "get": {
+        "tags": [
+          "party"
+        ],
+        "summary": "List All Parties",
+        "description": "List all parties the current player has characters in",
+        "operationId": "list_all_parties",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Party-List All Parties",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PartySchema"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OptionalOAuth2PasswordBearer": []
           }
         ]
       }
@@ -181,7 +212,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "OptionalOAuth2PasswordBearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -233,7 +269,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "OptionalOAuth2PasswordBearer": []
+          }
+        ]
       }
     },
     "/api/player/{id}": {
@@ -276,7 +317,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "OptionalOAuth2PasswordBearer": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -328,7 +374,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "OptionalOAuth2PasswordBearer": []
+          }
+        ]
       }
     },
     "/api/login/token": {
@@ -859,7 +910,7 @@
       }
     },
     "securitySchemes": {
-      "OAuth2PasswordBearer": {
+      "OptionalOAuth2PasswordBearer": {
         "type": "oauth2",
         "flows": {
           "password": {
