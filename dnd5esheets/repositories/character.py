@@ -14,14 +14,15 @@ class CharacterRepository(BaseRepository):
 
     @classmethod
     async def list_all(
-        cls, session: AsyncSession, player: Player
+        cls, session: AsyncSession, owner_id: int | None
     ) -> Sequence[Character]:
         """List all existing characters, with their associated related data"""
-        result = await session.execute(
-            select(Character).filter(Character.player_id == player.id)
-            # exclude the large json payload
-            .options(defer(Character.data))
-        )
+        query = select(Character).options(
+            defer(Character.data)
+        )  # exclude the large json payload
+        if owner_id is not None:
+            query = query.filter(Character.player_id == owner_id)
+        result = await session.execute(query)
         return result.scalars().all()
 
     @classmethod
@@ -32,11 +33,11 @@ class CharacterRepository(BaseRepository):
 
     @classmethod
     async def get_by_slug_if_owned(
-        cls, session: AsyncSession, slug: str, owner_id: int
+        cls, session: AsyncSession, slug: str, owner_id: int | None
     ) -> Character:
         """Return a Character given an argument slug"""
         character = await cls.get_by_slug(session, slug)
-        if character.player_id != owner_id:
+        if owner_id is not None and character.player_id != owner_id:
             cls.raise_model_not_found()
         return character
 
