@@ -6,12 +6,12 @@ const LabeledBox: Component<{ label: string; children: any }> = ({
   children,
 }) => {
   css`
-    .labeled-box, inner-box {
+    .border-box, inner-box {
       height: 100%;
       width: 100%;
     }
     
-    .labeled-box {
+    .border-box {
       border-image: url(/border-1.svg) 48% repeat;
 
       --border-top: 16mm;
@@ -23,9 +23,13 @@ const LabeledBox: Component<{ label: string; children: any }> = ({
     
       border-style: solid;
       border-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+      
+      position: relative;
+      z-index: 1000;
+
     }
     
-    .labeled-box .inner-box {
+    .border-box .inner-box {
       display: flex;
       flex-direction: column
       gap: 3pt;
@@ -47,7 +51,7 @@ const LabeledBox: Component<{ label: string; children: any }> = ({
   `;
 
   return (
-    <section class="labeled-box">
+    <section class="border-box">
       <div class="inner-box">
         <h1>{label}</h1>
         {children}

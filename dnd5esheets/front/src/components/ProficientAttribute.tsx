@@ -1,26 +1,14 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createEffect, createSignal } from "solid-js";
 import { css } from "solid-styled";
+import { cycleProficiency, Proficiency } from "~/store";
 
-const proficiencies = ["none", "master", "expert"] as const;
-type Proficiency = (typeof proficiencies)[number];
-
-function cycleProficiency(proficiency: Proficiency): Proficiency {
-  const index = proficiencies.indexOf(proficiency);
-  return proficiencies[(index + 1) % proficiencies.length];
-}
-
-export default function ProficientAttribute({
-  id,
-  label,
-  labelSecondary,
-  proficiency = "none",
-  value,
-}: {
+export default function ProficientAttribute(props: {
   id: string;
   label: string;
   labelSecondary?: string;
   proficiency: Proficiency;
   value: number;
+  onChange: (update: number) => void;
 }) {
   css`
     .attribute, .proficiency {
@@ -31,8 +19,17 @@ export default function ProficientAttribute({
 
     .attribute {
       gap: .5em;
+      padding: 0 2mm;
     }
-    
+
+    .highlight {
+      background: red;
+    }
+
+    .attribute:not(.highlight) {
+      transition: background-color 5s;
+    }
+
     .proficiency-master, .proficiency-expert {
       -webkit-appearance: none;
       appearance: none;
@@ -74,6 +71,7 @@ export default function ProficientAttribute({
       font-family: var(--font-family-text);
       width: 2em;
       text-align: right;
+      background: none;
     }
 
     input.value:hover {
@@ -88,7 +86,11 @@ export default function ProficientAttribute({
       border-bottom-color: var(--border-focus-color);
     }
 
-    label {
+    input.value:disabled {
+      color: unset;
+    }
+
+    .name {
       text-transform: capitalize;
       font-size: 0.8rem;
       font-family: var(--font-family-text);
@@ -100,34 +102,54 @@ export default function ProficientAttribute({
     }
   `;
 
-  const [proficiencyValue, setProficiency] = createSignal(proficiency);
+  const [highlight, setHighlight] = createSignal(false);
+
+  createEffect((prevTimeout?: number) => {
+    props.value; // needed to trigger the effect at each value change
+    if (prevTimeout) {
+      setHighlight(true);
+      clearTimeout(prevTimeout);
+    }
+    return setTimeout(() => setHighlight(false), 1000);
+  });
+
+  const formatModifier = (mod: number): string =>
+    mod > 0 ? `+${mod}` : `${mod}`;
 
   return (
-    <div class="attribute">
-      <label for={id}>
-        {label}
-        <Show when={labelSecondary}>
+    <div class={`attribute ${highlight() ? "highlight" : ""}`}>
+      <label for={props.id} class="name">
+        {props.label}
+        <Show when={props.labelSecondary}>
           {" "}
-          <span class="secondary">({labelSecondary})</span>
+          <span class="secondary">({props.labelSecondary})</span>
         </Show>
       </label>
-      <input class="value" type="text" name={id} value={value} />
-      <span class="proficiency">
+      <input
+        class="value"
+        type="text"
+        name={props.id}
+        value={formatModifier(props.value)}
+        disabled
+      />
+      <label
+        for={`${props.id}-master`}
+        class="proficiency"
+        onClick={() => props.onChange(cycleProficiency(props.proficiency))}
+      >
         <input
           class="proficiency-master"
-          name={`${id}-master`}
+          name={`${props.id}-master`}
           type="checkbox"
-          checked={["master", "expert"].includes(proficiencyValue())}
-          onClick={() => setProficiency(cycleProficiency(proficiencyValue()))}
+          checked={props.proficiency >= 1}
         />
         <input
           class="proficiency-expert"
-          name={`${id}-expert`}
+          name={`${props.id}-expert`}
           type="checkbox"
-          checked={["expert"].includes(proficiencyValue())}
-          onClick={() => setProficiency(cycleProficiency(proficiencyValue()))}
+          checked={props.proficiency >= 2}
         />
-      </span>
+      </label>
     </div>
   );
 }

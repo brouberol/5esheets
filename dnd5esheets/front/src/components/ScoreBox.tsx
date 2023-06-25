@@ -1,4 +1,4 @@
-import { Component } from "solid-js";
+import { Component, onMount } from "solid-js";
 import { css } from "solid-styled";
 
 const ScoreBox: Component<{
@@ -8,6 +8,7 @@ const ScoreBox: Component<{
 }> = ({ label, score, modifier }) => {
   css`
     .score-box {
+      width: 16mm;
       display: flex;
       flex-direction: column;
       border: 1px solid black;
@@ -42,18 +43,39 @@ const ScoreBox: Component<{
       background: white;
       border: 1px solid black;
       line-height: 2rem;
+      color: unset;
+      font-family: var(--font-family-text);
     }
   `;
 
+  const actions = {
+    ArrowUp: (score: number) => score + 1,
+    ArrowDown: (score: number) => score - 1,
+  } as const;
+
+  const formatModifier = (mod: number): string =>
+    mod > 0 ? `+${mod}` : `${mod}`;
+
   return (
     <div class="score-box">
-      <label>{label}</label>
-      <div class="score" contentEditable>
-        {score}
-      </div>
-      <div class="modifier" contentEditable>
-        {modifier}
-      </div>
+      <label>{props.label}</label>
+      <input
+        class="score"
+        type="text"
+        value={props.score}
+        oninput={(event) => props.onChange(parseInt(event.target.value ?? "0"))}
+        onkeydown={(event) =>
+          event.key in actions &&
+          props.onChange(actions[event.key](props.score))
+        }
+      />
+
+      <input
+        class="modifier"
+        type="text"
+        value={formatModifier(props.modifier)}
+        disabled
+      />
     </div>
   );
 };
