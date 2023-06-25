@@ -1,0 +1,13 @@
+# https://github.com/actions/labeler
+
+database:
+- dnd5esheets/migrations/versions/*.py
+
+backend:
+- dnd5esheets/**/*.py
+
+frontend:
+- dnd5esheets/front/**
+
+ci:
+- .github/**
