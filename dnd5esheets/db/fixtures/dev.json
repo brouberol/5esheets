@@ -29,6 +29,10 @@
         {
             "id": 1,
             "name": "Famille McTrickfoot"
+        },
+        {
+            "id": 2,
+            "name": "La Compagnie des Gourmands"
         }
     ],
     "characters": [

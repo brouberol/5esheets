@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.db import create_scoped_session
+from dnd5esheets.models import Player
 from dnd5esheets.repositories.character import CharacterRepository
 from dnd5esheets.schemas import (
     CharacterSchema,
@@ -16,7 +17,7 @@ character_api = APIRouter(prefix="/character", tags=["character"])
 @character_api.get("/", response_model=list[ListCharacterSchema])
 async def list_characters(
     session: AsyncSession = Depends(create_scoped_session),
-    current_player=Depends(get_current_user),
+    current_player: Player = Depends(get_current_user),
 ):
     """List all characters.
 
@@ -28,10 +29,14 @@ async def list_characters(
 
 @character_api.get("/{slug}", response_model=CharacterSchema)
 async def display_character(
-    slug: str, session: AsyncSession = Depends(create_scoped_session)
+    slug: str,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player: Player = Depends(get_current_user),
 ):
     """Display all details of a given character."""
-    return await CharacterRepository.get_by_slug(session, slug=slug)
+    return await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player.id
+    )
 
 
 @character_api.put("/{slug}")
@@ -39,6 +44,7 @@ async def update(
     slug: str,
     character_data: UpdateCharacterSchema,
     session: AsyncSession = Depends(create_scoped_session),
+    current_player: Player = Depends(get_current_user),
 ) -> dict:
     """Update a character details.
 
@@ -52,5 +58,8 @@ async def update(
     as well as an attribute nested in the character JSON data.
 
     """
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player.id
+    )
     await CharacterRepository.update(session, slug, character_data)
     return {"status": "ok"}

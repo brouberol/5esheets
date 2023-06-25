@@ -1,7 +1,10 @@
+from typing import Sequence
+
 from sqlalchemy import select
+from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dnd5esheets.models import Party
+from dnd5esheets.models import Character, Party, Player
 from dnd5esheets.repositories import BaseRepository
 from dnd5esheets.schemas import UpdatePartySchema
 
@@ -10,16 +13,35 @@ class PartyRepository(BaseRepository):
     model = Party
 
     @classmethod
-    async def get_by_id(cls, session: AsyncSession, id: int) -> Party:
-        """Return a Party given an argument slug"""
-        result = await session.execute(select(Party).filter(Party.id == id))
-        return cls.one_or_raise(result)  # type: ignore
+    async def list_all(cls, session: AsyncSession, owner_id: int) -> Sequence[Party]:
+        result = await session.execute(
+            select(Party)
+            .join(Character, Party.members)
+            .join(Player, Character.player)
+            .filter(Player.id == owner_id)
+        )
+        return result.scalars().all()
 
     @classmethod
-    async def update(
-        cls, session: AsyncSession, id: int, body: UpdatePartySchema
+    async def get_by_id_if_member_of(
+        cls, session: AsyncSession, id: int, member_id: int
     ) -> Party:
-        party = await cls.get_by_id(session, id)
+        """Return a Party given an argument id if it is owned by the argument player id"""
+        result = await session.execute(
+            select(Party)
+            .join(Character, Party.members)
+            .join(Player, Character.player)
+            .filter(Player.id == member_id, Party.id == id)
+        )
+        return cls.one_or_raise_model_not_found(result)
+
+    @classmethod
+    async def update_if_member_of(
+        cls, session: AsyncSession, id: int, body: UpdatePartySchema, member_id: int
+    ) -> Party:
+        party = await cls.get_by_id_if_member_of(
+            session=session, id=id, member_id=member_id
+        )
 
         # Any non-nil field should be taken as the new value
         fields_to_update = {

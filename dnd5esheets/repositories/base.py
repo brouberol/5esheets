@@ -5,7 +5,7 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
-from typing import Type
+from typing import Self, Type
 
 from sqlalchemy.engine import Result
 
@@ -13,15 +13,25 @@ from dnd5esheets.models import BaseModel
 
 
 class ModelNotFound(Exception):
-    ...
+    @classmethod
+    def from_model_name(cls, model_name: str) -> Self:
+        return cls(f"{model_name} not found")
 
 
 class BaseRepository:
     model: Type[BaseModel] = BaseModel
 
     @classmethod
-    def one_or_raise(cls, result: Result) -> BaseModel:
+    def raise_exc(cls, exc):
+        raise exc.from_model_name(cls.model.__name__)
+
+    @classmethod
+    def raise_model_not_found(cls):
+        cls.raise_exc(ModelNotFound)
+
+    @classmethod
+    def one_or_raise_model_not_found(cls, result: Result) -> BaseModel:
         """Return the result from the argument query or raise a ModelNotFound exception if empty"""
         if model := result.scalars().one_or_none():
             return model
-        raise ModelNotFound(f"{cls.model.__name__} not found")
+        cls.raise_model_not_found()
