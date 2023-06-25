@@ -13,6 +13,6 @@ jobs:
       - name: Delete published images from the ghcr.io registry when untagged and older than a week
         uses: actions/delete-package-versions@v4
         with:
-          package-name: brouberol/5esheets
+          package-name: 5esheets
           package-type: container
           min-versions-to-keep: 10
