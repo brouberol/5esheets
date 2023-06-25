@@ -10,7 +10,7 @@ backend:
 - dnd5esheets/**/*.py
 
 frontend:
-- dnd5esheets/front/**
+- any: ['dnd5esheets/front/**', '!dnd5esheets/front/openapi.json', '!dndsheets/front/src/5esheets-client/**']
 
 security:
 - dnd5esheets/security/*.py
