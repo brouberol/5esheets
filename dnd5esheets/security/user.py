@@ -17,7 +17,7 @@ class OptionalOAuth2PasswordBearer(OAuth2PasswordBearer):
         self.auto_error = get_settings().MULTITENANT_ENABLED
 
 
-oauth2_scheme = OptionalOAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OptionalOAuth2PasswordBearer(tokenUrl="/api/login/token")
 
 
 async def get_current_user_id(
