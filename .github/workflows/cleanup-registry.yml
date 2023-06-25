@@ -11,10 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete published images from the ghcr.io registry when untagged and older than a week
-        uses: snok/container-retention-policy@v2
+        uses: actions/delete-package-versions@v4
         with:
-          image-names: brouberol/5esheets
-          cut-off: A week ago UTC
-          account-type: personal
-          untagged-only: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          package-name: brouberol/5esheets
+          package-type: container
+          min-versions-to-keep: 10
