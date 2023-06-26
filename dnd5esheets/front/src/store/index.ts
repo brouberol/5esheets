@@ -64,7 +64,6 @@ const douglas: CharacterSchema = {
     race: "Gnome",
     alignment: "Chaotique Bon",
     darkvision: true,
-    passiveperception: "13",
     otherprofs:
       "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
     ac: "14",
@@ -196,6 +195,17 @@ const effects = {
       `${attribute}_save_mod`,
       (character: CharacterSchema) =>
         scoreToProficiencyModifier(character.data[attribute], character.data.proficiencies[attribute], character.data.proficiency_bonus)
+    ])
+  ),
+
+  // Recompute the passive perception score when the character's wisdom changes
+  ...Object.fromEntries(
+    [
+      "wisdom"
+    ].map((attribute) => [
+      `passive_perception`,
+      (character: CharacterSchema) =>
+        10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus)
     ])
   ),
 
