@@ -1,25 +1,32 @@
 # https://github.com/actions/labeler
 api:
-- dnd5esheets/api/*.py
-- dnd5esheets/front/openapi.json
+  - dnd5esheets/api/*.py
+  - dnd5esheets/front/openapi.json
 
 database:
-- dnd5esheets/migrations/versions/*.py
+  - dnd5esheets/migrations/versions/*.py
 
 backend:
-- dnd5esheets/**/*.py
+  - dnd5esheets/**/*.py
+  - poetry.lock
+  - pyproject.toml
 
 frontend:
-- any: ['dnd5esheets/front/**', '!dnd5esheets/front/openapi.json', '!dndsheets/front/src/5esheets-client/**']
+  - any:
+      [
+        "dnd5esheets/front/**",
+        "!dnd5esheets/front/openapi.json",
+        "!dndsheets/front/src/5esheets-client/**",
+      ]
 
 security:
-- dnd5esheets/security/*.py
+  - dnd5esheets/security/*.py
 
 ci:
-- .github/**
+  - .github/**
 
 dependencies:
-- poetry.lock
-- pyproject.toml
-- dnd5esheets/front/package.json
-- dnd5esheets/front/package-lock.json
+  - poetry.lock
+  - pyproject.toml
+  - dnd5esheets/front/package.json
+  - dnd5esheets/front/package-lock.json

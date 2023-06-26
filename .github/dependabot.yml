@@ -9,9 +9,6 @@ updates:
     commit-message:
       # Prefix all commit messages with "[python] "
       prefix: "[python]"
-    labels:
-      - "backend"
-      - "dependencies"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -21,6 +18,3 @@ updates:
     commit-message:
       # Prefix all commit messages with [js] "
       prefix: "[js]"
-    labels:
-      - "frontend"
-      - "dependencies"
