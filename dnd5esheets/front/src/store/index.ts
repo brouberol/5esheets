@@ -58,8 +58,6 @@ const douglas: CharacterSchema = {
       deception: 0,
     },
 
-    proficiency_bonus: 2,
-
     experiencepoints: 0,
     background: "Artistan",
     playername: "Balthazar",
@@ -153,6 +151,11 @@ const scoreToProficiencyModifier = (
 ): number =>
     scoreToSkillModifier(score) + proficiency * proficiencyBonus
 
+const levelToProficiencyBonus = (level: number): number  => {
+  return Math.ceil(1 + (level / 4))
+};
+
+
 const store = { [douglas.slug]: douglas };
 const [characters, setCharacters] = createStore(store);
 
@@ -170,6 +173,15 @@ const effects = {
       (character: CharacterSchema) =>
         scoreToSkillModifier(character.data[attribute]),
     ])
+  ),
+
+  // Recompute the proficiency bonus when the level changes
+  ...Object.fromEntries(
+    [[
+      "proficiency_bonus",
+      (character: CharacterSchema) =>
+        levelToProficiencyBonus(character.level),
+    ]]
   ),
 
   ...Object.fromEntries(

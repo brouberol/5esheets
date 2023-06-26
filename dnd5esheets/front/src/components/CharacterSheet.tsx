@@ -221,14 +221,14 @@ export default function CharacterSheet({
             <div class="proficiencybonus box">
               <div class="box-label-container">
                 <label class="subtitle" for="proficiencybonus">
-                  {t("proficiency bous")}
+                  {t("proficiency_bonus")}
                 </label>
               </div>
               <input
                 class="square-rounded"
                 name="proficiencybonus"
                 placeholder="+2"
-                value="{{ character.data['proficiencybonus'] }}"
+                value={character.data.proficiency_bonus}
               />
             </div>
             <LabeledBox label={t("saving_throws")}>
