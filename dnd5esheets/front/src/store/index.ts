@@ -67,7 +67,6 @@ const douglas: CharacterSchema = {
     otherprofs:
       "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
     ac: "14",
-    initiative: "+2",
     speed: "25",
     maxhp: "33",
     temphp: "0",
@@ -197,6 +196,11 @@ const effects = {
   // Recompute the passive perception score when the character's wisdom changes
   "passive_perception": (character: CharacterSchema) => {
     return 10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus);
+  },
+
+  // Recompute the initiative bonus when the character's dexterity changes
+  "initiative": (character: CharacterSchema) => {
+    return scoreToSkillModifier(character.data.dexterity);
   },
 
   // Recompute the skill modifiers when a characteristic changes
