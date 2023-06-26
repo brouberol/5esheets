@@ -100,6 +100,10 @@ front-check:
 	@echo "\n[+ Running js checks]"
 	@$(npm-run) check
 
+front-run-dev: front-build
+	@echo "\n[+] Running the dev frontend server"
+	@(npm-run) dev -- --open
+
 front-generate-api-client: $(front-root)/src/5esheets-client ## Generate the API openapi.json file
 
 ruff:
