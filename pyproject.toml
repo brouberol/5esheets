@@ -20,7 +20,7 @@ python-multipart = "^0.0.6"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.4.0"
+mypy = "^1.4.1"
 ruff = "^0.0.275"
 black = "^23.3.0"
 types-python-jose = "^3.3.4.7"
