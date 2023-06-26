@@ -159,6 +159,7 @@ const store = { [douglas.slug]: douglas };
 const [characters, setCharacters] = createStore(store);
 
 const effects = {
+  // Recompute the characteristic modifiers when a characteristic changes
   ...Object.fromEntries(
     [
       "strength",
@@ -175,14 +176,9 @@ const effects = {
   ),
 
   // Recompute the proficiency bonus when the level changes
-  ...Object.fromEntries(
-    [[
-      "proficiency_bonus",
-      (character: CharacterSchema) =>
-        levelToProficiencyBonus(character.level),
-    ]]
-  ),
+  "proficiency_bonus": (character: CharacterSchema) => levelToProficiencyBonus(character.level),
 
+  // Recompute the saving throw modifiers when a characteristic score changes
   ...Object.fromEntries(
     [
       "strength",
@@ -199,9 +195,11 @@ const effects = {
   ),
 
   // Recompute the passive perception score when the character's wisdom changes
-    passive_perception: (character: CharacterSchema) =>
-        10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus)
+  "passive_perception": (character: CharacterSchema) => {
+    return 10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus);
+  },
 
+  // Recompute the skill modifiers when a characteristic changes
   ...Object.fromEntries(
     [
       ["acrobatics", "dexterity"],
