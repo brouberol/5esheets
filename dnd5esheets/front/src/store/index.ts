@@ -199,15 +199,8 @@ const effects = {
   ),
 
   // Recompute the passive perception score when the character's wisdom changes
-  ...Object.fromEntries(
-    [
-      "wisdom"
-    ].map((attribute) => [
-      `passive_perception`,
-      (character: CharacterSchema) =>
+    passive_perception: (character: CharacterSchema) =>
         10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus)
-    ])
-  ),
 
   ...Object.fromEntries(
     [
