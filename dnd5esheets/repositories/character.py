@@ -1,5 +1,4 @@
-from typing import Sequence
-
+from typing import Sequence, cast
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
@@ -29,7 +28,7 @@ class CharacterRepository(BaseRepository):
     async def get_by_slug(cls, session: AsyncSession, slug: str) -> Character:
         """Return a Character given an argument slug"""
         result = await session.execute(select(Character).filter(Character.slug == slug))
-        return cls.one_or_raise_model_not_found(result)  # type: ignore
+        return cast(Character, cls.one_or_raise_model_not_found(result))
 
     @classmethod
     async def get_by_slug_if_owned(

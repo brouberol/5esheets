@@ -1,3 +1,4 @@
+from typing import cast
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -13,13 +14,13 @@ class PlayerRepository(BaseRepository):
     async def get_by_id(cls, session: AsyncSession, id: int) -> Player:
         """Return a Player given an argument id"""
         result = await session.execute(select(Player).filter(Player.id == id))
-        return cls.one_or_raise_model_not_found(result)  # type: ignore
+        return cast(Player, cls.one_or_raise_model_not_found(result))
 
     @classmethod
     async def get_by_email(cls, session: AsyncSession, email: str) -> Player:
         """Return a Player given an argument email"""
         result = await session.execute(select(Player).filter(Player.email == email))
-        return cls.one_or_raise_model_not_found(result)  # type: ignore
+        return cast(Player, cls.one_or_raise_model_not_found(result))
 
     @classmethod
     async def update(

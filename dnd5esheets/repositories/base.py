@@ -5,7 +5,7 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
-from typing import Self, Type
+from typing import Self, Type, cast
 
 from sqlalchemy.engine import Result
 
@@ -30,8 +30,9 @@ class BaseRepository:
         cls.raise_exc(ModelNotFound)
 
     @classmethod
-    def one_or_raise_model_not_found(cls, result: Result):
+    def one_or_raise_model_not_found(cls, result: Result) -> BaseModel:
         """Return the result from the argument query or raise a ModelNotFound exception if empty"""
+        breakpoint()
         if not (model := result.scalars().one_or_none()):
             cls.raise_model_not_found()
-        return model
+        return cast(BaseModel, model)

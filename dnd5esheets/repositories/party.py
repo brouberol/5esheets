@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, cast
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -37,7 +37,7 @@ class PartyRepository(BaseRepository):
         if member_id is not None:
             query = query.filter(Player.id == member_id)
         result = await session.execute(query)
-        return cls.one_or_raise_model_not_found(result)
+        return cast(Party, cls.one_or_raise_model_not_found(result))
 
     @classmethod
     async def update_if_member_of(
