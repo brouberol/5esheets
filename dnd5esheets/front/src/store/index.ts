@@ -106,7 +106,6 @@ const douglas: CharacterSchema = {
       "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
     remainingdailyspells: "0",
     dailypreparedspells: "6",
-    totalspellattackbonus: "+6",
     spellcasting_ability: "intelligence",
     "spells-lvl0-1":
       "🗣️ 👋 💎 [Mending](https://5e.tools/spells.html#mending_phb)",
@@ -206,6 +205,10 @@ const effects = {
   // Recompute the spell DC when the spellcasting ability or its associated modifier change, as well as the proficiency bonus
   "spell_dc": (character: CharacterSchema) => {
     return 8 + scoreToSkillModifier(character.data[character.data.spellcasting_ability]) + character.data.proficiency_bonus;
+  },
+
+  "spell_attack_bonus": (character: CharacterSchema) => {
+    return scoreToSkillModifier(character.data[character.data.spellcasting_ability]) + character.data.proficiency_bonus;
   },
 
   // Recompute the skill modifiers when a characteristic changes
