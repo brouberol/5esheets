@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { EquipmentSchema } from './EquipmentSchema';
 import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
 
@@ -17,5 +18,6 @@ export type CharacterSchemaNoPartyNoData = {
     data: Record<string, any>;
     party: PartySchema;
     player: PlayerSchema;
+    equipment: EquipmentSchema;
 };
 
