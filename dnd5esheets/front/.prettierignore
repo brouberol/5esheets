@@ -1,0 +1,6 @@
+.solid
+dist
+node_modules
+openapi.json
+src/5esheets-client
+src/effect-perser/index.ts

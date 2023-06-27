@@ -324,7 +324,7 @@ export default function CharacterSheet({
                 class="square-rounded"
                 name="passiveperception"
                 placeholder="10"
-                value={ character.data['passive_perception'] }
+                value={character.data["passive_perception"]}
               />
               <span class="tooltiptext" id="passiveperception-tooltip"></span>
             </div>
