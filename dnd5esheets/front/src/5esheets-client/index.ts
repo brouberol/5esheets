@@ -12,7 +12,6 @@ export type { CharacterSchemaNoPartyNoData } from './models/CharacterSchemaNoPar
 export type { CharacterSchemaNoPlayer } from './models/CharacterSchemaNoPlayer';
 export type { DisplayPartySchema } from './models/DisplayPartySchema';
 export type { DisplayPlayerSchema } from './models/DisplayPlayerSchema';
-export type { EquipmentSchema } from './models/EquipmentSchema';
 export type { EquippedItemSchema } from './models/EquippedItemSchema';
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { ItemSchema } from './models/ItemSchema';

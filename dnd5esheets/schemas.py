@@ -37,12 +37,6 @@ class EquippedItemSchema(BaseORMSchema):
     equipped: bool = Field(title="Weather the item is currently equipped")
 
 
-class EquipmentSchema(BaseORMSchema):
-    """The details of a character's equipment"""
-
-    items: list["EquippedItemSchema"]
-
-
 class PlayerSchema(BaseORMSchema):
     """The basic details of a player"""
 
@@ -90,7 +84,7 @@ class CharacterSchema(BaseORMSchema):
     data: dict = Field(description="The embdedded character sheet JSON data")
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
-    equipment: EquipmentSchema = Field(title="The character's equipment")
+    equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
 
 
 class CharacterSchemaNoPlayer(CharacterSchema):

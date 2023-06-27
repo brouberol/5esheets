@@ -526,11 +526,10 @@
           },
           "equipment": {
             "title": "The character's equipment",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EquipmentSchema"
-              }
-            ]
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquippedItemSchema"
+            }
           }
         },
         "description": "All details associated with a character"
@@ -592,11 +591,10 @@
           },
           "equipment": {
             "title": "The character's equipment",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EquipmentSchema"
-              }
-            ]
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquippedItemSchema"
+            }
           }
         },
         "description": "The details of a character, excluding the party"
@@ -658,11 +656,10 @@
           },
           "equipment": {
             "title": "The character's equipment",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/EquipmentSchema"
-              }
-            ]
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquippedItemSchema"
+            }
           }
         },
         "description": "The details of a character, excluding the player"
@@ -725,28 +722,12 @@
         },
         "description": "A player details including the list of their characters"
       },
-      "EquipmentSchema": {
-        "title": "EquipmentSchema",
-        "required": [
-          "items"
-        ],
-        "type": "object",
-        "properties": {
-          "items": {
-            "title": "Items",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/EquippedItemSchema"
-            }
-          }
-        },
-        "description": "The details of a character's equipment"
-      },
       "EquippedItemSchema": {
         "title": "EquippedItemSchema",
         "required": [
           "item",
-          "amount"
+          "amount",
+          "equipped"
         ],
         "type": "object",
         "properties": {
@@ -761,6 +742,10 @@
           "amount": {
             "title": "The amount of associated items found in the character's equipment",
             "type": "integer"
+          },
+          "equipped": {
+            "title": "Weather the item is currently equipped",
+            "type": "boolean"
           }
         },
         "description": "The details of an equipped item (the association bewteen an item and a character equipment)"

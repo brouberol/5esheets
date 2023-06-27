@@ -5,7 +5,7 @@ import click
 from sqlalchemy import select
 
 from dnd5esheets.db import create_session, db_dir
-from dnd5esheets.models import Character, Equipment, EquippedItem, Item, Party, Player
+from dnd5esheets.models import Character, EquippedItem, Item, Party, Player
 from dnd5esheets.security.hashing import get_password_hash
 
 data_dir = Path(__file__).parent / "data"
@@ -64,12 +64,9 @@ def populate_db():
         for character_attrs in dev_fixtures["characters"]:
             character = Character(
                 **character_attrs,
-                equipment=Equipment(
-                    id=character_attrs["id"],
-                    items=[
-                        EquippedItem(item_id=longsword.id, id=character_attrs["id"])
-                    ],
-                ),
+                equipment=[
+                    EquippedItem(item_id=longsword.id, id=character_attrs["id"])
+                ],
             )
             session.merge(character)
             click.echo(f"Character {character} saved")

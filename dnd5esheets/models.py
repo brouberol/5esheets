@@ -90,23 +90,14 @@ class Item(NameReprMixin, BaseModel):
 class EquippedItem(BaseModel):
     __tablename__ = "equipped_item"
 
-    item_id: Mapped[int] = mapped_column(ForeignKey("item.id"))
-    item: Mapped[Item] = relationship(lazy="joined")
     amount: Mapped[int] = mapped_column(Integer, default=1)
     equipped: Mapped[bool] = mapped_column(Boolean, default=False)
-    equipment_id: Mapped[int] = mapped_column(ForeignKey("equipment.id"))
-    equipment: Mapped["Equipment"] = relationship(back_populates="items", lazy="joined")
 
+    item_id: Mapped[int] = mapped_column(ForeignKey("item.id"))
+    item: Mapped[Item] = relationship(lazy="joined")
 
-class Equipment(BaseModel):
-    __tablename__ = "equipment"
-
-    items: Mapped[list[EquippedItem]] = relationship(
-        lazy="joined", back_populates="equipment", cascade="all, delete-orphan"
-    )
-    owner: Mapped["Character"] = relationship(
-        back_populates="equipment", cascade="all, delete-orphan", lazy="joined"
-    )
+    character_id: Mapped[int] = mapped_column(ForeignKey("character.id"))
+    owner: Mapped["Character"] = relationship(back_populates="equipment", lazy="joined")
 
 
 class Character(NameReprMixin, BaseModel):
@@ -129,5 +120,6 @@ class Character(NameReprMixin, BaseModel):
         # always load the party via a joinedload
         lazy="joined",
     )
-    equipment_id: Mapped[int] = mapped_column(ForeignKey("equipment.id"))
-    equipment: Mapped[Equipment] = relationship(back_populates="owner", lazy="joined")
+    equipment: Mapped[list[EquippedItem]] = relationship(
+        back_populates="owner", lazy="selectin", cascade="all, delete-orphan"
+    )
