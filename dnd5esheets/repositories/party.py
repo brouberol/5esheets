@@ -15,12 +15,14 @@ class PartyRepository(BaseRepository):
     async def list_all(
         cls, session: AsyncSession, owner_id: int | None
     ) -> Sequence[Party]:
-        result = await session.execute(
-            select(Party)
-            .join(Character, Party.members)
-            .join(Player, Character.player)
-            .filter(Player.id == owner_id)
-        )
+        query = select(Party)
+        if owner_id:
+            query = (
+                query.join(Character, Party.members)
+                .join(Player, Character.player)
+                .filter(Player.id == owner_id)
+            )
+        result = await session.execute(query)
         return result.scalars().all()
 
     @classmethod
@@ -30,9 +32,12 @@ class PartyRepository(BaseRepository):
         """Return a Party given an argument id if it is owned by the argument player id"""
         query = (
             select(Party)
-            .join(Character, Party.members)
-            .join(Player, Character.player)
+            .join(
+                Character, Party.members, isouter=True
+            )  # we use outer joins because we want to be able to display a group with no members
+            .join(Player, Character.player, isouter=True)
             .filter(Party.id == id)
+            .group_by(Party.id)
         )
         if member_id is not None:
             query = query.filter(Player.id == member_id)
