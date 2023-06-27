@@ -78,13 +78,18 @@ docker-run: docker-build  ## Run the docker image
 	@echo "\n[+] Running the docker image"
 	@docker run -it --rm -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
+
+db-base-items: db-migrate ## Populate the base items in database
+	@echo "\n[+] Populating the database with base items"
+	@$(app-cli) db populate base-items
+
+db-dev-fixtures: db-base-items ## Populate the local database with development fixtures
+	@echo "\n[+] Populating the database with development fixtures"
+	@$(app-cli) db populate fixtures
+
 db-migrate:  ## Run the SQL migrations
 	@echo "\n[+] Applying the SQL migrations"
 	@poetry run alembic upgrade head
-
-db-dev-fixtures:  db-migrate ## Populate the local database with development fixtures
-	@echo "\n[+] Populating the database with development fixtures"
-	@$(app-cli) db populate
 
 init:  deps db-dev-fixtures run  ## Run the application for the first time
 
