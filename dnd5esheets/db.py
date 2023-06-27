@@ -1,22 +1,18 @@
-from pathlib import Path
 from typing import AsyncGenerator
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-db_dir = Path(__file__).parent / "db"
-db_file = db_dir / "5esheets.db"
-async_db_uri = f"sqlite+aiosqlite:///{db_file}"
-db_uri = f"sqlite:///{db_file}"
+from dnd5esheets.config import get_settings
 
 async_engine = create_async_engine(
-    async_db_uri,
+    get_settings().DB_ASYNC_URI,
     connect_args={"check_same_thread": False},  # only for sqlite
 )
 
 engine = create_engine(
-    db_uri,
+    get_settings().DB_URI,
     connect_args={"check_same_thread": False},  # only for sqlite
 )
 

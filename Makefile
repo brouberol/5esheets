@@ -1,6 +1,6 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check trash-env dev \
-	docker-build docker-run init mypy ruff run front-check help
+.PHONY: api-doc api-explorer black check dev docker-build docker-run front-check \
+	help init mypy ruff run test trash-env
 
 ifeq (, $(shell which poetry))
 $(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
@@ -124,6 +124,10 @@ ruff:
 run: build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn $(app-root).app:app --reload
+
+test:  ## Run the project tests
+	@echo "\n [+] Running the project tests"
+	@DND5ESHEETS_ENV=test poetry run pytest
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
 	@echo "\n [+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"

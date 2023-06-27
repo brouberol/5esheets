@@ -4,7 +4,8 @@ from pathlib import Path
 import click
 from sqlalchemy import select
 
-from dnd5esheets.db import create_session, db_dir
+from dnd5esheets.config.base import db_dir
+from dnd5esheets.db import create_session
 from dnd5esheets.models import Character, EquippedItem, Item, Party, Player
 from dnd5esheets.security.hashing import get_password_hash
 
@@ -26,8 +27,7 @@ def populate():
     ...
 
 
-@populate.command("base-items")
-def populate_base_items():
+def _populate_base_items(silent: bool = False):
     with open(data_dir / "items-base.json") as base_items_fd:
         base_items = json.load(base_items_fd)
 
@@ -36,11 +36,11 @@ def populate_base_items():
             item_name = base_item.pop("name")
             item = Item(id=i, name=item_name, data=base_item)
             session.merge(item)
-            click.echo(f"Item {item} created")
+            if not silent:
+                click.echo(f"Item {item} created")
 
 
-@populate.command("fixtures")
-def populate_db():
+def _populate_db_with_dev_data(silent: bool = False):
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
         dev_fixtures = json.load(dev_fixtures_fd)
 
@@ -54,12 +54,14 @@ def populate_db():
             player_attrs["hashed_password"] = get_password_hash(plaintext_password)
             player = Player(**player_attrs)
             session.merge(player)
-            click.echo(f"Player {player} saved")
+            if not silent:
+                click.echo(f"Player {player} saved")
 
         for party_attrs in dev_fixtures["parties"]:
             party = Party(**party_attrs)
             session.merge(party)
-            click.echo(f"Party {party} saved")
+            if not silent:
+                click.echo(f"Party {party} saved")
 
         for character_attrs in dev_fixtures["characters"]:
             character = Character(
@@ -69,7 +71,20 @@ def populate_db():
                 ],
             )
             session.merge(character)
-            click.echo(f"Character {character} saved")
+            if not silent:
+                click.echo(f"Character {character} saved")
+
+
+@populate.command("base-items")
+@click.option("--silent", type=bool, default=False)
+def populate_base_items(silent: bool = False):
+    _populate_base_items(silent=silent)
+
+
+@populate.command("fixtures")
+@click.option("--silent", type=bool, default=False)
+def populate_db_with_dev_data(silent: bool = False):
+    _populate_db_with_dev_data(silent=silent)
 
 
 if __name__ == "__main__":

@@ -20,4 +20,5 @@ def raise_404_exception_on_model_not_found(_: Request, exc: Exception):
     return JSONResponse(content={"detail": str(exc)}, status_code=404)
 
 
-app.mount("", StaticFiles(directory=dist_dir, html=True), name="static")
+if dist_dir.exists():
+    app.mount("", StaticFiles(directory=dist_dir, html=True), name="static")
