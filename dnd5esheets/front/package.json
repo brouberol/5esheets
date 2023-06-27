@@ -4,17 +4,23 @@
     "dev": "solid-start dev",
     "build": "solid-start build",
     "start": "solid-start start",
-    "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client"
+    "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client",
+    "generate-effect-parser": "peggy --plugin ./node_modules/ts-pegjs/dist/tspegjs -o src/effect-parser/index.ts src/effect-parser/grammar.pegjs",
+    "test": "vitest",
+    "prettier": "prettier -w ."
   },
   "type": "module",
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
     "@types/debug": "^4.1.7",
+    "peggy": "^3.0.2",
     "prettier": "^2.8.8",
     "solid-start-node": "^0.2.19",
+    "ts-pegjs": "^4.2.1",
     "typescript": "^5.1.3",
     "vite": "^4.1.4",
-    "vite-plugin-solid-styled": "^0.8.1"
+    "vite-plugin-solid-styled": "^0.8.1",
+    "vitest": "^0.32.2"
   },
   "dependencies": {
     "@solid-primitives/i18n": "^1.4.0",

@@ -1,11 +1,11 @@
-import { createEffect, createSignal, onCleanup } from "solid-js";
+import { createComputed, createRoot, getOwner } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
 import { CharacterSchema } from "~/5esheets-client";
 
-export const proficiencies = [0, 1, 2] as const // none | master | expert
+export const proficiencies = [0, 1, 2] as const; // none | master | expert
 export type Proficiency = (typeof proficiencies)[number];
 
-export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3
+export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3;
 
 const douglas: CharacterSchema = {
   id: 1,
@@ -145,13 +145,11 @@ const scoreToProficiencyModifier = (
   score: number,
   proficiency: Proficiency,
   proficiencyBonus: number
-): number =>
-    scoreToSkillModifier(score) + proficiency * proficiencyBonus
+): number => scoreToSkillModifier(score) + proficiency * proficiencyBonus;
 
-const levelToProficiencyBonus = (level: number): number  => {
-  return Math.ceil(1 + (level / 4))
+const levelToProficiencyBonus = (level: number): number => {
+  return Math.ceil(1 + level / 4);
 };
-
 
 const store = { [douglas.slug]: douglas };
 const [characters, setCharacters] = createStore(store);
@@ -174,7 +172,8 @@ const effects = {
   ),
 
   // Recompute the proficiency bonus when the level changes
-  "proficiency_bonus": (character: CharacterSchema) => levelToProficiencyBonus(character.level),
+  proficiency_bonus: (character: CharacterSchema) =>
+    levelToProficiencyBonus(character.level),
 
   // Recompute the saving throw modifiers when a characteristic score changes
   ...Object.fromEntries(
@@ -188,13 +187,24 @@ const effects = {
     ].map((attribute) => [
       `${attribute}_save_mod`,
       (character: CharacterSchema) =>
-        scoreToProficiencyModifier(character.data[attribute], character.data.proficiencies[attribute], character.data.proficiency_bonus)
+        scoreToProficiencyModifier(
+          character.data[attribute],
+          character.data.proficiencies[attribute],
+          character.data.proficiency_bonus
+        ),
     ])
   ),
 
   // Recompute the passive perception score when the character's wisdom changes
-  "passive_perception": (character: CharacterSchema) => {
-    return 10 + scoreToProficiencyModifier(character.data.wisdom, character.data.proficiencies.perception, character.data.proficiency_bonus);
+  passive_perception: (character: CharacterSchema) => {
+    return (
+      10 +
+      scoreToProficiencyModifier(
+        character.data.wisdom,
+        character.data.proficiencies.perception,
+        character.data.proficiency_bonus
+      )
+    );
   },
 
   // Recompute the initiative bonus when the character's dexterity changes
@@ -235,19 +245,22 @@ const effects = {
     ].map(([attribute, secondary]) => [
       attribute,
       (character: CharacterSchema) =>
-        scoreToProficiencyModifier(character.data[secondary], character.data.proficiencies[attribute], character.data.proficiency_bonus)
+        scoreToProficiencyModifier(
+          character.data[secondary],
+          character.data.proficiencies[attribute],
+          character.data.proficiency_bonus
+        ),
     ])
   ),
 };
 
-
 for (const derivedAttribute in effects) {
   createEffect(() =>
-  setCharacters(
-    douglas.slug,
-    "data",
-    derivedAttribute,
-    effects[derivedAttribute](characters[douglas.slug])
+    setCharacters(
+      douglas.slug,
+      "data",
+      derivedAttribute,
+      effects[derivedAttribute](characters[douglas.slug])
     )
   );
 }
@@ -257,20 +270,21 @@ export default function useStore() {
     characters,
     {
       update: (characterSlug: string, update: Partial<CharacterSchema>) => {
-        setCharacters(characterSlug, reconcile({
-          ...characters[characterSlug],
-          ...update,
-          data: {
-            ...characters[characterSlug].data,
-            ...update.data,
-            proficiencies: {
-              ...characters[characterSlug].data.proficiencies,
-              ...update.data?.proficiencies,
-            }
-          },
-        }
-      ))
-
+        setCharacters(
+          characterSlug,
+          reconcile({
+            ...characters[characterSlug],
+            ...update,
+            data: {
+              ...characters[characterSlug].data,
+              ...update.data,
+              proficiencies: {
+                ...characters[characterSlug].data.proficiencies,
+                ...update.data?.proficiencies,
+              },
+            },
+          })
+        );
       },
     },
   ] as const;
