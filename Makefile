@@ -58,11 +58,13 @@ api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 
 build: data front-build  ## Build the application
 
+back-check: black mypy ruff
+
 black:
 	@echo "\n[+] Reformatting python files"
 	@poetry run black $(app-root)/
 
-check: black mypy ruff front-check ## Run all checks on the python codebase
+check: back-check front-check ## Run all checks on the codebase
 
 data: $(app-root)/data/items-base.json
 
