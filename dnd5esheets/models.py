@@ -1,8 +1,18 @@
 import json
 from typing import Self
+from datetime import datetime
 
-from sqlalchemy import Boolean, ForeignKey, Integer, String, TypeDecorator, types
+from sqlalchemy import (
+    Boolean,
+    ForeignKey,
+    Integer,
+    String,
+    TypeDecorator,
+    types,
+    DateTime,
+)
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import func
 
 
 # Taken from https://stackoverflow.com/a/49933601
@@ -37,6 +47,12 @@ def pascal_to_snake(pascal_string):
 
 class BaseModel(DeclarativeBase):
     id: Mapped[int] = mapped_column(primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False), default=datetime.utcnow, index=True
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=False), default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     def __init_subclass__(cls) -> None:
         cls.__tablename__ = pascal_to_snake(cls.__name__)
