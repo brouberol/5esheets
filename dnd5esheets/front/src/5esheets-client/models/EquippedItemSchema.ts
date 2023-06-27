@@ -10,5 +10,6 @@ import type { ItemSchema } from './ItemSchema';
 export type EquippedItemSchema = {
     item: ItemSchema;
     amount: number;
+    equipped: boolean;
 };
 
