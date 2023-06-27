@@ -473,7 +473,8 @@
           "level",
           "data",
           "party",
-          "player"
+          "player",
+          "equipment"
         ],
         "type": "object",
         "properties": {
@@ -522,6 +523,14 @@
                 "$ref": "#/components/schemas/PlayerSchema"
               }
             ]
+          },
+          "equipment": {
+            "title": "The character's equipment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentSchema"
+              }
+            ]
           }
         },
         "description": "All details associated with a character"
@@ -536,7 +545,8 @@
           "level",
           "data",
           "party",
-          "player"
+          "player",
+          "equipment"
         ],
         "type": "object",
         "properties": {
@@ -579,6 +589,14 @@
                 "$ref": "#/components/schemas/PlayerSchema"
               }
             ]
+          },
+          "equipment": {
+            "title": "The character's equipment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentSchema"
+              }
+            ]
           }
         },
         "description": "The details of a character, excluding the party"
@@ -593,7 +611,8 @@
           "level",
           "data",
           "party",
-          "player"
+          "player",
+          "equipment"
         ],
         "type": "object",
         "properties": {
@@ -637,6 +656,14 @@
           },
           "player": {
             "$ref": "#/components/schemas/PlayerSchema"
+          },
+          "equipment": {
+            "title": "The character's equipment",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EquipmentSchema"
+              }
+            ]
           }
         },
         "description": "The details of a character, excluding the player"
@@ -699,6 +726,46 @@
         },
         "description": "A player details including the list of their characters"
       },
+      "EquipmentSchema": {
+        "title": "EquipmentSchema",
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "title": "Items",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EquippedItemSchema"
+            }
+          }
+        },
+        "description": "The details of a character's equipment"
+      },
+      "EquippedItemSchema": {
+        "title": "EquippedItemSchema",
+        "required": [
+          "item",
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "item": {
+            "title": "The equipped item details",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ItemSchema"
+              }
+            ]
+          },
+          "amount": {
+            "title": "The amount of associated items found in the character's equipment",
+            "type": "integer"
+          }
+        },
+        "description": "The details of an equipped item (the association bewteen an item and a character equipment)"
+      },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
         "type": "object",
@@ -711,6 +778,27 @@
             }
           }
         }
+      },
+      "ItemSchema": {
+        "title": "ItemSchema",
+        "required": [
+          "name",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "The item name",
+            "maxLength": 255,
+            "type": "string"
+          },
+          "data": {
+            "title": "Data",
+            "type": "object",
+            "description": "The embdedded item JSON data"
+          }
+        },
+        "description": "The details of an equipment item"
       },
       "JsonWebToken": {
         "title": "JsonWebToken",
@@ -915,7 +1003,7 @@
         "flows": {
           "password": {
             "scopes": {},
-            "tokenUrl": "token"
+            "tokenUrl": "/api/login/token"
           }
         }
       }
