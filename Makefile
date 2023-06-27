@@ -46,19 +46,25 @@ $(front-root)/src/5esheets-client: $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
 
+$(app-root)/data/items-base.json:
+	@echo "\n [+] Fetching base equipment data"
+	@curl -s https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data/items-base.json | python3 scripts/preprocess_base_item_json.py
+
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
 
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: front-build  ## Build the application
+build: data front-build  ## Build the application
 
 black:
 	@echo "\n[+] Reformatting python files"
 	@poetry run black $(app-root)/
 
 check: black mypy ruff front-check ## Run all checks on the python codebase
+
+data: $(app-root)/data/items-base.json
 
 deps-js: $(front-root)/package-lock.json
 	@echo "\n[+] Installing js dependencies"
