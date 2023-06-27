@@ -25,6 +25,8 @@ ruff = "^0.0.275"
 black = "^23.3.0"
 types-python-jose = "^3.3.4.7"
 types-passlib = "^1.7.7.12"
+pytest = "^7.4.0"
+httpx = "^0.24.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -32,3 +34,9 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 line-length = 102
+
+[tool.pytest.ini_options]
+addopts = "-s"
+testpaths = [
+    "dnd5esheets/tests"
+]
