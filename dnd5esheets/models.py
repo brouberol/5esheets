@@ -26,8 +26,21 @@ class Json(TypeDecorator):
             return None
 
 
+def pascal_to_snake(pascal_string):
+    snake = []
+    for i, char in enumerate(pascal_string):
+        if char.isupper() and i != 0:
+            snake += "_"
+        snake += char.lower()
+    return "".join(snake)
+
+
 class BaseModel(DeclarativeBase):
     id: Mapped[int] = mapped_column(primary_key=True)
+
+    def __init_subclass__(cls) -> None:
+        cls.__tablename__ = pascal_to_snake(cls.__name__)
+        return super().__init_subclass__()
 
     def update_from_dict(self, fields_to_update: dict) -> Self:
         """Update all columns of a given model instance to the provided values.
@@ -53,8 +66,6 @@ class NameReprMixin:
 
 
 class Player(NameReprMixin, BaseModel):
-    __tablename__ = "player"
-
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(
         String(255), nullable=False, unique=True, index=True
@@ -69,8 +80,6 @@ class Player(NameReprMixin, BaseModel):
 
 
 class Party(NameReprMixin, BaseModel):
-    __tablename__ = "party"
-
     name: Mapped[str] = mapped_column(String(255))
     members: Mapped[list["Character"]] = relationship(
         back_populates="party",
@@ -81,15 +90,11 @@ class Party(NameReprMixin, BaseModel):
 
 
 class Item(NameReprMixin, BaseModel):
-    __tablename__ = "item"
-
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     data: Mapped[str] = mapped_column(Json, name="json_data")
 
 
 class EquippedItem(BaseModel):
-    __tablename__ = "equipped_item"
-
     amount: Mapped[int] = mapped_column(Integer, default=1)
     equipped: Mapped[bool] = mapped_column(Boolean, default=False)
 
@@ -101,8 +106,6 @@ class EquippedItem(BaseModel):
 
 
 class Character(NameReprMixin, BaseModel):
-    __tablename__ = "character"
-
     name: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
     class_: Mapped[str] = mapped_column(String(80), name="class")
