@@ -73,6 +73,7 @@ class CharacterSchemaNoPlayer(CharacterSchema):
     """The details of a character, excluding the player"""
 
     player: PlayerSchema = Field(exclude=True)
+    data: dict = Field(exclude=True)
 
 
 class CharacterSchemaNoPartyNoData(CharacterSchema):

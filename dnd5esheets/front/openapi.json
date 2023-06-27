@@ -624,8 +624,7 @@
           },
           "data": {
             "title": "Data",
-            "type": "object",
-            "description": "The embdedded character sheet JSON data"
+            "type": "object"
           },
           "party": {
             "title": "The embedded character's party schema",
@@ -915,7 +914,7 @@
         "flows": {
           "password": {
             "scopes": {},
-            "tokenUrl": "token"
+            "tokenUrl": "/api/login/token"
           }
         }
       }
