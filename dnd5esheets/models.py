@@ -12,7 +12,6 @@ from sqlalchemy import (
     DateTime,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import func
 
 
 # Taken from https://stackoverflow.com/a/49933601
