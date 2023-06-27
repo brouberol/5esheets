@@ -20,6 +20,29 @@ class BaseORMSchema(BaseSchema):
         orm_mode = True
 
 
+class ItemSchema(BaseORMSchema):
+    """The details of an equipment item"""
+
+    name: str = Field(max_length=255, title="The item name")
+    data: dict = Field(description="The embdedded item JSON data")
+
+
+class EquippedItemSchema(BaseORMSchema):
+    """The details of an equipped item (the association bewteen an item and a character equipment)"""
+
+    item: ItemSchema = Field(title="The equipped item details")
+    amount: int = Field(
+        title="The amount of associated items found in the character's equipment"
+    )
+    equipped: bool = Field(title="Weather the item is currently equipped")
+
+
+class EquipmentSchema(BaseORMSchema):
+    """The details of a character's equipment"""
+
+    items: list["EquippedItemSchema"]
+
+
 class PlayerSchema(BaseORMSchema):
     """The basic details of a player"""
 
@@ -67,6 +90,7 @@ class CharacterSchema(BaseORMSchema):
     data: dict = Field(description="The embdedded character sheet JSON data")
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
+    equipment: EquipmentSchema = Field(title="The character's equipment")
 
 
 class CharacterSchemaNoPlayer(CharacterSchema):
