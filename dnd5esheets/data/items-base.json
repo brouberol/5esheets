@@ -1,0 +1,1475 @@
+[
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 0.05,
+      "value": 5
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Arrow",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 100
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Arrows (20)",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 1000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "axe"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "S",
+      "damage_2": "1d10"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Battleaxe",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 1000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "25/100",
+      "ammo_type": "blowgun needle"
+    },
+    "damage": {
+      "damage_1": "1",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Blowgun",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "LD"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 0.02,
+      "value": 2
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Blowgun Needle",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 100
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Blowgun Needles (50)",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 20,
+      "value": 40000,
+      "description": "This armor consists of a fitted metal chest piece worn with supple leather. Although it leaves the legs and arms relatively unprotected, this armor provides good protection for the wearer's vital organs while leaving the wearer relatively unencumbered."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Breastplate",
+    "srd": true,
+    "subtype": "MA",
+    "effect": "$ac := 14 + min($dex, 2)",
+    "type": "armor"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 55,
+      "value": 7500,
+      "description": "Made of interlocking metal rings, chain mail includes a layer of quilted fabric worn underneath the mail to prevent chafing and to cushion the impact of blows. The suit includes gauntlets."
+    },
+    "requirements": {
+      "strength": "13"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Chain Mail",
+    "srd": true,
+    "subtype": "HA",
+    "effect": "$ac := 16",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 20,
+      "value": 5000,
+      "description": "Made of interlocking metal rings, a chain shirt is worn between layers of clothing or leather. This armor offers modest protection to the wearer's upper body and allows the sound of the rings rubbing against one another to be muffled by outer layers."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Chain Shirt",
+    "srd": true,
+    "subtype": "MA",
+    "effect": "$ac := 13 + min($dex, 2)",
+    "type": "armor"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 10
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "weapon_type": "club"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Club",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "L"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 0.075,
+      "value": 5
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Crossbow Bolt",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1.5,
+      "value": 100
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Crossbow Bolts (20)",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 1000
+    },
+    "attributes": {
+      "spellcasting_focus_type": "arcane"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Crystal",
+    "srd": true,
+    "subtype": "SCF"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 200
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "20/60",
+      "weapon_type": "dagger"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Dagger",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "F",
+      "L",
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 0.25,
+      "value": 5
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "20/60"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Dart",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "F",
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 1000
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Flail",
+    "srd": true,
+    "subtype": "M",
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 6,
+      "value": 2000
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d10",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Glaive",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "R",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 7,
+      "value": 3000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "axe"
+    },
+    "damage": {
+      "damage_1": "1d12",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Greataxe",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 10,
+      "value": 20
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "weapon_type": "club"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Greatclub",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 6,
+      "value": 5000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "sword"
+    },
+    "damage": {
+      "damage_1": "2d6",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Greatsword",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 6,
+      "value": 2000
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d10",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Halberd",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "R",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 40,
+      "value": 75000,
+      "description": "Half plate consists of shaped metal plates that cover most of the wearer's body. It does not include leg protection beyond simple greaves that are attached with leather straps."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Half Plate Armor",
+    "srd": true,
+    "subtype": "MA",
+    "effect": "$ac := 15 + min($dex, 2)",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 7500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "30/120",
+      "weapon_type": "crossbow",
+      "ammo_type": "crossbow bolt"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Hand Crossbow",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "L",
+      "LD"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 500
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "20/60",
+      "weapon_type": "axe"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Handaxe",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "L",
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 18,
+      "value": 5000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "100/400",
+      "weapon_type": "crossbow",
+      "ammo_type": "crossbow bolt"
+    },
+    "damage": {
+      "damage_1": "1d10",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Heavy Crossbow",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "H",
+      "LD",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 12,
+      "value": 1000,
+      "description": "This crude armor consists of thick furs and pelts. It is commonly worn by barbarian tribes, evil humanoids, and other folk who lack access to the tools and materials needed to create better armor."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Hide Armor",
+    "srd": true,
+    "subtype": "MA",
+    "effect": "$ac := 12 + min($dex, 2)",
+    "type": "armor"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 50
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "30/120",
+      "weapon_type": "spear"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Javelin",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 6,
+      "value": 1000,
+      "description": "You have disadvantage when you use a lance to attack a target within 5 feet of you. Also, a lance requires two hands to wield when you aren't mounted."
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d12",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Lance",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "R",
+      "S"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 10,
+      "value": 1000,
+      "description": "The breastplate and shoulder protectors of this armor are made of leather that has been stiffened by being boiled in oil. The rest of the armor is made of softer and more flexible materials."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Leather Armor",
+    "srd": true,
+    "subtype": "LA",
+    "effect": "$ac := 11 + $dex",
+    "type": "armor"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 5,
+      "value": 2500
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "80/320",
+      "weapon_type": "crossbow",
+      "ammo_type": "crossbow bolt"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Light Crossbow",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "LD",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 200
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "20/60",
+      "weapon_type": "hammer"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Light Hammer",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "L",
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 5000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "150/600",
+      "weapon_type": "bow",
+      "ammo_type": "arrow"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Longbow",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "H",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 1500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "sword"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "S",
+      "damage_2": "1d10"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Longsword",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 500
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "weapon_type": "mace"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Mace",
+    "srd": true,
+    "subtype": "M",
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 10,
+      "value": 1000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "hammer"
+    },
+    "damage": {
+      "damage_1": "2d6",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Maul",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 1500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "mace"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Morningstar",
+    "srd": true,
+    "subtype": "M",
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 100,
+      "description": "A Large or smaller creature hit by a net is {@condition restrained} until it is freed. A net has no effect on creatures that are formless, or creatures that are Huge or larger. A creature can use its action to make a DC 10 Strength check, freeing itself or another creature within its reach on a success. Dealing 5 slashing damage to the net (AC 10) also frees the creature without harming it, ending the effect and destroying the net. When you use an action, bonus action, or reaction to attack with a net, you can make only one attack regardless of the number of attacks you can normally make."
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "5/15",
+      "weapon_type": "net"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Net",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "S",
+      "T"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 2000
+    },
+    "attributes": {
+      "spellcasting_focus_type": "arcane"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Orb",
+    "srd": true,
+    "subtype": "SCF"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 8,
+      "value": 500,
+      "description": "Padded armor consists of quilted layers of cloth and batting."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Padded Armor",
+    "srd": true,
+    "subtype": "LA",
+    "effect": "$ac := 11 + $dex",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 18,
+      "value": 500
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d10",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Pike",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "H",
+      "R",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 65,
+      "value": 150000,
+      "description": "Plate consists of shaped, interlocking metal plates to cover the entire body. A suit of plate includes gauntlets, heavy leather boots, a visored helmet, and thick layers of padding underneath the armor. Buckles and straps distribute the weight over the body."
+    },
+    "requirements": {
+      "strength": "15"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Plate Armor",
+    "srd": true,
+    "subtype": "HA",
+    "effect": "$ac := 18",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 20
+    },
+    "attributes": {
+      "weapon_category": "simple"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "B",
+      "damage_2": "1d8"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Quarterstaff",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 2500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "sword"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Rapier",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "F"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 40,
+      "value": 3000,
+      "description": "This armor is leather armor with heavy rings sewn into it. The rings help reinforce the armor against blows from swords and axes. Ring mail is inferior to chain mail, and it's usually worn only by those who can't afford better armor."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Ring Mail",
+    "srd": true,
+    "subtype": "HA",
+    "effect": "$ac := 14",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 1000
+    },
+    "attributes": {
+      "spellcasting_focus_type": "arcane"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Rod",
+    "srd": true,
+    "subtype": "SCF"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 45,
+      "value": 5000,
+      "description": "This armor consists of a coat and leggings (and perhaps a separate skirt) of leather covered with overlapping pieces of metal, much like the scales of a fish. The suit includes gauntlets."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Scale Mail",
+    "srd": true,
+    "subtype": "MA",
+    "effect": "$ac := 14 + min($dex, 2)",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 2500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "sword"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Scimitar",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "F",
+      "L"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 6,
+      "value": 1000,
+      "description": "A shield is made from wood or metal and is carried in one hand. Wielding a shield increases your Armor Class by 2. You can benefit from only one shield at a time."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Shield",
+    "srd": true,
+    "subtype": "S",
+    "effect": null
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 2500
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "80/320",
+      "weapon_type": "bow",
+      "ammo_type": "arrow"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Shortbow",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A",
+      "2H"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 1000
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "sword"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Shortsword",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "F",
+      "L"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 100
+    },
+    "attributes": {
+      "weapon_category": "simple"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Sickle",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "L"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "value": 10
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "30/120",
+      "ammo_type": "sling bullet"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "B"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Sling",
+    "srd": true,
+    "subtype": "R",
+    "property": [
+      "A"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 0.075,
+      "value": 0.2
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Sling Bullet",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1.5,
+      "value": 4
+    },
+    "source": {
+      "book": "PHB",
+      "page": 150
+    },
+    "name": "Sling Bullets (20)",
+    "srd": true,
+    "subtype": "A",
+    "type": "munition"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 100
+    },
+    "attributes": {
+      "weapon_category": "simple",
+      "range": "20/60",
+      "weapon_type": "spear"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P",
+      "damage_2": "1d8"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Spear",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "T",
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 60,
+      "value": 20000,
+      "description": "This armor is made of narrow vertical strips of metal riveted to a backing of leather that is worn over cloth padding. Flexible chain mail protects the joints."
+    },
+    "requirements": {
+      "strength": "15"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 145
+    },
+    "name": "Splint Armor",
+    "srd": true,
+    "subtype": "HA",
+    "effect": "$ac := 17",
+    "type": "armor",
+    "stealth": true
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 500
+    },
+    "attributes": {
+      "spellcasting_focus_type": "arcane",
+      "weapon_category": "simple",
+      "weapon_type": "staff"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "B",
+      "damage_2": "1d8"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Staff",
+    "srd": true,
+    "subtype": "SCF",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 13,
+      "value": 4500,
+      "description": "Made from tough but flexible leather, studded leather is reinforced with close-set rivets or spikes."
+    },
+    "source": {
+      "book": "PHB",
+      "page": 144
+    },
+    "name": "Studded Leather Armor",
+    "srd": true,
+    "subtype": "LA",
+    "effect": "$ac := 12 + $dex",
+    "type": "armor"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "range": "20/60"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "P",
+      "damage_2": "1d8"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Trident",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "T",
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 1,
+      "value": 1000
+    },
+    "attributes": {
+      "spellcasting_focus_type": "arcane"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Wand",
+    "srd": true,
+    "subtype": "SCF"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 500
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "P"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "War Pick",
+    "srd": true,
+    "subtype": "M",
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 2,
+      "value": 1500
+    },
+    "attributes": {
+      "weapon_category": "martial",
+      "weapon_type": "hammer"
+    },
+    "damage": {
+      "damage_1": "1d8",
+      "damage_type": "B",
+      "damage_2": "1d10"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Warhammer",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 3,
+      "value": 200
+    },
+    "attributes": {
+      "weapon_category": "martial"
+    },
+    "damage": {
+      "damage_1": "1d4",
+      "damage_type": "S"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 149
+    },
+    "name": "Whip",
+    "srd": true,
+    "subtype": "M",
+    "property": [
+      "F",
+      "R"
+    ],
+    "type": "weapon"
+  },
+  {
+    "meta": {
+      "rarity": "none",
+      "weight": 4,
+      "value": 500
+    },
+    "attributes": {
+      "spellcasting_focus_type": "druid",
+      "weapon_category": "simple"
+    },
+    "damage": {
+      "damage_1": "1d6",
+      "damage_type": "B",
+      "damage_2": "1d8"
+    },
+    "source": {
+      "book": "PHB",
+      "page": 151
+    },
+    "name": "Wooden Staff",
+    "srd": true,
+    "subtype": "SCF",
+    "property": [
+      "V"
+    ],
+    "type": "weapon"
+  }
+]
