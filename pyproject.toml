@@ -40,3 +40,6 @@ addopts = "-s --disable-warnings"
 testpaths = [
     "dnd5esheets/tests"
 ]
+
+[tool.mypy]
+ignore_missing_imports = true
