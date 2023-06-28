@@ -2,11 +2,6 @@
 .PHONY: api-doc api-explorer black check dev docker-build docker-run front-check \
 	help init mypy ruff run test trash-env
 
-ifeq (, $(shell which poetry))
-$(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
-https://python-poetry.org/docs/#installing-with-the-official-installer")
-endif
-
 app-root = dnd5esheets
 app-port = 8000
 app-cli = poetry run python3 $(app-root)/cli.py
@@ -86,7 +81,6 @@ docker-run: docker-build  ## Run the docker image
 	@echo "\n[+] Running the docker image"
 	@docker run -it --rm -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
-
 db-base-items: db-migrate ## Populate the base items in database
 	@echo "\n[+] Populating the database with base items"
 	@$(app-cli) db populate base-items
@@ -109,15 +103,17 @@ front-build: front-generate-api-client
 	@echo "\n[+] Building the front app"
 	@$(npm-run) build
 
-front-check:
-	@echo "\n[+ Running js checks]"
-	@$(npm-run) check
+front-check:  front-prettier ## Run all frontend checks
 
 front-run-dev: front-build  ## Run the development frontend server
 	@echo "\n[+] Running the dev frontend server"
 	@$(npm-run) dev -- --open
 
 front-generate-api-client: $(front-root)/src/5esheets-client ## Generate the API openapi.json file
+
+front-prettier:
+	@echo "\n[+] Running prettier on the codebase"
+	@$(npm-run) prettier-check
 
 ruff:
 	@echo "\n[+] Running linter"

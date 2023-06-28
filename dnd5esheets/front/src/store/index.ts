@@ -208,17 +208,27 @@ const effects = {
   },
 
   // Recompute the initiative bonus when the character's dexterity changes
-  "initiative": (character: CharacterSchema) => {
+  initiative: (character: CharacterSchema) => {
     return scoreToSkillModifier(character.data.dexterity);
   },
 
   // Recompute the spell DC when the spellcasting ability or its associated modifier change, as well as the proficiency bonus
-  "spell_dc": (character: CharacterSchema) => {
-    return 8 + scoreToSkillModifier(character.data[character.data.spellcasting_ability]) + character.data.proficiency_bonus;
+  spell_dc: (character: CharacterSchema) => {
+    return (
+      8 +
+      scoreToSkillModifier(
+        character.data[character.data.spellcasting_ability]
+      ) +
+      character.data.proficiency_bonus
+    );
   },
 
-  "spell_attack_bonus": (character: CharacterSchema) => {
-    return scoreToSkillModifier(character.data[character.data.spellcasting_ability]) + character.data.proficiency_bonus;
+  spell_attack_bonus: (character: CharacterSchema) => {
+    return (
+      scoreToSkillModifier(
+        character.data[character.data.spellcasting_ability]
+      ) + character.data.proficiency_bonus
+    );
   },
 
   // Recompute the skill modifiers when a characteristic changes
