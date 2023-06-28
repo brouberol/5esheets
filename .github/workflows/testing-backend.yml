@@ -22,10 +22,6 @@ jobs:
             .ruff_cache
             .pytest_cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.python-version }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
       - name: Install poetry
         run: python3 -m pip install poetry
