@@ -41,9 +41,13 @@ $(front-root)/src/5esheets-client: $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
 
-$(app-root)/data/items-base.json:
-	@echo "\n [+] Fetching base equipment data"
-	@curl -s https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data/items-base.json | python3 scripts/preprocess_base_item_json.py
+$(app-root)/data/items-base.json: $(app-root)/data/translations-items-fr.json
+	@echo "\n[+] Fetching base equipment data"
+	@curl -s https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data/items-base.json | poetry run python3 scripts/preprocess_base_item_json.py
+
+$(app-root)/data/translations-items-fr.json:
+	@echo "\n[+] Fetching items french translations"
+	@curl -s https://gitlab.com/baktov.sugar/foundryvtt-dnd5e-lang-fr-fr/-/raw/master/dnd5e_fr-FR/compendium/dnd5e.items.json > $(app-root)/data/translations-items-fr.json
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
