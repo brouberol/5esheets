@@ -2,11 +2,6 @@
 .PHONY: api-doc api-explorer black check dev docker-build docker-run front-check \
 	help init mypy ruff run test trash-env
 
-ifeq (, $(shell which poetry))
-$(error "No poetry executable found in $$PATH. Follow these instructions to install it: \
-https://python-poetry.org/docs/#installing-with-the-official-installer")
-endif
-
 app-root = dnd5esheets
 app-port = 8000
 app-cli = poetry run python3 $(app-root)/cli.py
