@@ -9,11 +9,13 @@ from dnd5esheets.config import get_settings
 async_engine = create_async_engine(
     get_settings().DB_ASYNC_URI,
     connect_args={"check_same_thread": False},  # only for sqlite
+    echo=get_settings().SQLALCHEMY_ECHO,
 )
 
 engine = create_engine(
     get_settings().DB_URI,
     connect_args={"check_same_thread": False},  # only for sqlite
+    echo=get_settings().SQLALCHEMY_ECHO,
 )
 
 async_session_factory = async_sessionmaker(

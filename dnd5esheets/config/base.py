@@ -12,3 +12,4 @@ class CommonSettings(BaseSettings):
     MULTITENANT_ENABLED: bool = False
     DB_URI: str = f"sqlite:///{db_file}"
     DB_ASYNC_URI: str = f"sqlite+aiosqlite:///{db_file}"
+    SQLALCHEMY_ECHO: bool = False
