@@ -1,4 +1,4 @@
-name: Run tests and checks
+name: Run backend tests and checks
 
 on: [push]
 
@@ -16,18 +16,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: dnd5esheets/front/package-lock.json
+
       - name: Install dependencies
         run: |
           python -m pip install poetry
-          make deps
+          make deps-python
       - name: Run unit tests
         run: make test
-
       - name: Run quality chekers
-        run: make check
+        run: make back-check
