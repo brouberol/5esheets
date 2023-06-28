@@ -1,6 +1,12 @@
 [
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Flèche",
+          "description": "Munitions standard utilisées pour les arcs de toutes sortes. Ces flèches banales sont fabriquées à partir d'un manche en bois lisse, avec des plumes d'oie et un revêtement en métal martelé."
+        }
+      },
       "rarity": "none",
       "weight": 0.05,
       "value": 5
@@ -16,6 +22,7 @@
   },
   {
     "meta": {
+      "translations": {},
       "rarity": "none",
       "weight": 1,
       "value": 100
@@ -31,6 +38,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Hache d'armes",
+          "description": "Une lame en croissant robuste montée sur un manche épais entouré de cuir pour une meilleur prise. Cette hache est assez grande pour être maniée à deux mains et est ornée de pointes sur le côté opposé de la lame et au bout du manche."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 1000
@@ -58,6 +71,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Sarbacane",
+          "description": "Une arme primitive, mais mortelle, utilisée par les tribues et les guérilleros. L'aiguille tirée par cette arme peut délivrer une dose léthale de poison."
+        }
+      },
       "rarity": "none",
       "weight": 1,
       "value": 1000
@@ -86,6 +105,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Aiguilles de sarbacane (50)",
+          "description": "Munition faite pour être tirée d'une sarbacane, à la force des poumons. Ces aiguilles sont fréquemment trempées dans du poison incapacitant ou mortel."
+        }
+      },
       "rarity": "none",
       "weight": 0.02,
       "value": 2
@@ -101,6 +126,7 @@
   },
   {
     "meta": {
+      "translations": {},
       "rarity": "none",
       "weight": 1,
       "value": 100
@@ -116,6 +142,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Cuirasse",
+          "description": "Cette armure se compose d'une pièce principale de métal maintenue avec du cuir souple sur la poitrine. Bien qu'elle laisse les jambes et les bras relativement à découvert, cette armure offre une bonne protection pour les organes vitaux tout en ne gênant pas trop son porteur."
+        }
+      },
       "rarity": "none",
       "weight": 20,
       "value": 40000,
@@ -133,6 +165,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Cotte de mailles",
+          "description": "Fait d'anneaux métalliques entrecroisés, la cotte de mailles comprend une couche de tissu matelassé porté sous la cotte pour éviter les frottements et amortir l'impact de coups. L'ensemble comprend des gantelets."
+        }
+      },
       "rarity": "none",
       "weight": 55,
       "value": 7500,
@@ -154,6 +192,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Chemise de mailles",
+          "description": "Fait d'anneaux métalliques entrecroisés, la chemise de mailles est utilisée entre des couches de vêtements ou de cuir. Cette armure offre une protection modeste pour le haut du corps et permet au son provoqué par les anneaux frottant l'un contre l'autre d'être atténué par les couches de vêtements extérieures."
+        }
+      },
       "rarity": "none",
       "weight": 20,
       "value": 5000,
@@ -171,6 +215,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Gourdin",
+          "description": "Un gros bout de bois de forme un simple, mais efficace, aussi appelée calebasse. Ces armes sont utilisées pour matraquer les ennemis, meurtrir la chair et briser les os."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 10
@@ -197,6 +247,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Carreaux d'arbalète",
+          "description": "Cette munition, utilisée par les arbalètes, est généralement faite d'une tige en métal avec une pointe acérée."
+        }
+      },
       "rarity": "none",
       "weight": 0.075,
       "value": 5
@@ -212,6 +268,7 @@
   },
   {
     "meta": {
+      "translations": {},
       "rarity": "none",
       "weight": 1.5,
       "value": 100
@@ -227,6 +284,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Boule de cristal",
+          "description": "Focaliseur arcanique. Un focaliseur arcanique est un objet spécial (orbe, boule de cristal, baguette, bâton, sceptre) conçu pour canaliser la puissance de sorts de la magie des arcanes. Un ensorceleur, un sorcier ou un magicien peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 1,
       "value": 1000
@@ -244,6 +307,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Dague",
+          "description": "Une lame en métal courte montée sur une petite poignée avec une garde. La dague est efficace en arme secondaire pour les combattants agguéris ou pour en arme cachée pour les assassins et les voleurs."
+        }
+      },
       "rarity": "none",
       "weight": 1,
       "value": 200
@@ -273,6 +342,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Fléchette",
+          "description": "Un petit outil de lancé fabriqué en bois avec un empennage en plume en forme de croix ainsi qu'une extrémité pointue en bois ou en métal. Avec suffisament de force, une fléchette peut percer la peau."
+        }
+      },
       "rarity": "none",
       "weight": 0.25,
       "value": 5
@@ -300,6 +375,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Fléau d'armes",
+          "description": "Un ensemble de boules à pointes reliées par une chaîne et attachées à un solide manche en bois. Le fléau provoque des dégâts dévastateurs lorsqu'il tourne en arc de cercle mortel."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 1000
@@ -322,6 +403,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Coutille",
+          "description": "Sabre court à deux tranchants au bout d'un grand manche."
+        }
+      },
       "rarity": "none",
       "weight": 6,
       "value": 2000
@@ -349,6 +436,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Hache à deux mains",
+          "description": "Cette énorme hache comporte deux lames en double croissant montées de chaque côté d'un grand arbre à pointes. Conçue pour être maniée à deux mains et pour fendre les ennemis en deux"
+        }
+      },
       "rarity": "none",
       "weight": 7,
       "value": 3000
@@ -376,6 +469,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Massue",
+          "description": "Une variante plus grande du gourdin simple, un lourd manche en bois avec un énorme nœud de bois au bout, inflige des dommages paralysants aux malheureux ennemis."
+        }
+      },
       "rarity": "none",
       "weight": 10,
       "value": 20
@@ -402,6 +501,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Épée à deux mains",
+          "description": "Une puissante lame à deux mains mesure plus d'un mètre de long et presque cinq pouces de large. Cette arme nécessite un entraînement martial intensif, mais ceux qui savent s'en servir sont de redoutables guerriers."
+        }
+      },
       "rarity": "none",
       "weight": 6,
       "value": 5000
@@ -429,6 +534,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Hallebarde",
+          "description": "La hallebarde est une arme défensive puissante qui permet à un guerrier de repousser ses ennemis en utilisant la longue portée du manche et ainsi attaquer à distance de sécurité."
+        }
+      },
       "rarity": "none",
       "weight": 6,
       "value": 2000
@@ -456,6 +567,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure Demi-plate",
+          "description": "Cette armure est constituée de plaques métalliques façonnées qui recouvrent la majeure partie du corps. Mis à part les jambières attachées avec des lanières de cuir, elle ne protège pas les jambes."
+        }
+      },
       "rarity": "none",
       "weight": 40,
       "value": 75000,
@@ -474,6 +591,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Arbalète de poing",
+          "description": "Une arbalète légère conçue pour être tenue dans une main ou attachée au poignet pour tirer des carreaux."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 7500
@@ -504,6 +627,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Hachette",
+          "description": "Cette hache à une main est légère et équilibrée pour le lancer tout en restant utile dans le combat au contact."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 500
@@ -532,6 +661,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Arbalète lourde",
+          "description": "Une grande arbalète montée sur un solide bloc de bois qui est chargé à l'aide d'une manivelle et qui tire d'épais carreaux en acier avec une accélération mortelle qui transperce l'armure et la chair."
+        }
+      },
       "rarity": "none",
       "weight": 18,
       "value": 5000
@@ -563,6 +698,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure de peaux",
+          "description": "Cette armure brute est composée de fourrures et de peaux épaisses. Elle est couramment portée par les tribus barbares, les humanoïdes maléfiques, et d'autres personnes qui n'ont pas accès aux outils et matériaux nécessaires pour créer de meilleures armures."
+        }
+      },
       "rarity": "none",
       "weight": 12,
       "value": 1000,
@@ -580,6 +721,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Javeline",
+          "description": "Cette lance légère et flexible est conçue pour être lancée, mais elle est aussi suffisamment polyvalente pour être utilisée en combat en mêlée."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 50
@@ -607,6 +754,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Lance d'harçon",
+          "description": "Une pointe d'acier brillante pour percer les défenses les plus dures de l'ennemi, enfoncée par la force d'un coursier au galop. Bien que mieux adaptée au combat à cheval, la lance peut être utilisée à pieds. Vous êtes désavantagé lorsque vous utilisez une lance pour attaquer une cible située à moins de 1,5 mètre de vous. De plus, une lance nécessite deux mains pour être maniée lorsque vous n'êtes pas monté.Vous avez un désavantage lorsque vous utilisez une lance d'arçon pour attaquer une cible à 1,50 mètre ou moins de vous. En outre, une lance d'arçon requiert deux mains pour être maniée lorsque vous n'êtes pas sur une monture."
+        }
+      },
       "rarity": "none",
       "weight": 6,
       "value": 1000,
@@ -634,6 +787,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure de cuir",
+          "description": "La cuirasse et les protecteurs d'épaules de cette armure sont faits de cuir qui a été durci en étant bouilli dans de l'huile. Le reste de l'armure est fait de matériaux plus tendres et plus souples."
+        }
+      },
       "rarity": "none",
       "weight": 10,
       "value": 1000,
@@ -651,6 +810,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Arbalète légère",
+          "description": "Une petite arbalète avec un manche en bois et une corde tendue qui est capable de tirer un seul coup qui peut perforer même les armures lourdes à bout portant."
+        }
+      },
       "rarity": "none",
       "weight": 5,
       "value": 2500
@@ -681,6 +846,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Marteau léger",
+          "description": "Ce solide marteau est suffisamment petit pour être manié avec agilité ou utilisé en combinaison avec une autre arme."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 200
@@ -709,6 +880,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Arc long",
+          "description": "Un épais morceau de bois lamellé est courbé par une corde tendue capable de lancer des flèches mortelles à longue distance."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 5000
@@ -739,6 +916,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Épée longue",
+          "description": "L'épée longue est une arme très polyvalente qui peut également être maniée à deux mains pour des coups plus punitifs."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 1500
@@ -766,6 +949,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Masse d'armes",
+          "description": "Une lourde boule de métal montée au bout d'une massue également de métal. La tête est munie de pointes et de lames conçues pour perforer l'armure et briser les os situés en dessous."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 500
@@ -789,6 +978,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Maillet",
+          "description": "Cette masse lourde à deux mains écrase le métal et les os avec une force tonitruante."
+        }
+      },
       "rarity": "none",
       "weight": 10,
       "value": 1000
@@ -816,6 +1011,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Morgenstern",
+          "description": "Un globe de métal vicieusement pointu, monté au bout d'un manche robuste, constitue une arme mortelle qui peut perforer aussi bien l'armure que la chair."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 1500
@@ -839,6 +1040,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Filet",
+          "description": "Une créature de taille G ou plus petite qui est touchée par un filet est entravée jusqu'à ce qu'elle soit libérée. Un filet n'a aucun effet sur les créatures sans forme ou de taille supérieure à G. Une créature peut utiliser son action pour effectuer un jet de Force DD 10 afin de se libérer ou de libérer une autre créature à sa portée en cas de succès. Infliger 5 points de dégâts tranchants à un filet (CA 10) permet également de libérer une créature sans la blesser, mettant fin à l'effet tout en détruisant le filet. Lorsque vous utilisez une action, une action bonus ou une réaction pour attaquer avec un filet, vous ne pouvez effectuer qu'une seule attaque, et ce quel que soit le nombre d'attaques que vous pouvez normalement réaliser."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 100,
@@ -864,6 +1071,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Orbe",
+          "description": "Focaliseur arcanique. Un focaliseur arcanique est un objet spécial (orbe, boule de cristal, baguette, bâton, sceptre) conçu pour canaliser la puissance de sorts de la magie des arcanes. Un ensorceleur, un sorcier ou un magicien peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 2000
@@ -881,6 +1094,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure matelassée",
+          "description": "L'armure matelassée est constituée de couches de tissu et de molleton matelassés. L'armure matelassée offre un niveau de protection comparable à celui du cuir raidi mais est un peu moins encombrante pour le porteur."
+        }
+      },
       "rarity": "none",
       "weight": 8,
       "value": 500,
@@ -899,6 +1118,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Pique",
+          "description": "Une lame robuste montée au bout d'un long manche en métal. Conçue comme une arme défensive avec une portée considérable pour repousser et menacer les ennemis."
+        }
+      },
       "rarity": "none",
       "weight": 18,
       "value": 500
@@ -926,6 +1151,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Harnois",
+          "description": "Le harnois est constitué de plaques de métal entrecroisées qui couvrent l'ensemble du corps. L'ensemble inclut des gants, des bottes en cuir épais, un casque à visière, et d'épaisses couches de rembourrage sous l'armure. Des boucles et des sangles distribuent le poids sur le corps."
+        }
+      },
       "rarity": "none",
       "weight": 65,
       "value": 150000,
@@ -947,6 +1178,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Bâton",
+          "description": "Un épais manche en bois enveloppé d'une solide poignée fait une arme très fonctionnelle en plus d'un solide bâton de marche."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 20
@@ -973,6 +1210,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Rapière",
+          "description": "Une lame métallique mince et résistante, légère mais de longue portée, conçue pour des attaques rapides afin de cibler les points faibles des défenses ennemies avec une rapidité fulgurante."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 2500
@@ -999,6 +1242,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Broigne",
+          "description": "This armor is leather armor with heavy rings sewn into it. The rings help reinforce the armor against blows from swords and axes. Ring mail is inferior to chain mail, and it's usually worn only by those who can't afford better armor."
+        }
+      },
       "rarity": "none",
       "weight": 40,
       "value": 3000,
@@ -1017,6 +1266,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Sceptre",
+          "description": "Une tige d'os, de pierre, de métal ou de matériaux plus exotiques, taillée ou façonnée de façon complexe. Focaliseur arcanique. Un focaliseur arcanique est un objet spécial (orbe, boule de cristal, baguette, bâton, sceptre) conçu pour canaliser la puissance de sorts de la magie des arcanes. Un ensorceleur, un sorcier ou un magicien peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 1000
@@ -1034,6 +1289,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure d'écailles",
+          "description": "Cette armure se compose d'une veste et de jambières (et parfois d’une jupe séparée) de cuir recouvert de pièces de métal qui se chevauchent, un peu comme les écailles d'un poisson. L'ensemble comprend également des gantelets."
+        }
+      },
       "rarity": "none",
       "weight": 45,
       "value": 5000,
@@ -1052,6 +1313,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Cimeterre",
+          "description": "Cette lame incurvée est large près du manche mais s'arque et se rétrécit en une pointe."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 2500
@@ -1079,6 +1346,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Bouclier",
+          "description": "Un bouclier est fait de bois ou de métal et est porté dans une main. Le fait de porter un bouclier augmente votre classe d'armure de 2. Vous ne pouvez bénéficier que d'un seul bouclier à la fois."
+        }
+      },
       "rarity": "none",
       "weight": 6,
       "value": 1000,
@@ -1095,6 +1368,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Arc court",
+          "description": "Cet arc à deux mains est un peu plus petit que la variante traditionnelle de l'arc long, ce qui le rend bien adapté aux attaques rapides en mouvement ou à cheval."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 2500
@@ -1124,6 +1403,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Épée courte",
+          "description": " lame de taille moyenne avec une garde croisée ferme et un manche gainé de cuir. Une arme qui compense en polyvalence ce qui lui manque en termes de portée."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 1000
@@ -1151,6 +1436,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Serpe",
+          "description": "Une lame en croissant montée sur un court manche, assez légère pour être maniée d'une seule main afin de trancher les cultures ... ou les ennemis."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 100
@@ -1176,6 +1467,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Fronde",
+          "description": "Une lanière de cuir flexible fixée à un manche en bois qui est capable de projeter des pierres ou des balles métalliques à une vitesse mortelle."
+        }
+      },
       "rarity": "none",
       "value": 10
     },
@@ -1202,6 +1499,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Billes de fronde",
+          "description": "Caillou durci de pierre, d'os ou de métal qui peut être lancé à grande vitesse à l'aide d'une fronde.\n**Note de Foundry: Il sera généralement impossible d'acheter une balle de fronde car elles valent moins d'une pièce de cuivre (5 balles = 1 cp)."
+        }
+      },
       "rarity": "none",
       "weight": 0.075,
       "value": 0.2
@@ -1217,6 +1520,7 @@
   },
   {
     "meta": {
+      "translations": {},
       "rarity": "none",
       "weight": 1.5,
       "value": 4
@@ -1232,6 +1536,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Lance",
+          "description": "Une pointe d'acier étincelante au sommet d'un solide manche en bois, la lance peut être maniée à une ou deux mains et peut transpercer les armures les plus lourdes avec une force mortelle."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 100
@@ -1261,6 +1571,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Clibanion",
+          "description": "Cette armure est faite d'étroites bandes verticales de métal rivetées sur un support de cuir qui est porté sur un rembourrage de tissu. Une cotte de mailles souple protège les articulations."
+        }
+      },
       "rarity": "none",
       "weight": 60,
       "value": 20000,
@@ -1282,6 +1598,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Bâton",
+          "description": "Un bâton noueux ou poli en bois, en os ou en matériaux plus exotiques comme le cristal. Focaliseur arcanique. Un focaliseur arcanique est un objet spécial (orbe, boule de cristal, baguette, bâton, sceptre) conçu pour canaliser la puissance de sorts de la magie des arcanes. Un ensorceleur, un sorcier ou un magicien peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 500
@@ -1310,6 +1632,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Armure de cuir clouté",
+          "description": "Fabriqué en cuir résistant mais souple, le cuir clouté est renforcé par des rivets ou des pointes serrées."
+        }
+      },
       "rarity": "none",
       "weight": 13,
       "value": 4500,
@@ -1327,6 +1655,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Trident",
+          "description": "Une lance à plusieurs dents conçue pour empaler une cible à plusieurs endroits, en les immobilisant. Souvent utilisée en combinaison avec un filet pour piéger et harceler les ennemis."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 500
@@ -1355,6 +1689,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Baguette",
+          "description": "Un instrument délicat à une seule main en bois, os, cristal ou autres matériaux exotiques qui est couramment utilisé comme point de mire pour aider à la projection d'arcanes.Focaliseur arcanique. Un focaliseur arcanique est un objet spécial (orbe, boule de cristal, baguette, bâton, sceptre) conçu pour canaliser la puissance de sorts de la magie des arcanes. Un ensorceleur, un sorcier ou un magicien peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 1,
       "value": 1000
@@ -1372,6 +1712,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Pic de guerre",
+          "description": "Une pointe incurvée massive montée à l'arrière d'un solide manche - conçue pour percer les blindages avec une force mortelle."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 500
@@ -1394,6 +1740,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Marteau de guerre",
+          "description": "Un marteau en métal lourd pouvant être manié d'une seule main avec un bouclier ou à deux mains pour délivrer des coups écrasants."
+        }
+      },
       "rarity": "none",
       "weight": 2,
       "value": 1500
@@ -1421,6 +1773,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Fouet",
+          "description": "Une corde tendue faîte de cuir, de corde ou de chaîne qui peut attraper des ennemis proches, les lacérant et les harcelant à distance."
+        }
+      },
       "rarity": "none",
       "weight": 3,
       "value": 200
@@ -1447,6 +1805,12 @@
   },
   {
     "meta": {
+      "translations": {
+        "fr": {
+          "name": "Bâton",
+          "description": "Le bâton a été sculpté dans bois spécial et gravé de puissantes runes pour invoquer la puissance de la nature par ceux qui entendent son appel. Focaliseur druidique. Un focaliseur druidique peut être un brin de gui ou de houx, une baguette ou un sceptre en bois d'if ou autre bois spécial, un bâton pris d'un arbre vivant, ou bien encore un objet totem qui intègre des plumes, de la fourrure, des os ou des dents d'animaux sacrés. Un druide peut utiliser ce type d'objet comme focaliseur pour ses sorts."
+        }
+      },
       "rarity": "none",
       "weight": 4,
       "value": 500

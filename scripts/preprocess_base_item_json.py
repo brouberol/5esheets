@@ -1,13 +1,15 @@
 import json
 import sys
+import glob
+
+from bs4 import BeautifulSoup
 from pathlib import Path
 
-base_items_filepath = (
-    Path(__file__).parent.parent / "dnd5esheets" / "data" / "items-base.json"
-)
+data_dir = Path(__file__).parent.parent / "dnd5esheets" / "data"
+base_items_filepath = data_dir / "items-base.json"
+items_translations_filepath = data_dir / "translations-items-*.json"
 
 item_type_fields = ["weapon", "armor", "munition"]
-
 weapon_type_fields = [
     "bow",
     "crossbow",
@@ -48,8 +50,15 @@ field_name_translations = {
     "type": "subtype",
 }
 
+translations = {}
+for translations_filepath in glob.glob(str(items_translations_filepath)):
+    language = Path(translations_filepath).stem.split("-")[-1]
+    translated_data = json.load(open(translations_filepath))
+    translated_data = {entry["id"]: entry for entry in translated_data["entries"]}
+    translations[language] = translated_data
 
-def generate_effect(item):
+
+def generate_effect(item: dict) -> str | None:
     if item.get("armor"):
         if item["type"] == "LA":
             return f'$ac := {item["ac"]} + $dex'
@@ -59,14 +68,12 @@ def generate_effect(item):
             return f'$ac := {item["ac"]}'
 
 
-base_items_data = json.load(sys.stdin)
-
-generated_items = []
-for item in base_items_data["baseitem"]:
+def reformat_item(item: dict) -> dict | None:
     if not item.get("srd"):
-        continue
+        return
+
     reformatted_item = {
-        "meta": {},
+        "meta": {"translations": {}},
         "attributes": {},
         "requirements": {},
         "damage": {},
@@ -116,8 +123,34 @@ for item in base_items_data["baseitem"]:
         else:
             reformatted_item[field] = value
 
-    reformatted_item = {k: v for k, v in reformatted_item.items() if v != {}}
-    generated_items.append(reformatted_item)
+    for language, lang_translations in translations.items():
+        if translated_item := lang_translations.get(item["name"]):
+            reformatted_item["meta"]["translations"][language] = {
+                "name": translated_item["name"],
+                "description": BeautifulSoup(
+                    translated_item["description"], features="html.parser"
+                ).text,
+            }
+        else:
+            print(f"No translation found for {item['name']}")
 
-with open(base_items_filepath, "w") as out:
-    json.dump(generated_items, out, indent=2)
+    reformatted_item = {k: v for k, v in reformatted_item.items() if v != {}}
+    return reformatted_item
+
+
+def main():
+    base_items_data = json.load(sys.stdin)
+
+    generated_items = []
+    for item in base_items_data["baseitem"]:
+        reformatted_item = reformat_item(item)
+        if not reformatted_item:
+            continue
+        generated_items.append(reformatted_item)
+
+    with open(base_items_filepath, "w") as out:
+        json.dump(generated_items, out, indent=2, ensure_ascii=False)
+
+
+if __name__ == "__main__":
+    main()
