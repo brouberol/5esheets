@@ -144,6 +144,8 @@ def main():
     generated_items = []
     for item in base_items_data["baseitem"]:
         reformatted_item = reformat_item(item)
+        if not reformatted_item:
+            continue
         generated_items.append(reformatted_item)
 
     with open(base_items_filepath, "w") as out:

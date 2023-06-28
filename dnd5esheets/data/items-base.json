@@ -1,5 +1,4 @@
 [
-  null,
   {
     "meta": {
       "translations": {
@@ -37,8 +36,6 @@
     "subtype": "A",
     "type": "munition"
   },
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -376,8 +373,6 @@
     ],
     "type": "weapon"
   },
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -724,9 +719,6 @@
     "effect": "$ac := 12 + min($dex, 2)",
     "type": "armor"
   },
-  null,
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -793,8 +785,6 @@
     ],
     "type": "weapon"
   },
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -888,7 +878,6 @@
     ],
     "type": "weapon"
   },
-  null,
   {
     "meta": {
       "translations": {
@@ -1020,8 +1009,6 @@
     ],
     "type": "weapon"
   },
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -1051,7 +1038,6 @@
     "subtype": "M",
     "type": "weapon"
   },
-  null,
   {
     "meta": {
       "translations": {
@@ -1163,7 +1149,6 @@
     ],
     "type": "weapon"
   },
-  null,
   {
     "meta": {
       "translations": {
@@ -1255,9 +1240,6 @@
     ],
     "type": "weapon"
   },
-  null,
-  null,
-  null,
   {
     "meta": {
       "translations": {
@@ -1452,7 +1434,6 @@
     ],
     "type": "weapon"
   },
-  null,
   {
     "meta": {
       "translations": {
@@ -1588,7 +1569,6 @@
     ],
     "type": "weapon"
   },
-  null,
   {
     "meta": {
       "translations": {
@@ -1855,6 +1835,5 @@
       "V"
     ],
     "type": "weapon"
-  },
-  null
+  }
 ]
