@@ -7,7 +7,8 @@
     "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client",
     "generate-effect-parser": "peggy --plugin ./node_modules/ts-pegjs/dist/tspegjs -o src/effect-parser/index.ts src/effect-parser/grammar.pegjs",
     "test": "vitest",
-    "prettier": "prettier -w ."
+    "prettier": "prettier -w .",
+    "prettier-check": "prettier -c ."
   },
   "type": "module",
   "devDependencies": {
