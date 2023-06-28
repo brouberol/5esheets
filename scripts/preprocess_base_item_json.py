@@ -147,7 +147,7 @@ def main():
         generated_items.append(reformatted_item)
 
     with open(base_items_filepath, "w") as out:
-        json.dump(generated_items, out, indent=2)
+        json.dump(generated_items, out, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":
