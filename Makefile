@@ -89,7 +89,7 @@ db-base-items: db-migrate ## Populate the base items in database
 	@echo "\n[+] Populating the database with base items"
 	@$(app-cli) db populate base-items
 
-db-dev-fixtures: db-base-items ## Populate the local database with development fixtures
+db-dev-fixtures: data db-base-items ## Populate the local database with development fixtures
 	@echo "\n[+] Populating the database with development fixtures"
 	@$(app-cli) db populate fixtures
 
