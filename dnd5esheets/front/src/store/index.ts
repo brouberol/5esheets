@@ -265,7 +265,7 @@ const effects = {
 };
 
 for (const derivedAttribute in effects) {
-  createEffect(() =>
+  createComputed(() =>
     setCharacters(
       douglas.slug,
       "data",

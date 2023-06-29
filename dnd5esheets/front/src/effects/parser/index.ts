@@ -13,7 +13,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
       // @ts-ignore
       return {
         // @ts-ignore
-        type: "EffectExpression",
+        type: "EffectExpression" as const,
         // @ts-ignore
         target,
         // @ts-ignore
@@ -24,67 +24,17 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
     }
 
     // @ts-ignore
-    function FunctionExpression(id, parameters) {
-      // @ts-ignore
-      return {
-        // @ts-ignore
-        type: "Function",
-        // @ts-ignore
-        name: id,
-        // @ts-ignore
-        parameters,
-      };
-    }
-
-    // @ts-ignore
-    function MemberExpression(object, property, computed) {
-      // @ts-ignore
-      return {
-        // @ts-ignore
-        type: "MemberExpression",
-        // @ts-ignore
-        object,
-        // @ts-ignore
-        property,
-        // @ts-ignore
-        computed,
-      };
-    }
-
-    // @ts-ignore
     function BinaryExpression(operator, left, right) {
       // @ts-ignore
       return {
         // @ts-ignore
-        type: "BinaryExpression",
+        type: "BinaryExpression" as const,
         // @ts-ignore
         operator,
         // @ts-ignore
         left,
         // @ts-ignore
         right,
-      };
-    }
-
-    // @ts-ignore
-    function UnaryExpression(value) {
-      // @ts-ignore
-      return {
-        // @ts-ignore
-        type: "UnaryExpression",
-        // @ts-ignore
-        value,
-      };
-    }
-
-    // @ts-ignore
-    function NumericLiteral(value) {
-      // @ts-ignore
-      return {
-        // @ts-ignore
-        type: "Number",
-        // @ts-ignore
-        value: Number(value),
       };
     }
 
@@ -99,6 +49,67 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
 
       // @ts-ignore
       return BinaryExpression(op, left, right);
+    }
+
+    // @ts-ignore
+    function FunctionExpression(id, parameters) {
+      // @ts-ignore
+      return {
+        // @ts-ignore
+        type: "FunctionExpression" as const,
+        // @ts-ignore
+        name: id,
+        // @ts-ignore
+        parameters,
+      };
+    }
+
+    // @ts-ignore
+    function MemberExpression(object, property, computed) {
+      // @ts-ignore
+      return {
+        // @ts-ignore
+        type: "MemberExpression" as const,
+        // @ts-ignore
+        object,
+        // @ts-ignore
+        property,
+        // @ts-ignore
+        computed,
+      };
+    }
+
+    // @ts-ignore
+    function propertyReducer(result, element) {
+      // @ts-ignore
+      const computed = element[1] === ".";
+      // @ts-ignore
+      const property = element[3];
+
+      // @ts-ignore
+      return MemberExpression(result, property, computed);
+    }
+
+    // @ts-ignore
+    function Identifier(value) {
+      // @ts-ignore
+      return {
+        // @ts-ignore
+        type: "Identifier" as const,
+        // @ts-ignore
+        value,
+      };
+    }
+
+    // @ts-ignore
+    function NumericLiteral(value) {
+      // @ts-ignore
+      return {
+        // @ts-ignore
+        type: "NumericLiteral" as const,
+        // @ts-ignore
+        value: Number(value),
+      };
     }
 
     // @ts-ignore
@@ -441,10 +452,10 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
       var peg$c5 = "^";
       var peg$c6 = "(";
       var peg$c7 = ")";
-      var peg$c8 = ".";
-      var peg$c9 = ",";
-      var peg$c10 = "[";
-      var peg$c11 = "]";
+      var peg$c8 = ",";
+      var peg$c9 = "[";
+      var peg$c10 = "]";
+      var peg$c11 = ".";
       var peg$c12 = ":=";
       var peg$c13 = "+=";
       var peg$c14 = "*=";
@@ -463,12 +474,12 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
       var peg$e5 = peg$literalExpectation("^", false);
       var peg$e6 = peg$literalExpectation("(", false);
       var peg$e7 = peg$literalExpectation(")", false);
-      var peg$e8 = peg$classExpectation([["a", "z"], "_"], false, false);
-      var peg$e9 = peg$classExpectation([["0", "9"]], false, false);
-      var peg$e10 = peg$literalExpectation(".", false);
-      var peg$e11 = peg$literalExpectation(",", false);
-      var peg$e12 = peg$literalExpectation("[", false);
-      var peg$e13 = peg$literalExpectation("]", false);
+      var peg$e8 = peg$literalExpectation(",", false);
+      var peg$e9 = peg$literalExpectation("[", false);
+      var peg$e10 = peg$literalExpectation("]", false);
+      var peg$e11 = peg$literalExpectation(".", false);
+      var peg$e12 = peg$classExpectation([["a", "z"], "_"], false, false);
+      var peg$e13 = peg$classExpectation([["0", "9"]], false, false);
       var peg$e14 = peg$literalExpectation(":=", false);
       var peg$e15 = peg$literalExpectation("+=", false);
       var peg$e16 = peg$literalExpectation("*=", false);
@@ -503,43 +514,29 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return tail.reduce(operatorReducer, head);
       }; // @ts-ignore
 
-      var peg$f5 = function () {
-        // @ts-ignore
-        return text();
-      }; // @ts-ignore
-
-      var peg$f6 = function () {
-        // @ts-ignore
-        return NumericLiteral(text());
-      }; // @ts-ignore
-
-      var peg$f7 = function (id, parameters) {
+      var peg$f5 = function (id, parameters) {
         // @ts-ignore
         return FunctionExpression(id, parameters);
       }; // @ts-ignore
 
-      var peg$f8 = function (head, tail) {
+      var peg$f6 = function (head, tail) {
         // @ts-ignore
         return [head, ...tail];
       }; // @ts-ignore
 
-      var peg$f9 = function (head, property) {
+      var peg$f7 = function (head, tail) {
         // @ts-ignore
-        return { property: property, computed: true };
+        return tail.reduce(propertyReducer, head);
       }; // @ts-ignore
 
-      var peg$f10 = function (head, property) {
+      var peg$f8 = function () {
         // @ts-ignore
-        return { property: property, computed: false };
+        return Identifier(text());
       }; // @ts-ignore
 
-      var peg$f11 = function (head, tail) {
+      var peg$f9 = function () {
         // @ts-ignore
-        return tail.reduce(function (object, { property, computed }) {
-          // @ts-ignore
-          return MemberExpression(object, property, computed);
-          // @ts-ignore
-        }, head);
+        return NumericLiteral(text());
       };
       // @ts-ignore
       var peg$currPos = 0;
@@ -819,7 +816,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         // @ts-ignore
         s0 = peg$currPos;
         // @ts-ignore
-        s1 = peg$parseEffect();
+        s1 = peg$parseEffectExpression();
         // @ts-ignore
         if (s1 !== peg$FAILED) {
           // @ts-ignore
@@ -846,7 +843,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           if (s5 !== peg$FAILED) {
             // @ts-ignore
-            s6 = peg$parseEffect();
+            s6 = peg$parseEffectExpression();
             // @ts-ignore
             if (s6 !== peg$FAILED) {
               // @ts-ignore
@@ -891,7 +888,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             // @ts-ignore
             if (s5 !== peg$FAILED) {
               // @ts-ignore
-              s6 = peg$parseEffect();
+              s6 = peg$parseEffectExpression();
               // @ts-ignore
               if (s6 !== peg$FAILED) {
                 // @ts-ignore
@@ -931,14 +928,14 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
 
       // @ts-ignore
       function // @ts-ignore
-      peg$parseEffect() {
+      peg$parseEffectExpression() {
         // @ts-ignore
         var s0, s1, s2, s3, s4, s5;
 
         // @ts-ignore
         s0 = peg$currPos;
         // @ts-ignore
-        s1 = peg$parseIdentifier();
+        s1 = peg$parseMemberExpression();
         // @ts-ignore
         if (s1 !== peg$FAILED) {
           // @ts-ignore
@@ -1471,7 +1468,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         // @ts-ignore
         if (s0 === peg$FAILED) {
           // @ts-ignore
-          s0 = peg$parseFunction();
+          s0 = peg$parseFunctionExpression();
           // @ts-ignore
           if (s0 === peg$FAILED) {
             // @ts-ignore
@@ -1479,7 +1476,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             // @ts-ignore
             if (s0 === peg$FAILED) {
               // @ts-ignore
-              s0 = peg$parseDecimal();
+              s0 = peg$parseNumericLiteral();
             }
           }
         }
@@ -1568,221 +1565,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
 
       // @ts-ignore
       function // @ts-ignore
-      peg$parseIdentifier() {
+      peg$parseFunctionExpression() {
         // @ts-ignore
-        var s0, s1, s2;
-
-        // @ts-ignore
-        s0 = peg$currPos;
-        // @ts-ignore
-        s1 = [];
-        // @ts-ignore
-        if (peg$r0.test(input.charAt(peg$currPos))) {
-          // @ts-ignore
-          s2 = input.charAt(peg$currPos);
-          // @ts-ignore
-          peg$currPos++;
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          s2 = peg$FAILED;
-          // @ts-ignore
-          if (peg$silentFails === 0) {
-            peg$fail(peg$e8);
-          }
-        }
-        // @ts-ignore
-        if (s2 !== peg$FAILED) {
-          // @ts-ignore
-          while (s2 !== peg$FAILED) {
-            // @ts-ignore
-            s1.push(s2);
-            // @ts-ignore
-            if (peg$r0.test(input.charAt(peg$currPos))) {
-              // @ts-ignore
-              s2 = input.charAt(peg$currPos);
-              // @ts-ignore
-              peg$currPos++;
-              // @ts-ignore
-            } else {
-              // @ts-ignore
-              s2 = peg$FAILED;
-              // @ts-ignore
-              if (peg$silentFails === 0) {
-                peg$fail(peg$e8);
-              }
-            }
-          }
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          s1 = peg$FAILED;
-        }
-        // @ts-ignore
-        if (s1 !== peg$FAILED) {
-          // @ts-ignore
-          peg$savedPos = s0;
-          // @ts-ignore
-          s1 = peg$f5();
-        }
-        // @ts-ignore
-        s0 = s1;
-
-        // @ts-ignore
-        return s0;
-      }
-
-      // @ts-ignore
-      function // @ts-ignore
-      peg$parseDecimal() {
-        // @ts-ignore
-        var s0, s1, s2, s3, s4, s5, s6;
-
-        // @ts-ignore
-        s0 = peg$currPos;
-        // @ts-ignore
-        s1 = peg$parse_();
-        // @ts-ignore
-        s2 = [];
-        // @ts-ignore
-        if (peg$r1.test(input.charAt(peg$currPos))) {
-          // @ts-ignore
-          s3 = input.charAt(peg$currPos);
-          // @ts-ignore
-          peg$currPos++;
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          s3 = peg$FAILED;
-          // @ts-ignore
-          if (peg$silentFails === 0) {
-            peg$fail(peg$e9);
-          }
-        }
-        // @ts-ignore
-        while (s3 !== peg$FAILED) {
-          // @ts-ignore
-          s2.push(s3);
-          // @ts-ignore
-          if (peg$r1.test(input.charAt(peg$currPos))) {
-            // @ts-ignore
-            s3 = input.charAt(peg$currPos);
-            // @ts-ignore
-            peg$currPos++;
-            // @ts-ignore
-          } else {
-            // @ts-ignore
-            s3 = peg$FAILED;
-            // @ts-ignore
-            if (peg$silentFails === 0) {
-              peg$fail(peg$e9);
-            }
-          }
-        }
-        // @ts-ignore
-        s3 = peg$currPos;
-        // @ts-ignore
-        if (input.charCodeAt(peg$currPos) === 46) {
-          // @ts-ignore
-          s4 = peg$c8;
-          // @ts-ignore
-          peg$currPos++;
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          s4 = peg$FAILED;
-          // @ts-ignore
-          if (peg$silentFails === 0) {
-            peg$fail(peg$e10);
-          }
-        }
-        // @ts-ignore
-        if (s4 !== peg$FAILED) {
-          // @ts-ignore
-          s5 = [];
-          // @ts-ignore
-          if (peg$r1.test(input.charAt(peg$currPos))) {
-            // @ts-ignore
-            s6 = input.charAt(peg$currPos);
-            // @ts-ignore
-            peg$currPos++;
-            // @ts-ignore
-          } else {
-            // @ts-ignore
-            s6 = peg$FAILED;
-            // @ts-ignore
-            if (peg$silentFails === 0) {
-              peg$fail(peg$e9);
-            }
-          }
-          // @ts-ignore
-          if (s6 !== peg$FAILED) {
-            // @ts-ignore
-            while (s6 !== peg$FAILED) {
-              // @ts-ignore
-              s5.push(s6);
-              // @ts-ignore
-              if (peg$r1.test(input.charAt(peg$currPos))) {
-                // @ts-ignore
-                s6 = input.charAt(peg$currPos);
-                // @ts-ignore
-                peg$currPos++;
-                // @ts-ignore
-              } else {
-                // @ts-ignore
-                s6 = peg$FAILED;
-                // @ts-ignore
-                if (peg$silentFails === 0) {
-                  peg$fail(peg$e9);
-                }
-              }
-            }
-            // @ts-ignore
-          } else {
-            // @ts-ignore
-            s5 = peg$FAILED;
-          }
-          // @ts-ignore
-          if (s5 !== peg$FAILED) {
-            // @ts-ignore
-            s4 = [s4, s5];
-            // @ts-ignore
-            s3 = s4;
-            // @ts-ignore
-          } else {
-            // @ts-ignore
-            peg$currPos = s3;
-            // @ts-ignore
-            s3 = peg$FAILED;
-          }
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          peg$currPos = s3;
-          // @ts-ignore
-          s3 = peg$FAILED;
-        }
-        // @ts-ignore
-        if (s3 === peg$FAILED) {
-          // @ts-ignore
-          s3 = null;
-        }
-        // @ts-ignore
-        s4 = peg$parse_();
-        // @ts-ignore
-        peg$savedPos = s0;
-        // @ts-ignore
-        s0 = peg$f6();
-
-        // @ts-ignore
-        return s0;
-      }
-
-      // @ts-ignore
-      function // @ts-ignore
-      peg$parseFunction() {
-        // @ts-ignore
-        var s0, s1, s2;
+        var s0, s1, s2, s3;
 
         // @ts-ignore
         s0 = peg$currPos;
@@ -1791,13 +1576,15 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         // @ts-ignore
         if (s1 !== peg$FAILED) {
           // @ts-ignore
-          s2 = peg$parseCallExpression();
+          s2 = peg$parse_();
           // @ts-ignore
-          if (s2 !== peg$FAILED) {
+          s3 = peg$parseCallExpression();
+          // @ts-ignore
+          if (s3 !== peg$FAILED) {
             // @ts-ignore
             peg$savedPos = s0;
             // @ts-ignore
-            s0 = peg$f7(s1, s2);
+            s0 = peg$f5(s1, s3);
             // @ts-ignore
           } else {
             // @ts-ignore
@@ -1870,7 +1657,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             // @ts-ignore
             if (input.charCodeAt(peg$currPos) === 44) {
               // @ts-ignore
-              s7 = peg$c9;
+              s7 = peg$c8;
               // @ts-ignore
               peg$currPos++;
               // @ts-ignore
@@ -1879,7 +1666,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               s7 = peg$FAILED;
               // @ts-ignore
               if (peg$silentFails === 0) {
-                peg$fail(peg$e11);
+                peg$fail(peg$e8);
               }
             }
             // @ts-ignore
@@ -1917,7 +1704,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               // @ts-ignore
               if (input.charCodeAt(peg$currPos) === 44) {
                 // @ts-ignore
-                s7 = peg$c9;
+                s7 = peg$c8;
                 // @ts-ignore
                 peg$currPos++;
                 // @ts-ignore
@@ -1926,7 +1713,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                 s7 = peg$FAILED;
                 // @ts-ignore
                 if (peg$silentFails === 0) {
-                  peg$fail(peg$e11);
+                  peg$fail(peg$e8);
                 }
               }
               // @ts-ignore
@@ -1976,7 +1763,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               // @ts-ignore
               peg$savedPos = s0;
               // @ts-ignore
-              s0 = peg$f8(s3, s4);
+              s0 = peg$f6(s3, s4);
               // @ts-ignore
             } else {
               // @ts-ignore
@@ -2024,7 +1811,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           if (input.charCodeAt(peg$currPos) === 91) {
             // @ts-ignore
-            s5 = peg$c10;
+            s5 = peg$c9;
             // @ts-ignore
             peg$currPos++;
             // @ts-ignore
@@ -2033,7 +1820,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             s5 = peg$FAILED;
             // @ts-ignore
             if (peg$silentFails === 0) {
-              peg$fail(peg$e12);
+              peg$fail(peg$e9);
             }
           }
           // @ts-ignore
@@ -2049,7 +1836,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               // @ts-ignore
               if (input.charCodeAt(peg$currPos) === 93) {
                 // @ts-ignore
-                s9 = peg$c11;
+                s9 = peg$c10;
                 // @ts-ignore
                 peg$currPos++;
                 // @ts-ignore
@@ -2058,15 +1845,15 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                 s9 = peg$FAILED;
                 // @ts-ignore
                 if (peg$silentFails === 0) {
-                  peg$fail(peg$e13);
+                  peg$fail(peg$e10);
                 }
               }
               // @ts-ignore
               if (s9 !== peg$FAILED) {
                 // @ts-ignore
-                peg$savedPos = s3;
+                s4 = [s4, s5, s6, s7, s8, s9];
                 // @ts-ignore
-                s3 = peg$f9(s1, s7);
+                s3 = s4;
                 // @ts-ignore
               } else {
                 // @ts-ignore
@@ -2097,7 +1884,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             // @ts-ignore
             if (input.charCodeAt(peg$currPos) === 46) {
               // @ts-ignore
-              s5 = peg$c8;
+              s5 = peg$c11;
               // @ts-ignore
               peg$currPos++;
               // @ts-ignore
@@ -2106,7 +1893,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               s5 = peg$FAILED;
               // @ts-ignore
               if (peg$silentFails === 0) {
-                peg$fail(peg$e10);
+                peg$fail(peg$e11);
               }
             }
             // @ts-ignore
@@ -2118,9 +1905,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               // @ts-ignore
               if (s7 !== peg$FAILED) {
                 // @ts-ignore
-                peg$savedPos = s3;
+                s4 = [s4, s5, s6, s7];
                 // @ts-ignore
-                s3 = peg$f10(s1, s7);
+                s3 = s4;
                 // @ts-ignore
               } else {
                 // @ts-ignore
@@ -2147,7 +1934,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             // @ts-ignore
             if (input.charCodeAt(peg$currPos) === 91) {
               // @ts-ignore
-              s5 = peg$c10;
+              s5 = peg$c9;
               // @ts-ignore
               peg$currPos++;
               // @ts-ignore
@@ -2156,7 +1943,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               s5 = peg$FAILED;
               // @ts-ignore
               if (peg$silentFails === 0) {
-                peg$fail(peg$e12);
+                peg$fail(peg$e9);
               }
             }
             // @ts-ignore
@@ -2172,7 +1959,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                 // @ts-ignore
                 if (input.charCodeAt(peg$currPos) === 93) {
                   // @ts-ignore
-                  s9 = peg$c11;
+                  s9 = peg$c10;
                   // @ts-ignore
                   peg$currPos++;
                   // @ts-ignore
@@ -2181,15 +1968,15 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                   s9 = peg$FAILED;
                   // @ts-ignore
                   if (peg$silentFails === 0) {
-                    peg$fail(peg$e13);
+                    peg$fail(peg$e10);
                   }
                 }
                 // @ts-ignore
                 if (s9 !== peg$FAILED) {
                   // @ts-ignore
-                  peg$savedPos = s3;
+                  s4 = [s4, s5, s6, s7, s8, s9];
                   // @ts-ignore
-                  s3 = peg$f9(s1, s7);
+                  s3 = s4;
                   // @ts-ignore
                 } else {
                   // @ts-ignore
@@ -2220,7 +2007,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
               // @ts-ignore
               if (input.charCodeAt(peg$currPos) === 46) {
                 // @ts-ignore
-                s5 = peg$c8;
+                s5 = peg$c11;
                 // @ts-ignore
                 peg$currPos++;
                 // @ts-ignore
@@ -2229,7 +2016,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                 s5 = peg$FAILED;
                 // @ts-ignore
                 if (peg$silentFails === 0) {
-                  peg$fail(peg$e10);
+                  peg$fail(peg$e11);
                 }
               }
               // @ts-ignore
@@ -2241,9 +2028,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
                 // @ts-ignore
                 if (s7 !== peg$FAILED) {
                   // @ts-ignore
-                  peg$savedPos = s3;
+                  s4 = [s4, s5, s6, s7];
                   // @ts-ignore
-                  s3 = peg$f10(s1, s7);
+                  s3 = s4;
                   // @ts-ignore
                 } else {
                   // @ts-ignore
@@ -2263,7 +2050,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           peg$savedPos = s0;
           // @ts-ignore
-          s0 = peg$f11(s1, s2);
+          s0 = peg$f7(s1, s2);
           // @ts-ignore
         } else {
           // @ts-ignore
@@ -2271,6 +2058,218 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           s0 = peg$FAILED;
         }
+
+        // @ts-ignore
+        return s0;
+      }
+
+      // @ts-ignore
+      function // @ts-ignore
+      peg$parseIdentifier() {
+        // @ts-ignore
+        var s0, s1, s2;
+
+        // @ts-ignore
+        s0 = peg$currPos;
+        // @ts-ignore
+        s1 = [];
+        // @ts-ignore
+        if (peg$r0.test(input.charAt(peg$currPos))) {
+          // @ts-ignore
+          s2 = input.charAt(peg$currPos);
+          // @ts-ignore
+          peg$currPos++;
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          s2 = peg$FAILED;
+          // @ts-ignore
+          if (peg$silentFails === 0) {
+            peg$fail(peg$e12);
+          }
+        }
+        // @ts-ignore
+        if (s2 !== peg$FAILED) {
+          // @ts-ignore
+          while (s2 !== peg$FAILED) {
+            // @ts-ignore
+            s1.push(s2);
+            // @ts-ignore
+            if (peg$r0.test(input.charAt(peg$currPos))) {
+              // @ts-ignore
+              s2 = input.charAt(peg$currPos);
+              // @ts-ignore
+              peg$currPos++;
+              // @ts-ignore
+            } else {
+              // @ts-ignore
+              s2 = peg$FAILED;
+              // @ts-ignore
+              if (peg$silentFails === 0) {
+                peg$fail(peg$e12);
+              }
+            }
+          }
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          s1 = peg$FAILED;
+        }
+        // @ts-ignore
+        if (s1 !== peg$FAILED) {
+          // @ts-ignore
+          peg$savedPos = s0;
+          // @ts-ignore
+          s1 = peg$f8();
+        }
+        // @ts-ignore
+        s0 = s1;
+
+        // @ts-ignore
+        return s0;
+      }
+
+      // @ts-ignore
+      function // @ts-ignore
+      peg$parseNumericLiteral() {
+        // @ts-ignore
+        var s0, s1, s2, s3, s4, s5, s6;
+
+        // @ts-ignore
+        s0 = peg$currPos;
+        // @ts-ignore
+        s1 = peg$parse_();
+        // @ts-ignore
+        s2 = [];
+        // @ts-ignore
+        if (peg$r1.test(input.charAt(peg$currPos))) {
+          // @ts-ignore
+          s3 = input.charAt(peg$currPos);
+          // @ts-ignore
+          peg$currPos++;
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          s3 = peg$FAILED;
+          // @ts-ignore
+          if (peg$silentFails === 0) {
+            peg$fail(peg$e13);
+          }
+        }
+        // @ts-ignore
+        while (s3 !== peg$FAILED) {
+          // @ts-ignore
+          s2.push(s3);
+          // @ts-ignore
+          if (peg$r1.test(input.charAt(peg$currPos))) {
+            // @ts-ignore
+            s3 = input.charAt(peg$currPos);
+            // @ts-ignore
+            peg$currPos++;
+            // @ts-ignore
+          } else {
+            // @ts-ignore
+            s3 = peg$FAILED;
+            // @ts-ignore
+            if (peg$silentFails === 0) {
+              peg$fail(peg$e13);
+            }
+          }
+        }
+        // @ts-ignore
+        s3 = peg$currPos;
+        // @ts-ignore
+        if (input.charCodeAt(peg$currPos) === 46) {
+          // @ts-ignore
+          s4 = peg$c11;
+          // @ts-ignore
+          peg$currPos++;
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          s4 = peg$FAILED;
+          // @ts-ignore
+          if (peg$silentFails === 0) {
+            peg$fail(peg$e11);
+          }
+        }
+        // @ts-ignore
+        if (s4 !== peg$FAILED) {
+          // @ts-ignore
+          s5 = [];
+          // @ts-ignore
+          if (peg$r1.test(input.charAt(peg$currPos))) {
+            // @ts-ignore
+            s6 = input.charAt(peg$currPos);
+            // @ts-ignore
+            peg$currPos++;
+            // @ts-ignore
+          } else {
+            // @ts-ignore
+            s6 = peg$FAILED;
+            // @ts-ignore
+            if (peg$silentFails === 0) {
+              peg$fail(peg$e13);
+            }
+          }
+          // @ts-ignore
+          if (s6 !== peg$FAILED) {
+            // @ts-ignore
+            while (s6 !== peg$FAILED) {
+              // @ts-ignore
+              s5.push(s6);
+              // @ts-ignore
+              if (peg$r1.test(input.charAt(peg$currPos))) {
+                // @ts-ignore
+                s6 = input.charAt(peg$currPos);
+                // @ts-ignore
+                peg$currPos++;
+                // @ts-ignore
+              } else {
+                // @ts-ignore
+                s6 = peg$FAILED;
+                // @ts-ignore
+                if (peg$silentFails === 0) {
+                  peg$fail(peg$e13);
+                }
+              }
+            }
+            // @ts-ignore
+          } else {
+            // @ts-ignore
+            s5 = peg$FAILED;
+          }
+          // @ts-ignore
+          if (s5 !== peg$FAILED) {
+            // @ts-ignore
+            s4 = [s4, s5];
+            // @ts-ignore
+            s3 = s4;
+            // @ts-ignore
+          } else {
+            // @ts-ignore
+            peg$currPos = s3;
+            // @ts-ignore
+            s3 = peg$FAILED;
+          }
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          peg$currPos = s3;
+          // @ts-ignore
+          s3 = peg$FAILED;
+        }
+        // @ts-ignore
+        if (s3 === peg$FAILED) {
+          // @ts-ignore
+          s3 = null;
+        }
+        // @ts-ignore
+        s4 = peg$parse_();
+        // @ts-ignore
+        peg$savedPos = s0;
+        // @ts-ignore
+        s0 = peg$f9();
 
         // @ts-ignore
         return s0;
@@ -2577,9 +2576,9 @@ export const PeggySyntaxError =
 export type PeggySyntaxError = _PeggySyntaxError;
 
 // These types were autogenerated by ts-pegjs
-export type Effects = [Effect, ...Effect[]];
-export type Effect = {
-  type: string;
+export type Effects = [EffectExpression, ...EffectExpression[]];
+export type EffectExpression = {
+  type: "EffectExpression";
   target: any;
   operator: any;
   equation: any;
@@ -2590,16 +2589,18 @@ export type Factor = any;
 export type Group = Primary;
 export type Primary =
   | ParenthesizedExpression
-  | Function_1
+  | FunctionExpression
   | MemberExpression
-  | Decimal;
+  | NumericLiteral;
 export type ParenthesizedExpression = Expression;
-export type Identifier = string;
-export type Decimal = { type: string; value: number };
-export type Function_1 = { type: string; name: any; parameters: any };
+export type FunctionExpression = {
+  type: "FunctionExpression";
+  name: any;
+  parameters: any;
+};
 export type CallExpression = [Expression, ...Expression[]];
-export type MemberExpression =
-  | { property: Expression; computed: true }
-  | { property: Identifier; computed: false };
+export type MemberExpression = any;
+export type Identifier = { type: "Identifier"; value: any };
+export type NumericLiteral = { type: "NumericLiteral"; value: number };
 export type AssignmentOperator = ":=" | "+=" | "*=" | ">=" | "<=";
 export type _ = string[];
