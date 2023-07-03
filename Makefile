@@ -1,6 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check dev docker-build docker-run front-check \
-	help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env
 
 app-root = dnd5esheets
 app-port = 8000
