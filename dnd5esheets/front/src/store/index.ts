@@ -1,4 +1,4 @@
-import { createComputed, createRoot, getOwner } from "solid-js";
+import { createComputed, createRoot, getOwner, createEffect } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
 import { CharacterSchema } from "~/5esheets-client";
 
