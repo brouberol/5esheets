@@ -29,6 +29,9 @@ pytest = "^7.4.0"
 httpx = "^0.24.1"
 beautifulsoup4 = "^4.12.2"
 
+[tool.poetry.scripts]
+dnd5esheets-cli = 'dnd5esheets.cli:cli'
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

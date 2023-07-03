@@ -3,7 +3,7 @@
 
 app-root = dnd5esheets
 app-port = 8000
-app-cli = poetry run python3 $(app-root)/cli.py
+app-cli = poetry run dnd5esheets-cli
 front-root = $(app-root)/front
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
