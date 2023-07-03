@@ -78,12 +78,14 @@ def _populate_db_with_dev_data(silent: bool = False):
 @populate.command("base-items")
 @click.option("--silent", type=bool, default=False)
 def populate_base_items(silent: bool = False):
+    """Populate the database the base items data, with their translations"""
     _populate_base_items(silent=silent)
 
 
 @populate.command("fixtures")
 @click.option("--silent", type=bool, default=False)
 def populate_db_with_dev_data(silent: bool = False):
+    """Populate the database with development fixtures"""
     _populate_db_with_dev_data(silent=silent)
 
 
