@@ -8,12 +8,21 @@ describe("effect parser", () => {
       [
         {
           type: "EffectExpression",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           operator: ":=",
           equation: {
             operator: "+",
-            left: "a",
-            right: "b",
+            left: {
+              type: "Identifier",
+              value: "a",
+            },
+            right: {
+              type: "Identifier",
+              value: "b",
+            },
             type: "BinaryExpression",
           },
         },
@@ -24,13 +33,22 @@ describe("effect parser", () => {
       [
         {
           equation: {
-            left: "a",
+            left: {
+              type: "Identifier",
+              value: "a",
+            },
             operator: "-",
-            right: "b",
+            right: {
+              type: "Identifier",
+              value: "b",
+            },
             type: "BinaryExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
@@ -40,35 +58,40 @@ describe("effect parser", () => {
       [
         {
           equation: {
-            left: { type: "Number", value: 1 },
+            left: { type: "NumericLiteral", value: 1 },
             operator: "+",
-            right: { type: "Number", value: 2 },
+            right: { type: "NumericLiteral", value: 2 },
             type: "BinaryExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
     ],
+
+    // Operator precedence
     [
       "a := 1 + 2 * 3 ^ 4",
       [
         {
           equation: {
-            left: { type: "Number", value: 1 },
+            left: { type: "NumericLiteral", value: 1 },
             operator: "+",
             right: {
               operator: "*",
-              left: { type: "Number", value: 2 },
+              left: { type: "NumericLiteral", value: 2 },
               right: {
                 left: {
-                  type: "Number",
+                  type: "NumericLiteral",
                   value: 3,
                 },
                 operator: "^",
                 right: {
-                  type: "Number",
+                  type: "NumericLiteral",
                   value: 4,
                 },
                 type: "BinaryExpression",
@@ -78,7 +101,10 @@ describe("effect parser", () => {
             type: "BinaryExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
@@ -91,47 +117,64 @@ describe("effect parser", () => {
             left: {
               left: {
                 left: {
-                  type: "Number",
+                  type: "NumericLiteral",
                   value: 3,
                 },
                 operator: "^",
                 right: {
-                  type: "Number",
+                  type: "NumericLiteral",
                   value: 4,
                 },
                 type: "BinaryExpression",
               },
               operator: "*",
               right: {
-                type: "Number",
+                type: "NumericLiteral",
                 value: 2,
               },
               type: "BinaryExpression",
             },
             operator: "+",
             right: {
-              type: "Number",
+              type: "NumericLiteral",
               value: 1,
             },
             type: "BinaryExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
     ],
+
+    // Function call
     [
       "a := min(a, b)",
       [
         {
           equation: {
-            name: "min",
-            parameters: ["a", "b"],
-            type: "Function",
+            name: {
+              type: "Identifier",
+              value: "min",
+            },
+            parameters: [
+              {
+                type: "Identifier",
+                value: "a",
+              },
+              { type: "Identifier", value: "b" },
+            ],
+            type: "FunctionExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
@@ -142,58 +185,80 @@ describe("effect parser", () => {
         {
           equation: {
             left: {
-              name: "min",
-              parameters: ["a", "b"],
-              type: "Function",
+              name: {
+                type: "Identifier",
+                value: "min",
+              },
+              parameters: [
+                {
+                  type: "Identifier",
+                  value: "a",
+                },
+                { type: "Identifier", value: "b" },
+              ],
+              type: "FunctionExpression",
             },
             operator: "+",
-            right: "c",
+            right: { type: "Identifier", value: "c" },
             type: "BinaryExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
     ],
+
+    // Property access
     [
       "a := a.b.c",
       [
         {
           equation: {
-            computed: false,
+            computed: true,
             object: {
-              computed: false,
-              object: "a",
-              property: "b",
+              computed: true,
+              object: { type: "Identifier", value: "a" },
+              property: { type: "Identifier", value: "b" },
               type: "MemberExpression",
             },
-            property: "c",
+            property: { type: "Identifier", value: "c" },
             type: "MemberExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
     ],
+
+    // Indirect property access
     [
       "a := a[b].c",
       [
         {
           equation: {
-            computed: false,
+            computed: true,
             object: {
-              computed: true,
-              object: "a",
-              property: "b",
+              computed: false,
+              object: { type: "Identifier", value: "a" },
+              property: { type: "Identifier", value: "b" },
               type: "MemberExpression",
             },
-            property: "c",
+            property: { type: "Identifier", value: "c" },
             type: "MemberExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],
@@ -203,22 +268,31 @@ describe("effect parser", () => {
       [
         {
           equation: {
-            computed: false,
+            computed: true,
             object: {
-              computed: true,
-              object: "a",
+              computed: false,
+              object: { type: "Identifier", value: "a" },
               property: {
-                name: "min",
-                parameters: ["b", "d"],
-                type: "Function",
+                name: {
+                  type: "Identifier",
+                  value: "min",
+                },
+                parameters: [
+                  { type: "Identifier", value: "b" },
+                  { type: "Identifier", value: "d" },
+                ],
+                type: "FunctionExpression",
               },
               type: "MemberExpression",
             },
-            property: "c",
+            property: { type: "Identifier", value: "c" },
             type: "MemberExpression",
           },
           operator: ":=",
-          target: "a",
+          target: {
+            type: "Identifier",
+            value: "a",
+          },
           type: "EffectExpression",
         },
       ],

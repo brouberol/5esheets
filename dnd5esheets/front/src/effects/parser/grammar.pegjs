@@ -1,52 +1,21 @@
 {{
   function EffectExpression(target, operator, equation) {
     return {
-      type: 'EffectExpression',
+      type: 'EffectExpression' as const,
       target,
       operator,
       equation
     }
   }
 
-  function FunctionExpression(id, parameters) {
-    return {
-      type: 'Function',
-      name: id,
-      parameters
-    }
-  }
-
-  function MemberExpression(object, property, computed) {
-    return {
-      type: 'MemberExpression',
-      object,
-      property,
-      computed
-    }
-  }
-
   function BinaryExpression(operator, left, right) {
     return {
-      type: 'BinaryExpression',
+      type: 'BinaryExpression' as const,
       operator,
       left,
       right
     }
-  }
-
-  function UnaryExpression(value) {
-    return {
-      type: 'UnaryExpression',
-      value
-    }
-  }
-
-  function NumericLiteral(value) {
-    return {
-      type: 'Number',
-      value: Number(value)
-    }
-  }
+  }  
 
   function operatorReducer (result, element) {
     const left = result;
@@ -55,13 +24,51 @@
 
     return BinaryExpression(op, left, right);
   }
+
+  function FunctionExpression(id, parameters) {
+    return {
+      type: 'FunctionExpression' as const,
+      name: id,
+      parameters
+    }
+  }
+
+  function MemberExpression(object, property, computed) {
+    return {
+      type: 'MemberExpression' as const,
+      object,
+      property,
+      computed
+    }
+  }
+
+  function propertyReducer (result, element) {
+    const computed = element[1] === '.';
+    const property = element[3];
+
+    return MemberExpression(result, property, computed);
+  }
+
+  function Identifier(value) {
+    return {
+      type: 'Identifier' as const,
+      value
+    }
+  }
+
+  function NumericLiteral(value) {
+    return {
+      type: 'NumericLiteral' as const,
+      value: Number(value)
+    }
+  }
 }}
 
 Effects
-  = head:Effect _ tail:('\n' @Effect _)* { return [head, ...tail] }
+  = head:EffectExpression _ tail:('\n' @EffectExpression _)* { return [head, ...tail] }
 
-Effect
-  = target:Identifier _ operator:AssignmentOperator _ equation:Expression {
+EffectExpression
+  = target:MemberExpression _ operator:AssignmentOperator _ equation:Expression {
       return EffectExpression(target, operator, equation)
     }
 
@@ -86,9 +93,9 @@ Group
 Primary
   = ParenthesizedExpression
   // / UnaryExpression
-  / Function
+  / FunctionExpression
   / MemberExpression
-  / Decimal
+  / NumericLiteral
 
 // UnaryExpression
 //   = '-' expr:Factor { return UnaryExpression(expr) }
@@ -96,14 +103,8 @@ Primary
 ParenthesizedExpression
   = '(' _ @Expression _ ')'
 
-Identifier
-  = [a-z_]+ { return text(); }
-
-Decimal
-  = _ [0-9]* ('.' [0-9]+)? _ { return NumericLiteral(text()) }
-
-Function
-  = id:MemberExpression parameters:CallExpression { return FunctionExpression(id, parameters) }
+FunctionExpression
+  = id:MemberExpression _ parameters:CallExpression { return FunctionExpression(id, parameters) }
 
 CallExpression
   = '(' _ head:(@Expression) tail:( _ ',' _ @Expression)* _ ')' { return [head, ...tail] }
@@ -111,18 +112,18 @@ CallExpression
 MemberExpression
   = head:Identifier
     tail:(
-        _ "[" _ property:Expression _ "]" {
-          return { property: property, computed: true };
-        }
-      / _ "." _ property:Identifier {
-          return { property: property, computed: false };
-        }
+        _ "[" _ Expression _ "]"
+      / _ "." _ Identifier
     )*
     {
-      return tail.reduce(function(object, {property, computed}) {
-        return MemberExpression(object, property, computed)
-      }, head);
+      return tail.reduce(propertyReducer, head)
     }
+
+Identifier
+  = [a-z_]+ { return Identifier(text()); }
+
+NumericLiteral
+  = _ [0-9]* ('.' [0-9]+)? _ { return NumericLiteral(text()) }
 
 AssignmentOperator
   = ':='
