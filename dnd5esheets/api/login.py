@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -31,6 +31,7 @@ async def authenticate_player(
 
 @login_api.post("/token", response_model=JsonWebToken)
 async def login_for_access_token(
+    response: Response,
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(create_scoped_session),
     settings=Depends(get_settings),
@@ -53,4 +54,5 @@ async def login_for_access_token(
     access_token = create_access_token(
         data={"sub": player.email}, expires_delta=access_token_expires
     )
+    # response.set_cookie(key="Authorization", value=f"Bearer {access_token}")
     return {"access_token": access_token, "token_type": "bearer"}

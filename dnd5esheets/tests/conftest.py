@@ -18,8 +18,18 @@ def settings():
 
 
 @fixture(scope="session")
-def client():
+def unauthed_client():
     return TestClient(app)
+
+
+@fixture(scope="session")
+def client():
+    _client = TestClient(app)
+    resp = _client.post(
+        "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
+    )
+    _client.headers["Authorization"] = f"Bearer {resp.json()['access_token']}"
+    return _client
 
 
 @fixture(scope="session", autouse=True)
