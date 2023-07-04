@@ -6,6 +6,10 @@ from pydantic import BaseModel as BaseSchema
 from pydantic import Field
 
 
+class BaseUpdateSchema(BaseSchema, extra="forbid"):
+    ...
+
+
 class JsonWebToken(BaseSchema):
     access_token: str
     token_type: str
@@ -50,7 +54,7 @@ class DisplayPlayerSchema(PlayerSchema):
     characters: list["CharacterSchemaNoPlayer"] = Field(title="The player's characters")
 
 
-class UpdatePlayerSchema(BaseSchema):
+class UpdatePlayerSchema(BaseUpdateSchema):
     name: str | None = Field(max_length=255, title="The player new name")
 
 
@@ -67,7 +71,7 @@ class DisplayPartySchema(PartySchema):
     members: list["CharacterSchemaNoPartyNoData"] = Field(title="The party members")
 
 
-class UpdatePartySchema(BaseSchema):
+class UpdatePartySchema(BaseUpdateSchema):
     name: str | None = Field(max_length=255, title="The party new name")
 
 
@@ -113,7 +117,7 @@ class ListCharacterSchema(BaseORMSchema):
     party: PartySchema = Field(title="The embedded character's party schema")
 
 
-class UpdateCharacterSchema(BaseSchema):
+class UpdateCharacterSchema(BaseUpdateSchema):
     name: str | None = Field(title="A new character name (Optional)")
     class_: str | None = Field(max_length=80, title="A new character class (Optional)")
     level: int | None = Field(ge=1, title="A new character level (Optional)")
