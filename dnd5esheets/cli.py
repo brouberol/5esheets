@@ -7,7 +7,6 @@ from sqlalchemy import select
 from dnd5esheets.config.base import db_dir
 from dnd5esheets.db import create_session
 from dnd5esheets.models import Character, EquippedItem, Item, Party, Player
-from dnd5esheets.security.hashing import get_password_hash
 
 data_dir = Path(__file__).parent / "data"
 
@@ -50,8 +49,6 @@ def _populate_db_with_dev_data(silent: bool = False):
         ).scalar()
 
         for player_attrs in dev_fixtures["players"]:
-            plaintext_password = player_attrs.pop("plaintext_password")
-            player_attrs["hashed_password"] = get_password_hash(plaintext_password)
             player = Player(**player_attrs)
             session.merge(player)
             if not silent:

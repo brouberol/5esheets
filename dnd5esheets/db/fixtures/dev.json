@@ -1,28 +1,29 @@
 {
+    "//": "All player passwords are 'azerty'",
     "players": [
         {
             "id": 1,
             "name": "Balthazar",
             "email": "br@test.com",
-            "plaintext_password": "azerty"
+            "hashed_password": "$2b$12$pqMYy7ybTCO5uYA.HITXhOEr5DPAN3k.Bf2O0QsxJNroIFUBNOuQi"
         },
         {
             "id": 2,
             "name": "Étienne",
             "email": "eb@test.com",
-            "plaintext_password": "azerty"
+            "hashed_password": "$2b$12$Mc6MvNEFwkFED6gtNtY.lu8ySSELgsQqCC/ABwbrWx9wGqPUBy/ry"
         },
         {
             "id": 3,
             "name": "Lola",
             "email": "lb@test.com",
-            "plaintext_password": "azerty"
+            "hashed_password": "$2b$12$CYEgmBQo2Z4cOGywksF1JentuZHBNCWBNpjqwVSgZgUnakTmLCP5m"
         },
         {
             "id": 4,
             "name": "Marine",
             "email": "ml@test.com",
-            "plaintext_password": "azerty"
+            "hashed_password": "$2b$12$JoYFBGO5rjhS5YS2sWF0eOYfWN1b1rHT/x0Yy1ukTaYHVOQHC2bUq"
         }
     ],
     "parties": [
