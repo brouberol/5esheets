@@ -6,7 +6,7 @@
     "start": "solid-start start",
     "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client",
     "generate-effect-parser": "peggy --plugin ./node_modules/ts-pegjs/dist/tspegjs -o src/effects/parser/index.ts src/effects/parser/grammar.pegjs",
-    "test": "vitest",
+    "test": "vitest --run --mode testing",
     "prettier": "prettier -w .",
     "prettier-check": "prettier -c ."
   },
