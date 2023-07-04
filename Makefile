@@ -58,6 +58,10 @@ build: data front-build  ## Build the application
 
 back-check: black mypy ruff
 
+back-test:  ## Run the backend tests
+	@echo "\n [+] Running the backend tests"
+	@DND5ESHEETS_ENV=test poetry run pytest
+
 black:
 	@echo "\n[+] Reformatting python files"
 	@poetry run black $(app-root)/
@@ -108,6 +112,10 @@ front-build: front-generate-api-client
 
 front-check:  front-prettier ## Run all frontend checks
 
+front-test: ## Run the frontend unit tests
+	@echo "\n [+] Running the frontend tests"
+	@$(npm-run) test
+
 front-run-dev: front-build  ## Run the development frontend server
 	@echo "\n[+] Running the dev frontend server"
 	@$(npm-run) dev -- --open
@@ -126,9 +134,7 @@ run: build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn $(app-root).app:app --reload
 
-test:  ## Run the project tests
-	@echo "\n [+] Running the project tests"
-	@DND5ESHEETS_ENV=test poetry run pytest
+test:  back-test front-test ## Run the project tests
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
 	@echo "\n [+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"

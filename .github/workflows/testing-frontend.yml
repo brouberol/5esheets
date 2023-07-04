@@ -16,5 +16,9 @@ jobs:
 
       - name: Install dependencies
         run: make deps-js
+
+      - name: Run unit tests
+        run: make front-test
+
       - name: Run quality chekers
         run: make front-check
