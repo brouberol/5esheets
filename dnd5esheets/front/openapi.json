@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.2",
+  "openapi": "3.1.0",
   "info": {
     "title": "FastAPI",
     "version": "0.1.0"
@@ -19,21 +19,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Character-List Characters",
-                  "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ListCharacterSchema"
-                  }
+                  },
+                  "type": "array",
+                  "title": "Response Character-List Characters"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/api/character/{slug}": {
@@ -48,8 +43,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Slug",
-              "type": "string"
+              "type": "string",
+              "title": "Slug"
             },
             "name": "slug",
             "in": "path"
@@ -76,12 +71,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -94,8 +84,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Slug",
-              "type": "string"
+              "type": "string",
+              "title": "Slug"
             },
             "name": "slug",
             "in": "path"
@@ -117,8 +107,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Character-Update",
-                  "type": "object"
+                  "type": "object",
+                  "title": "Response Character-Update"
                 }
               }
             }
@@ -133,12 +123,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/api/party/": {
@@ -155,21 +140,16 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Party-List All Parties",
-                  "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/PartySchema"
-                  }
+                  },
+                  "type": "array",
+                  "title": "Response Party-List All Parties"
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/api/party/{id}": {
@@ -184,8 +164,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Id",
-              "type": "integer"
+              "type": "integer",
+              "title": "Id"
             },
             "name": "id",
             "in": "path"
@@ -212,12 +192,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -230,8 +205,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Id",
-              "type": "integer"
+              "type": "integer",
+              "title": "Id"
             },
             "name": "id",
             "in": "path"
@@ -253,8 +228,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Party-Update Party",
-                  "type": "object"
+                  "type": "object",
+                  "title": "Response Party-Update Party"
                 }
               }
             }
@@ -269,12 +244,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/api/player/{id}": {
@@ -289,8 +259,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Id",
-              "type": "integer"
+              "type": "integer",
+              "title": "Id"
             },
             "name": "id",
             "in": "path"
@@ -317,12 +287,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       },
       "put": {
         "tags": [
@@ -335,8 +300,8 @@
           {
             "required": true,
             "schema": {
-              "title": "Id",
-              "type": "integer"
+              "type": "integer",
+              "title": "Id"
             },
             "name": "id",
             "in": "path"
@@ -358,8 +323,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Player-Update Player",
-                  "type": "object"
+                  "type": "object",
+                  "title": "Response Player-Update Player"
                 }
               }
             }
@@ -374,12 +339,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "OptionalOAuth2PasswordBearer": []
-          }
-        ]
+        }
       }
     },
     "/api/login/token": {
@@ -405,9 +365,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/JsonWebToken"
-                }
+                "schema": {}
               }
             }
           },
@@ -428,114 +386,98 @@
   "components": {
     "schemas": {
       "Body_login-login_for_access_token": {
-        "title": "Body_login-login_for_access_token",
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "pattern": "password",
+            "title": "Grant Type"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope",
+            "default": ""
+          },
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "client_secret": {
+            "type": "string",
+            "title": "Client Secret"
+          }
+        },
+        "type": "object",
         "required": [
           "username",
           "password"
         ],
-        "type": "object",
-        "properties": {
-          "grant_type": {
-            "title": "Grant Type",
-            "pattern": "password",
-            "type": "string"
-          },
-          "username": {
-            "title": "Username",
-            "type": "string"
-          },
-          "password": {
-            "title": "Password",
-            "type": "string"
-          },
-          "scope": {
-            "title": "Scope",
-            "type": "string",
-            "default": ""
-          },
-          "client_id": {
-            "title": "Client Id",
-            "type": "string"
-          },
-          "client_secret": {
-            "title": "Client Secret",
-            "type": "string"
-          }
-        }
+        "title": "Body_login-login_for_access_token"
       },
       "CharacterSchema": {
-        "title": "CharacterSchema",
-        "required": [
-          "id",
-          "name",
-          "slug",
-          "class_",
-          "level",
-          "data",
-          "party",
-          "player",
-          "equipment"
-        ],
-        "type": "object",
         "properties": {
           "id": {
-            "title": "The character primary key in database",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character primary key in database"
           },
           "name": {
-            "title": "The character name",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character name"
           },
           "slug": {
-            "title": "The character slug, used to identify it in the API",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "title": "The character class",
+            "type": "string",
             "maxLength": 80,
-            "type": "string"
+            "title": "The character class"
           },
           "level": {
-            "title": "The character level",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character level"
           },
           "data": {
-            "title": "Data",
             "type": "object",
+            "title": "Data",
             "description": "The embdedded character sheet JSON data"
           },
           "party": {
-            "title": "The embedded character's party schema",
             "allOf": [
               {
                 "$ref": "#/components/schemas/PartySchema"
               }
-            ]
+            ],
+            "title": "The embedded character's party schema"
           },
           "player": {
-            "title": "The embedded character's player schema",
             "allOf": [
               {
                 "$ref": "#/components/schemas/PlayerSchema"
               }
-            ]
+            ],
+            "title": "The embedded character's player schema"
           },
           "equipment": {
-            "title": "The character's equipment",
-            "type": "array",
             "items": {
               "$ref": "#/components/schemas/EquippedItemSchema"
-            }
+            },
+            "type": "array",
+            "title": "The character's equipment"
           }
         },
-        "description": "All details associated with a character"
-      },
-      "CharacterSchemaNoPartyNoData": {
-        "title": "CharacterSchemaNoPartyNoData",
+        "type": "object",
         "required": [
           "id",
           "name",
@@ -547,60 +489,60 @@
           "player",
           "equipment"
         ],
-        "type": "object",
+        "title": "CharacterSchema",
+        "description": "All details associated with a character"
+      },
+      "CharacterSchemaNoPartyNoData": {
         "properties": {
           "id": {
-            "title": "The character primary key in database",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character primary key in database"
           },
           "name": {
-            "title": "The character name",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character name"
           },
           "slug": {
-            "title": "The character slug, used to identify it in the API",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "title": "The character class",
+            "type": "string",
             "maxLength": 80,
-            "type": "string"
+            "title": "The character class"
           },
           "level": {
-            "title": "The character level",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character level"
           },
           "data": {
-            "title": "Data",
-            "type": "object"
+            "type": "object",
+            "title": "Data"
           },
           "party": {
             "$ref": "#/components/schemas/PartySchema"
           },
           "player": {
-            "title": "The embedded character's player schema",
             "allOf": [
               {
                 "$ref": "#/components/schemas/PlayerSchema"
               }
-            ]
+            ],
+            "title": "The embedded character's player schema"
           },
           "equipment": {
-            "title": "The character's equipment",
-            "type": "array",
             "items": {
               "$ref": "#/components/schemas/EquippedItemSchema"
-            }
+            },
+            "type": "array",
+            "title": "The character's equipment"
           }
         },
-        "description": "The details of a character, excluding the party"
-      },
-      "CharacterSchemaNoPlayer": {
-        "title": "CharacterSchemaNoPlayer",
+        "type": "object",
         "required": [
           "id",
           "name",
@@ -612,198 +554,240 @@
           "player",
           "equipment"
         ],
-        "type": "object",
+        "title": "CharacterSchemaNoPartyNoData",
+        "description": "The details of a character, excluding the party"
+      },
+      "CharacterSchemaNoPlayer": {
         "properties": {
           "id": {
-            "title": "The character primary key in database",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character primary key in database"
           },
           "name": {
-            "title": "The character name",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character name"
           },
           "slug": {
-            "title": "The character slug, used to identify it in the API",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "title": "The character class",
+            "type": "string",
             "maxLength": 80,
-            "type": "string"
+            "title": "The character class"
           },
           "level": {
-            "title": "The character level",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "The character level"
           },
           "data": {
-            "title": "Data",
-            "type": "object"
+            "type": "object",
+            "title": "Data"
           },
           "party": {
-            "title": "The embedded character's party schema",
             "allOf": [
               {
                 "$ref": "#/components/schemas/PartySchema"
               }
-            ]
+            ],
+            "title": "The embedded character's party schema"
           },
           "player": {
             "$ref": "#/components/schemas/PlayerSchema"
           },
           "equipment": {
-            "title": "The character's equipment",
-            "type": "array",
             "items": {
               "$ref": "#/components/schemas/EquippedItemSchema"
-            }
+            },
+            "type": "array",
+            "title": "The character's equipment"
           }
         },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "class_",
+          "level",
+          "data",
+          "party",
+          "player",
+          "equipment"
+        ],
+        "title": "CharacterSchemaNoPlayer",
         "description": "The details of a character, excluding the player"
       },
       "DisplayPartySchema": {
-        "title": "DisplayPartySchema",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The party primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The party name"
+          },
+          "members": {
+            "items": {
+              "$ref": "#/components/schemas/CharacterSchemaNoPartyNoData"
+            },
+            "type": "array",
+            "title": "The party members"
+          }
+        },
+        "type": "object",
         "required": [
           "id",
           "name",
           "members"
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "The party primary key in database",
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "name": {
-            "title": "The party name",
-            "maxLength": 255,
-            "type": "string"
-          },
-          "members": {
-            "title": "The party members",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CharacterSchemaNoPartyNoData"
-            }
-          }
-        },
+        "title": "DisplayPartySchema",
         "description": "A party details, including the members"
       },
       "DisplayPlayerSchema": {
-        "title": "DisplayPlayerSchema",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The player primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The player name"
+          },
+          "characters": {
+            "items": {
+              "$ref": "#/components/schemas/CharacterSchemaNoPlayer"
+            },
+            "type": "array",
+            "title": "The player's characters"
+          }
+        },
+        "type": "object",
         "required": [
           "id",
           "name",
           "characters"
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "The player primary key in database",
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "name": {
-            "title": "The player name",
-            "maxLength": 255,
-            "type": "string"
-          },
-          "characters": {
-            "title": "The player's characters",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CharacterSchemaNoPlayer"
-            }
-          }
-        },
+        "title": "DisplayPlayerSchema",
         "description": "A player details including the list of their characters"
       },
       "EquippedItemSchema": {
-        "title": "EquippedItemSchema",
+        "properties": {
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ItemSchema"
+              }
+            ],
+            "title": "The equipped item details"
+          },
+          "amount": {
+            "type": "integer",
+            "title": "The amount of associated items found in the character's equipment"
+          },
+          "equipped": {
+            "type": "boolean",
+            "title": "Weather the item is currently equipped"
+          }
+        },
+        "type": "object",
         "required": [
           "item",
           "amount",
           "equipped"
         ],
-        "type": "object",
-        "properties": {
-          "item": {
-            "title": "The equipped item details",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ItemSchema"
-              }
-            ]
-          },
-          "amount": {
-            "title": "The amount of associated items found in the character's equipment",
-            "type": "integer"
-          },
-          "equipped": {
-            "title": "Weather the item is currently equipped",
-            "type": "boolean"
-          }
-        },
+        "title": "EquippedItemSchema",
         "description": "The details of an equipped item (the association bewteen an item and a character equipment)"
       },
       "HTTPValidationError": {
-        "title": "HTTPValidationError",
-        "type": "object",
         "properties": {
           "detail": {
-            "title": "Detail",
-            "type": "array",
             "items": {
               "$ref": "#/components/schemas/ValidationError"
-            }
+            },
+            "type": "array",
+            "title": "Detail"
           }
-        }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       },
       "ItemSchema": {
-        "title": "ItemSchema",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The item name"
+          },
+          "data": {
+            "type": "object",
+            "title": "Data",
+            "description": "The embdedded item JSON data"
+          }
+        },
+        "type": "object",
         "required": [
           "name",
           "data"
         ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "The item name",
-            "maxLength": 255,
-            "type": "string"
-          },
-          "data": {
-            "title": "Data",
-            "type": "object",
-            "description": "The embdedded item JSON data"
-          }
-        },
+        "title": "ItemSchema",
         "description": "The details of an equipment item"
       },
-      "JsonWebToken": {
-        "title": "JsonWebToken",
-        "required": [
-          "access_token",
-          "token_type"
-        ],
-        "type": "object",
-        "properties": {
-          "access_token": {
-            "title": "Access Token",
-            "type": "string"
-          },
-          "token_type": {
-            "title": "Token Type",
-            "type": "string"
-          }
-        }
-      },
       "ListCharacterSchema": {
-        "title": "ListCharacterSchema",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The character primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The character name"
+          },
+          "slug": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The character slug, used to identify it in the API"
+          },
+          "class_": {
+            "type": "string",
+            "maxLength": 80,
+            "title": "The character class"
+          },
+          "level": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "The character level"
+          },
+          "player": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PlayerSchema"
+              }
+            ],
+            "title": "The embedded character's player schema"
+          },
+          "party": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PartySchema"
+              }
+            ],
+            "title": "The embedded character's party schema"
+          }
+        },
+        "type": "object",
         "required": [
           "id",
           "name",
@@ -813,152 +797,102 @@
           "player",
           "party"
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "The character primary key in database",
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "name": {
-            "title": "The character name",
-            "maxLength": 255,
-            "type": "string"
-          },
-          "slug": {
-            "title": "The character slug, used to identify it in the API",
-            "maxLength": 255,
-            "type": "string"
-          },
-          "class_": {
-            "title": "The character class",
-            "maxLength": 80,
-            "type": "string"
-          },
-          "level": {
-            "title": "The character level",
-            "maximum": 20.0,
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "player": {
-            "title": "The embedded character's player schema",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PlayerSchema"
-              }
-            ]
-          },
-          "party": {
-            "title": "The embedded character's party schema",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PartySchema"
-              }
-            ]
-          }
-        }
+        "title": "ListCharacterSchema"
       },
       "PartySchema": {
-        "title": "PartySchema",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The party primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The party name"
+          }
+        },
+        "type": "object",
         "required": [
           "id",
           "name"
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "The party primary key in database",
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "name": {
-            "title": "The party name",
-            "maxLength": 255,
-            "type": "string"
-          }
-        },
+        "title": "PartySchema",
         "description": "The basic details of a party"
       },
       "PlayerSchema": {
-        "title": "PlayerSchema",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The player primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The player name"
+          }
+        },
+        "type": "object",
         "required": [
           "id",
           "name"
         ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "The player primary key in database",
-            "minimum": 1.0,
-            "type": "integer"
-          },
-          "name": {
-            "title": "The player name",
-            "maxLength": 255,
-            "type": "string"
-          }
-        },
+        "title": "PlayerSchema",
         "description": "The basic details of a player"
       },
       "UpdateCharacterSchema": {
-        "title": "UpdateCharacterSchema",
-        "type": "object",
         "properties": {
           "name": {
-            "title": "A new character name (Optional)",
-            "type": "string"
+            "type": "string",
+            "title": "A new character name (Optional)"
           },
           "class_": {
-            "title": "A new character class (Optional)",
+            "type": "string",
             "maxLength": 80,
-            "type": "string"
+            "title": "A new character class (Optional)"
           },
           "level": {
-            "title": "A new character level (Optional)",
+            "type": "integer",
             "minimum": 1.0,
-            "type": "integer"
+            "title": "A new character level (Optional)"
           },
           "data": {
-            "title": "Updates to the character sheet fields (Optional)",
-            "type": "object"
+            "type": "object",
+            "title": "Updates to the character sheet fields (Optional)"
           }
-        }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UpdateCharacterSchema"
       },
       "UpdatePartySchema": {
-        "title": "UpdatePartySchema",
-        "type": "object",
         "properties": {
           "name": {
-            "title": "The party new name",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The party new name"
           }
-        }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UpdatePartySchema"
       },
       "UpdatePlayerSchema": {
-        "title": "UpdatePlayerSchema",
-        "type": "object",
         "properties": {
           "name": {
-            "title": "The player new name",
+            "type": "string",
             "maxLength": 255,
-            "type": "string"
+            "title": "The player new name"
           }
-        }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UpdatePlayerSchema"
       },
       "ValidationError": {
-        "title": "ValidationError",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "type": "object",
         "properties": {
           "loc": {
-            "title": "Location",
-            "type": "array",
             "items": {
               "anyOf": [
                 {
@@ -968,28 +902,26 @@
                   "type": "integer"
                 }
               ]
-            }
+            },
+            "type": "array",
+            "title": "Location"
           },
           "msg": {
-            "title": "Message",
-            "type": "string"
+            "type": "string",
+            "title": "Message"
           },
           "type": {
-            "title": "Error Type",
-            "type": "string"
+            "type": "string",
+            "title": "Error Type"
           }
-        }
-      }
-    },
-    "securitySchemes": {
-      "OptionalOAuth2PasswordBearer": {
-        "type": "oauth2",
-        "flows": {
-          "password": {
-            "scopes": {},
-            "tokenUrl": "/api/login/token"
-          }
-        }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       }
     }
   }

@@ -1,6 +1,7 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
+from fastapi.requests import Request
+from fastapi_jwt_auth import AuthJWT
+from fastapi_jwt_auth.exceptions import AuthJWTException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.config import get_settings
@@ -9,21 +10,11 @@ from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.schemas import JsonWebTokenData
 
 
-class OptionalOAuth2PasswordBearer(OAuth2PasswordBearer):
-    """Enable"""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.auto_error = get_settings().MULTITENANT_ENABLED
-
-
-oauth2_scheme = OptionalOAuth2PasswordBearer(tokenUrl="/api/login/token")
-
-
 async def get_current_user_id(
+    request: Request,
     session: AsyncSession = Depends(create_scoped_session),
     settings=Depends(get_settings),
-    token=Depends(oauth2_scheme),
+    Authorize: AuthJWT = Depends(),
 ) -> int | None:
     if not settings.MULTITENANT_ENABLED:
         return None
@@ -33,15 +24,13 @@ async def get_current_user_id(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    Authorize._verify_and_get_jwt_optional_in_cookies(request)
     try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[settings.JWT_ENCODING_ALGORITHM]
-        )
-        username: str | None = payload.get("sub")
+        username: str | None = Authorize.get_jwt_subject()
         if not username:
             raise credentials_exception
         token_data = JsonWebTokenData(username=username)
-    except JWTError:
+    except AuthJWTException:
         raise credentials_exception
     player = await PlayerRepository.get_by_email(session, email=token_data.username)
     if player is None:

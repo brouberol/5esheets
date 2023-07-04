@@ -15,7 +15,6 @@ export type { DisplayPlayerSchema } from './models/DisplayPlayerSchema';
 export type { EquippedItemSchema } from './models/EquippedItemSchema';
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { ItemSchema } from './models/ItemSchema';
-export type { JsonWebToken } from './models/JsonWebToken';
 export type { ListCharacterSchema } from './models/ListCharacterSchema';
 export type { PartySchema } from './models/PartySchema';
 export type { PlayerSchema } from './models/PlayerSchema';

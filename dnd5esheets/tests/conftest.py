@@ -18,8 +18,18 @@ def settings():
 
 
 @fixture(scope="session")
-def client():
+def unauthed_client():
     return TestClient(app)
+
+
+@fixture(scope="session")
+def client():
+    _client = TestClient(app)
+    _client.post(
+        "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
+    )
+    _client.headers["X-CSRF-TOKEN"] = _client.cookies["csrf_access_token"]
+    return _client
 
 
 @fixture(scope="session", autouse=True)
