@@ -25,10 +25,10 @@ def unauthed_client():
 @fixture(scope="session")
 def client():
     _client = TestClient(app)
-    resp = _client.post(
+    _client.post(
         "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
     )
-    _client.headers["Authorization"] = f"Bearer {resp.json()['access_token']}"
+    _client.headers["X-CSRF-TOKEN"] = _client.cookies["csrf_access_token"]
     return _client
 
 

@@ -4,8 +4,7 @@ from .utils import assert_status_and_return_data
 def test_list_characters(client):
     data = assert_status_and_return_data(client.get, "/api/character/", status_code=200)
 
-    # will change when we add resource scoping with respect to the request JWT
-    assert len(data) == 4
+    assert len(data) == 1
 
     assert data[0] == {
         "class_": "Artilleur",

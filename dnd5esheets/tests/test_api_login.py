@@ -1,26 +1,16 @@
-from jose import jwt
+from dnd5esheets.api.login import AuthJWT
 
 from .utils import assert_status_and_return_data
 
 
-def test_login(unauthed_client, settings):
+def test_login(unauthed_client):
     response = unauthed_client.post(
         "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
     )
     assert response.status_code == 200
-    # assert "set-cookie" in response.headers
-    # assert response.headers["set-cookie"].startswith('Authorization="Bearer ')
-    data = response.json()
-    assert data["token_type"] == "bearer"
-    assert "access_token" in data
-    plaintext_jwt = jwt.decode(
-        token=data["access_token"],
-        key=settings.SECRET_KEY,
-        algorithms=[settings.JWT_ENCODING_ALGORITHM],
-    )
-    assert plaintext_jwt["sub"] == "br@test.com"
-    assert "exp" in plaintext_jwt
-    assert "Authorization" in unauthed_client.cookies
+    assert "set-cookie" in response.headers
+    assert response.headers["set-cookie"].startswith("access_token_cookie=")
+    assert "access_token_cookie" in unauthed_client.cookies
 
 
 def test_login_no_credentials(client):
