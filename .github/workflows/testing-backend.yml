@@ -36,7 +36,7 @@ jobs:
         run: make deps-python
 
       - name: Run unit tests
-        run: make test
+        run: make back-test
 
       - name: Run quality chekers
         run: make back-check
