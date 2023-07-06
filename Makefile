@@ -128,7 +128,7 @@ front-prettier:
 
 ruff:
 	@echo "\n[+] Running linter"
-	@poetry run ruff --fix $(app-root)/
+	@poetry run ruff $(app-root)/
 
 run: build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
