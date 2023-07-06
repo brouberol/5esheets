@@ -1,4 +1,3 @@
-from dnd5esheets.api.login import AuthJWT
 
 from .utils import assert_status_and_return_data
 
