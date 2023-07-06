@@ -1,17 +1,26 @@
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from .api import api
+from .config import get_settings
 from .repositories import ModelNotFound
 
 app = FastAPI()
+settings = get_settings()
 app.include_router(api)
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[settings.FRONTEND_CORS_ORIGIN],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 dist_dir = Path(__file__).parent / "front" / "dist"
 
 
