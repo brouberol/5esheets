@@ -18,4 +18,4 @@ class CommonSettings(BaseSettings):
     DB_URI: str = f"sqlite:///{db_file}"
     DB_ASYNC_URI: str = f"sqlite+aiosqlite:///{db_file}"
     SQLALCHEMY_ECHO: bool = False
-    FRONTEND_CORS_ORIGIN = "http://localhost:3000"
+    FRONTEND_CORS_ORIGIN: str | None = "http://localhost:3000"

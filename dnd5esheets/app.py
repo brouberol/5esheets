@@ -14,13 +14,14 @@ from .repositories import ModelNotFound
 app = FastAPI()
 settings = get_settings()
 app.include_router(api)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[settings.FRONTEND_CORS_ORIGIN],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+if settings.FRONTEND_CORS_ORIGIN is not None:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[settings.FRONTEND_CORS_ORIGIN],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 dist_dir = Path(__file__).parent / "front" / "dist"
 
 
