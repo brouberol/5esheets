@@ -1,5 +1,7 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env $(front-root)/src/5esheets-client/core/OpenAPI.ts
+
+UNAME_S := $(shell uname -s)
 
 app-root = dnd5esheets
 app-port = 8000
@@ -8,6 +10,10 @@ front-root = $(app-root)/front
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
 
+sed_i = sed -i
+ifeq ($(UNAME_S),Darwin)
+	sed_i += ''
+endif
 
 $(app-root)/schemas.py:
 
@@ -35,6 +41,9 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@curl -s http://localhost:$(app-port)/openapi.json > $(front-root)/openapi.json
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
 	@python3 scripts/preprocess_openapi_json.py
+
+$(front-root)/src/5esheets-client/core/OpenAPI.ts: $(front-root)/src/5esheets-client
+	@$(sed_i) "s@BASE: ''@BASE: process.env.NODE_ENV === 'production' ? '/api' : 'http://127.0.0.1:$(app-port)'@" $(front-root)/src/5esheets-client/core/OpenAPI.ts
 
 $(front-root)/src/5esheets-client: $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
@@ -120,7 +129,7 @@ front-run-dev: front-build  ## Run the development frontend server
 	@echo "\n[+] Running the dev frontend server"
 	@$(npm-run) dev -- --open
 
-front-generate-api-client: $(front-root)/src/5esheets-client ## Generate the API openapi.json file
+front-generate-api-client: $(front-root)/src/5esheets-client/core/OpenAPI.ts ## Generate the API openapi.json file
 
 front-prettier:
 	@echo "\n[+] Running prettier on the codebase"
