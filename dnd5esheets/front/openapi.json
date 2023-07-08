@@ -561,8 +561,7 @@
             "title": "The character level"
           },
           "data": {
-            "type": "object",
-            "title": "Data"
+            "$ref": "#/components/schemas/CharacterSheet"
           },
           "party": {
             "$ref": "#/components/schemas/PartySchema"
@@ -626,8 +625,7 @@
             "title": "The character level"
           },
           "data": {
-            "type": "object",
-            "title": "Data"
+            "$ref": "#/components/schemas/CharacterSheet"
           },
           "party": {
             "allOf": [

@@ -241,14 +241,14 @@ class CharacterSchemaNoPlayer(CharacterSchema):
     """The details of a character, excluding the player"""
 
     player: PlayerSchema = Field(exclude=True)
-    data: dict = Field(exclude=True)
+    data: dict = Field(exclude=True)  # type: ignore
 
 
 class CharacterSchemaNoPartyNoData(CharacterSchema):
     """The details of a character, excluding the party"""
 
     party: PartySchema = Field(exclude=True)
-    data: dict = Field(exclude=True)
+    data: dict = Field(exclude=True)  # type: ignore
 
 
 class ListCharacterSchema(BaseORMSchema):
