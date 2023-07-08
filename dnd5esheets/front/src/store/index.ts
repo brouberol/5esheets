@@ -4,11 +4,9 @@ import { CharacterSchema } from "~/5esheets-client";
 import { ActionType } from "~/5esheets-client";
 import { Proficiency } from "~/5esheets-client";
 
-
 export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3;
 
 const douglas: CharacterSchema = {
-
   id: 1,
   player_id: 1,
   party_id: 1,
@@ -23,7 +21,7 @@ const douglas: CharacterSchema = {
       constitution: 12,
       intelligence: 18,
       wisdom: 12,
-      charisma: 14
+      charisma: 14,
     },
     proficiencies: {
       saves: {
@@ -32,7 +30,7 @@ const douglas: CharacterSchema = {
         constitution: Proficiency._1,
         intelligence: Proficiency._1,
         wisdom: Proficiency._0,
-        charisma: Proficiency._0
+        charisma: Proficiency._0,
       },
       skills: {
         acrobatics: Proficiency._0,
@@ -52,8 +50,8 @@ const douglas: CharacterSchema = {
         religion: Proficiency._0,
         performance: Proficiency._0,
         survival: Proficiency._0,
-        deception: Proficiency._0
-      }
+        deception: Proficiency._0,
+      },
     },
     xp: 0,
     background: "Artistan",
@@ -61,62 +59,69 @@ const douglas: CharacterSchema = {
     alignment: "Chaotique Bon",
     darkvision: true,
     inspiration: true,
-    languages_and_proficiencies: "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
+    languages_and_proficiencies:
+      "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
     speed: 25,
     hp: {
       max: 33,
       temp: 0,
-      current: 33
+      current: 33,
     },
     hit_dice: {
       type: "1d8",
       total: 4,
-      remaining: 4
+      remaining: 4,
     },
     custom_resources: [
       {
         header: "Infusions",
         remaining: 3,
-        available: 3
+        available: 3,
       },
       {
         header: "Canon",
         remaining: 3,
-        available: 3
+        available: 3,
       },
       {
         header: "Baguette des secrets",
         remaining: 3,
-        available: 3
-      }
+        available: 3,
+      },
     ],
     attacks: [
       {
         name: "Arbalète légère",
         damage: "1d8+2",
         bonus: 4,
-        damage_type: "piercing"
+        damage_type: "piercing",
       },
       {
         name: "Hache à une main",
         damage: "1d6+2",
         bonus: 4,
-        damage_type: "slashing"
-      }
+        damage_type: "slashing",
+      },
     ],
-    equipment: "- Armure de cuir clouté\r\n- [Baguette des secrets](https://roll20.net/compendium/dnd5e/Wand%20of%20Secrets#content) \r\n- Focalisateur arcanique\r\n- Livre traitant de la fabrication d'homoncules en bois\r\n- Carnets de notes de Siméon\r\n",
+    equipment:
+      "- Armure de cuir clouté\r\n- [Baguette des secrets](https://roll20.net/compendium/dnd5e/Wand%20of%20Secrets#content) \r\n- Focalisateur arcanique\r\n- Livre traitant de la fabrication d'homoncules en bois\r\n- Carnets de notes de Siméon\r\n",
     money: {
       copper: 0,
       silver: 0,
       electrum: 0,
       gold: 1,
-      platinum: 0
+      platinum: 0,
     },
-    personality: "Douglas est astucieux et fait preuve d'une répartie rapide. Il est fidèle envers ses amis et curieux d'apprendre des nouveaux sujets.",
-    ideals: "Douglas rêve de maîtriser la magie à la seule force de son intellect.",
-    bonds: "Douglas est particulièrement fidèle envers les membres de sa famille, et se sent responsable de Crounch.",
-    flaws: "Douglas est impulsif. Son besoin de paraître intelligent cache un manque de confiance en soi. ",
-    features: "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
+    personality:
+      "Douglas est astucieux et fait preuve d'une répartie rapide. Il est fidèle envers ses amis et curieux d'apprendre des nouveaux sujets.",
+    ideals:
+      "Douglas rêve de maîtriser la magie à la seule force de son intellect.",
+    bonds:
+      "Douglas est particulièrement fidèle envers les membres de sa famille, et se sent responsable de Crounch.",
+    flaws:
+      "Douglas est impulsif. Son besoin de paraître intelligent cache un manque de confiance en soi. ",
+    features:
+      "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
     spells: {
       daily_prepared: 6,
       spellcasting_ability: "intelligence",
@@ -127,88 +132,97 @@ const douglas: CharacterSchema = {
           description: "[Mending](https://5e.tools/spells.html#mending_phb)",
           verbal: true,
           somatic: true,
-          material: true
+          material: true,
         },
         {
           name: "Fire bolt",
           prepared: true,
-          description: "[Fire Bolt](https://5e.tools/spells.html#fire%20bolt_phb)  (@cantrip_die@d10 🔥)",
+          description:
+            "[Fire Bolt](https://5e.tools/spells.html#fire%20bolt_phb)  (@cantrip_die@d10 🔥)",
           verbal: true,
           somatic: true,
-          invocation: ActionType.ACTION
-        }
+          invocation: ActionType.ACTION,
+        },
       ],
       lvl1: [
         {
           name: "Thunderwave",
           prepared: true,
-          description: "[Thunderwave](https://5e.tools/spells.html#thunderwave_phb): CON 💾 | 2d8 ⛈️",
+          description:
+            "[Thunderwave](https://5e.tools/spells.html#thunderwave_phb): CON 💾 | 2d8 ⛈️",
           verbal: true,
           somatic: true,
           invocation: ActionType.ACTION,
-          origin: "class"
+          origin: "class",
         },
         {
           name: "Shield",
           prepared: true,
-          description: "[Shield](https://5e.tools/spells.html#shield_phb) + 5AC",
+          description:
+            "[Shield](https://5e.tools/spells.html#shield_phb) + 5AC",
           verbal: true,
           somatic: true,
-          invocation: ActionType.REACTION
+          invocation: ActionType.REACTION,
         },
         {
           name: "Caustic Brew",
           prepared: true,
-          description: "[Caustic Brew](https://5e.tools/spells.html#tasha's%20caustic%20brew_tce) DEX 💾 |2d4🧪",
+          description:
+            "[Caustic Brew](https://5e.tools/spells.html#tasha's%20caustic%20brew_tce) DEX 💾 |2d4🧪",
           verbal: true,
           somatic: true,
           material: true,
           invocation: ActionType.ACTION,
-          concentration: true
+          concentration: true,
         },
         {
           name: "Catapult",
           prepared: true,
-          description: "[Catapult](https://5e.tools/spells.html#catapult_xge) DEX 💾 | 3d8 🔨",
+          description:
+            "[Catapult](https://5e.tools/spells.html#catapult_xge) DEX 💾 | 3d8 🔨",
           invocation: ActionType.ACTION,
-          somatic: true
+          somatic: true,
         },
         {
           name: "Detect Magic",
           prepared: true,
-          description: "[Detect Magic](https://5e.tools/spells.html#detect%20magic_phb)",
+          description:
+            "[Detect Magic](https://5e.tools/spells.html#detect%20magic_phb)",
           ritual: true,
           verbal: true,
-          somatic: true
+          somatic: true,
         },
         {
           name: "Absorb Elements",
           prepared: true,
-          description: "[Absorb Elements](https://5e.tools/spells.html#absorb%20elements_xge)",
+          description:
+            "[Absorb Elements](https://5e.tools/spells.html#absorb%20elements_xge)",
           somatic: true,
-          invocation: ActionType.REACTION
+          invocation: ActionType.REACTION,
         },
         {
           name: "False Life",
           prepared: true,
-          description: "[False Life](https://5e.tools/spells.html#false%20life_phb) 1d4+4 + 5*spell_lvl ❣️",
+          description:
+            "[False Life](https://5e.tools/spells.html#false%20life_phb) 1d4+4 + 5*spell_lvl ❣️",
           verbal: true,
           somatic: true,
           material: true,
-          invocation: ActionType.ACTION
+          invocation: ActionType.ACTION,
         },
         {
           name: "Sanctuary",
           prepared: true,
-          description: "[Sanctuary](https://5e.tools/spells.html#sanctuary_phb)",
+          description:
+            "[Sanctuary](https://5e.tools/spells.html#sanctuary_phb)",
           verbal: true,
           somatic: true,
           material: true,
-          invocation: ActionType.BONUS_ACTION
-        }
-      ]
-    }
-  }
+          invocation: ActionType.BONUS_ACTION,
+        },
+      ],
+    },
+  },
 };
 
 const scoreToSkillModifier = (score: number): number =>

@@ -170,9 +170,7 @@ export default function CharacterSheet({
             label={t("experience_points")}
             placeholder="3240"
             value={character.data.xp}
-            onChange={(experiencepoints: string) =>
-              onChange({ data: { xp } })
-            }
+            onChange={(experiencepoints: string) => onChange({ data: { xp } })}
           />
         </div>
       </header>
@@ -248,12 +246,16 @@ export default function CharacterSheet({
                       <ProficientAttribute
                         id={attribute}
                         label={t(attribute)}
-                        proficiency={character.data.proficiencies.saves[attribute]}
+                        proficiency={
+                          character.data.proficiencies.saves[attribute]
+                        }
                         value={character.data[`${attribute}_save_mod`]}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: { saves: { [attribute]: proficiency } },
+                              proficiencies: {
+                                saves: { [attribute]: proficiency },
+                              },
                             },
                           })
                         }
@@ -292,13 +294,17 @@ export default function CharacterSheet({
                       <ProficientAttribute
                         id={attribute}
                         label={label}
-                        proficiency={character.data.proficiencies.skills[attribute]}
+                        proficiency={
+                          character.data.proficiencies.skills[attribute]
+                        }
                         labelSecondary={t(`${secondary}_abbr`)}
                         value={character.data[attribute]}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: { skills: { [attribute]: proficiency } },
+                              proficiencies: {
+                                skills: { [attribute]: proficiency },
+                              },
                             },
                           })
                         }
