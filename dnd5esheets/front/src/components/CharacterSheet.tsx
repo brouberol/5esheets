@@ -28,7 +28,7 @@ export default function CharacterSheet({
         "header header header"
         "base combat flavor"
         "base actions features"
-        "prof equipment features" 
+        "prof equipment features"
       justify-items: stretch;
       align-items: stretch;
       justify-content: stretch;
@@ -146,9 +146,9 @@ export default function CharacterSheet({
             id="playername"
             label={t("player_name")}
             placeholder={t("player-mcplayerface")}
-            value={character.data.playername}
+            value={character.player.name}
             onChange={(playername: string) =>
-              onChange({ data: { playername } })
+              onChange({ player: { playername } })
             }
           />
           <LabeledInput
@@ -169,9 +169,9 @@ export default function CharacterSheet({
             id="experiencepoints"
             label={t("experience_points")}
             placeholder="3240"
-            value={character.data.experiencepoints}
+            value={character.data.xp}
             onChange={(experiencepoints: string) =>
-              onChange({ data: { experiencepoints } })
+              onChange({ data: { xp } })
             }
           />
         </div>
@@ -194,10 +194,10 @@ export default function CharacterSheet({
                   {(attribute) => (
                     <ScoreBox
                       label={t(`${attribute}_abbr`)}
-                      score={character.data[attribute]}
-                      modifier={character.data[`${attribute}_mod`]}
+                      score={character.data.scores[attribute]}
+                      modifier={character.data.scores[`${attribute}_mod`]}
                       onChange={(score: number) =>
-                        onChange({ data: { [attribute]: score } })
+                        onChange({ data: { scores: { [attribute]: score } } })
                       }
                     />
                   )}
@@ -248,12 +248,12 @@ export default function CharacterSheet({
                       <ProficientAttribute
                         id={attribute}
                         label={t(attribute)}
-                        proficiency={character.data.proficiencies[attribute]}
+                        proficiency={character.data.proficiencies.saves[attribute]}
                         value={character.data[`${attribute}_save_mod`]}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: { [attribute]: proficiency },
+                              proficiencies: { saves: { [attribute]: proficiency } },
                             },
                           })
                         }
@@ -292,13 +292,13 @@ export default function CharacterSheet({
                       <ProficientAttribute
                         id={attribute}
                         label={label}
-                        proficiency={character.data.proficiencies[attribute]}
+                        proficiency={character.data.proficiencies.skills[attribute]}
                         labelSecondary={t(`${secondary}_abbr`)}
                         value={character.data[attribute]}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: { [attribute]: proficiency },
+                              proficiencies: { skills: { [attribute]: proficiency } },
                             },
                           })
                         }
