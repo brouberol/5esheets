@@ -4,8 +4,15 @@ import { CharacterSchema, Proficiencies } from "~/5esheets-client";
 import { ActionType } from "~/5esheets-client";
 import { Proficiency } from "~/5esheets-client";
 import { SpellOrigin } from "~/5esheets-client";
+import { Scores } from "~/5esheets-client";
+import { SaveProficiencies } from "~/5esheets-client";
+import { SkillProficiencies } from "~/5esheets-client";
 
 export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3;
+
+type ScoreKey = keyof Scores;
+type SaveProficiencyKey = keyof SaveProficiencies;
+type SkillProficiencyKey = keyof SkillProficiencies;
 
 const douglas: CharacterSchema = {
   id: 1,
@@ -319,7 +326,7 @@ const effects = {
     ].map((attribute) => [
       `scores.${attribute}_mod`,
       (character: CharacterSchema) =>
-        scoreToSkillModifier(character.data.scores[attribute]),
+        scoreToSkillModifier(character.data.scores[attribute as ScoreKey]),
     ])
   ),
 
@@ -340,8 +347,8 @@ const effects = {
       `scores.${attribute}_save_mod`,
       (character: CharacterSchema) =>
         scoreToProficiencyModifier(
-          character.data.scores[attribute],
-          character.data.proficiencies.saves[attribute],
+          character.data.scores[attribute as ScoreKey],
+          character.data.proficiencies.saves[attribute as SaveProficiencyKey],
           character.data.proficiency_bonus
         ),
     ])
@@ -369,7 +376,9 @@ const effects = {
     return (
       8 +
       scoreToSkillModifier(
-        character.data.scores[character.data.spells.spellcasting_ability]
+        character.data.scores[
+          character.data.spells.spellcasting_ability as ScoreKey
+        ]
       ) +
       character.data.proficiency_bonus
     );
@@ -378,7 +387,9 @@ const effects = {
   spell_attack_bonus: (character: CharacterSchema) => {
     return (
       scoreToSkillModifier(
-        character.data.scores[character.data.spells.spellcasting_ability]
+        character.data.scores[
+          character.data.spells.spellcasting_ability as ScoreKey
+        ]
       ) + character.data.proficiency_bonus
     );
   },
@@ -408,8 +419,8 @@ const effects = {
       attribute,
       (character: CharacterSchema) =>
         scoreToProficiencyModifier(
-          character.data.scores[secondary],
-          character.data.proficiencies.skills[attribute],
+          character.data.scores[secondary as ScoreKey],
+          character.data.proficiencies.skills[attribute as SkillProficiencyKey],
           character.data.proficiency_bonus
         ),
     ])
