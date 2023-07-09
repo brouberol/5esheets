@@ -6,6 +6,7 @@ import type { Attack } from './Attack';
 import type { CustomResource } from './CustomResource';
 import type { HitDice } from './HitDice';
 import type { HitPoints } from './HitPoints';
+import type { Money } from './Money';
 import type { Proficiencies } from './Proficiencies';
 import type { Scores } from './Scores';
 import type { Spells } from './Spells';
@@ -22,6 +23,7 @@ export type CharacterSheet = {
     speed: number;
     hp: HitPoints;
     hit_dice: HitDice;
+    money: Money;
     custom_resources: Array<CustomResource>;
     attacks: Array<Attack>;
     equipment: string;

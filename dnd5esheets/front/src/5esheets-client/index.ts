@@ -22,6 +22,7 @@ export type { HitPoints } from './models/HitPoints';
 export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { ItemSchema } from './models/ItemSchema';
 export type { ListCharacterSchema } from './models/ListCharacterSchema';
+export type { Money } from './models/Money';
 export type { PartySchema } from './models/PartySchema';
 export type { PlayerSchema } from './models/PlayerSchema';
 export type { Proficiencies } from './models/Proficiencies';

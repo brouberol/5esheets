@@ -626,13 +626,8 @@
             "title": "The character level"
           },
           "data": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CharacterSheet"
-              }
-            ],
-            "title": "Data",
-            "description": "The embdedded character sheet JSON data"
+            "type": "object",
+            "title": "Data"
           },
           "party": {
             "allOf": [
@@ -710,6 +705,9 @@
           "hit_dice": {
             "$ref": "#/components/schemas/HitDice"
           },
+          "money": {
+            "$ref": "#/components/schemas/Money"
+          },
           "custom_resources": {
             "items": {
               "$ref": "#/components/schemas/CustomResource"
@@ -765,6 +763,7 @@
           "speed",
           "hp",
           "hit_dice",
+          "money",
           "custom_resources",
           "attacks",
           "equipment",
@@ -1022,6 +1021,39 @@
           "party"
         ],
         "title": "ListCharacterSchema"
+      },
+      "Money": {
+        "properties": {
+          "copper": {
+            "type": "integer",
+            "title": "Copper"
+          },
+          "silver": {
+            "type": "integer",
+            "title": "Silver"
+          },
+          "electrum": {
+            "type": "integer",
+            "title": "Electrum"
+          },
+          "gold": {
+            "type": "integer",
+            "title": "Gold"
+          },
+          "platinum": {
+            "type": "integer",
+            "title": "Platinum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "copper",
+          "silver",
+          "electrum",
+          "gold",
+          "platinum"
+        ],
+        "title": "Money"
       },
       "PartySchema": {
         "properties": {

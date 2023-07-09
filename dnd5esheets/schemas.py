@@ -210,6 +210,7 @@ class CharacterSheet(BaseSchema):
     speed: int
     hp: HitPoints
     hit_dice: HitDice
+    money: Money
     custom_resources: list[CustomResource]
     attacks: list[Attack]
     equipment: str
