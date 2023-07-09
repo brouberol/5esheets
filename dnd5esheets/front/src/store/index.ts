@@ -154,7 +154,7 @@ const douglas: CharacterSchema = {
           verbal: true,
           somatic: true,
           invocation: ActionType.ACTION,
-          origin: SpellOrigin.CLASS
+          origin: SpellOrigin.CLASS,
         },
         {
           name: "Shield",
@@ -226,11 +226,11 @@ const douglas: CharacterSchema = {
   },
   party: {
     id: 1,
-    name: "Famille McTrickfoot"
+    name: "Famille McTrickfoot",
   },
   player: {
     id: 1,
-    name: "Balthazar"
+    name: "Balthazar",
   },
   equipment: [
     {
@@ -241,38 +241,37 @@ const douglas: CharacterSchema = {
             translations: {
               fr: {
                 name: "Épée longue",
-                description: "L'épée longue est une arme très polyvalente qui peut également être maniée à deux mains pour des coups plus punitifs."
-              }
+                description:
+                  "L'épée longue est une arme très polyvalente qui peut également être maniée à deux mains pour des coups plus punitifs.",
+              },
             },
             rarity: "none",
             weight: 3,
-            value: 1500
+            value: 1500,
           },
           attributes: {
             weapon_category: "martial",
-            weapon_type: "sword"
+            weapon_type: "sword",
           },
           damage: {
             damage_1: "1d8",
             damage_type: "S",
-            damage_2: "1d10"
+            damage_2: "1d10",
           },
           source: {
             book: "PHB",
-            page: 149
+            page: 149,
           },
           srd: true,
           subtype: "M",
-          property: [
-            "V"
-          ],
-          type: "weapon"
-        }
+          property: ["V"],
+          type: "weapon",
+        },
       },
       amount: 1,
-      equipped: false
-    }
-  ]
+      equipped: false,
+    },
+  ],
 };
 
 const scoreToSkillModifier = (score: number): number =>
@@ -455,7 +454,7 @@ export default function useStore() {
                 saves: {
                   ...characters[characterSlug].data.proficiencies.saves,
                   ...update.data?.proficiencies?.saves,
-                }
+                },
               },
             },
           })
