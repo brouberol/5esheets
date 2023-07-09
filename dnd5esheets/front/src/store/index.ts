@@ -425,9 +425,37 @@ export default function useStore() {
             data: {
               ...characters[characterSlug].data,
               ...update.data,
+              scores: {
+                ...characters[characterSlug].data.scores,
+                ...update.data?.scores,
+              },
+              hp: {
+                ...characters[characterSlug].data.hp,
+                ...update.data?.hp,
+              },
+              hit_dice: {
+                ...characters[characterSlug].data.hit_dice,
+                ...update.data?.hit_dice,
+              },
+              money: {
+                ...characters[characterSlug].data.money,
+                ...update.data?.money,
+              },
+              spells: {
+                ...characters[characterSlug].data.spells,
+                ...update.data?.spells,
+              },
               proficiencies: {
                 ...characters[characterSlug].data.proficiencies,
                 ...update.data?.proficiencies,
+                skills: {
+                  ...characters[characterSlug].data.proficiencies.skills,
+                  ...update.data?.proficiencies?.skills,
+                },
+                saves: {
+                  ...characters[characterSlug].data.proficiencies.saves,
+                  ...update.data?.proficiencies?.saves,
+                }
               },
             },
           })
