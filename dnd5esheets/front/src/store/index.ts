@@ -301,7 +301,7 @@ const effects = {
       "wisdom",
       "charisma",
     ].map((attribute) => [
-      `${attribute}_mod`,
+      `scores.${attribute}_mod`,
       (character: CharacterSchema) =>
         scoreToSkillModifier(character.data.scores[attribute]),
     ])
@@ -321,7 +321,7 @@ const effects = {
       "wisdom",
       "charisma",
     ].map((attribute) => [
-      `${attribute}_save_mod`,
+      `scores.${attribute}_save_mod`,
       (character: CharacterSchema) =>
         scoreToProficiencyModifier(
           character.data.scores[attribute],
@@ -353,7 +353,7 @@ const effects = {
     return (
       8 +
       scoreToSkillModifier(
-        character.data[character.data.spells.spellcasting_ability]
+        character.data.scores[character.data.spells.spellcasting_ability]
       ) +
       character.data.proficiency_bonus
     );
@@ -362,7 +362,7 @@ const effects = {
   spell_attack_bonus: (character: CharacterSchema) => {
     return (
       scoreToSkillModifier(
-        character.data[character.data.spells.spellcasting_ability]
+        character.data.scores[character.data.spells.spellcasting_ability]
       ) + character.data.proficiency_bonus
     );
   },
@@ -405,7 +405,7 @@ for (const derivedAttribute in effects) {
     setCharacters(
       douglas.slug,
       "data",
-      derivedAttribute,
+      ...derivedAttribute.split("."),
       effects[derivedAttribute](characters[douglas.slug])
     )
   );

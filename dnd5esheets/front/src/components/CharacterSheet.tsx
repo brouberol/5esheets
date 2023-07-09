@@ -249,7 +249,7 @@ export default function CharacterSheet({
                         proficiency={
                           character.data.proficiencies.saves[attribute]
                         }
-                        value={character.data[`${attribute}_save_mod`]}
+                        value={character.data.scores[`${attribute}_save_mod`]}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
