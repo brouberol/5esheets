@@ -31,7 +31,14 @@ export type CharacterSheet = {
     personality: string;
     ideals: string;
     bonds: string;
+    flaws: string;
     features: string;
     spells: Spells;
+    proficiency_bonus: number;
+    ac: number;
+    initiative: number;
+    spell_dc: number;
+    spell_attack_bonus: number;
+    passive_perception: number;
 };
 

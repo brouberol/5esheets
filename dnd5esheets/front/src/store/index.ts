@@ -1,6 +1,6 @@
 import { createComputed, createRoot, getOwner, createEffect } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
-import { CharacterSchema } from "~/5esheets-client";
+import { CharacterSchema, Proficiencies } from "~/5esheets-client";
 import { ActionType } from "~/5esheets-client";
 import { Proficiency } from "~/5esheets-client";
 import { SpellOrigin } from "~/5esheets-client";
@@ -9,8 +9,6 @@ export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3;
 
 const douglas: CharacterSchema = {
   id: 1,
-  player_id: 1,
-  party_id: 1,
   name: "Douglas McTrickfoot",
   slug: "douglas-mctrickfoot",
   class_: "Artilleur",
@@ -23,6 +21,18 @@ const douglas: CharacterSchema = {
       intelligence: 18,
       wisdom: 12,
       charisma: 14,
+      strength_mod: 0,
+      dexterity_mod: 0,
+      constitution_mod: 0,
+      intelligence_mod: 0,
+      wisdom_mod: 0,
+      charisma_mod: 0,
+      strength_save_mod: 0,
+      dexterity_save_mod: 0,
+      constitution_save_mod: 0,
+      intelligence_save_mod: 0,
+      wisdom_save_mod: 0,
+      charisma_save_mod: 0,
     },
     proficiencies: {
       saves: {
@@ -54,6 +64,12 @@ const douglas: CharacterSchema = {
         deception: Proficiency._0,
       },
     },
+    spell_dc: 0,
+    ac: 0,
+    initiative: 0,
+    proficiency_bonus: 0,
+    spell_attack_bonus: 0,
+    passive_perception: 0,
     xp: 0,
     background: "Artistan",
     race: "Gnome",

@@ -742,12 +742,40 @@
             "type": "string",
             "title": "Bonds"
           },
+          "flaws": {
+            "type": "string",
+            "title": "Flaws"
+          },
           "features": {
             "type": "string",
             "title": "Features"
           },
           "spells": {
             "$ref": "#/components/schemas/Spells"
+          },
+          "proficiency_bonus": {
+            "type": "integer",
+            "title": "Proficiency Bonus"
+          },
+          "ac": {
+            "type": "integer",
+            "title": "Ac"
+          },
+          "initiative": {
+            "type": "integer",
+            "title": "Initiative"
+          },
+          "spell_dc": {
+            "type": "integer",
+            "title": "Spell Dc"
+          },
+          "spell_attack_bonus": {
+            "type": "integer",
+            "title": "Spell Attack Bonus"
+          },
+          "passive_perception": {
+            "type": "integer",
+            "title": "Passive Perception"
           }
         },
         "type": "object",
@@ -771,8 +799,15 @@
           "personality",
           "ideals",
           "bonds",
+          "flaws",
           "features",
-          "spells"
+          "spells",
+          "proficiency_bonus",
+          "ac",
+          "initiative",
+          "spell_dc",
+          "spell_attack_bonus",
+          "passive_perception"
         ],
         "title": "CharacterSheet"
       },
@@ -1179,6 +1214,54 @@
           "intelligence": {
             "type": "integer",
             "title": "Intelligence"
+          },
+          "strength_mod": {
+            "type": "integer",
+            "title": "Strength Mod"
+          },
+          "dexterity_mod": {
+            "type": "integer",
+            "title": "Dexterity Mod"
+          },
+          "constitution_mod": {
+            "type": "integer",
+            "title": "Constitution Mod"
+          },
+          "wisdom_mod": {
+            "type": "integer",
+            "title": "Wisdom Mod"
+          },
+          "charisma_mod": {
+            "type": "integer",
+            "title": "Charisma Mod"
+          },
+          "intelligence_mod": {
+            "type": "integer",
+            "title": "Intelligence Mod"
+          },
+          "strength_save_mod": {
+            "type": "integer",
+            "title": "Strength Save Mod"
+          },
+          "dexterity_save_mod": {
+            "type": "integer",
+            "title": "Dexterity Save Mod"
+          },
+          "constitution_save_mod": {
+            "type": "integer",
+            "title": "Constitution Save Mod"
+          },
+          "wisdom_save_mod": {
+            "type": "integer",
+            "title": "Wisdom Save Mod"
+          },
+          "charisma_save_mod": {
+            "type": "integer",
+            "title": "Charisma Save Mod"
+          },
+          "intelligence_save_mod": {
+            "type": "integer",
+            "title": "Intelligence Save Mod"
           }
         },
         "type": "object",
@@ -1188,7 +1271,19 @@
           "constitution",
           "wisdom",
           "charisma",
-          "intelligence"
+          "intelligence",
+          "strength_mod",
+          "dexterity_mod",
+          "constitution_mod",
+          "wisdom_mod",
+          "charisma_mod",
+          "intelligence_mod",
+          "strength_save_mod",
+          "dexterity_save_mod",
+          "constitution_save_mod",
+          "wisdom_save_mod",
+          "charisma_save_mod",
+          "intelligence_save_mod"
         ],
         "title": "Scores"
       },

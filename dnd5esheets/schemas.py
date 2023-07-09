@@ -7,6 +7,17 @@ from enum import Enum
 from pydantic import BaseModel as BaseSchema
 from pydantic import Field
 
+# We define a special field to mark the fields with a default value of 0
+# server-side, which _actual_ value will be computed by the frontend, based
+# on other fields values (ex: proficiency bonus based on the level).
+# We mark these fields with a special description value, because pydantic marks
+# fields with a default value as optional, which gets generated into a
+# <name>?: number; field when generating the typescript client.
+# That is an issue, because the server sends a non-nil default value. We rely
+# on that custom description to specify these fields as required in the openapi
+# spec, to make sure these fields are marked as required in the TS client.
+FrontendComputedField = Field(default=0, description="frontend_computed")
+
 
 class Proficiency(Enum):
     none: int = 0
@@ -136,6 +147,20 @@ class Scores(BaseSchema):
     charisma: int
     intelligence: int
 
+    # Autocomputed fields, declared here to have them part of the TS types
+    strength_mod: int = FrontendComputedField
+    dexterity_mod: int = FrontendComputedField
+    constitution_mod: int = FrontendComputedField
+    wisdom_mod: int = FrontendComputedField
+    charisma_mod: int = FrontendComputedField
+    intelligence_mod: int = FrontendComputedField
+    strength_save_mod: int = FrontendComputedField
+    dexterity_save_mod: int = FrontendComputedField
+    constitution_save_mod: int = FrontendComputedField
+    wisdom_save_mod: int = FrontendComputedField
+    charisma_save_mod: int = FrontendComputedField
+    intelligence_save_mod: int = FrontendComputedField
+
 
 class HitPoints(BaseSchema):
     max: int
@@ -218,8 +243,18 @@ class CharacterSheet(BaseSchema):
     personality: str
     ideals: str
     bonds: str
+    flaws: str
     features: str
     spells: Spells
+
+    # These are optional fields are they are calculated by the frontend.
+    # We declare them here so that they appear in the generated TS types.
+    proficiency_bonus: int = FrontendComputedField
+    ac: int = FrontendComputedField
+    initiative: int = FrontendComputedField
+    spell_dc: int = FrontendComputedField
+    spell_attack_bonus: int = FrontendComputedField
+    passive_perception: int = FrontendComputedField
 
 
 class CharacterSchema(BaseORMSchema):
