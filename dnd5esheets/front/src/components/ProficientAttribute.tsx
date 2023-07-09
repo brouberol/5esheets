@@ -1,6 +1,7 @@
 import { Show, createEffect, createSignal } from "solid-js";
 import { css } from "solid-styled";
-import { cycleProficiency, Proficiency } from "~/store";
+import { cycleProficiency } from "~/store";
+import { Proficiency } from "~/5esheets-client";
 
 export default function ProficientAttribute(props: {
   id: string;

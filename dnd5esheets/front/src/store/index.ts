@@ -3,6 +3,7 @@ import { createStore, reconcile } from "solid-js/store";
 import { CharacterSchema } from "~/5esheets-client";
 import { ActionType } from "~/5esheets-client";
 import { Proficiency } from "~/5esheets-client";
+import { SpellOrigin } from "~/5esheets-client";
 
 export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3;
 
@@ -153,7 +154,7 @@ const douglas: CharacterSchema = {
           verbal: true,
           somatic: true,
           invocation: ActionType.ACTION,
-          origin: "class",
+          origin: SpellOrigin.CLASS
         },
         {
           name: "Shield",
