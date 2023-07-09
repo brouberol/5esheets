@@ -561,7 +561,8 @@
             "title": "The character level"
           },
           "data": {
-            "$ref": "#/components/schemas/CharacterSheet"
+            "type": "object",
+            "title": "Data"
           },
           "party": {
             "$ref": "#/components/schemas/PartySchema"
@@ -625,7 +626,13 @@
             "title": "The character level"
           },
           "data": {
-            "$ref": "#/components/schemas/CharacterSheet"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CharacterSheet"
+              }
+            ],
+            "title": "Data",
+            "description": "The embdedded character sheet JSON data"
           },
           "party": {
             "allOf": [

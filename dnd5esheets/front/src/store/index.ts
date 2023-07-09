@@ -223,6 +223,55 @@ const douglas: CharacterSchema = {
       ],
     },
   },
+  party: {
+    id: 1,
+    name: "Famille McTrickfoot"
+  },
+  player: {
+    id: 1,
+    name: "Balthazar"
+  },
+  equipment: [
+    {
+      item: {
+        name: "Longsword",
+        data: {
+          meta: {
+            translations: {
+              fr: {
+                name: "Épée longue",
+                description: "L'épée longue est une arme très polyvalente qui peut également être maniée à deux mains pour des coups plus punitifs."
+              }
+            },
+            rarity: "none",
+            weight: 3,
+            value: 1500
+          },
+          attributes: {
+            weapon_category: "martial",
+            weapon_type: "sword"
+          },
+          damage: {
+            damage_1: "1d8",
+            damage_type: "S",
+            damage_2: "1d10"
+          },
+          source: {
+            book: "PHB",
+            page: 149
+          },
+          srd: true,
+          subtype: "M",
+          property: [
+            "V"
+          ],
+          type: "weapon"
+        }
+      },
+      amount: 1,
+      equipped: false
+    }
+  ]
 };
 
 const scoreToSkillModifier = (score: number): number =>

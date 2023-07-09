@@ -16,6 +16,9 @@ export type CharacterSchemaNoPlayer = {
     slug: string;
     class_: string;
     level: number;
+    /**
+     * The embdedded character sheet JSON data
+     */
     data: CharacterSheet;
     party: PartySchema;
     player: PlayerSchema;
