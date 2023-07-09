@@ -55,8 +55,13 @@ def init_db(settings):
     os.remove(db_file + ".bak")
 
 
-@fixture(scope="function")
+@fixture(scope="function", autouse=True)
 def db(settings):
+    """A fixture automatically used for each test, providing a DB session.
+
+    This makes sure that any side effect in database is reverted at the end of the test.
+
+    """
     with create_session() as session:
         yield session
 

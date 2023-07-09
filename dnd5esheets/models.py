@@ -1,15 +1,16 @@
 import json
-from typing import Self
+from copy import deepcopy
 from datetime import datetime
+from typing import Self
 
 from sqlalchemy import (
     Boolean,
+    DateTime,
     ForeignKey,
     Integer,
     String,
     TypeDecorator,
     types,
-    DateTime,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -63,12 +64,20 @@ class BaseModel(DeclarativeBase):
         If a field maps to a Json column, the underlying JSON object will be updated.
 
         """
+
+        def update_from_subdict(value: dict, target: dict) -> dict:
+            for key, val in deepcopy(value).items():
+                if isinstance(val, dict):
+                    target[key] = update_from_subdict(val, target[key])
+                else:
+                    target[key] = val
+            return target
+
         for field_name, value in fields_to_update.items():
             field_type = getattr(self.__class__, field_name).type.__class__
             if field_type is Json:
-                new_value = getattr(self, field_name).copy()  # a python dict
-                for key, val in value.items():
-                    new_value[key] = val
+                new_value = deepcopy(getattr(self, field_name))  # a python dict
+                new_value = update_from_subdict(value, new_value)
                 setattr(self, field_name, new_value)
             else:
                 setattr(self, field_name, value)
