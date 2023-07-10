@@ -74,7 +74,7 @@ back-test:  ## Run the backend tests
 
 black:
 	@echo "\n[+] Reformatting python files"
-	@poetry run black $(app-root)/
+	@poetry run black --check $(app-root)/
 
 check: back-check front-check ## Run all checks on the codebase
 
