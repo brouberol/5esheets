@@ -11,7 +11,7 @@ python = "^3.8"
 python-slugify = "^8.0.1"
 babel = "^2.12.1"
 alembic = "^1.11.1"
-fastapi = "^0.99.1"
+fastapi = "^0.100.0"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
 sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.16"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
