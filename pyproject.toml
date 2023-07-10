@@ -11,9 +11,9 @@ python = "^3.8"
 python-slugify = "^8.0.1"
 babel = "^2.12.1"
 alembic = "^1.11.1"
-fastapi = "^0.99.1"
+fastapi = "^0.100.0"
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
-sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.16"}
+sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.18"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.6"
 fastapi-jwt-auth = "^0.5.0"
@@ -21,7 +21,7 @@ fastapi-jwt-auth = "^0.5.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
-ruff = "^0.0.275"
+ruff = "^0.0.277"
 black = "^23.3.0"
 types-python-jose = "^3.3.4.7"
 types-passlib = "^1.7.7.12"

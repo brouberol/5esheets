@@ -560,7 +560,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         if (!(options.startRule in peg$startRuleFunctions)) {
           // @ts-ignore
           throw new Error(
-            "Can't start parsing from rule \"" + options.startRule + '".'
+            "Can't start parsing from rule \"" + options.startRule + '".',
           );
         }
 
@@ -616,7 +616,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           input.substring(peg$savedPos, peg$currPos),
           // @ts-ignore
-          location
+          location,
         );
       }
 
@@ -803,7 +803,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           // @ts-ignore
           found,
           // @ts-ignore
-          location
+          location,
         );
       }
 
@@ -2457,7 +2457,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
             ? // @ts-ignore
               peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
             : // @ts-ignore
-              peg$computeLocation(peg$maxFailPos, peg$maxFailPos)
+              peg$computeLocation(peg$maxFailPos, peg$maxFailPos),
         );
       }
     }
@@ -2519,7 +2519,7 @@ export type Expectation =
 declare class _PeggySyntaxError extends Error {
   public static buildMessage(
     expected: Expectation[],
-    found: string | null
+    found: string | null,
   ): string;
   public message: string;
   public expected: Expectation[];
@@ -2530,13 +2530,13 @@ declare class _PeggySyntaxError extends Error {
     message: string,
     expected: Expectation[],
     found: string | null,
-    location: FileRange
+    location: FileRange,
   );
   format(
     sources: {
       source?: any;
       text: string;
-    }[]
+    }[],
   ): string;
 }
 
@@ -2562,7 +2562,7 @@ export interface ParseOptions {
 }
 export type ParseFunction = <Options extends ParseOptions>(
   input: string,
-  options?: Options
+  options?: Options,
 ) => Options extends { startRule: infer StartRule }
   ? StartRule extends "Effects"
     ? Effects
