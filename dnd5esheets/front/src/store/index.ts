@@ -144,7 +144,7 @@ const scoreToSkillModifier = (score: number): number =>
 const scoreToProficiencyModifier = (
   score: number,
   proficiency: Proficiency,
-  proficiencyBonus: number
+  proficiencyBonus: number,
 ): number => scoreToSkillModifier(score) + proficiency * proficiencyBonus;
 
 const levelToProficiencyBonus = (level: number): number => {
@@ -168,7 +168,7 @@ const effects = {
       `${attribute}_mod`,
       (character: CharacterSchema) =>
         scoreToSkillModifier(character.data[attribute]),
-    ])
+    ]),
   ),
 
   // Recompute the proficiency bonus when the level changes
@@ -190,9 +190,9 @@ const effects = {
         scoreToProficiencyModifier(
           character.data[attribute],
           character.data.proficiencies[attribute],
-          character.data.proficiency_bonus
+          character.data.proficiency_bonus,
         ),
-    ])
+    ]),
   ),
 
   // Recompute the passive perception score when the character's wisdom changes
@@ -202,7 +202,7 @@ const effects = {
       scoreToProficiencyModifier(
         character.data.wisdom,
         character.data.proficiencies.perception,
-        character.data.proficiency_bonus
+        character.data.proficiency_bonus,
       )
     );
   },
@@ -217,7 +217,7 @@ const effects = {
     return (
       8 +
       scoreToSkillModifier(
-        character.data[character.data.spellcasting_ability]
+        character.data[character.data.spellcasting_ability],
       ) +
       character.data.proficiency_bonus
     );
@@ -226,7 +226,7 @@ const effects = {
   spell_attack_bonus: (character: CharacterSchema) => {
     return (
       scoreToSkillModifier(
-        character.data[character.data.spellcasting_ability]
+        character.data[character.data.spellcasting_ability],
       ) + character.data.proficiency_bonus
     );
   },
@@ -258,9 +258,9 @@ const effects = {
         scoreToProficiencyModifier(
           character.data[secondary],
           character.data.proficiencies[attribute],
-          character.data.proficiency_bonus
+          character.data.proficiency_bonus,
         ),
-    ])
+    ]),
   ),
 };
 
@@ -270,8 +270,8 @@ for (const derivedAttribute in effects) {
       douglas.slug,
       "data",
       derivedAttribute,
-      effects[derivedAttribute](characters[douglas.slug])
-    )
+      effects[derivedAttribute](characters[douglas.slug]),
+    ),
   );
 }
 
@@ -293,7 +293,7 @@ export default function useStore() {
                 ...update.data?.proficiencies,
               },
             },
-          })
+          }),
         );
       },
     },

@@ -142,7 +142,7 @@ describe("apply effect", () => {
       applyEffect(
         "d := nested.a + min(nested.b, nested[key])",
         context,
-        setContext
+        setContext,
       );
       setContext("nested", "a", 2);
       expect(context.d).toBe(4);
@@ -159,7 +159,7 @@ describe("apply effect", () => {
       applyEffect(
         "effect.d :=  nested.a + min(nested.b, nested[key])",
         context,
-        setContext
+        setContext,
       );
       setContext("nested", "a", 2);
       expect(context.effect.d).toBe(4);

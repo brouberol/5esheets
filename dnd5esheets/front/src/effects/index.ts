@@ -45,7 +45,7 @@ const evaluators = {
   EffectExpression: (
     node: EffectExpression,
     context: Object,
-    setContext: (context: Partial<Object>) => void
+    setContext: (context: Partial<Object>) => void,
   ): void => {
     const target = visit(node.target, context, setContext);
     const path = Array.isArray(target) ? target : [target];
@@ -72,7 +72,7 @@ const evaluators = {
   },
   FunctionExpression: (node: Function, context: Object): number | string =>
     context[visit(node.name)](
-      ...node.parameters.map((parameter) => evaluate(parameter, context))
+      ...node.parameters.map((parameter) => evaluate(parameter, context)),
     ),
   MemberExpression: (node: MemberExpression, context: Object): unknown =>
     evaluate(node.object, context)[
@@ -100,7 +100,7 @@ const evaluators = {
 function visit(
   node: Node,
   context: Object,
-  setContext: (context: Partial<Object>) => void
+  setContext: (context: Partial<Object>) => void,
 ) {
   if (!visitors[node.type]) {
     console.log("unknown node type", node);
@@ -113,7 +113,7 @@ function visit(
 function evaluate(
   node: Node,
   context: Object,
-  setContext: (context: Partial<Object>) => void
+  setContext: (context: Partial<Object>) => void,
 ) {
   if (!evaluators[node.type]) {
     console.log("unknown node type", node);
@@ -126,7 +126,7 @@ function evaluate(
 export function applyEffect<T extends Object>(
   effect: string,
   context: T,
-  setContext: (context: Partial<T>) => void
+  setContext: (context: Partial<T>) => void,
 ) {
   const [effectAst] = parse(effect);
   evaluate(effectAst, context, setContext);
