@@ -44,9 +44,9 @@ exceptiongroup==1.1.1 ; python_version >= "3.8" and python_version < "3.11" \
 fastapi-jwt-auth==0.5.0 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:43110a227e36f93b99257a1c79e66df8ed3d4c893291db8f9db2686192011f17 \
     --hash=sha256:d98068a9e828fe5909a1f338efabc3bb53149f11a9d2d395ab9d90fbb486b375
-fastapi==0.99.1 ; python_version >= "3.8" and python_version < "4.0" \
-    --hash=sha256:976df7bab51ac7beda9f68c4513b8c4490b5c1135c72aafd0a5ee4023ec5282e \
-    --hash=sha256:ac78f717cd80d657bd183f94d33b9bda84aa376a46a9dab513586b8eef1dc6fc
+fastapi==0.100.0 ; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:271662daf986da8fa98dc2b7c7f61c4abdfdccfb4786d79ed8b2878f172c6d5f \
+    --hash=sha256:acb5f941ea8215663283c10018323ba7ea737c571b67fc7e88e9469c7eb1d12e
 greenlet==2.0.2 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:03a8f4f3430c3b3ff8d10a2a86028c660355ab637cee9333d63d66b56f09d52a \
     --hash=sha256:0bf60faf0bc2468089bdc5edd10555bab6e85152191df713e2ab1fcc86382b5a \
