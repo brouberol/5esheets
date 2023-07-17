@@ -13,7 +13,7 @@ babel = "^2.12.1"
 alembic = "^1.11.1"
 fastapi = "^0.100.0"
 uvicorn = {extras = ["standard"], version = "^0.23.0"}
-sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.18"}
+sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.19"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.6"
 fastapi-jwt-auth = "^0.5.0"
