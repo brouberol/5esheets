@@ -16,7 +16,7 @@ def cli():
     ...
 
 
-@cli.group()
+@cli.group()  # type: ignore
 def db():
     ...
 
@@ -87,4 +87,4 @@ def populate_db_with_dev_data(silent: bool = False):
 
 
 if __name__ == "__main__":
-    cli()
+    cli()  # type: ignore
