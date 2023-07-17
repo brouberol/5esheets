@@ -40,3 +40,5 @@ jobs:
 
       - name: Run quality chekers
         run: make back-check
+
+      - uses: hadolint/hadolint-action@v3.1.0
