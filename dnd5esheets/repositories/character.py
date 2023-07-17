@@ -54,7 +54,6 @@ class CharacterRepository(BaseRepository):
         fields_to_update = {
             field: val for field, val in body.dict().items() if val is not None
         }
-
         character.update_from_dict(fields_to_update)
 
         # Persist the changes

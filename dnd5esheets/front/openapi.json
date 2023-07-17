@@ -385,6 +385,43 @@
   },
   "components": {
     "schemas": {
+      "ActionType": {
+        "enum": [
+          "action",
+          "bonus_action",
+          "reaction"
+        ],
+        "title": "ActionType",
+        "description": "An enumeration."
+      },
+      "Attack": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "bonus": {
+            "type": "integer",
+            "title": "Bonus"
+          },
+          "damage": {
+            "type": "string",
+            "title": "Damage"
+          },
+          "damage_type": {
+            "type": "string",
+            "title": "Damage Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "bonus",
+          "damage",
+          "damage_type"
+        ],
+        "title": "Attack"
+      },
       "Body_login-login_for_access_token": {
         "properties": {
           "grant_type": {
@@ -449,7 +486,11 @@
             "title": "The character level"
           },
           "data": {
-            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CharacterSheet"
+              }
+            ],
             "title": "Data",
             "description": "The embdedded character sheet JSON data"
           },
@@ -622,6 +663,177 @@
         "title": "CharacterSchemaNoPlayer",
         "description": "The details of a character, excluding the player"
       },
+      "CharacterSheet": {
+        "properties": {
+          "scores": {
+            "$ref": "#/components/schemas/Scores"
+          },
+          "proficiencies": {
+            "$ref": "#/components/schemas/Proficiencies"
+          },
+          "xp": {
+            "type": "integer",
+            "title": "Xp"
+          },
+          "race": {
+            "type": "string",
+            "title": "Race"
+          },
+          "background": {
+            "type": "string",
+            "title": "Background"
+          },
+          "alignment": {
+            "type": "string",
+            "title": "Alignment"
+          },
+          "darkvision": {
+            "type": "boolean",
+            "title": "Darkvision"
+          },
+          "inspiration": {
+            "type": "boolean",
+            "title": "Inspiration"
+          },
+          "speed": {
+            "type": "integer",
+            "title": "Speed"
+          },
+          "hp": {
+            "$ref": "#/components/schemas/HitPoints"
+          },
+          "hit_dice": {
+            "$ref": "#/components/schemas/HitDice"
+          },
+          "money": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "custom_resources": {
+            "items": {
+              "$ref": "#/components/schemas/CustomResource"
+            },
+            "type": "array",
+            "title": "Custom Resources"
+          },
+          "attacks": {
+            "items": {
+              "$ref": "#/components/schemas/Attack"
+            },
+            "type": "array",
+            "title": "Attacks"
+          },
+          "equipment": {
+            "type": "string",
+            "title": "Equipment"
+          },
+          "languages_and_proficiencies": {
+            "type": "string",
+            "title": "Languages And Proficiencies"
+          },
+          "personality": {
+            "type": "string",
+            "title": "Personality"
+          },
+          "ideals": {
+            "type": "string",
+            "title": "Ideals"
+          },
+          "bonds": {
+            "type": "string",
+            "title": "Bonds"
+          },
+          "flaws": {
+            "type": "string",
+            "title": "Flaws"
+          },
+          "features": {
+            "type": "string",
+            "title": "Features"
+          },
+          "spells": {
+            "$ref": "#/components/schemas/Spells"
+          },
+          "proficiency_bonus": {
+            "type": "integer",
+            "title": "Proficiency Bonus"
+          },
+          "ac": {
+            "type": "integer",
+            "title": "Ac"
+          },
+          "initiative": {
+            "type": "integer",
+            "title": "Initiative"
+          },
+          "spell_dc": {
+            "type": "integer",
+            "title": "Spell Dc"
+          },
+          "spell_attack_bonus": {
+            "type": "integer",
+            "title": "Spell Attack Bonus"
+          },
+          "passive_perception": {
+            "type": "integer",
+            "title": "Passive Perception"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scores",
+          "proficiencies",
+          "xp",
+          "race",
+          "background",
+          "alignment",
+          "darkvision",
+          "inspiration",
+          "speed",
+          "hp",
+          "hit_dice",
+          "money",
+          "custom_resources",
+          "attacks",
+          "equipment",
+          "languages_and_proficiencies",
+          "personality",
+          "ideals",
+          "bonds",
+          "flaws",
+          "features",
+          "spells",
+          "proficiency_bonus",
+          "ac",
+          "initiative",
+          "spell_dc",
+          "spell_attack_bonus",
+          "passive_perception"
+        ],
+        "title": "CharacterSheet"
+      },
+      "CustomResource": {
+        "properties": {
+          "header": {
+            "type": "string",
+            "title": "Header"
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available"
+          },
+          "remaining": {
+            "type": "integer",
+            "title": "Remaining"
+          }
+        },
+        "type": "object",
+        "required": [
+          "header",
+          "available",
+          "remaining"
+        ],
+        "title": "CustomResource"
+      },
       "DisplayPartySchema": {
         "properties": {
           "id": {
@@ -721,6 +933,52 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "HitDice": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "remaining": {
+            "type": "integer",
+            "title": "Remaining"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "total",
+          "remaining"
+        ],
+        "title": "HitDice"
+      },
+      "HitPoints": {
+        "properties": {
+          "max": {
+            "type": "integer",
+            "title": "Max"
+          },
+          "temp": {
+            "type": "integer",
+            "title": "Temp"
+          },
+          "current": {
+            "type": "integer",
+            "title": "Current"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max",
+          "temp",
+          "current"
+        ],
+        "title": "HitPoints"
+      },
       "ItemSchema": {
         "properties": {
           "name": {
@@ -799,6 +1057,39 @@
         ],
         "title": "ListCharacterSchema"
       },
+      "Money": {
+        "properties": {
+          "copper": {
+            "type": "integer",
+            "title": "Copper"
+          },
+          "silver": {
+            "type": "integer",
+            "title": "Silver"
+          },
+          "electrum": {
+            "type": "integer",
+            "title": "Electrum"
+          },
+          "gold": {
+            "type": "integer",
+            "title": "Gold"
+          },
+          "platinum": {
+            "type": "integer",
+            "title": "Platinum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "copper",
+          "silver",
+          "electrum",
+          "gold",
+          "platinum"
+        ],
+        "title": "Money"
+      },
       "PartySchema": {
         "properties": {
           "id": {
@@ -840,6 +1131,400 @@
         ],
         "title": "PlayerSchema",
         "description": "The basic details of a player"
+      },
+      "Proficiencies": {
+        "properties": {
+          "saves": {
+            "$ref": "#/components/schemas/SaveProficiencies"
+          },
+          "skills": {
+            "$ref": "#/components/schemas/SkillProficiencies"
+          }
+        },
+        "type": "object",
+        "required": [
+          "saves",
+          "skills"
+        ],
+        "title": "Proficiencies"
+      },
+      "Proficiency": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "title": "Proficiency",
+        "description": "An enumeration."
+      },
+      "SaveProficiencies": {
+        "properties": {
+          "strength": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "dexterity": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "constitution": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "intelligence": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "charisma": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "wisdom": {
+            "$ref": "#/components/schemas/Proficiency"
+          }
+        },
+        "type": "object",
+        "required": [
+          "strength",
+          "dexterity",
+          "constitution",
+          "intelligence",
+          "charisma",
+          "wisdom"
+        ],
+        "title": "SaveProficiencies"
+      },
+      "Scores": {
+        "properties": {
+          "strength": {
+            "type": "integer",
+            "title": "Strength"
+          },
+          "dexterity": {
+            "type": "integer",
+            "title": "Dexterity"
+          },
+          "constitution": {
+            "type": "integer",
+            "title": "Constitution"
+          },
+          "wisdom": {
+            "type": "integer",
+            "title": "Wisdom"
+          },
+          "charisma": {
+            "type": "integer",
+            "title": "Charisma"
+          },
+          "intelligence": {
+            "type": "integer",
+            "title": "Intelligence"
+          },
+          "strength_mod": {
+            "type": "integer",
+            "title": "Strength Mod"
+          },
+          "dexterity_mod": {
+            "type": "integer",
+            "title": "Dexterity Mod"
+          },
+          "constitution_mod": {
+            "type": "integer",
+            "title": "Constitution Mod"
+          },
+          "wisdom_mod": {
+            "type": "integer",
+            "title": "Wisdom Mod"
+          },
+          "charisma_mod": {
+            "type": "integer",
+            "title": "Charisma Mod"
+          },
+          "intelligence_mod": {
+            "type": "integer",
+            "title": "Intelligence Mod"
+          },
+          "strength_save_mod": {
+            "type": "integer",
+            "title": "Strength Save Mod"
+          },
+          "dexterity_save_mod": {
+            "type": "integer",
+            "title": "Dexterity Save Mod"
+          },
+          "constitution_save_mod": {
+            "type": "integer",
+            "title": "Constitution Save Mod"
+          },
+          "wisdom_save_mod": {
+            "type": "integer",
+            "title": "Wisdom Save Mod"
+          },
+          "charisma_save_mod": {
+            "type": "integer",
+            "title": "Charisma Save Mod"
+          },
+          "intelligence_save_mod": {
+            "type": "integer",
+            "title": "Intelligence Save Mod"
+          }
+        },
+        "type": "object",
+        "required": [
+          "strength",
+          "dexterity",
+          "constitution",
+          "wisdom",
+          "charisma",
+          "intelligence",
+          "strength_mod",
+          "dexterity_mod",
+          "constitution_mod",
+          "wisdom_mod",
+          "charisma_mod",
+          "intelligence_mod",
+          "strength_save_mod",
+          "dexterity_save_mod",
+          "constitution_save_mod",
+          "wisdom_save_mod",
+          "charisma_save_mod",
+          "intelligence_save_mod"
+        ],
+        "title": "Scores"
+      },
+      "SkillProficiencies": {
+        "properties": {
+          "acrobatics": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "arcana": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "athletics": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "stealth": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "animal_handling": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "sleight_of_hand": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "history": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "intimidation": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "investigation": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "medicine": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "nature": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "perception": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "insight": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "persuasion": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "religion": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "performance": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "survival": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "deception": {
+            "$ref": "#/components/schemas/Proficiency"
+          }
+        },
+        "type": "object",
+        "required": [
+          "acrobatics",
+          "arcana",
+          "athletics",
+          "stealth",
+          "animal_handling",
+          "sleight_of_hand",
+          "history",
+          "intimidation",
+          "investigation",
+          "medicine",
+          "nature",
+          "perception",
+          "insight",
+          "persuasion",
+          "religion",
+          "performance",
+          "survival",
+          "deception"
+        ],
+        "title": "SkillProficiencies"
+      },
+      "Spell": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "prepared": {
+            "type": "boolean",
+            "title": "Prepared",
+            "default": false
+          },
+          "somatic": {
+            "type": "boolean",
+            "title": "Somatic",
+            "default": false
+          },
+          "verbal": {
+            "type": "boolean",
+            "title": "Verbal",
+            "default": false
+          },
+          "material": {
+            "type": "boolean",
+            "title": "Material",
+            "default": false
+          },
+          "ritual": {
+            "type": "boolean",
+            "title": "Ritual",
+            "default": false
+          },
+          "concentration": {
+            "type": "boolean",
+            "title": "Concentration",
+            "default": false
+          },
+          "invocation": {
+            "$ref": "#/components/schemas/ActionType"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/SpellOrigin"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "description"
+        ],
+        "title": "Spell"
+      },
+      "SpellOrigin": {
+        "enum": [
+          "class"
+        ],
+        "title": "SpellOrigin",
+        "description": "An enumeration."
+      },
+      "Spells": {
+        "properties": {
+          "spellcasting_ability": {
+            "type": "string",
+            "title": "Spellcasting Ability"
+          },
+          "daily_prepared": {
+            "type": "integer",
+            "title": "Daily Prepared"
+          },
+          "cantrips": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Cantrips",
+            "default": []
+          },
+          "lvl1": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl1",
+            "default": []
+          },
+          "lvl2": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl2",
+            "default": []
+          },
+          "lvl3": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl3",
+            "default": []
+          },
+          "lvl4": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl4",
+            "default": []
+          },
+          "lvl5": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl5",
+            "default": []
+          },
+          "lvl6": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl6",
+            "default": []
+          },
+          "lvl7": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl7",
+            "default": []
+          },
+          "lvl8": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl8",
+            "default": []
+          },
+          "lvl9": {
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            },
+            "type": "array",
+            "title": "Lvl9",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "spellcasting_ability",
+          "daily_prepared"
+        ],
+        "title": "Spells"
       },
       "UpdateCharacterSchema": {
         "properties": {
