@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CharacterSheet } from './CharacterSheet';
 import type { EquippedItemSchema } from './EquippedItemSchema';
 import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
@@ -19,7 +20,7 @@ export type CharacterSchema = {
     /**
      * The embdedded character sheet JSON data
      */
-    data: Record<string, any>;
+    data: CharacterSheet;
     party: PartySchema;
     player: PlayerSchema;
     equipment: Array<EquippedItemSchema>;

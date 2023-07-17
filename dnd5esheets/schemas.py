@@ -2,8 +2,37 @@
 Definition of the pydandic models used for type validation and output serialization.
 """
 
+from enum import Enum
+
 from pydantic import BaseModel as BaseSchema
 from pydantic import Field
+
+# We define a special field to mark the fields with a default value of 0
+# server-side, which _actual_ value will be computed by the frontend, based
+# on other fields values (ex: proficiency bonus based on the level).
+# We mark these fields with a special description value, because pydantic marks
+# fields with a default value as optional, which gets generated into a
+# <name>?: number; field when generating the typescript client.
+# That is an issue, because the server sends a non-nil default value. We rely
+# on that custom description to specify these fields as required in the openapi
+# spec, to make sure these fields are marked as required in the TS client.
+FrontendComputedField = Field(default=0, description="frontend_computed")
+
+
+class Proficiency(Enum):
+    none: int = 0
+    proficient: int = 1
+    master: int = 2
+
+
+class ActionType(Enum):
+    action: str = "action"
+    bonus: str = "bonus_action"
+    reaction: str = "reaction"
+
+
+class SpellOrigin(Enum):
+    subclass: str = "class"
 
 
 class BaseUpdateSchema(BaseSchema, extra="forbid"):
@@ -75,6 +104,159 @@ class UpdatePartySchema(BaseUpdateSchema):
     name: str | None = Field(max_length=255, title="The party new name")
 
 
+class SaveProficiencies(BaseSchema):
+    strength: Proficiency
+    dexterity: Proficiency
+    constitution: Proficiency
+    intelligence: Proficiency
+    charisma: Proficiency
+    wisdom: Proficiency
+
+
+class SkillProficiencies(BaseSchema):
+    acrobatics: Proficiency
+    arcana: Proficiency
+    athletics: Proficiency
+    stealth: Proficiency
+    animal_handling: Proficiency
+    sleight_of_hand: Proficiency
+    history: Proficiency
+    intimidation: Proficiency
+    investigation: Proficiency
+    medicine: Proficiency
+    nature: Proficiency
+    perception: Proficiency
+    insight: Proficiency
+    persuasion: Proficiency
+    religion: Proficiency
+    performance: Proficiency
+    survival: Proficiency
+    deception: Proficiency
+
+
+class Proficiencies(BaseSchema):
+    saves: SaveProficiencies
+    skills: SkillProficiencies
+
+
+class Scores(BaseSchema):
+    strength: int
+    dexterity: int
+    constitution: int
+    wisdom: int
+    charisma: int
+    intelligence: int
+
+    # Autocomputed fields, declared here to have them part of the TS types
+    strength_mod: int = FrontendComputedField
+    dexterity_mod: int = FrontendComputedField
+    constitution_mod: int = FrontendComputedField
+    wisdom_mod: int = FrontendComputedField
+    charisma_mod: int = FrontendComputedField
+    intelligence_mod: int = FrontendComputedField
+    strength_save_mod: int = FrontendComputedField
+    dexterity_save_mod: int = FrontendComputedField
+    constitution_save_mod: int = FrontendComputedField
+    wisdom_save_mod: int = FrontendComputedField
+    charisma_save_mod: int = FrontendComputedField
+    intelligence_save_mod: int = FrontendComputedField
+
+
+class HitPoints(BaseSchema):
+    max: int
+    temp: int
+    current: int
+
+
+class HitDice(BaseSchema):
+    type: str
+    total: int
+    remaining: int
+
+
+class CustomResource(BaseSchema):
+    header: str
+    available: int
+    remaining: int
+
+
+class Attack(BaseSchema):
+    name: str
+    bonus: int
+    damage: str
+    damage_type: str
+
+
+class Money(BaseSchema):
+    copper: int
+    silver: int
+    electrum: int
+    gold: int
+    platinum: int
+
+
+class Spell(BaseSchema):
+    name: str
+    description: str
+    prepared: bool = False
+    somatic: bool = False
+    verbal: bool = False
+    material: bool = False
+    ritual: bool = False
+    concentration: bool = False
+    invocation: ActionType | None = None
+    origin: SpellOrigin | None = None
+
+
+class Spells(BaseSchema):
+    spellcasting_ability: str
+    daily_prepared: int
+    cantrips: list[Spell] = []
+    lvl1: list[Spell] = []
+    lvl2: list[Spell] = []
+    lvl3: list[Spell] = []
+    lvl4: list[Spell] = []
+    lvl5: list[Spell] = []
+    lvl6: list[Spell] = []
+    lvl7: list[Spell] = []
+    lvl8: list[Spell] = []
+    lvl9: list[Spell] = []
+
+
+class CharacterSheet(BaseSchema):
+    scores: Scores
+    proficiencies: Proficiencies
+    xp: int
+    race: str
+    background: str
+    alignment: str
+    darkvision: bool
+    inspiration: bool
+    speed: int
+    hp: HitPoints
+    hit_dice: HitDice
+    money: Money
+    custom_resources: list[CustomResource]
+    attacks: list[Attack]
+    equipment: str
+    languages_and_proficiencies: str
+    personality: str
+    ideals: str
+    bonds: str
+    flaws: str
+    features: str
+    spells: Spells
+
+    # These are optional fields are they are calculated by the frontend.
+    # We declare them here so that they appear in the generated TS types.
+    proficiency_bonus: int = FrontendComputedField
+    ac: int = FrontendComputedField
+    initiative: int = FrontendComputedField
+    spell_dc: int = FrontendComputedField
+    spell_attack_bonus: int = FrontendComputedField
+    passive_perception: int = FrontendComputedField
+
+
 class CharacterSchema(BaseORMSchema):
     """All details associated with a character"""
 
@@ -85,7 +267,7 @@ class CharacterSchema(BaseORMSchema):
     )
     class_: str = Field(max_length=80, title="The character class")
     level: int = Field(ge=1, title="The character level")
-    data: dict = Field(description="The embdedded character sheet JSON data")
+    data: CharacterSheet = Field(description="The embdedded character sheet JSON data")
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
@@ -95,14 +277,14 @@ class CharacterSchemaNoPlayer(CharacterSchema):
     """The details of a character, excluding the player"""
 
     player: PlayerSchema = Field(exclude=True)
-    data: dict = Field(exclude=True)
+    data: dict = Field(exclude=True)  # type: ignore
 
 
 class CharacterSchemaNoPartyNoData(CharacterSchema):
     """The details of a character, excluding the party"""
 
     party: PartySchema = Field(exclude=True)
-    data: dict = Field(exclude=True)
+    data: dict = Field(exclude=True)  # type: ignore
 
 
 class ListCharacterSchema(BaseORMSchema):
