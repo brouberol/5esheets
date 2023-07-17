@@ -41,4 +41,5 @@ jobs:
       - name: Run quality chekers
         run: make back-check
 
-      - uses: hadolint/hadolint-action@v3.1.0
+      - name: Lint dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
