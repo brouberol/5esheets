@@ -12,7 +12,9 @@ export default function CharacterList({
   return (
     <ul>
       {Object.values(characters).map(({ name, slug }) => (
-        <li><A href={"character/" + slug}>{name}</A></li>
+        <li>
+          <A href={"character/" + slug}>{name}</A>
+        </li>
       ))}
     </ul>
   );
