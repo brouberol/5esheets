@@ -24,4 +24,4 @@ COPY scripts/start-app.sh .
 RUN rm -r ./dnd5esheets/front/*
 COPY --from=build /app/dist ./dnd5esheets/front/dist
 
-CMD ./start-app.sh
+CMD ["./start-app.sh"]
