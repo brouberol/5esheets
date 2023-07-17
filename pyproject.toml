@@ -21,7 +21,7 @@ fastapi-jwt-auth = "^0.5.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
-ruff = "^0.0.277"
+ruff = "^0.0.278"
 black = "^23.7.0"
 types-python-jose = "^3.3.4.7"
 types-passlib = "^1.7.7.12"
