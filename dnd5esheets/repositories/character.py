@@ -1,7 +1,7 @@
 from typing import Sequence, cast
 
 from slugify import slugify
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
@@ -66,12 +66,16 @@ class CharacterRepository(BaseRepository):
 
     @classmethod
     async def create(
-        cls, session: AsyncSession, character_data: CreateCharacterSchema, owner_id: int
+        cls,
+        session: AsyncSession,
+        character_data: CreateCharacterSchema,
+        owner_id: int | None,
     ) -> Character:
-        if not await PlayerRepository.player_has_character_in_party(
-            session, player_id=owner_id, party_id=character_data.party_id
-        ):
-            raise ModelNotFound.from_model_name("Party")
+        if owner_id is not None:
+            if not await PlayerRepository.player_has_character_in_party(
+                session, player_id=owner_id, party_id=character_data.party_id
+            ):
+                raise ModelNotFound.from_model_name("Party")
 
         slug = slugify(character_data.name)
         character = Character(
