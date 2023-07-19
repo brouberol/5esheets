@@ -84,3 +84,18 @@ def test_create_new_character_in_party_with_no_player_character(client):
         json={"name": "Ronald McDonald", "party_id": 2},
         status_code=404,
     )
+
+
+def test_create_duplicate_character_for_same_player(client):
+    assert_status_and_return_data(
+        client.post,
+        "/api/character/new",
+        json={"name": "Ronald McDonald", "party_id": 1},
+        status_code=200,
+    )
+    assert_status_and_return_data(
+        client.post,
+        "/api/character/new",
+        json={"name": "Ronald McDonald", "party_id": 1},
+        status_code=400,
+    )

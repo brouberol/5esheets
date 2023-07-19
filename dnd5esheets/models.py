@@ -10,6 +10,7 @@ from sqlalchemy import (
     Integer,
     String,
     TypeDecorator,
+    UniqueConstraint,
     types,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -149,4 +150,8 @@ class Character(NameReprMixin, BaseModel):
     )
     equipment: Mapped[list[EquippedItem]] = relationship(
         back_populates="owner", lazy="selectin", cascade="all, delete-orphan"
+    )
+
+    __table_args__ = (
+        UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),
     )

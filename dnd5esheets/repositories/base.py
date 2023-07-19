@@ -18,6 +18,10 @@ class ModelNotFound(Exception):
         return cls(f"{model_name} not found")
 
 
+class DuplicateModel(Exception):
+    ...
+
+
 class BaseRepository:
     model: Type[BaseModel] = BaseModel
 

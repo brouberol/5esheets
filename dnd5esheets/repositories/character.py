@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
 from dnd5esheets.models import Character
-from dnd5esheets.repositories import BaseRepository, ModelNotFound
+from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
@@ -28,9 +28,14 @@ class CharacterRepository(BaseRepository):
         return result.scalars().all()
 
     @classmethod
-    async def get_by_slug(cls, session: AsyncSession, slug: str) -> Character:
+    async def get_by_slug(
+        cls, session: AsyncSession, slug: str, owner_id: int | None = None
+    ) -> Character:
         """Return a Character given an argument slug"""
-        result = await session.execute(select(Character).filter(Character.slug == slug))
+        query = select(Character).filter(Character.slug == slug)
+        if owner_id is not None:
+            query = query.filter(Character.player_id == owner_id)
+        result = await session.execute(query)
         return cast(Character, cls.one_or_raise_model_not_found(result))
 
     @classmethod
@@ -71,13 +76,25 @@ class CharacterRepository(BaseRepository):
         character_data: CreateCharacterSchema,
         owner_id: int | None,
     ) -> Character:
+        slug = slugify(character_data.name)
         if owner_id is not None:
             if not await PlayerRepository.player_has_character_in_party(
                 session, player_id=owner_id, party_id=character_data.party_id
             ):
                 raise ModelNotFound.from_model_name("Party")
 
-        slug = slugify(character_data.name)
+            try:
+                await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+            except ModelNotFound:
+                # If the model isn't found, we can proceed with the insertion
+                pass
+            else:
+                # We have found an already existing Character in DB, belonging to the
+                # current player, with the same slug
+                raise DuplicateModel(
+                    f"A character named {character_data.name} already exists"
+                )
+
         character = Character(
             name=character_data.name,
             party_id=character_data.party_id,
