@@ -14,6 +14,7 @@ export type { CharacterSchema } from './models/CharacterSchema';
 export type { CharacterSchemaNoPartyNoData } from './models/CharacterSchemaNoPartyNoData';
 export type { CharacterSchemaNoPlayer } from './models/CharacterSchemaNoPlayer';
 export type { CharacterSheet } from './models/CharacterSheet';
+export type { CreateCharacterSchema } from './models/CreateCharacterSchema';
 export type { CustomResource } from './models/CustomResource';
 export type { DisplayPartySchema } from './models/DisplayPartySchema';
 export type { DisplayPlayerSchema } from './models/DisplayPlayerSchema';

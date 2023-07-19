@@ -5,6 +5,7 @@ from dnd5esheets.db import create_scoped_session
 from dnd5esheets.repositories.character import CharacterRepository
 from dnd5esheets.schemas import (
     CharacterSchema,
+    CreateCharacterSchema,
     ListCharacterSchema,
     UpdateCharacterSchema,
 )
@@ -39,7 +40,7 @@ async def display_character(
 
 
 @character_api.put("/{slug}")
-async def update(
+async def update_character(
     slug: str,
     character_data: UpdateCharacterSchema,
     session: AsyncSession = Depends(create_scoped_session),
@@ -62,3 +63,15 @@ async def update(
     )
     await CharacterRepository.update(session, slug, character_data)
     return {"status": "ok"}
+
+
+@character_api.post("/new", response_model=CharacterSchema)
+async def create_character(
+    character_data: CreateCharacterSchema,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+):
+    """Create a new character, without any data nor equipment"""
+    return await CharacterRepository.create(
+        session, character_data=character_data, owner_id=current_player_id
+    )

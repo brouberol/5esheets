@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CharacterSchema } from '../models/CharacterSchema';
+import type { CreateCharacterSchema } from '../models/CreateCharacterSchema';
 import type { ListCharacterSchema } from '../models/ListCharacterSchema';
 import type { UpdateCharacterSchema } from '../models/UpdateCharacterSchema';
 
@@ -50,7 +51,7 @@ export class CharacterService {
     }
 
     /**
-     * Update
+     * Update Character
      * Update a character details.
      *
      * Examples of JSON body paylods:
@@ -66,7 +67,7 @@ export class CharacterService {
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static update(
+    public static updateCharacter(
         slug: string,
         requestBody: UpdateCharacterSchema,
     ): CancelablePromise<Record<string, any>> {
@@ -76,6 +77,27 @@ export class CharacterService {
             path: {
                 'slug': slug,
             },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Create Character
+     * Create a new character, without any data nor equipment
+     * @param requestBody
+     * @returns CharacterSchema Successful Response
+     * @throws ApiError
+     */
+    public static createCharacter(
+        requestBody: CreateCharacterSchema,
+    ): CancelablePromise<CharacterSchema> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/character/new',
             body: requestBody,
             mediaType: 'application/json',
             errors: {

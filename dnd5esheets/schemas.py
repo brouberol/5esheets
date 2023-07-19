@@ -265,12 +265,21 @@ class CharacterSchema(BaseORMSchema):
     slug: str = Field(
         max_length=255, title="The character slug, used to identify it in the API"
     )
-    class_: str = Field(max_length=80, title="The character class")
-    level: int = Field(ge=1, title="The character level")
-    data: CharacterSheet = Field(description="The embdedded character sheet JSON data")
+    class_: str | None = Field(max_length=80, title="The character class")
+    level: int | None = Field(ge=1, title="The character level")
+    data: CharacterSheet | None = Field(
+        description="The embdedded character sheet JSON data"
+    )
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
+
+
+class CreateCharacterSchema(BaseORMSchema):
+    """All details associated with a character"""
+
+    name: str = Field(max_length=255, title="The character name")
+    party_id: int = Field(title="The character's party id")
 
 
 class CharacterSchemaNoPlayer(CharacterSchema):

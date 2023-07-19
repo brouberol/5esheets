@@ -15,12 +15,12 @@ export type CharacterSchema = {
     id: number;
     name: string;
     slug: string;
-    class_: string;
-    level: number;
+    class_?: string;
+    level?: number;
     /**
      * The embdedded character sheet JSON data
      */
-    data: CharacterSheet;
+    data?: CharacterSheet;
     party: PartySchema;
     player: PlayerSchema;
     equipment: Array<EquippedItemSchema>;

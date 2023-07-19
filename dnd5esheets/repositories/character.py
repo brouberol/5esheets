@@ -1,12 +1,14 @@
 from typing import Sequence, cast
 
-from sqlalchemy import select
+from slugify import slugify
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
 from dnd5esheets.models import Character
-from dnd5esheets.repositories import BaseRepository
-from dnd5esheets.schemas import UpdateCharacterSchema
+from dnd5esheets.repositories import BaseRepository, ModelNotFound
+from dnd5esheets.repositories.player import PlayerRepository
+from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
 
 class CharacterRepository(BaseRepository):
@@ -60,4 +62,28 @@ class CharacterRepository(BaseRepository):
         session.add(character)
         await session.commit()
 
+        return character
+
+    @classmethod
+    async def create(
+        cls, session: AsyncSession, character_data: CreateCharacterSchema, owner_id: int
+    ) -> Character:
+        if not await PlayerRepository.player_has_character_in_party(
+            session, player_id=owner_id, party_id=character_data.party_id
+        ):
+            raise ModelNotFound.from_model_name("Party")
+
+        slug = slugify(character_data.name)
+        character = Character(
+            name=character_data.name,
+            party_id=character_data.party_id,
+            slug=slug,
+            player_id=owner_id,
+            level=None,
+            class_=None,
+            data=None,
+        )
+        session.add(character)
+        await session.commit()
+        await session.refresh(character)
         return character

@@ -53,3 +53,34 @@ def test_update_with_invalid_payload(client):
         json={"name": "Ronald McDonald", "invalid": "field"},
     )
     assert update_response.status_code == 422
+
+
+def test_create_new_character(client):
+    created_data = assert_status_and_return_data(
+        client.post,
+        "/api/character/new",
+        json={"name": "Ronald McDonald", "party_id": 1},
+        status_code=200,
+    )
+    assert created_data["name"] == "Ronald McDonald"
+    assert created_data["slug"] == "ronald-mcdonald"
+    assert created_data["player"]["name"] == "Balthazar"
+    assert created_data["party"]["name"] == "Famille McTrickfoot"
+    assert created_data["class_"] is None
+    assert created_data["data"] is None
+    assert created_data["level"] is None
+
+    # Make sure the character is now saved to DB
+    display_data = assert_status_and_return_data(
+        client.get, f"/api/character/{created_data['slug']}", status_code=200
+    )
+    assert created_data == display_data
+
+
+def test_create_new_character_in_party_with_no_player_character(client):
+    assert_status_and_return_data(
+        client.post,
+        "/api/character/new",
+        json={"name": "Ronald McDonald", "party_id": 2},
+        status_code=404,
+    )
