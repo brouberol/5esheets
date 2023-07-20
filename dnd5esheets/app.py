@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi_etag import add_exception_handler as add_etag_exception_handler
 from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from .api import api

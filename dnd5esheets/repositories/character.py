@@ -136,7 +136,7 @@ class CharacterRepository(BaseRepository):
         if owner_id is not None:
             query = query.filter(Player.id == owner_id)
         result = await session.execute(query)
-        character_id, *update_timestamps = result.first()
+        character_id, *update_timestamps = result.one()
 
         equipped_items_results = await session.execute(
             select(EquippedItem.updated_at)
