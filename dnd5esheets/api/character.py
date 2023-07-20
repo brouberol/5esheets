@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.db import create_scoped_session
+from dnd5esheets.etag import handle_etag_for_request
 from dnd5esheets.repositories.character import CharacterRepository
 from dnd5esheets.schemas import (
     CharacterSchema,
@@ -14,7 +15,22 @@ from dnd5esheets.security.user import get_current_user_id
 character_api = APIRouter(prefix="/character", tags=["character"])
 
 
-@character_api.get("/", response_model=list[ListCharacterSchema])
+async def handle_character_etag(
+    session: AsyncSession,
+    slug: str,
+    owner_id: int | None,
+    request: Request,
+    response: Response,
+):
+    """Compute the character's etag, and handle any cache it"""
+    etag = await CharacterRepository.etag(session, slug=slug, owner_id=owner_id)
+    handle_etag_for_request(etag, request, response)
+
+
+@character_api.get(
+    "/",
+    response_model=list[ListCharacterSchema],
+)
 async def list_characters(
     session: AsyncSession = Depends(create_scoped_session),
     current_player_id: int | None = Depends(get_current_user_id),
@@ -27,13 +43,19 @@ async def list_characters(
     return await CharacterRepository.list_all(session, owner_id=current_player_id)
 
 
-@character_api.get("/{slug}", response_model=CharacterSchema)
+@character_api.get(
+    "/{slug}",
+    response_model=CharacterSchema,
+)
 async def display_character(
     slug: str,
+    request: Request,
+    response: Response,
     session: AsyncSession = Depends(create_scoped_session),
     current_player_id: int | None = Depends(get_current_user_id),
 ):
     """Display all details of a given character."""
+    await handle_character_etag(session, slug, current_player_id, request, response)
     return await CharacterRepository.get_by_slug_if_owned(
         session, slug=slug, owner_id=current_player_id
     )
