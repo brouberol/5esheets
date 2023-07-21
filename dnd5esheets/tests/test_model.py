@@ -1,3 +1,6 @@
+import pytest
+from sqlalchemy import exc as sa_exc
+
 from dnd5esheets.models import Character
 
 
@@ -26,3 +29,26 @@ def test_update_in_model_json_field(db):
         "wisdom": 12,
         "charisma": 14,
     }
+
+
+def test_duplicate_character_slug(db):
+    char1 = Character(
+        name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1
+    )
+    db.add(char1)
+    db.commit()
+
+    # Same slug, different player, so that's ok
+    char2 = Character(
+        name="Ronald McDonald", slug="ronald-mcdonald", player_id=2, party_id=2
+    )
+    db.add(char2)
+    db.commit()
+
+    # Duplicate slug/player than with char1
+    char3 = Character(
+        name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1
+    )
+    db.add(char3)
+    with pytest.raises(sa_exc.IntegrityError):
+        db.commit()
