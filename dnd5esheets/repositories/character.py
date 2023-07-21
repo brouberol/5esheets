@@ -1,3 +1,5 @@
+import hashlib
+from itertools import chain
 from typing import Sequence, cast
 
 from slugify import slugify
@@ -5,7 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
-from dnd5esheets.models import Character
+from dnd5esheets.models import Character, EquippedItem, Party, Player
 from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
@@ -109,3 +111,44 @@ class CharacterRepository(BaseRepository):
         await session.commit()
         await session.refresh(character)
         return character
+
+    @classmethod
+    async def etag(cls, session: AsyncSession, slug: str, owner_id: int | None) -> str:
+        """Compute a stable hash for a given Character that will be used as its ETag.
+
+        For this, we rely on the hash of all updated_at timestamps for the Character itself,
+        as well as each related entity:
+        - Player
+        - Party
+        - EquippedItems
+
+        """
+        query = (
+            select(
+                Character.id,
+                Character.updated_at,
+                Party.updated_at,
+                Player.updated_at,
+            )
+            .join(Party)
+            .join(Player)
+            .filter(Character.slug == slug)
+        )
+        if owner_id is not None:
+            query = query.filter(Player.id == owner_id)
+        result = await session.execute(query)
+        character_id, *update_timestamps = result.one()
+
+        equipped_items_results = await session.execute(
+            select(EquippedItem.updated_at)
+            .filter(EquippedItem.character_id == character_id)
+            .order_by(EquippedItem.item_id)
+        )
+        equipped_items_update_timestamps = equipped_items_results.scalars().all()
+
+        # hash all updated_at timestamps
+        digest = hashlib.sha1()
+        for update_dt in chain(update_timestamps, equipped_items_update_timestamps):
+            digest.update(update_dt.isoformat().encode("utf-8"))
+
+        return digest.hexdigest()

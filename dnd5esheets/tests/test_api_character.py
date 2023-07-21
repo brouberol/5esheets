@@ -99,3 +99,43 @@ def test_create_duplicate_character_for_same_player(client):
         json={"name": "Ronald McDonald", "party_id": 1},
         status_code=400,
     )
+
+
+def test_describe_character_with_etag(client):
+    response = client.get("/api/character/douglas-mctrickfoot")
+    assert response.status_code == 200
+    assert "ETag" in response.headers
+
+    new_response = client.get(
+        "/api/character/douglas-mctrickfoot",
+        headers={"If-None-Match": response.headers["ETag"]},
+    )
+    assert new_response.status_code == 304  # The Etag is the same
+
+    update_response = client.put(
+        "/api/character/douglas-mctrickfoot",
+        json={"level": "5"},  # direct update to the Character
+    )
+    assert update_response.status_code == 200
+
+    response_after_update = client.get(
+        "/api/character/douglas-mctrickfoot",
+        headers={"If-None-Match": response.headers["ETag"]},
+    )
+    assert response_after_update.status_code == 200  # the etag has changed
+
+    update_response = client.put(
+        "/api/party/1",
+        json={
+            "name": "Los Pollos Hermanos"
+        },  # indirect update to the Character, as this is a related field
+    )
+    assert update_response.status_code == 200
+
+    new_response_after_party_update = client.get(
+        "/api/character/douglas-mctrickfoot",
+        headers={"If-None-Match": response_after_update.headers["ETag"]},
+    )
+    assert (
+        new_response_after_party_update.status_code == 200
+    )  # the etag has changed again
