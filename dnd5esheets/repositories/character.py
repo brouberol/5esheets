@@ -79,6 +79,7 @@ class CharacterRepository(BaseRepository):
         owner_id: int | None,
     ) -> Character:
         slug = slugify(character_data.name)
+
         if owner_id is not None:
             if not await PlayerRepository.player_has_character_in_party(
                 session, player_id=owner_id, party_id=character_data.party_id
@@ -110,6 +111,7 @@ class CharacterRepository(BaseRepository):
         await session.commit()
         await session.refresh(character)
         return character
+
 
     @classmethod
     async def etag(cls, session: AsyncSession, slug: str, owner_id: int | None) -> str:
