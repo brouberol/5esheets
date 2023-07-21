@@ -112,7 +112,6 @@ class CharacterRepository(BaseRepository):
         await session.refresh(character)
         return character
 
-
     @classmethod
     async def etag(cls, session: AsyncSession, slug: str, owner_id: int | None) -> str:
         """Compute a stable hash for a given Character that will be used as its ETag.
