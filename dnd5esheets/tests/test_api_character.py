@@ -99,3 +99,4 @@ def test_create_duplicate_character_for_same_player(client):
         json={"name": "Ronald McDonald", "party_id": 1},
         status_code=400,
     )
+
