@@ -1,4 +1,4 @@
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Callable
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -55,8 +55,10 @@ class create_session:
 
     """
 
-    def __init__(self, commit_at_end: bool = False):
-        self.session = session_factory()
+    def __init__(
+        self, commit_at_end: bool = False, factory: Callable = session_factory
+    ):
+        self.session = factory()
         self.commit_at_end = commit_at_end
 
     def __enter__(self):

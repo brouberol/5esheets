@@ -1,15 +1,16 @@
 import os
 import subprocess
-from urllib.parse import urlparse
+import pytest_asyncio
 
+from urllib.parse import urlparse
 from fastapi.testclient import TestClient
 from pytest import fixture
 
 from dnd5esheets.app import app
 from dnd5esheets.cli import _populate_base_items, _populate_db_with_dev_data
 from dnd5esheets.config import get_settings
-from dnd5esheets.db import create_session, engine
-from dnd5esheets.models import BaseModel
+from dnd5esheets.db import create_session, engine, async_session_factory
+from dnd5esheets.models import BaseModel, Character, Player
 
 
 @fixture(scope="session")
@@ -20,6 +21,19 @@ def settings():
 @fixture(scope="session")
 def unauthed_client():
     return TestClient(app)
+
+
+@fixture(autouse=True)
+def _remove_all_tables_and_restore_pre_test_backup(settings):
+    yield  # let the test run
+
+    # Ater the test has run, remove all tables
+    BaseModel.metadata.drop_all(bind=engine)
+
+    # Restore the backup
+    db_file = urlparse(settings.DB_URI).path
+    with open(db_file + ".bak") as db_backup_file_fd:
+        subprocess.run(["sqlite3", db_file], stdin=db_backup_file_fd)
 
 
 @fixture(scope="session")
@@ -55,8 +69,8 @@ def init_db(settings):
     os.remove(db_file + ".bak")
 
 
-@fixture(scope="function", autouse=True)
-def db(settings):
+@fixture(scope="function")
+def session():
     """A fixture automatically used for each test, providing a DB session.
 
     This makes sure that any side effect in database is reverted at the end of the test.
@@ -65,10 +79,18 @@ def db(settings):
     with create_session() as session:
         yield session
 
-    # Ater the test has run, remove all tables
-    BaseModel.metadata.drop_all(bind=engine)
 
-    # Restore the backup
-    db_file = urlparse(settings.DB_URI).path
-    with open(db_file + ".bak") as db_backup_file_fd:
-        subprocess.run(["sqlite3", db_file], stdin=db_backup_file_fd)
+@pytest_asyncio.fixture(scope="function")
+async def async_session():
+    with create_session(factory=async_session_factory) as session:
+        yield session
+
+
+@pytest_asyncio.fixture(scope="function")
+async def douglas(async_session):
+    return await async_session.get(Character, 1)
+
+
+@pytest_asyncio.fixture(scope="function")
+async def balthazar(async_session):
+    return await async_session.get(Player, 1)

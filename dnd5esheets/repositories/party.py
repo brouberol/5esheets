@@ -13,7 +13,7 @@ class PartyRepository(BaseRepository):
 
     @classmethod
     async def list_all(
-        cls, session: AsyncSession, owner_id: int | None
+        cls, session: AsyncSession, owner_id: int | None = None
     ) -> Sequence[Party]:
         query = select(Party)
         if owner_id:
@@ -66,5 +66,6 @@ class PartyRepository(BaseRepository):
         # Persist the changes
         session.add(party)
         await session.commit()
+        await session.refresh(party)
 
         return party

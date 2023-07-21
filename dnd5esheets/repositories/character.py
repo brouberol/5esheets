@@ -18,7 +18,7 @@ class CharacterRepository(BaseRepository):
 
     @classmethod
     async def list_all(
-        cls, session: AsyncSession, owner_id: int | None
+        cls, session: AsyncSession, owner_id: int | None = None
     ) -> Sequence[Character]:
         """List all existing characters, with their associated related data"""
         query = select(Character).options(
