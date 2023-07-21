@@ -3,11 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Money = {
-    copper: number;
-    silver: number;
-    electrum: number;
-    gold: number;
-    platinum: number;
+/**
+ * All details associated with a character
+ */
+export type CreateCharacterSchema = {
+    name: string;
+    party_id: number;
 };
 

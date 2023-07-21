@@ -14,8 +14,8 @@ export type CharacterSchemaNoPlayer = {
     id: number;
     name: string;
     slug: string;
-    class_: string;
-    level: number;
+    class_?: string;
+    level?: number;
     data: Record<string, any>;
     party: PartySchema;
     player: PlayerSchema;

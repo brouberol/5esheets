@@ -77,9 +77,9 @@
         "tags": [
           "character"
         ],
-        "summary": "Update",
+        "summary": "Update Character",
         "description": "Update a character details.\n\nExamples of JSON body paylods:\n\n- `{\"level\": 5 }`\n- `{\"name\": \"Toto\"}`\n- `{\"class_\": \"Guerrier\", \"data\": {\"background\": \"Folk Hero\"}}`\n\nIn the last example, we update both a direct character attribute\nas well as an attribute nested in the character JSON data.",
-        "operationId": "update",
+        "operationId": "update_character",
         "parameters": [
           {
             "required": true,
@@ -108,7 +108,49 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "title": "Response Character-Update"
+                  "title": "Response Character-Update Character"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/new": {
+      "post": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Create Character",
+        "description": "Create a new character, without any data nor equipment",
+        "operationId": "create_character",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCharacterSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CharacterSchema"
                 }
               }
             }
@@ -523,9 +565,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
-          "data",
           "party",
           "player",
           "equipment"
@@ -588,8 +627,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
           "data",
           "party",
           "player",
@@ -653,8 +690,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
           "data",
           "party",
           "player",
@@ -810,6 +845,26 @@
           "passive_perception"
         ],
         "title": "CharacterSheet"
+      },
+      "CreateCharacterSchema": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The character name"
+          },
+          "party_id": {
+            "type": "integer",
+            "title": "The character's party id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "party_id"
+        ],
+        "title": "CreateCharacterSchema",
+        "description": "All details associated with a character"
       },
       "CustomResource": {
         "properties": {

@@ -1052,6 +1052,17 @@ files = [
 ]
 
 [[package]]
+name = "types-python-slugify"
+version = "8.0.0.2"
+description = "Typing stubs for python-slugify"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-python-slugify-8.0.0.2.tar.gz", hash = "sha256:de237b01c69ad3a57ae36a0e8a6a0c65b47bac529483007c1cae2d424cb07cc8"},
+    {file = "types_python_slugify-8.0.0.2-py3-none-any.whl", hash = "sha256:9e81f49eac8c805f924695de559fb8dc123ccbd15adb47d40ceaec51c739f044"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.7.1"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -1262,4 +1273,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c2afab7eb6935c62c6f17639dfc3a92dad12310fb912f4cec6a7195f43a9684b"
+content-hash = "25fa12bb34ef3b5671d23fae7a929bd01ecd2b230d336e6b4fb83e335d388385"

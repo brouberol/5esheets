@@ -132,9 +132,9 @@ class EquippedItem(BaseModel):
 class Character(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
-    class_: Mapped[str] = mapped_column(String(80), name="class")
-    level: Mapped[int] = mapped_column(Integer)
-    data: Mapped[str] = mapped_column(Json, name="json_data")
+    class_: Mapped[str] = mapped_column(String(80), name="class", nullable=True)
+    level: Mapped[int] = mapped_column(Integer, nullable=True)
+    data: Mapped[str] = mapped_column(Json, name="json_data", nullable=True)
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
     player: Mapped[Player] = relationship(
         back_populates="characters",

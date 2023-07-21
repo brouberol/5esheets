@@ -1,8 +1,9 @@
 from typing import cast
-from sqlalchemy import select
+
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dnd5esheets.models import Player
+from dnd5esheets.models import Character, Party, Player
 from dnd5esheets.repositories import BaseRepository
 from dnd5esheets.schemas import UpdatePlayerSchema
 
@@ -40,3 +41,18 @@ class PlayerRepository(BaseRepository):
         await session.commit()
 
         return player
+
+    @classmethod
+    async def player_has_character_in_party(
+        cls, session: AsyncSession, player_id: int, party_id: int
+    ) -> bool:
+        """Return whether the argument player has at least one character in the given party"""
+        return bool(
+            await session.scalar(
+                select(func.count())
+                .select_from(Player)
+                .join(Character)
+                .join(Party)
+                .filter(Player.id == player_id, Party.id == party_id)
+            )
+        )
