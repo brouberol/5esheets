@@ -110,6 +110,7 @@ class CharacterRepository(BaseRepository):
         )
         session.add(character)
         await session.commit()
+        await session.refresh(character)
         return character
 
     @classmethod
