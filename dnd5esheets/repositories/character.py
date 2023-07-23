@@ -68,6 +68,7 @@ class CharacterRepository(BaseRepository):
         # Persist the changes
         session.add(character)
         await session.commit()
+        await session.refresh(character)
 
         return character
 
@@ -113,7 +114,9 @@ class CharacterRepository(BaseRepository):
         return character
 
     @classmethod
-    async def etag(cls, session: AsyncSession, slug: str, owner_id: int | None) -> str:
+    async def etag(
+        cls, session: AsyncSession, slug: str, owner_id: int | None
+    ) -> str | None:
         """Compute a stable hash for a given Character that will be used as its ETag.
 
         For this, we rely on the hash of all updated_at timestamps for the Character itself,
@@ -136,8 +139,11 @@ class CharacterRepository(BaseRepository):
         )
         if owner_id is not None:
             query = query.filter(Player.id == owner_id)
-        result = await session.execute(query)
-        character_id, *update_timestamps = result.one()
+        result = (await session.execute(query)).first()
+        if not result:
+            return None
+
+        character_id, *update_timestamps = result
 
         equipped_items_results = await session.execute(
             select(EquippedItem.updated_at)
@@ -152,3 +158,9 @@ class CharacterRepository(BaseRepository):
             digest.update(update_dt.isoformat().encode("utf-8"))
 
         return digest.hexdigest()
+
+    @classmethod
+    async def delete(cls, session: AsyncSession, slug: str, owner_id: int | None):
+        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        await session.delete(character)
+        await session.commit()

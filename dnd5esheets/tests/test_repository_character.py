@@ -132,3 +132,16 @@ async def test_character_etag_stability(async_session):
         )
         != etag
     )
+
+
+@pytest.mark.asyncio
+async def test_delete_character(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert douglas is not None
+    await CharacterRepository.delete(
+        async_session, slug="douglas-mctrickfoot", owner_id=1
+    )
+    with pytest.raises(ModelNotFound):
+        await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
