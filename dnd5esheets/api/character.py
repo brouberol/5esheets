@@ -24,7 +24,8 @@ async def handle_character_etag(
 ):
     """Compute the character's etag, and handle any cache it"""
     etag = await CharacterRepository.etag(session, slug=slug, owner_id=owner_id)
-    handle_etag_for_request(etag, request, response)
+    if etag is not None:
+        handle_etag_for_request(etag, request, response)
 
 
 @character_api.get(
