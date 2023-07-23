@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import exc as sa_exc
 
-from dnd5esheets.models import Character
+from dnd5esheets.models import Character, Item, EquippedItem
 
 
 def test_update_in_model_json_field(session):
@@ -52,3 +52,18 @@ def test_duplicate_character_slug(session):
     session.add(char3)
     with pytest.raises(sa_exc.IntegrityError):
         session.commit()
+
+
+def test_delete_character_cascade(session):
+    douglas = session.get(Character, 1)
+    equipped_item_ids = [equipped_item.id for equipped_item in douglas.equipment]
+    equipment_item_ids = [equipped_item.item_id for equipped_item in douglas.equipment]
+    session.delete(douglas)
+    session.commit()
+
+    # Make sure the items haven't been deleted when a character was deleted.
+    # Safgeguard against me being clumsy with cascades
+    for equipment_item_id in equipment_item_ids:
+        assert session.get(Item, equipment_item_id) is not None
+    for equipped_item_id in equipped_item_ids:
+        assert session.get(EquippedItem, equipped_item_id) is None
