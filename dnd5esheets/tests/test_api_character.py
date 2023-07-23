@@ -139,3 +139,20 @@ def test_describe_character_with_etag(client):
     assert (
         new_response_after_party_update.status_code == 200
     )  # the etag has changed again
+
+
+def test_delete_character(client):
+    assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    delete_response = client.delete("/api/character/douglas-mctrickfoot")
+    assert delete_response.status_code == 204
+    assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=404
+    )
+
+
+def test_delete_character_from_non_owner(client):
+    assert_status_and_return_data(
+        client.get, "/api/character/trevor-mctrickfoot", status_code=404
+    )

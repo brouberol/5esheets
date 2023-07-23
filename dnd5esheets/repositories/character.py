@@ -109,7 +109,6 @@ class CharacterRepository(BaseRepository):
         )
         session.add(character)
         await session.commit()
-        await session.refresh(character)
         return character
 
     @classmethod
@@ -152,3 +151,9 @@ class CharacterRepository(BaseRepository):
             digest.update(update_dt.isoformat().encode("utf-8"))
 
         return digest.hexdigest()
+
+    @classmethod
+    async def delete(cls, session: AsyncSession, slug: str, owner_id: int | None):
+        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        await session.delete(character)
+        await session.commit()
