@@ -140,7 +140,7 @@ class CharacterRepository(BaseRepository):
             query = query.filter(Player.id == owner_id)
         result = (await session.execute(query)).first()
         if not result:
-            return
+            return None
 
         character_id, *update_timestamps = result
 
