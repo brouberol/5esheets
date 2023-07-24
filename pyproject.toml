@@ -18,6 +18,8 @@ pydantic = "2.0.3"
 python-multipart = "^0.0.6"
 fastapi-jwt = "^0.1.12"
 pydantic-settings = "^2.0.2"
+sqladmin = "^0.13.0"
+itsdangerous = "^2.1.2"
 
 
 [tool.poetry.group.dev.dependencies]

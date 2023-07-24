@@ -129,6 +129,9 @@ class EquippedItem(BaseModel):
     character_id: Mapped[int] = mapped_column(ForeignKey("character.id"))
     owner: Mapped["Character"] = relationship(back_populates="equipment", lazy="joined")
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__}: {self.item}>"
+
 
 class Character(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255))
