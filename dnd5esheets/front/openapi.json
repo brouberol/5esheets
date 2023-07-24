@@ -44,9 +44,9 @@
         "tags": [
           "character"
         ],
-        "summary": "Display Character",
-        "description": "Display all details of a given character.",
-        "operationId": "display_character",
+        "summary": "Get Character",
+        "description": "Returns all details of a given character.",
+        "operationId": "get_character",
         "security": [
           {
             "JwtAccessBearer": []
