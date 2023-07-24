@@ -15,7 +15,7 @@ export type Spell = {
     material?: boolean;
     ritual?: boolean;
     concentration?: boolean;
-    invocation?: ActionType;
-    origin?: SpellOrigin;
+    invocation?: (ActionType | null);
+    origin?: (SpellOrigin | null);
 };
 

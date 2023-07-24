@@ -1,7 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
-
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 db_dir = Path(__file__).parent.parent / "db"
 db_file = db_dir / "5esheets.db"

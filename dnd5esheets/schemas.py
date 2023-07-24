@@ -3,8 +3,7 @@ Definition of the pydandic models used for type validation and output serializat
 """
 
 from enum import Enum
-
-from pydantic import BaseModel as BaseSchema
+from pydantic import ConfigDict, BaseModel as BaseSchema
 from pydantic import Field
 
 # We define a special field to mark the fields with a default value of 0
@@ -40,8 +39,7 @@ class BaseUpdateSchema(BaseSchema, extra="forbid"):
 
 
 class BaseORMSchema(BaseSchema):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ItemSchema(BaseORMSchema):
@@ -75,7 +73,7 @@ class DisplayPlayerSchema(PlayerSchema):
 
 
 class UpdatePlayerSchema(BaseUpdateSchema):
-    name: str | None = Field(max_length=255, title="The player new name")
+    name: str | None = Field(max_length=255, title="The player new name", default=None)
 
 
 class PartySchema(BaseORMSchema):
@@ -92,7 +90,7 @@ class DisplayPartySchema(PartySchema):
 
 
 class UpdatePartySchema(BaseUpdateSchema):
-    name: str | None = Field(max_length=255, title="The party new name")
+    name: str | None = Field(max_length=255, title="The party new name", default=None)
 
 
 class SaveProficiencies(BaseSchema):
@@ -256,10 +254,10 @@ class CharacterSchema(BaseORMSchema):
     slug: str = Field(
         max_length=255, title="The character slug, used to identify it in the API"
     )
-    class_: str | None = Field(max_length=80, title="The character class")
-    level: int | None = Field(ge=1, title="The character level")
+    class_: str | None = Field(max_length=80, title="The character class", default=None)
+    level: int | None = Field(ge=1, title="The character level", default=None)
     data: CharacterSheet | None = Field(
-        description="The embdedded character sheet JSON data"
+        description="The embdedded character sheet JSON data", default=None
     )
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
@@ -300,11 +298,17 @@ class ListCharacterSchema(BaseORMSchema):
 
 
 class UpdateCharacterSchema(BaseUpdateSchema):
-    name: str | None = Field(title="A new character name (Optional)")
-    class_: str | None = Field(max_length=80, title="A new character class (Optional)")
-    level: int | None = Field(ge=1, title="A new character level (Optional)")
-    data: dict | None = Field(title="Updates to the character sheet fields (Optional)")
+    name: str | None = Field(title="A new character name (Optional)", default=None)
+    class_: str | None = Field(
+        max_length=80, title="A new character class (Optional)", default=None
+    )
+    level: int | None = Field(
+        ge=1, title="A new character level (Optional)", default=None
+    )
+    data: dict | None = Field(
+        title="Updates to the character sheet fields (Optional)", default=None
+    )
 
 
-DisplayPlayerSchema.update_forward_refs()
-DisplayPartySchema.update_forward_refs()
+DisplayPlayerSchema.model_rebuild()
+DisplayPartySchema.model_rebuild()

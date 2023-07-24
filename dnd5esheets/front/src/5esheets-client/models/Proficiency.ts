@@ -3,9 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-/**
- * An enumeration.
- */
 export enum Proficiency {
     '_0' = 0,
     '_1' = 1,

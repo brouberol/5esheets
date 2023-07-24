@@ -1,9 +1,8 @@
-import { createComputed, createRoot, getOwner, createEffect } from "solid-js";
+import { createComputed } from "solid-js";
 import { createStore, reconcile } from "solid-js/store";
-import { CharacterSchema, Proficiencies } from "~/5esheets-client";
+import { CharacterSchema } from "~/5esheets-client";
 import { ActionType } from "~/5esheets-client";
 import { Proficiency } from "~/5esheets-client";
-import { SpellOrigin } from "~/5esheets-client";
 import { Scores } from "~/5esheets-client";
 import { SaveProficiencies } from "~/5esheets-client";
 import { SkillProficiencies } from "~/5esheets-client";
