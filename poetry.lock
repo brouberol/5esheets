@@ -991,6 +991,21 @@ files = [
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
+name = "pydantic-settings"
+version = "2.0.2"
+description = "Settings management using Pydantic"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pydantic_settings-2.0.2-py3-none-any.whl", hash = "sha256:6183a2abeab465d5a3ab69758e9a22d38b0cc2ba193f0b85f6971a252ea630f6"},
+    {file = "pydantic_settings-2.0.2.tar.gz", hash = "sha256:342337fff50b23585e807a86dec85037900972364435c55c2fc00d16ff080539"},
+]
+
+[package.dependencies]
+pydantic = ">=2.0.1"
+python-dotenv = ">=0.21.0"
+
+[[package]]
 name = "pytest"
 version = "7.4.0"
 description = "pytest: simple powerful testing with Python"
@@ -1575,4 +1590,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "f2e9f7fe3c9066b4f68dc6c9d0eb329ae23467d2be9c21962616166f712eb7dc"
+content-hash = "3dc855c7dda8abc70c2cef93467948d7a36c27df4010b50188fb7a31a6a28c30"

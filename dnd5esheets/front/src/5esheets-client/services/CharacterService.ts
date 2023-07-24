@@ -86,6 +86,28 @@ export class CharacterService {
     }
 
     /**
+     * Delete Character
+     * Delete the character associated with the slug and the currently logged in player id
+     * @param slug
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static deleteCharacter(
+        slug: string,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/character/{slug}',
+            path: {
+                'slug': slug,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
      * Create Character
      * Create a new character, without any data nor equipment
      * @param requestBody

@@ -33,7 +33,7 @@ export type { SaveProficiencies } from './models/SaveProficiencies';
 export type { Scores } from './models/Scores';
 export type { SkillProficiencies } from './models/SkillProficiencies';
 export type { Spell } from './models/Spell';
-export { SpellOrigin } from './models/SpellOrigin';
+export type { SpellOrigin } from './models/SpellOrigin';
 export type { Spells } from './models/Spells';
 export type { UpdateCharacterSchema } from './models/UpdateCharacterSchema';
 export type { UpdatePartySchema } from './models/UpdatePartySchema';

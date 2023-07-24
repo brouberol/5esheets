@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 export type UpdatePartySchema = {
-    name?: string;
+    name?: (string | null);
 };
 

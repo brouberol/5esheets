@@ -4,6 +4,6 @@
 /* eslint-disable */
 
 export type UpdatePlayerSchema = {
-    name?: string;
+    name?: (string | null);
 };
 

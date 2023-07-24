@@ -28,7 +28,15 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ]
       }
     },
     "/api/character/{slug}": {
@@ -39,15 +47,23 @@
         "summary": "Display Character",
         "description": "Display all details of a given character.",
         "operationId": "display_character",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "slug",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "title": "Slug"
-            },
-            "name": "slug",
-            "in": "path"
+            }
           }
         ],
         "responses": {
@@ -80,26 +96,34 @@
         "summary": "Update Character",
         "description": "Update a character details.\n\nExamples of JSON body paylods:\n\n- `{\"level\": 5 }`\n- `{\"name\": \"Toto\"}`\n- `{\"class_\": \"Guerrier\", \"data\": {\"background\": \"Folk Hero\"}}`\n\nIn the last example, we update both a direct character attribute\nas well as an attribute nested in the character JSON data.",
         "operationId": "update_character",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "slug",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "title": "Slug"
-            },
-            "name": "slug",
-            "in": "path"
+            }
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateCharacterSchema"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -110,6 +134,53 @@
                   "type": "object",
                   "title": "Response Character-Update Character"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Delete Character",
+        "description": "Delete the character associated with the slug and the currently logged in player id",
+        "operationId": "delete_character",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           },
@@ -165,7 +236,15 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ]
       }
     },
     "/api/party/": {
@@ -191,7 +270,15 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ]
       }
     },
     "/api/party/{id}": {
@@ -202,15 +289,23 @@
         "summary": "Display Party",
         "description": "Display all details of a given party.",
         "operationId": "display_party",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
               "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
+            }
           }
         ],
         "responses": {
@@ -243,26 +338,34 @@
         "summary": "Update Party",
         "description": "Update a party details.\n\nExamples of JSON body paylods:",
         "operationId": "update_party",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
               "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
+            }
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdatePartySchema"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -297,15 +400,23 @@
         "summary": "Display Player",
         "description": "Display all details of a given player.",
         "operationId": "display_player",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
               "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
+            }
           }
         ],
         "responses": {
@@ -338,26 +449,34 @@
         "summary": "Update Player",
         "description": "Update a player details.\n\nExamples of JSON body paylods:",
         "operationId": "update_player",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
         "parameters": [
           {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
               "title": "Id"
-            },
-            "name": "id",
-            "in": "path"
+            }
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdatePlayerSchema"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -428,13 +547,13 @@
   "components": {
     "schemas": {
       "ActionType": {
+        "type": "string",
         "enum": [
           "action",
           "bonus_action",
           "reaction"
         ],
-        "title": "ActionType",
-        "description": "An enumeration."
+        "title": "ActionType"
       },
       "Attack": {
         "properties": {
@@ -467,8 +586,15 @@
       "Body_login-login_for_access_token": {
         "properties": {
           "grant_type": {
-            "type": "string",
-            "pattern": "password",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "password"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Grant Type"
           },
           "username": {
@@ -485,11 +611,25 @@
             "default": ""
           },
           "client_id": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Client Id"
           },
           "client_secret": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Client Secret"
           }
         },
@@ -518,22 +658,38 @@
             "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "type": "string",
-            "maxLength": 80,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character class"
           },
           "level": {
-            "type": "integer",
-            "minimum": 1.0,
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character level"
           },
           "data": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/CharacterSheet"
+              },
+              {
+                "type": "null"
               }
             ],
-            "title": "Data",
             "description": "The embdedded character sheet JSON data"
           },
           "party": {
@@ -590,13 +746,27 @@
             "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "type": "string",
-            "maxLength": 80,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character class"
           },
           "level": {
-            "type": "integer",
-            "minimum": 1.0,
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character level"
           },
           "data": {
@@ -653,13 +823,27 @@
             "title": "The character slug, used to identify it in the API"
           },
           "class_": {
-            "type": "string",
-            "maxLength": 80,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character class"
           },
           "level": {
-            "type": "integer",
-            "minimum": 1.0,
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The character level"
           },
           "data": {
@@ -1204,13 +1388,13 @@
         "title": "Proficiencies"
       },
       "Proficiency": {
+        "type": "integer",
         "enum": [
           0,
           1,
           2
         ],
-        "title": "Proficiency",
-        "description": "An enumeration."
+        "title": "Proficiency"
       },
       "SaveProficiencies": {
         "properties": {
@@ -1463,10 +1647,24 @@
             "default": false
           },
           "invocation": {
-            "$ref": "#/components/schemas/ActionType"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ActionType"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "origin": {
-            "$ref": "#/components/schemas/SpellOrigin"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpellOrigin"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -1477,11 +1675,8 @@
         "title": "Spell"
       },
       "SpellOrigin": {
-        "enum": [
-          "class"
-        ],
-        "title": "SpellOrigin",
-        "description": "An enumeration."
+        "const": "class",
+        "title": "SpellOrigin"
       },
       "Spells": {
         "properties": {
@@ -1584,21 +1779,49 @@
       "UpdateCharacterSchema": {
         "properties": {
           "name": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "A new character name (Optional)"
           },
           "class_": {
-            "type": "string",
-            "maxLength": 80,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "A new character class (Optional)"
           },
           "level": {
-            "type": "integer",
-            "minimum": 1.0,
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "A new character level (Optional)"
           },
           "data": {
-            "type": "object",
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Updates to the character sheet fields (Optional)"
           }
         },
@@ -1609,8 +1832,15 @@
       "UpdatePartySchema": {
         "properties": {
           "name": {
-            "type": "string",
-            "maxLength": 255,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The party new name"
           }
         },
@@ -1621,8 +1851,15 @@
       "UpdatePlayerSchema": {
         "properties": {
           "name": {
-            "type": "string",
-            "maxLength": 255,
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "The player new name"
           }
         },
@@ -1662,6 +1899,17 @@
           "type"
         ],
         "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "JwtAccessBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "JwtAccessCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "access_token_cookie"
       }
     }
   }

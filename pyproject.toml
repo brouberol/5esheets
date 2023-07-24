@@ -17,6 +17,7 @@ passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 pydantic = "2.0.3"
 python-multipart = "^0.0.6"
 fastapi-jwt = "^0.1.12"
+pydantic-settings = "^2.0.2"
 
 
 [tool.poetry.group.dev.dependencies]
