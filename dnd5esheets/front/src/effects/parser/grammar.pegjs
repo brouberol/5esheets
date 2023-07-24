@@ -120,7 +120,7 @@ MemberExpression
     }
 
 Identifier
-  = [a-z_]+ { return Identifier(text()); }
+  = [a-zA-Z_]+ { return Identifier(text()); }
 
 NumericLiteral
   = _ [0-9]* ('.' [0-9]+)? _ { return NumericLiteral(text()) }
