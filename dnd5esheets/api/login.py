@@ -2,23 +2,16 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi_jwt_auth import AuthJWT
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dnd5esheets.config import get_settings
 from dnd5esheets.db import create_scoped_session
 from dnd5esheets.models import Player
 from dnd5esheets.repositories import ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.security.hashing import verify_password
+from dnd5esheets.security.user import access_security
 
 login_api = APIRouter(prefix="/login", tags=["login"])
-
-
-@AuthJWT.load_config
-def get_config():
-    """Configure the JWT authentication mechanism from the application configuration"""
-    return get_settings()
 
 
 async def authenticate_player(
@@ -35,10 +28,9 @@ async def authenticate_player(
 
 @login_api.post("/token")
 async def login_for_access_token(
-    _: Response,
+    response: Response,
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: AsyncSession = Depends(create_scoped_session),
-    Authorize: AuthJWT = Depends(),
 ):
     """Submit a player's username and password to login.
 
@@ -54,8 +46,9 @@ async def login_for_access_token(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
         )
-    access_token = Authorize.create_access_token(
-        subject=player.email,
+    subject = {"username": player.email}
+    access_token = access_security.create_access_token(
+        subject=subject,
     )
-    Authorize.set_access_cookies(access_token)
+    access_security.set_access_cookie(response, access_token=access_token)
     return {"status": "logged_in"}

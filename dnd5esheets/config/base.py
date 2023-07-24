@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 
 from pydantic import BaseSettings
 
@@ -8,11 +9,8 @@ db_file = db_dir / "5esheets.db"
 
 class CommonSettings(BaseSettings):
     # used by fastapi-jwt-auth
-    authjwt_secret_key: str
-    authjwt_algorithm: str = "HS256"
-    authjwt_access_token_expires: int = 60 * 60 * 12  # 12h, in seconds
-    authjwt_token_location: set = {"cookies"}
-    authjwt_cookie_csrf_protect = True
+    AUTHJWT_SECRET_KEY: str
+    AUTHJWT_ACCESS_TOKEN_EXPIRES: timedelta = timedelta(hours=12)
 
     MULTITENANT_ENABLED: bool = False
     DB_URI: str = f"sqlite:///{db_file}"

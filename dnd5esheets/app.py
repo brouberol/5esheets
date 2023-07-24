@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from .api import api
 from .config import get_settings
@@ -38,14 +37,9 @@ def raise_400_exception_on_duplicate_model(_: Request, exc: Exception):
     return JSONResponse(content={"detail": str(exc)}, status_code=400)
 
 
-@app.exception_handler(AuthJWTException)
-def authjwt_exception_handler(_: Request, exc: AuthJWTException):
-    return JSONResponse(status_code=exc.status_code, content={"detail": exc.message})
-
-
 # Generate a correct 304 response when handling a CacheHit exception.
 @app.exception_handler(CacheHit)
-def cachehit_exception_handler(_: Request, exc: AuthJWTException):
+def cachehit_exception_handler(_: Request, exc: CacheHit):
     return Response("", status_code=exc.status_code, headers=exc.headers)
 
 
