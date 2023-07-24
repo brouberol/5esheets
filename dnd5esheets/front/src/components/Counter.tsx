@@ -1,8 +1,8 @@
-import { createSignal } from "solid-js";
-import { css } from "solid-styled";
+import { createSignal } from 'solid-js'
+import { css } from 'solid-styled'
 
 export default function Counter() {
-  const [count, setCount] = createSignal(0);
+  const [count, setCount] = createSignal(0)
   css`
     button {
       font-family: inherit;
@@ -20,8 +20,8 @@ export default function Counter() {
     button:focus {
       border: 2px solid #335d92;
     }
-  `;
+  `
   return (
     <button onClick={() => setCount(count() + 1)}>Clicks: {count()}</button>
-  );
+  )
 }
