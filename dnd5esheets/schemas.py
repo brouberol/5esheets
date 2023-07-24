@@ -39,15 +39,6 @@ class BaseUpdateSchema(BaseSchema, extra="forbid"):
     ...
 
 
-class JsonWebToken(BaseSchema):
-    access_token: str
-    token_type: str
-
-
-class JsonWebTokenData(BaseSchema):
-    username: str
-
-
 class BaseORMSchema(BaseSchema):
     class Config:
         orm_mode = True

@@ -2,8 +2,7 @@ from .base import CommonSettings
 
 
 class ProdSettings(CommonSettings):
-    authjwt_secret_key: str
-    authjwt_cookie_samesite: str = "lax"
+    AUTHJWT_SECRET_KEY: str
     DB_URI: str
     DB_ASYNC_URI: str
     MULTITENANT_ENABLED: bool = True
