@@ -1,20 +1,36 @@
-import { Title, useParams } from 'solid-start'
-
+import { Suspense } from 'solid-js'
+import { unwrap } from 'solid-js/store'
+import ErrorBoundary, { RouteDataArgs, Title, useRouteData } from 'solid-start'
 import CharacterSheet from '~/components/CharacterSheet'
 import { Layout } from '~/components/Layout'
-import useStore from '~/store'
+import { CharacterList as Store } from '~/store'
+
+export function routeData(data: RouteDataArgs) {
+  console.log('character route', unwrap(data))
+  const store = new Store()
+  return store.getCharacter(data.params.slug)
+}
 
 export default function CharacterPage() {
-  const params = useParams()
-  const [characters, { update }] = useStore()
+  const [character, updateCharacter] = useRouteData<typeof routeData>()
 
   return (
-    <Layout>
-      <Title>{params.slug}</Title>
-      <CharacterSheet
-        character={characters[params.slug]}
-        onChange={(change) => update(params.slug, change)}
-      />
-    </Layout>
+    <ErrorBoundary
+      fallback={(error: Error) => (
+        <p>
+          Error: {error.name} {error.message}
+        </p>
+      )}
+    >
+      <Suspense fallback={<p>loading ...</p>}>
+        <Layout>
+          <Title>{character.name}</Title>
+          <CharacterSheet
+            character={character}
+            updateCharacter={updateCharacter}
+          />
+        </Layout>
+      </Suspense>
+    </ErrorBoundary>
   )
 }

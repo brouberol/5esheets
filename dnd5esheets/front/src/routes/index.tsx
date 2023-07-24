@@ -1,18 +1,35 @@
-import { Title } from 'solid-start'
+import { Title, useRouteData } from 'solid-start'
 import CharacterList from '~/components/CharacterList'
-import { CharacterService } from '~/5esheets-client'
-import { createResource } from 'solid-js'
+import { ErrorBoundary, Suspense } from 'solid-js'
+import { CharacterList as Store } from '~/store'
+import { unwrap } from 'solid-js/store'
 
-const listCharacters = async () => {
-  return await CharacterService.listCharacters()
+export function routeData(data) {
+  console.log('index route', unwrap(data))
+  return new Store()
 }
 
 export default function Home() {
-  const [characters] = createResource(listCharacters)
+  const characterList = useRouteData<typeof routeData>()
+
   return (
     <main>
       <Title>D&D 5e sheets</Title>
-      {characters() && <CharacterList characters={characters()} />}
+      <ErrorBoundary
+        fallback={(error: Error) => (
+          <p>
+            Error: {error.name} {error.message}
+          </p>
+        )}
+      >
+        <Suspense fallback={<p>loading ...</p>}>
+          <CharacterList
+            characters={characterList.list() ?? []}
+            addCharacter={characterList.addCharacter}
+            state={characterList.list.state}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </main>
   )
 }

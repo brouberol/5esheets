@@ -1,4 +1,5 @@
-import { For, createSignal } from 'solid-js'
+import { For } from 'solid-js'
+import { produce } from 'solid-js/store'
 import { css } from 'solid-styled'
 import { useI18n } from '@solid-primitives/i18n'
 
@@ -11,10 +12,10 @@ import BorderBox from '~/components/BorderBox'
 
 export default function CharacterSheet({
   character,
-  onChange,
+  updateCharacter,
 }: {
   character: CharacterSchema
-  onChange: (change: Partial<CharacterSchema>) => void
+  updateCharacter: (updater: (character: CharacterSchema) => void) => void
 }) {
   const [t] = useI18n()
 
@@ -114,7 +115,9 @@ export default function CharacterSheet({
             label={t('character_name')}
             placeholder="Irene Wun Kmout"
             value={character.name}
-            onChange={(name: string) => onChange({ name })}
+            onChange={(name: string) =>
+              updateCharacter((character) => (character.name = name))
+            }
           />
         </div>
         <div class="misc">
@@ -130,7 +133,10 @@ export default function CharacterSheet({
                 sanitizedInput.slice(0, index).trim(),
                 parseInt(sanitizedInput.slice(index).trim()) || 0,
               ]
-              onChange({ class_, level })
+              updateCharacter((character: CharacterSchema) => {
+                character.class_ = class_
+                character.level = level
+              })
             }}
           />
           <LabeledInput
@@ -139,7 +145,9 @@ export default function CharacterSheet({
             placeholder={t('acolyte')}
             value={character.data.background}
             onChange={(background: string) =>
-              onChange({ data: { background } })
+              updateCharacter(
+                (character) => (character.data.background = background)
+              )
             }
           />
           <LabeledInput
@@ -148,7 +156,9 @@ export default function CharacterSheet({
             placeholder={t('player-mcplayerface')}
             value={character.player.name}
             onChange={(playername: string) =>
-              onChange({ player: { playername } })
+              updateCharacter(
+                (character) => (character.player.playername = playername)
+              )
             }
           />
           <LabeledInput
@@ -156,21 +166,31 @@ export default function CharacterSheet({
             label={t('race')}
             placeholder={t('half-elf')}
             value={character.data.race}
-            onChange={(race: string) => onChange({ data: { race } })}
+            onChange={(race: string) =>
+              updateCharacter((character) => (character.data.race = race))
+            }
           />
           <LabeledInput
             id="alignment"
             label={t('alignment')}
             placeholder={t('lawful-good')}
             value={character.data.alignment}
-            onChange={(alignment: string) => onChange({ data: { alignment } })}
+            onChange={(alignment: string) =>
+              updateCharacter(
+                (character) => (character.data.alignment = alignment)
+              )
+            }
           />
           <LabeledInput
             id="experiencepoints"
             label={t('experience_points')}
             placeholder="3240"
-            value={character.data.xp}
-            onChange={(experiencepoints: string) => onChange({ data: { xp } })}
+            value={character.data.xp.toString()}
+            onChange={(experiencepoints: string) =>
+              updateCharacter(
+                (character) => (character.data.xp = +experiencepoints)
+              )
+            }
           />
         </div>
       </header>
@@ -180,14 +200,16 @@ export default function CharacterSheet({
             <BorderBox>
               <div class="scores flex-container">
                 <For
-                  each={[
-                    'strength',
-                    'dexterity',
-                    'constitution',
-                    'intelligence',
-                    'wisdom',
-                    'charisma',
-                  ]}
+                  each={
+                    [
+                      'strength',
+                      'dexterity',
+                      'constitution',
+                      'intelligence',
+                      'wisdom',
+                      'charisma',
+                    ] as const
+                  }
                 >
                   {(attribute) => (
                     <ScoreBox
@@ -195,7 +217,10 @@ export default function CharacterSheet({
                       score={character.data.scores[attribute]}
                       modifier={character.data.scores[`${attribute}_mod`]}
                       onChange={(score: number) =>
-                        onChange({ data: { scores: { [attribute]: score } } })
+                        updateCharacter(
+                          (character) =>
+                            (character.data.scores[attribute] = score)
+                        )
                       }
                     />
                   )}
@@ -232,14 +257,16 @@ export default function CharacterSheet({
             <LabeledBox label={t('saving_throws')}>
               <ul class="saving_throws">
                 <For
-                  each={[
-                    'strength',
-                    'dexterity',
-                    'constitution',
-                    'intelligence',
-                    'wisdom',
-                    'charisma',
-                  ]}
+                  each={
+                    [
+                      'strength',
+                      'dexterity',
+                      'constitution',
+                      'intelligence',
+                      'wisdom',
+                      'charisma',
+                    ] as const
+                  }
                 >
                   {(attribute) => (
                     <li>
@@ -251,13 +278,11 @@ export default function CharacterSheet({
                         }
                         value={character.data.scores[`${attribute}_save_mod`]}
                         onChange={(proficiency: number) =>
-                          onChange({
-                            data: {
-                              proficiencies: {
-                                saves: { [attribute]: proficiency },
-                              },
-                            },
-                          })
+                          updateCharacter(
+                            (character) =>
+                              (character.data.proficiencies.saves[attribute] =
+                                proficiency)
+                          )
                         }
                       />
                     </li>
@@ -269,24 +294,36 @@ export default function CharacterSheet({
               <ul class="skills">
                 <For
                   each={[
-                    [t('acrobatics'), 'acrobatics', 'dexterity'],
-                    [t('animal_handling'), 'animal_handling', 'wisdom'],
-                    [t('arcana'), 'arcana', 'intelligence'],
-                    [t('athletics'), 'athletics', 'strength'],
-                    [t('deception'), 'deception', 'dexterity'],
-                    [t('history'), 'history', 'intelligence'],
-                    [t('insight'), 'insight', 'wisdom'],
-                    [t('intimidation'), 'intimidation', 'charisma'],
-                    [t('investigation'), 'investigation', 'intelligence'],
-                    [t('medicine'), 'medicine', 'wisdom'],
-                    [t('nature'), 'nature', 'intelligence'],
-                    [t('perception'), 'perception', 'wisdom'],
-                    [t('performance'), 'performance', 'charisma'],
-                    [t('persuasion'), 'persuasion', 'charisma'],
-                    [t('religion'), 'religion', 'intelligence'],
-                    [t('sleight_of_hand'), 'sleight_of_hand', 'dexterity'],
-                    [t('stealth'), 'stealth', 'dexterity'],
-                    [t('survival'), 'survival', 'wisdom'],
+                    [t('acrobatics'), 'acrobatics', 'dexterity'] as const,
+                    [
+                      t('animal_handling'),
+                      'animal_handling',
+                      'wisdom',
+                    ] as const,
+                    [t('arcana'), 'arcana', 'intelligence'] as const,
+                    [t('athletics'), 'athletics', 'strength'] as const,
+                    [t('deception'), 'deception', 'dexterity'] as const,
+                    [t('history'), 'history', 'intelligence'] as const,
+                    [t('insight'), 'insight', 'wisdom'] as const,
+                    [t('intimidation'), 'intimidation', 'charisma'] as const,
+                    [
+                      t('investigation'),
+                      'investigation',
+                      'intelligence',
+                    ] as const,
+                    [t('medicine'), 'medicine', 'wisdom'] as const,
+                    [t('nature'), 'nature', 'intelligence'] as const,
+                    [t('perception'), 'perception', 'wisdom'] as const,
+                    [t('performance'), 'performance', 'charisma'] as const,
+                    [t('persuasion'), 'persuasion', 'charisma'] as const,
+                    [t('religion'), 'religion', 'intelligence'] as const,
+                    [
+                      t('sleight_of_hand'),
+                      'sleight_of_hand',
+                      'dexterity',
+                    ] as const,
+                    [t('stealth'), 'stealth', 'dexterity'] as const,
+                    [t('survival'), 'survival', 'wisdom'] as const,
                   ].sort()}
                 >
                   {([label, attribute, secondary]) => (
@@ -298,15 +335,13 @@ export default function CharacterSheet({
                           character.data.proficiencies.skills[attribute]
                         }
                         labelSecondary={t(`${secondary}_abbr`)}
-                        value={character.data[attribute]}
+                        value={character.data.scores[`${attribute}_mod`]}
                         onChange={(proficiency: number) =>
-                          onChange({
-                            data: {
-                              proficiencies: {
-                                skills: { [attribute]: proficiency },
-                              },
-                            },
-                          })
+                          updateCharacter(
+                            (character) =>
+                              (character.data.proficiencies.skills[attribute] =
+                                proficiency)
+                          )
                         }
                       />
                     </li>

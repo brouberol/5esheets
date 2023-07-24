@@ -1,491 +1,358 @@
-import { createComputed } from 'solid-js'
-import { createStore, reconcile } from 'solid-js/store'
-import { CharacterSchema } from '~/5esheets-client'
-import { ActionType } from '~/5esheets-client'
+import {
+  Resource,
+  createComputed,
+  createResource,
+  createReaction,
+  createMemo,
+  createEffect,
+  Accessor,
+} from 'solid-js'
+import {
+  SetStoreFunction,
+  Store,
+  createStore,
+  produce,
+  reconcile,
+  unwrap,
+} from 'solid-js/store'
+import { createRouteData } from 'solid-start'
+import { CharacterSchema, ListCharacterSchema } from '~/5esheets-client'
 import { Proficiency } from '~/5esheets-client'
 import { Scores } from '~/5esheets-client'
 import { SaveProficiencies } from '~/5esheets-client'
 import { SkillProficiencies } from '~/5esheets-client'
+import { CharacterService } from '~/5esheets-client'
+import { applyEffects, computeEffect, Effect } from '~/effects'
+import { AssignmentOperator } from '~/effects/parser'
+
+type Join<K, P> = K extends string | number
+  ? P extends string | number
+    ? `${K}${'' extends P ? '' : '.'}${P}`
+    : never
+  : never
+
+type Split<S extends string, D extends string> = string extends S
+  ? string[]
+  : S extends ''
+  ? []
+  : S extends `${infer T}${D}${infer U}`
+  ? [T, ...Split<U, D>]
+  : [S]
+
+type Prev = [
+  never,
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  ...0[],
+]
+
+type Leaves<T, D extends number = 10> = [D] extends [never]
+  ? never
+  : T extends object
+  ? { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T]
+  : ''
 
 export const cycleProficiency = (proficiency: number) => (proficiency + 1) % 3
 
-type ScoreKey = keyof Scores
-type SaveProficiencyKey = keyof SaveProficiencies
-type SkillProficiencyKey = keyof SkillProficiencies
-
-const douglas: CharacterSchema = {
-  id: 1,
-  name: 'Douglas McTrickfoot',
-  slug: 'douglas-mctrickfoot',
-  class_: 'Artilleur',
-  level: 4,
+const emptyCharacter: CharacterSchema = {
+  id: 0,
+  slug: '',
+  class_: '',
+  name: '',
+  level: 0,
   data: {
     scores: {
-      strength: 8,
-      dexterity: 14,
-      constitution: 12,
-      intelligence: 18,
-      wisdom: 12,
-      charisma: 14,
-      strength_mod: 0,
-      dexterity_mod: 0,
-      constitution_mod: 0,
-      intelligence_mod: 0,
-      wisdom_mod: 0,
-      charisma_mod: 0,
-      strength_save_mod: 0,
-      dexterity_save_mod: 0,
-      constitution_save_mod: 0,
-      intelligence_save_mod: 0,
-      wisdom_save_mod: 0,
-      charisma_save_mod: 0,
+      strength: 10,
+      dexterity: 10,
+      constitution: 10,
+      wisdom: 10,
+      charisma: 10,
+      intelligence: 10,
     },
     proficiencies: {
       saves: {
-        strength: Proficiency._0,
-        dexterity: Proficiency._0,
-        constitution: Proficiency._1,
-        intelligence: Proficiency._1,
-        wisdom: Proficiency._0,
-        charisma: Proficiency._0,
+        strength: 0,
+        dexterity: 0,
+        constitution: 0,
+        intelligence: 0,
+        charisma: 0,
+        wisdom: 0,
       },
       skills: {
-        acrobatics: Proficiency._0,
-        arcana: Proficiency._0,
-        athletics: Proficiency._0,
-        stealth: Proficiency._0,
-        animal_handling: Proficiency._0,
-        sleight_of_hand: Proficiency._0,
-        history: Proficiency._1,
-        intimidation: Proficiency._0,
-        investigation: Proficiency._0,
-        medicine: Proficiency._0,
-        nature: Proficiency._0,
-        perception: Proficiency._1,
-        insight: Proficiency._1,
-        persuasion: Proficiency._1,
-        religion: Proficiency._0,
-        performance: Proficiency._0,
-        survival: Proficiency._0,
-        deception: Proficiency._0,
+        acrobatics: 0,
+        arcana: 0,
+        athletics: 0,
+        stealth: 0,
+        animal_handling: 0,
+        sleight_of_hand: 0,
+        history: 0,
+        intimidation: 0,
+        investigation: 0,
+        medicine: 0,
+        nature: 0,
+        perception: 0,
+        insight: 0,
+        persuasion: 0,
+        religion: 0,
+        performance: 0,
+        survival: 0,
+        deception: 0,
       },
     },
-    spell_dc: 0,
-    ac: 0,
-    initiative: 0,
-    proficiency_bonus: 0,
-    spell_attack_bonus: 0,
-    passive_perception: 0,
     xp: 0,
-    background: 'Artistan',
-    race: 'Gnome',
-    alignment: 'Chaotique Bon',
-    darkvision: true,
-    inspiration: true,
-    languages_and_proficiencies:
-      '**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères',
-    speed: 25,
+    race: '',
+    background: '',
+    alignment: '',
+    darkvision: false,
+    inspiration: false,
+    speed: 0,
     hp: {
-      max: 33,
+      max: 0,
       temp: 0,
-      current: 33,
+      current: 0,
     },
     hit_dice: {
-      type: '1d8',
-      total: 4,
-      remaining: 4,
+      type: 'd4',
+      total: 1,
+      remaining: 1,
     },
-    custom_resources: [
-      {
-        header: 'Infusions',
-        remaining: 3,
-        available: 3,
-      },
-      {
-        header: 'Canon',
-        remaining: 3,
-        available: 3,
-      },
-      {
-        header: 'Baguette des secrets',
-        remaining: 3,
-        available: 3,
-      },
-    ],
-    attacks: [
-      {
-        name: 'Arbalète légère',
-        damage: '1d8+2',
-        bonus: 4,
-        damage_type: 'piercing',
-      },
-      {
-        name: 'Hache à une main',
-        damage: '1d6+2',
-        bonus: 4,
-        damage_type: 'slashing',
-      },
-    ],
-    equipment:
-      "- Armure de cuir clouté\r\n- [Baguette des secrets](https://roll20.net/compendium/dnd5e/Wand%20of%20Secrets#content) \r\n- Focalisateur arcanique\r\n- Livre traitant de la fabrication d'homoncules en bois\r\n- Carnets de notes de Siméon\r\n",
     money: {
       copper: 0,
       silver: 0,
       electrum: 0,
-      gold: 1,
+      gold: 0,
       platinum: 0,
     },
-    personality:
-      "Douglas est astucieux et fait preuve d'une répartie rapide. Il est fidèle envers ses amis et curieux d'apprendre des nouveaux sujets.",
-    ideals:
-      'Douglas rêve de maîtriser la magie à la seule force de son intellect.',
-    bonds:
-      'Douglas est particulièrement fidèle envers les membres de sa famille, et se sent responsable de Crounch.',
-    flaws:
-      'Douglas est impulsif. Son besoin de paraître intelligent cache un manque de confiance en soi. ',
-    features:
-      "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
+    custom_resources: [],
+    attacks: [],
+    equipment: '',
+    languages_and_proficiencies: '',
+    personality: '',
+    ideals: '',
+    bonds: '',
+    flaws: '',
+    features: '',
     spells: {
-      daily_prepared: 6,
-      spellcasting_ability: 'intelligence',
-      cantrips: [
-        {
-          name: 'Mending',
-          prepared: true,
-          description: '[Mending](https://5e.tools/spells.html#mending_phb)',
-          verbal: true,
-          somatic: true,
-          material: true,
-        },
-        {
-          name: 'Fire bolt',
-          prepared: true,
-          description:
-            '[Fire Bolt](https://5e.tools/spells.html#fire%20bolt_phb)  (@cantrip_die@d10 🔥)',
-          verbal: true,
-          somatic: true,
-          invocation: ActionType.ACTION,
-        },
-      ],
-      lvl1: [
-        {
-          name: 'Thunderwave',
-          prepared: true,
-          description:
-            '[Thunderwave](https://5e.tools/spells.html#thunderwave_phb): CON 💾 | 2d8 ⛈️',
-          verbal: true,
-          somatic: true,
-          invocation: ActionType.ACTION,
-          origin: SpellOrigin.CLASS,
-        },
-        {
-          name: 'Shield',
-          prepared: true,
-          description:
-            '[Shield](https://5e.tools/spells.html#shield_phb) + 5AC',
-          verbal: true,
-          somatic: true,
-          invocation: ActionType.REACTION,
-        },
-        {
-          name: 'Caustic Brew',
-          prepared: true,
-          description:
-            "[Caustic Brew](https://5e.tools/spells.html#tasha's%20caustic%20brew_tce) DEX 💾 |2d4🧪",
-          verbal: true,
-          somatic: true,
-          material: true,
-          invocation: ActionType.ACTION,
-          concentration: true,
-        },
-        {
-          name: 'Catapult',
-          prepared: true,
-          description:
-            '[Catapult](https://5e.tools/spells.html#catapult_xge) DEX 💾 | 3d8 🔨',
-          invocation: ActionType.ACTION,
-          somatic: true,
-        },
-        {
-          name: 'Detect Magic',
-          prepared: true,
-          description:
-            '[Detect Magic](https://5e.tools/spells.html#detect%20magic_phb)',
-          ritual: true,
-          verbal: true,
-          somatic: true,
-        },
-        {
-          name: 'Absorb Elements',
-          prepared: true,
-          description:
-            '[Absorb Elements](https://5e.tools/spells.html#absorb%20elements_xge)',
-          somatic: true,
-          invocation: ActionType.REACTION,
-        },
-        {
-          name: 'False Life',
-          prepared: true,
-          description:
-            '[False Life](https://5e.tools/spells.html#false%20life_phb) 1d4+4 + 5*spell_lvl ❣️',
-          verbal: true,
-          somatic: true,
-          material: true,
-          invocation: ActionType.ACTION,
-        },
-        {
-          name: 'Sanctuary',
-          prepared: true,
-          description:
-            '[Sanctuary](https://5e.tools/spells.html#sanctuary_phb)',
-          verbal: true,
-          somatic: true,
-          material: true,
-          invocation: ActionType.BONUS_ACTION,
-        },
-      ],
+      daily_prepared: 0,
+      spellcasting_ability: 'wisdom',
     },
+    proficiency_bonus: 0,
+    ac: 0,
+    initiative: 0,
+    spell_dc: 0,
+    spell_attack_bonus: 0,
+    passive_perception: 0,
   },
-  party: {
-    id: 1,
-    name: 'Famille McTrickfoot',
-  },
-  player: {
-    id: 1,
-    name: 'Balthazar',
-  },
-  equipment: [
-    {
-      item: {
-        name: 'Longsword',
-        data: {
-          meta: {
-            translations: {
-              fr: {
-                name: 'Épée longue',
-                description:
-                  "L'épée longue est une arme très polyvalente qui peut également être maniée à deux mains pour des coups plus punitifs.",
-              },
-            },
-            rarity: 'none',
-            weight: 3,
-            value: 1500,
-          },
-          attributes: {
-            weapon_category: 'martial',
-            weapon_type: 'sword',
-          },
-          damage: {
-            damage_1: '1d8',
-            damage_type: 'S',
-            damage_2: '1d10',
-          },
-          source: {
-            book: 'PHB',
-            page: 149,
-          },
-          srd: true,
-          subtype: 'M',
-          property: ['V'],
-          type: 'weapon',
-        },
-      },
-      amount: 1,
-      equipped: false,
-    },
-  ],
+  party: { id: 0, name: '' },
+  player: { id: 0, name: '' },
 }
 
-const scoreToSkillModifier = (score: number): number =>
-  Math.floor((score - 10) / 2)
+type Target = `data.scores.${Leaves<CharacterSchema['data']['scores']>}`
 
-const scoreToProficiencyModifier = (
-  score: number,
-  proficiency: Proficiency,
-  proficiencyBonus: number
-): number => scoreToSkillModifier(score) + proficiency * proficiencyBonus
+export class CharacterList {
+  public list: Resource<ListCharacterSchema[]>
+  // private mutate: (list: ListCharacterSchema[]) => ListCharacterSchema[]
+  // private refetch: () =>
+  //   | Promise<ListCharacterSchema[] | undefined>
+  //   | ListCharacterSchema[]
+  //   | undefined
+  //   | null
 
-const levelToProficiencyBonus = (level: number): number => {
-  return Math.ceil(1 + level / 4)
-}
+  constructor() {
+    const [list] = createResource(CharacterService.listCharacters)
 
-const store = { [douglas.slug]: douglas }
-const [characters, setCharacters] = createStore(store)
+    this.list = list
+    // this.mutate = mutate
+    // this.refetch = refetch
+  }
 
-const effects = {
-  // Recompute the characteristic modifiers when a characteristic changes
-  ...Object.fromEntries(
-    [
-      'strength',
-      'dexterity',
-      'constitution',
-      'intelligence',
-      'wisdom',
-      'charisma',
-    ].map((attribute) => [
-      `scores.${attribute}_mod`,
-      (character: CharacterSchema) =>
-        scoreToSkillModifier(character.data.scores[attribute as ScoreKey]),
-    ])
-  ),
+  // addCharacter = (name: string) => {
+  //   console.log('add character', name)
+  //   const character = {
+  //     id: 0,
+  //     name,
+  //     slug: name.replace(' ', '-'),
+  //     class_: '',
+  //     level: 0,
+  //     player: {id: 0, name: ''},
+  //     party: {id: 0, name: ''},
+  //   }
 
-  // Recompute the proficiency bonus when the level changes
-  proficiency_bonus: (character: CharacterSchema) =>
-    levelToProficiencyBonus(character.level),
+  //   const newList = [...(this.list() ?? []), character]
+  //   console.log(newList)
 
-  // Recompute the saving throw modifiers when a characteristic score changes
-  ...Object.fromEntries(
-    [
-      'strength',
-      'dexterity',
-      'constitution',
-      'intelligence',
-      'wisdom',
-      'charisma',
-    ].map((attribute) => [
-      `scores.${attribute}_save_mod`,
-      (character: CharacterSchema) =>
-        scoreToProficiencyModifier(
-          character.data.scores[attribute as ScoreKey],
-          character.data.proficiencies.saves[attribute as SaveProficiencyKey],
-          character.data.proficiency_bonus
+  //   this.mutate(newList)
+  //   // await CharacterService.addCharacter(character)
+  //   // if there is an error with the api call, we could refetch to make sure the local state is up-to-date with the remote.
+  // }
+
+  // removeCharacter = (slug: string) => {
+  //   this.mutate((this.list() ?? []).filter(character => character.slug !== slug))
+  //   // CharacterService.deleteCharacter(id)
+  //   // if there is an error with the api call, we could refetch to make sure the local state is up-to-date with the remote.
+  // }
+
+  getCharacter = (
+    slug: string
+  ): [
+    CharacterSchema,
+    (updater: (character: CharacterSchema) => void) => void,
+  ] => {
+    // TODO we might want to use createDeepSignal to allow updating only the parts of the store that changes when re-fetching resource: https://github.com/solidjs-community/solid-primitives/tree/main/packages/resource#createdeepsignal
+    const [characterResource, { mutate, refetch }] = createResource(
+      slug,
+      CharacterService.displayCharacter,
+      { initialValue: emptyCharacter }
+    )
+
+    const [character, setCharacter] = createStore<CharacterSchema>(
+      characterResource()
+    )
+
+    const abilityKeys = Object.keys(character.data.proficiencies.saves)
+
+    const baseEffects = [
+      // proficiency bonus effect
+      {
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.proficiency_bonus := Math.ceil(1 + level / 4)`,
+          character
         ),
-    ])
-  ),
-
-  // Recompute the passive perception score when the character's wisdom changes
-  passive_perception: (character: CharacterSchema) => {
-    return (
-      10 +
-      scoreToProficiencyModifier(
-        character.data.scores.wisdom,
-        character.data.proficiencies.skills.perception,
-        character.data.proficiency_bonus
-      )
-    )
-  },
-
-  // Recompute the initiative bonus when the character's dexterity changes
-  initiative: (character: CharacterSchema) => {
-    return scoreToSkillModifier(character.data.scores.dexterity)
-  },
-
-  // Recompute the spell DC when the spellcasting ability or its associated modifier change, as well as the proficiency bonus
-  spell_dc: (character: CharacterSchema) => {
-    return (
-      8 +
-      scoreToSkillModifier(
-        character.data.scores[
-          character.data.spells.spellcasting_ability as ScoreKey
-        ]
-      ) +
-      character.data.proficiency_bonus
-    )
-  },
-
-  spell_attack_bonus: (character: CharacterSchema) => {
-    return (
-      scoreToSkillModifier(
-        character.data.scores[
-          character.data.spells.spellcasting_ability as ScoreKey
-        ]
-      ) + character.data.proficiency_bonus
-    )
-  },
-
-  // Recompute the skill modifiers when a characteristic changes
-  ...Object.fromEntries(
-    [
-      ['acrobatics', 'dexterity'],
-      ['animal_handling', 'wisdom'],
-      ['arcana', 'intelligence'],
-      ['athletics', 'strength'],
-      ['deception', 'dexterity'],
-      ['history', 'intelligence'],
-      ['insight', 'wisdom'],
-      ['intimidation', 'charisma'],
-      ['investigation', 'intelligence'],
-      ['medicine', 'wisdom'],
-      ['nature', 'intelligence'],
-      ['perception', 'wisdom'],
-      ['performance', 'charisma'],
-      ['persuasion', 'charisma'],
-      ['religion', 'intelligence'],
-      ['sleight_of_hand', 'dexterity'],
-      ['stealth', 'dexterity'],
-      ['survival', 'wisdom'],
-    ].map(([attribute, secondary]) => [
-      attribute,
-      (character: CharacterSchema) =>
-        scoreToProficiencyModifier(
-          character.data.scores[secondary as ScoreKey],
-          character.data.proficiencies.skills[attribute as SkillProficiencyKey],
-          character.data.proficiency_bonus
-        ),
-    ])
-  ),
-}
-
-for (const derivedAttribute in effects) {
-  createComputed(() =>
-    setCharacters(
-      douglas.slug,
-      'data',
-      ...derivedAttribute.split('.'),
-      effects[derivedAttribute](characters[douglas.slug])
-    )
-  )
-}
-
-export default function useStore() {
-  return [
-    characters,
-    {
-      update: (characterSlug: string, update: Partial<CharacterSchema>) => {
-        setCharacters(
-          characterSlug,
-          reconcile({
-            ...characters[characterSlug],
-            ...update,
-            data: {
-              ...characters[characterSlug].data,
-              ...update.data,
-              scores: {
-                ...characters[characterSlug].data.scores,
-                ...update.data?.scores,
-              },
-              hp: {
-                ...characters[characterSlug].data.hp,
-                ...update.data?.hp,
-              },
-              hit_dice: {
-                ...characters[characterSlug].data.hit_dice,
-                ...update.data?.hit_dice,
-              },
-              money: {
-                ...characters[characterSlug].data.money,
-                ...update.data?.money,
-              },
-              spells: {
-                ...characters[characterSlug].data.spells,
-                ...update.data?.spells,
-              },
-              proficiencies: {
-                ...characters[characterSlug].data.proficiencies,
-                ...update.data?.proficiencies,
-                skills: {
-                  ...characters[characterSlug].data.proficiencies.skills,
-                  ...update.data?.proficiencies?.skills,
-                },
-                saves: {
-                  ...characters[characterSlug].data.proficiencies.saves,
-                  ...update.data?.proficiencies?.saves,
-                },
-              },
-            },
-          })
-        )
       },
-    },
-  ] as const
+
+      // ability modifiers effects
+      ...abilityKeys.map((score) => ({
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.scores.${score}_mod := Math.floor((data.scores.${score} - 10) / 2)`,
+          character
+        ),
+      })),
+
+      // ability saves effects
+      ...abilityKeys.map((score) => ({
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.scores.${score}_save_mod := data.scores.${score}_mod + data.proficiencies.saves.${score} * data.proficiency_bonus`,
+          character
+        ),
+      })),
+
+      // skills effects
+      ...[
+        ['acrobatics', 'dexterity'],
+        ['animal_handling', 'wisdom'],
+        ['arcana', 'intelligence'],
+        ['athletics', 'strength'],
+        ['deception', 'dexterity'],
+        ['history', 'intelligence'],
+        ['insight', 'wisdom'],
+        ['intimidation', 'charisma'],
+        ['investigation', 'intelligence'],
+        ['medicine', 'wisdom'],
+        ['nature', 'intelligence'],
+        ['perception', 'wisdom'],
+        ['performance', 'charisma'],
+        ['persuasion', 'charisma'],
+        ['religion', 'intelligence'],
+        ['sleight_of_hand', 'dexterity'],
+        ['stealth', 'dexterity'],
+        ['survival', 'wisdom'],
+      ].map(([skill, secondary]) => ({
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.scores.${skill}_mod := data.scores.${secondary}_mod + data.proficiencies.skills.${skill} * data.proficiency_bonus`,
+          character
+        ),
+      })),
+
+      // initiative effect
+      {
+        name: 'base',
+        priority: 10,
+        ...computeEffect(`initiative := data.scores.dexterity_mod`, character),
+      },
+
+      // passive perception effect
+      {
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `passive_perception := data.scores.perception_mod`,
+          character
+        ),
+      },
+
+      // TODO the effect language and CharacterSchema currently doesn't allow to write spell DC and attack bonus.
+      // // spell DC effect
+      // {
+      //   name: 'base',
+      //   priority: 10,
+      //   ...computeEffect(`spell_dc := 8 + data.scores[data.spells.spellcasting_ability] + data.proficiency_bonus`, character)
+      // },
+
+      // // spell attack bonus effect
+      // {
+      //   name: 'base',
+      //   priority: 10,
+      //   ...computeEffect(`spell_attack_bonus := data.scores[data.spells.spellcasting_ability] + data.proficiency_bonus`, character)
+      // },
+    ]
+
+    const targets = baseEffects.reduce(
+      (set, effect) => set.add(effect.target),
+      new Set<Target>()
+    )
+
+    // Create reactive effects to recompute target derived attributes when characteristics change
+    for (const derived of targets) {
+      const memo = createMemo(() => {
+        const sortedEffects = [
+          ...baseEffects.filter(({ target }) => target === derived),
+          // TODO here goes the equipement effects
+        ]
+          .sort((a, b) => b.priority - a.priority)
+          .map((effect) => ({ ...effect, value: createMemo(effect.value) }))
+
+        return applyEffects<Target>(sortedEffects)
+      })
+
+      const path = derived.split('.') as Split<typeof derived, '.'>
+
+      // TODO memo() also returns the effect history, but we need to store it somewhere else in the character,
+      // to allow referencing derived attribute directly, rather than with .value at the end, e.g. data.scores.wisdom_mod.value
+      createEffect(() => setCharacter(...path, memo().value))
+    }
+
+    const updateCharacter = (fn: (character: CharacterSchema) => void) =>
+      setCharacter(produce(fn))
+
+    return [character, updateCharacter]
+  }
 }
+
+// export const characterList = new CharacterList()
