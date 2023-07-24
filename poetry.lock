@@ -630,6 +630,34 @@ files = [
 ]
 
 [[package]]
+name = "itsdangerous"
+version = "2.1.2"
+description = "Safely pass data to untrusted environments and back."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "itsdangerous-2.1.2-py3-none-any.whl", hash = "sha256:2c2349112351b88699d8d4b6b075022c0808887cb7ad10069318a8b0bc88db44"},
+    {file = "itsdangerous-2.1.2.tar.gz", hash = "sha256:5dbbc68b317e5e42f327f9021763545dc3fc3bfe22e6deb96aaf1fc38874156a"},
+]
+
+[[package]]
+name = "jinja2"
+version = "3.1.2"
+description = "A very fast and expressive template engine."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Jinja2-3.1.2-py3-none-any.whl", hash = "sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61"},
+    {file = "Jinja2-3.1.2.tar.gz", hash = "sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"},
+]
+
+[package.dependencies]
+MarkupSafe = ">=2.0"
+
+[package.extras]
+i18n = ["Babel (>=2.7)"]
+
+[[package]]
 name = "mako"
 version = "1.2.4"
 description = "A super-fast templating language that borrows the best ideas from the existing templating languages."
@@ -1235,6 +1263,24 @@ files = [
 ]
 
 [[package]]
+name = "sqladmin"
+version = "0.13.0"
+description = "SQLAlchemy admin for FastAPI and Starlette"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "sqladmin-0.13.0-py3-none-any.whl", hash = "sha256:5d5a3f2b68f9017d99adea08672a8a15892eaff2d4c1427caed417f3c148b8e3"},
+    {file = "sqladmin-0.13.0.tar.gz", hash = "sha256:7a7b54fe179022e1f08861205a2b953b6b9737e1624b4b4164afeb9af93edeb7"},
+]
+
+[package.dependencies]
+jinja2 = "*"
+python-multipart = "*"
+sqlalchemy = ">=1.4"
+starlette = "*"
+wtforms = ">=3,<4"
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.19"
 description = "Database Abstraction Library"
@@ -1573,6 +1619,23 @@ files = [
 ]
 
 [[package]]
+name = "wtforms"
+version = "3.0.1"
+description = "Form validation and rendering for Python web development."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "WTForms-3.0.1-py3-none-any.whl", hash = "sha256:837f2f0e0ca79481b92884962b914eba4e72b7a2daaf1f939c890ed0124b834b"},
+    {file = "WTForms-3.0.1.tar.gz", hash = "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc"},
+]
+
+[package.dependencies]
+MarkupSafe = "*"
+
+[package.extras]
+email = ["email-validator"]
+
+[[package]]
 name = "zipp"
 version = "3.16.2"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -1590,4 +1653,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "3dc855c7dda8abc70c2cef93467948d7a36c27df4010b50188fb7a31a6a28c30"
+content-hash = "ad9c38cc9480b8473b6c839f6664af8c5321820da381f2ac56ea967ff25d8b84"

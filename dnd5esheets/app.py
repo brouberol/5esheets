@@ -6,14 +6,18 @@ from fastapi.requests import Request
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
+from .admin import register_admin
 from .api import api
 from .config import get_settings
+from .db import engine
 from .exceptions import CacheHit
 from .repositories import DuplicateModel, ModelNotFound
 
 app = FastAPI()
 settings = get_settings()
 app.include_router(api)
+
+
 if settings.FRONTEND_CORS_ORIGIN is not None:
     app.add_middleware(
         CORSMiddleware,
@@ -22,6 +26,10 @@ if settings.FRONTEND_CORS_ORIGIN is not None:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+
+register_admin(app, engine)
+
 dist_dir = Path(__file__).parent / "front" / "dist"
 
 
