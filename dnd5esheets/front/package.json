@@ -13,7 +13,7 @@
   "type": "module",
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.4",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^5.17.0",
     "@types/babel__core": "^7.20.0",
     "@types/debug": "^4.1.7",
     "jsdom": "^22.1.0",
