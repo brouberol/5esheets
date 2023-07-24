@@ -48,14 +48,14 @@ async def list_characters(
     "/{slug}",
     response_model=CharacterSchema,
 )
-async def display_character(
+async def get_character(
     slug: str,
     request: Request,
     response: Response,
     session: AsyncSession = Depends(create_scoped_session),
     current_player_id: int | None = Depends(get_current_user_id),
 ):
-    """Display all details of a given character."""
+    """Returns all details of a given character."""
     await handle_character_etag(session, slug, current_player_id, request, response)
     return await CharacterRepository.get_by_slug_if_owned(
         session, slug=slug, owner_id=current_player_id

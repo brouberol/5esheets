@@ -29,13 +29,13 @@ export class CharacterService {
     }
 
     /**
-     * Display Character
-     * Display all details of a given character.
+     * Get Character
+     * Returns all details of a given character.
      * @param slug
      * @returns CharacterSchema Successful Response
      * @throws ApiError
      */
-    public static displayCharacter(
+    public static getCharacter(
         slug: string,
     ): CancelablePromise<CharacterSchema> {
         return __request(OpenAPI, {
