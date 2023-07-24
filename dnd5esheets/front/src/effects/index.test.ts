@@ -1,188 +1,295 @@
 import { describe, expect, test } from 'vitest'
-import '@testing-library/jest-dom'
-import { createStore } from 'solid-js/store'
-import { createRoot } from 'solid-js'
 
-import { applyEffect } from '.'
+import { computeEffect, applyEffects } from '.'
 
-async function inRoot(fn: () => void) {
-  await new Promise<void>((resolve) => {
-    createRoot((dispose) => {
-      fn()
-      dispose()
-      resolve()
+describe('computeEffect', () => {
+  test('creates a static effect', () => {
+    const context = { a: 1 }
+    const effect = computeEffect('a := 2', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'a',
+        equation: 2,
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a derived effect', () => {
+    const context = { a: 1 }
+    const effect = computeEffect('b := a', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'b',
+        equation: 'a',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.a = 2
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a nested derived effect', () => {
+    const context = { nested: { a: 1 } }
+    const effect = computeEffect('b := nested.a', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'b',
+        equation: 'nested.a',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.nested.a = 2
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a non-computed nested derived effect', () => {
+    const context = { nested: { a: 1 }, key: 'a' }
+    const effect = computeEffect('b := nested[key]', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'b',
+        equation: 'nested.a',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.nested.a = 2
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a non-computed deeply nested derived effect', () => {
+    const context = {
+      nested: { a_: { a__: 1 } },
+      key_: 'a_',
+      key__: 'a__',
+    }
+    const effect = computeEffect('b := nested[key_][key__]', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'b',
+        equation: 'nested.a_.a__',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.nested.a_.a__ = 2
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a effect on a nested target', () => {
+    const context = { nested: { a: 1 } }
+    const effect = computeEffect('nested.b := nested.a', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'nested.b',
+        equation: 'nested.a',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.nested.a = 2
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a static effect containing a Math function', () => {
+    const context = {}
+    const effect = computeEffect('a := Math.floor(2.4)', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'a',
+        equation: 'Math.floor(2.4)',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(2)
+  })
+
+  test('creates a derived effect containing a function', () => {
+    const context = { id: (i: number) => i }
+    const effect = computeEffect('a := id(2)', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'a',
+        equation: 'id(2)',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(2)
+    context.id = (i: number) => i * 2
+    expect(effect.value()).toBe(4)
+  })
+
+  test('creates a derived effect containing a function', () => {
+    const context = { a: 1, id: (i: number) => i }
+    const effect = computeEffect('b := id(a)', context)
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'b',
+        equation: 'id(a)',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(1)
+    context.a = 2
+    context.id = (i: number) => i * 2
+    expect(effect.value()).toBe(4)
+  })
+
+  test('creates a somewhat complex effect', () => {
+    const context = {
+      nested: { a: 1, b: 2, c: 3 },
+      key: 'c',
+    }
+    const effect = computeEffect(
+      'd := nested.a + Math.min(nested.b, nested[key])',
+      context
+    )
+    expect(effect).toMatchObject(
+      expect.objectContaining({
+        target: 'd',
+        equation: '(nested.a + Math.min(nested.b, nested.c))',
+        operator: ':=',
+      })
+    )
+    expect(effect.value()).toBe(3)
+    context.nested.a = 2
+    expect(effect.value()).toBe(4)
+  })
+})
+
+describe('applyEffects', () => {
+  test('applies one effect', () => {
+    const context = { a: 1 }
+    const effect = computeEffect('b := a', context)
+
+    expect(applyEffects([effect])).toEqual({
+      value: 1,
+      history: [
+        {
+          equation: 'a',
+          operator: ':=',
+          value: 1,
+        },
+      ],
     })
   })
-}
 
-describe('apply effect', () => {
-  test('applies a static effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1 })
-      applyEffect('a := 2', context, setContext)
-      expect(context.a).toBe(2)
-    }))
+  test('combine effects', () => {
+    const context = { a: 1 }
+    const effects = [
+      computeEffect('b *= 3', context),
+      computeEffect('b += 2', context),
+      computeEffect('b := a', context),
+    ]
 
-  test('applies a derived effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1 })
-      applyEffect('b := a', context, setContext)
-      expect(context.b).toBe(context.a)
-    }))
+    expect(applyEffects(effects)).toEqual({
+      value: 9,
+      history: [
+        {
+          equation: 'a',
+          operator: ':=',
+          value: 1,
+        },
+        {
+          appliedValue: 3,
+          equation: 2,
+          operator: '+=',
+          value: 2,
+        },
+        {
+          appliedValue: 9,
+          equation: 3,
+          operator: '*=',
+          value: 3,
+        },
+      ],
+    })
+  })
 
-  test('applies a derived effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1 })
-      applyEffect('b := a', context, setContext)
-      setContext('a', 2)
-      expect(context.b).toBe(context.a)
-    }))
+  test('stop applying effects after the first assignment effect', () => {
+    const context = { a: 1 }
+    const effects = [
+      computeEffect('b := 2', context),
+      computeEffect('b := a', context),
+    ]
 
-  test('applies a nested derived effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ nested: { a: 1 } })
-      applyEffect('b := nested.a', context, setContext)
-      expect(context.b).toBe(context.nested.a)
-    }))
+    expect(applyEffects(effects)).toEqual({
+      value: 2,
+      history: [
+        {
+          equation: 2,
+          operator: ':=',
+          value: 2,
+        },
+      ],
+    })
+  })
 
-  test('applies a nested derived effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ nested: { a: 1 } })
-      applyEffect('b := nested.a', context, setContext)
-      setContext('nested', 'a', 2)
-      expect(context.b).toBe(context.nested.a)
-    }))
+  test('apply effects with >= assignment operators', () => {
+    const context = { a: 1 }
+    const effects = [
+      computeEffect('b >= 2', context),
+      computeEffect('b >= 0', context),
+      computeEffect('b := a', context),
+    ]
 
-  test('applies a deeply nested derived effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        deeply: { nested: { a: 1 } },
-      })
-      applyEffect('b := deeply.nested.a', context, setContext)
-      expect(context.b).toBe(context.deeply.nested.a)
-    }))
+    expect(applyEffects(effects)).toEqual({
+      value: 2,
+      history: [
+        {
+          equation: 'a',
+          operator: ':=',
+          value: 1,
+        },
+        {
+          appliedValue: 1,
+          equation: 0,
+          operator: '>=',
+          value: 0,
+        },
+        {
+          appliedValue: 2,
+          equation: 2,
+          operator: '>=',
+          value: 2,
+        },
+      ],
+    })
+  })
 
-  test('applies a nested derived effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        deeply: { nested: { a: 1 } },
-      })
-      applyEffect('b := deeply.nested.a', context, setContext)
-      setContext('deeply', 'nested', 'a', 2)
-      expect(context.b).toBe(context.deeply.nested.a)
-    }))
+  test('apply effects with <= assignment operators', () => {
+    const context = { a: 1 }
+    const effects = [
+      computeEffect('b <= 0', context),
+      computeEffect('b <= 2', context),
+      computeEffect('b := a', context),
+    ]
 
-  test('applies a non-computed nested derived effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ nested: { a: 1 }, key: 'a' })
-      applyEffect('b := nested[key]', context, setContext)
-      expect(context.b).toBe(context.nested.a)
-    }))
-
-  test('applies a non-computed nested derived effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ nested: { a: 1 }, key: 'a' })
-      applyEffect('b := nested[key]', context, setContext)
-      setContext('nested', 'a', 2)
-      expect(context.b).toBe(context.nested.a)
-    }))
-
-  test('applies a non-computed deeply nested derived effect', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        nested: { a_: { a__: 1 } },
-        key_: 'a_',
-        key__: 'a__',
-      })
-      applyEffect('b := nested[key_][key__]', context, setContext)
-      expect(context.b).toBe(context.nested.a_.a__)
-    }))
-
-  test('applies a non-computed deeply nested derived effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        nested: { a_: { a__: 1 } },
-        key_: 'a_',
-        key__: 'a__',
-      })
-      applyEffect('b := nested[key_][key__]', context, setContext)
-      setContext('nested', 'a_', 'a__', 2)
-      expect(context.b).toBe(context.nested.a_.a__)
-    }))
-
-  test('applies an effect containing a function', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ id: (i: number) => i })
-      applyEffect('a := id(2)', context, setContext)
-      expect(context.a).toBe(2)
-    }))
-
-  test('applies a derived effect containing a function', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1, id: (i: number) => i })
-      applyEffect('b := id(a)', context, setContext)
-      expect(context.b).toBe(context.a)
-    }))
-
-  test('applies a derived effect containing a function which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1, id: (i: number) => i })
-      applyEffect('b := id(a)', context, setContext)
-      setContext('a', 2)
-      expect(context.b).toBe(context.a)
-    }))
-
-  test('applies a somewhat complex effect which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        nested: { a: 1, b: 2, c: 3 },
-        key: 'c',
-        min: Math.min,
-      })
-      applyEffect(
-        'd := nested.a + min(nested.b, nested[key])',
-        context,
-        setContext
-      )
-      setContext('nested', 'a', 2)
-      expect(context.d).toBe(4)
-    }))
-
-  test('applies a somewhat complex effect on a nested target which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        nested: { a: 1, b: 2, c: 3 },
-        key: 'c',
-        min: Math.min,
-        effect: {},
-      })
-      applyEffect(
-        'effect.d :=  nested.a + min(nested.b, nested[key])',
-        context,
-        setContext
-      )
-      setContext('nested', 'a', 2)
-      expect(context.effect.d).toBe(4)
-    }))
-
-  test('applies a nested derived effect on a sibling target which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({
-        nested: { a: 1, b: 2, c: 3 },
-        key: 'c',
-        min: Math.min,
-      })
-      applyEffect('nested.d := nested.a', context, setContext)
-      setContext('nested', 'a', 2)
-      expect(context.nested.d).toBe(context.nested.a)
-    }))
-
-  // solid-js store doesn't seem to accept updates of functions
-  test.skip('applies a derived effect containing a function which updates from its dependency', async () =>
-    inRoot(() => {
-      const [context, setContext] = createStore({ a: 1, id: (i: number) => i })
-      applyEffect('b := id(a)', context, setContext)
-      setContext('id', (i: number) => i + 1)
-      expect(context.b).toBe(context.a + 1)
-    }))
+    expect(applyEffects(effects)).toEqual({
+      value: 0,
+      history: [
+        {
+          equation: 'a',
+          operator: ':=',
+          value: 1,
+        },
+        {
+          appliedValue: 1,
+          equation: 2,
+          operator: '<=',
+          value: 2,
+        },
+        {
+          appliedValue: 0,
+          equation: 0,
+          operator: '<=',
+          value: 0,
+        },
+      ],
+    })
+  })
 })
