@@ -1,5 +1,5 @@
 // @refresh reload
-import { Suspense } from "solid-js";
+import { Suspense } from 'solid-js'
 import {
   A,
   Body,
@@ -11,11 +11,11 @@ import {
   Routes,
   Scripts,
   Title,
-} from "solid-start";
-import { css, StyleRegistry, type StyleData } from "solid-styled";
-import { I18nContext } from "@solid-primitives/i18n";
+} from 'solid-start'
+import { css, StyleRegistry, type StyleData } from 'solid-styled'
+import { I18nContext } from '@solid-primitives/i18n'
 
-import { i18nContext } from "~/i18n";
+import { i18nContext } from '~/i18n'
 
 function GlobalStyles() {
   css`
@@ -42,28 +42,28 @@ function GlobalStyles() {
         --border-active-color: rgb(255, 49, 90);
         --border-inactive-color: rgb(200, 200, 200);
 
-        --font-family-text: "Bookinsanity";
-        --font-family-headings: "MrEaves";
+        --font-family-text: 'Bookinsanity';
+        --font-family-headings: 'MrEaves';
 
         --font-color-dim: rgb(190, 190, 190);
       }
 
       @font-face {
-        font-family: "Bookinsanity";
-        src: url("/public/font/Bookinsanity.otf");
+        font-family: 'Bookinsanity';
+        src: url('/public/font/Bookinsanity.otf');
       }
 
       @font-face {
-        font-family: "MrEaves";
-        src: url("/public/font/Mr Eaves Small Caps.otf");
+        font-family: 'MrEaves';
+        src: url('/public/font/Mr Eaves Small Caps.otf');
       }
     }
-  `;
-  return null;
+  `
+  return null
 }
 
 export default function Root() {
-  const sheets: StyleData[] = [];
+  const sheets: StyleData[] = []
 
   return (
     <StyleRegistry styles={sheets}>
@@ -88,5 +88,5 @@ export default function Root() {
         </Body>
       </Html>
     </StyleRegistry>
-  );
+  )
 }

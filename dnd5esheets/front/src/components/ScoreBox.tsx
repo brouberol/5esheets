@@ -1,11 +1,11 @@
-import { Component, onMount } from "solid-js";
-import { css } from "solid-styled";
+import { Component, onMount } from 'solid-js'
+import { css } from 'solid-styled'
 
 const ScoreBox: Component<{
-  label: string;
-  score: number;
-  modifier: number;
-  onChange: (update: number) => void;
+  label: string
+  score: number
+  modifier: number
+  onChange: (update: number) => void
 }> = (props) => {
   css`
     .score-box {
@@ -51,15 +51,15 @@ const ScoreBox: Component<{
       color: unset;
       font-family: var(--font-family-text);
     }
-  `;
+  `
 
   const actions = {
     ArrowUp: (score: number) => score + 1,
     ArrowDown: (score: number) => score - 1,
-  } as const;
+  } as const
 
   const formatModifier = (mod: number): string =>
-    mod > 0 ? `+${mod}` : `${mod}`;
+    mod > 0 ? `+${mod}` : `${mod}`
 
   return (
     <div class="score-box">
@@ -68,7 +68,7 @@ const ScoreBox: Component<{
         class="score"
         type="text"
         value={props.score}
-        oninput={(event) => props.onChange(parseInt(event.target.value ?? "0"))}
+        oninput={(event) => props.onChange(parseInt(event.target.value ?? '0'))}
         onkeydown={(event) =>
           event.key in actions &&
           props.onChange(actions[event.key](props.score))
@@ -82,7 +82,7 @@ const ScoreBox: Component<{
         disabled
       />
     </div>
-  );
-};
+  )
+}
 
-export default ScoreBox;
+export default ScoreBox

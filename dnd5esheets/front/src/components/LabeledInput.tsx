@@ -1,5 +1,5 @@
-import { createSignal } from "solid-js";
-import { css } from "solid-styled";
+import { createSignal } from 'solid-js'
+import { css } from 'solid-styled'
 
 export default function LabeledInput({
   id,
@@ -8,11 +8,11 @@ export default function LabeledInput({
   value,
   onChange,
 }: {
-  id: string;
-  label: string;
-  placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
+  id: string
+  label: string
+  placeholder: string
+  value: string
+  onChange: (value: string) => void
 }) {
   css`
     .labeled-input {
@@ -51,7 +51,7 @@ export default function LabeledInput({
       border-bottom-color: var(--border-focus-color);
       outline: none;
     }
-  `;
+  `
 
   return (
     <div class="labeled-input">
@@ -63,5 +63,5 @@ export default function LabeledInput({
         oninput={(event) => onChange(event.target.value)}
       />
     </div>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import { Show, createEffect, createSignal } from "solid-js";
-import { css } from "solid-styled";
-import { cycleProficiency } from "~/store";
-import { Proficiency } from "~/5esheets-client";
+import { Show, createEffect, createSignal } from 'solid-js'
+import { css } from 'solid-styled'
+import { cycleProficiency } from '~/store'
+import { Proficiency } from '~/5esheets-client'
 
 export default function ProficientAttribute(props: {
-  id: string;
-  label: string;
-  labelSecondary?: string;
-  proficiency: Proficiency;
-  value: number;
-  onChange: (update: number) => void;
+  id: string
+  label: string
+  labelSecondary?: string
+  proficiency: Proficiency
+  value: number
+  onChange: (update: number) => void
 }) {
   css`
     .attribute, .proficiency {
@@ -101,28 +101,28 @@ export default function ProficientAttribute(props: {
     .secondary {
       color: var(--font-color-dim);
     }
-  `;
+  `
 
-  const [highlight, setHighlight] = createSignal(false);
+  const [highlight, setHighlight] = createSignal(false)
 
   createEffect((prevTimeout?: number) => {
-    props.value; // needed to trigger the effect at each value change
+    props.value // needed to trigger the effect at each value change
     if (prevTimeout) {
-      setHighlight(true);
-      clearTimeout(prevTimeout);
+      setHighlight(true)
+      clearTimeout(prevTimeout)
     }
-    return setTimeout(() => setHighlight(false), 1000);
-  });
+    return setTimeout(() => setHighlight(false), 1000)
+  })
 
   const formatModifier = (mod: number): string =>
-    mod > 0 ? `+${mod}` : `${mod}`;
+    mod > 0 ? `+${mod}` : `${mod}`
 
   return (
-    <div class={`attribute ${highlight() ? "highlight" : ""}`}>
+    <div class={`attribute ${highlight() ? 'highlight' : ''}`}>
       <label for={props.id} class="name">
         {props.label}
         <Show when={props.labelSecondary}>
-          {" "}
+          {' '}
           <span class="secondary">({props.labelSecondary})</span>
         </Show>
       </label>
@@ -152,5 +152,5 @@ export default function ProficientAttribute(props: {
         />
       </label>
     </div>
-  );
+  )
 }

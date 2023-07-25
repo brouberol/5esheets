@@ -1,5 +1,5 @@
-import { Component } from "solid-js";
-import { css } from "solid-styled";
+import { Component } from 'solid-js'
+import { css } from 'solid-styled'
 
 const LabeledBox: Component<{ label: string; children?: any }> = ({
   label,
@@ -48,7 +48,7 @@ const LabeledBox: Component<{ label: string; children?: any }> = ({
       order: 1;
       margin: 3pt;
     }
-  `;
+  `
 
   return (
     <section class="border-box">
@@ -57,7 +57,7 @@ const LabeledBox: Component<{ label: string; children?: any }> = ({
         {children}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default LabeledBox;
+export default LabeledBox

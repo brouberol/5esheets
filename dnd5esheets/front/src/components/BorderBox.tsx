@@ -1,5 +1,5 @@
-import { Component } from "solid-js";
-import { css } from "solid-styled";
+import { Component } from 'solid-js'
+import { css } from 'solid-styled'
 
 const BorderBox: Component<{ children: any }> = ({ children }) => {
   css`
@@ -38,13 +38,13 @@ const BorderBox: Component<{ children: any }> = ({ children }) => {
       margin-bottom: calc(var(--margin-bottom) - var(--border-bottom));
       margin-left: calc(var(--margin-side) - var(--border-side));
     }
-  `;
+  `
 
   return (
     <div class="outer-box">
       <div class="inner-box">{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default BorderBox;
+export default BorderBox
