@@ -71,10 +71,11 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
 
 class SpellAdmin(ModelView, model=Spell):
     page_size = 30
-    column_searchable_list = [Spell.name]
+    column_searchable_list = [Spell.name, Spell.level]
     column_list = [Spell.id, Spell.name, Spell.level, Spell.school]
     column_details_exclude_list = base_excluded_columns(Spell)
     form_excluded_columns = base_excluded_columns(Spell)
+    column_sortable_list = [Spell.name, Spell.level]
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
