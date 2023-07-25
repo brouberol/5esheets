@@ -69,9 +69,8 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
 
 def register_admin(app: FastAPI, engine: Engine) -> Admin:
     admin = Admin(app, engine)
-    admin.add_view(CharacterAdmin)
-    admin.add_view(PartyAdmin)
-    admin.add_view(PlayerAdmin)
-    admin.add_view(ItemAdmin)
-    admin.add_view(EquippedItemAdmin)
+    views = [CharacterAdmin, PartyAdmin, PlayerAdmin, ItemAdmin, EquippedItemAdmin]
+    views = sorted(views, key=lambda view: view.model.__name__)
+    for view in views:
+        admin.add_view(view)
     return admin
