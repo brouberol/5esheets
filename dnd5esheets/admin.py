@@ -6,11 +6,15 @@ from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy import Engine
 
-from .models import BaseModel, Character, Item, Party, Player
+from .models import BaseModel, Character, Item, Party, Player, EquippedItem
 
 
 def base_excluded_columns(model: Type[BaseModel]):
-    return [model.created_at, model.updated_at]
+    return [model.created_at, model.updated_at] + [
+        getattr(model, field)
+        for field in model.__annotations__
+        if field.endswith("_id")
+    ]
 
 
 class CharacterAdmin(ModelView, model=Character):
@@ -22,10 +26,7 @@ class CharacterAdmin(ModelView, model=Character):
         Character.party,
         Character.player,
     ]
-    column_details_exclude_list = base_excluded_columns(Character) + [
-        Character.player_id,
-        Character.party_id,
-    ]
+    column_details_exclude_list = base_excluded_columns(Character)
     form_excluded_columns = base_excluded_columns(Character)
     column_labels = {Character.class_: "class"}
     column_searchable_list = [Character.name, Character.class_]
