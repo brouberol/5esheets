@@ -158,3 +158,10 @@ class Character(NameReprMixin, BaseModel):
     __table_args__ = (
         UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),
     )
+
+
+class Spell(NameReprMixin, BaseModel):
+    name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    level: Mapped[int] = mapped_column(Integer, nullable=False)
+    school: Mapped[str] = mapped_column(String(1), nullable=False)
+    data: Mapped[str] = mapped_column(Json, name="json_data")

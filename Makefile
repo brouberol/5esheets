@@ -10,6 +10,9 @@ front-root = $(app-root)/front
 api-client-root = $(front-root)/src/5esheets-client
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
+python = poetry run python3
+5etools-data-dir = https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data
+fr-translations-data-dir = https://gitlab.com/baktov.sugar/foundryvtt-dnd5e-lang-fr-fr/-/raw/master/dnd5e_fr-FR/compendium
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
@@ -52,11 +55,30 @@ $(api-client-root): $(front-root)/openapi.json
 
 $(app-root)/data/items-base.json: $(app-root)/data/translations-items-fr.json
 	@echo "\n[+] Fetching base equipment data"
-	@curl -s https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data/items-base.json | poetry run python3 scripts/preprocess_base_item_json.py
+	@curl -s $(5etools-data-dir)/items-base.json | $(python) scripts/preprocess_base_item_json.py
+
+$(app-root)/data/spells.json: $(app-root)/data/translations-spells-fr.json $(app-root)/data/spells-phb.json $(app-root)/data/spells-xge.json $(app-root)/data/spells-tce.json
+	@$(python) scripts/preprocess_spells_json.py
+
+$(app-root)/data/spells-tce.json:
+	@echo "\n[+] Fetching TCE spells"
+	@curl -s $(5etools-data-dir)/spells/spells-tce.json > $(app-root)/data/spells-tce.json
+
+$(app-root)/data/spells-xge.json:
+	@echo "\n[+] Fetching XGE spells"
+	@curl -s $(5etools-data-dir)/spells/spells-xge.json > $(app-root)/data/spells-xge.json
+
+$(app-root)/data/spells-phb.json:
+	@echo "\n[+] Fetching PHB spells"
+	@curl -s $(5etools-data-dir)/spells/spells-phb.json > $(app-root)/data/spells-phb.json
+
+$(app-root)/data/translations-spells-fr.json:
+	@echo "\n[+] Fetching PHB spells french translations"
+	@curl -s $(fr-translations-data-dir)/dnd5e.spells.json > $(app-root)/data/translations-spells-fr.json
 
 $(app-root)/data/translations-items-fr.json:
 	@echo "\n[+] Fetching items french translations"
-	@curl -s https://gitlab.com/baktov.sugar/foundryvtt-dnd5e-lang-fr-fr/-/raw/master/dnd5e_fr-FR/compendium/dnd5e.items.json > $(app-root)/data/translations-items-fr.json
+	@curl -s $(fr-translations-data-dir)/dnd5e.items.json > $(app-root)/data/translations-items-fr.json
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
@@ -78,7 +100,7 @@ black:
 
 check: back-check front-check ## Run all checks on the codebase
 
-data: $(app-root)/data/items-base.json
+data: $(app-root)/data/items-base.json $(app-root)/data/spells.json
 
 deps-js: $(front-root)/package-lock.json
 	@echo "\n[+] Installing js dependencies"
@@ -98,11 +120,15 @@ docker-run: docker-build  ## Run the docker image
 	@echo "\n[+] Running the docker image"
 	@docker run -it --rm -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
-db-base-items: db-migrate ## Populate the base items in database
+db-base-items: ## Populate the base items in database
 	@echo "\n[+] Populating the database with base items"
 	@$(app-cli) db populate base-items
 
-db-dev-fixtures: data db-base-items ## Populate the local database with development fixtures
+db-spells: ## Populate the spells in database
+	@echo "\n[+] Populating the database with spells"
+	@$(app-cli) db populate spells
+
+db-dev-fixtures: data db-migrate db-base-items db-spells ## Populate the local database with development fixtures
 	@echo "\n[+] Populating the database with development fixtures"
 	@$(app-cli) db populate fixtures
 
