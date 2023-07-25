@@ -1,7 +1,7 @@
 import { Component } from 'solid-js'
 import { css } from 'solid-styled'
 
-const BorderBox: Component<{ children: any }> = ({ children }) => {
+const BorderBox: Component<{ children: Element }> = ({ children }) => {
   css`
     .outer-box {
       --border-top: 10mm;

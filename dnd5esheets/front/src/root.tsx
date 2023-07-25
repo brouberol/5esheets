@@ -1,7 +1,6 @@
 // @refresh reload
 import { Suspense } from 'solid-js'
 import {
-  A,
   Body,
   ErrorBoundary,
   FileRoutes,
@@ -12,7 +11,7 @@ import {
   Scripts,
   Title,
 } from 'solid-start'
-import { css, StyleRegistry, type StyleData } from 'solid-styled'
+import { type StyleData, css, StyleRegistry } from 'solid-styled'
 import { I18nContext } from '@solid-primitives/i18n'
 
 import { i18nContext } from '~/i18n'

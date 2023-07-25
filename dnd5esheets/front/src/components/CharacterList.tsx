@@ -1,6 +1,4 @@
 import { A } from '@solidjs/router'
-import { createSignal } from 'solid-js'
-import { css } from 'solid-styled'
 
 import { ListCharacterSchema } from '~/5esheet-client'
 

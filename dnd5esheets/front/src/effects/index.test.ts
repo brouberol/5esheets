@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import '@testing-library/jest-dom'
 
 import { createStore } from 'solid-js/store'

@@ -120,7 +120,7 @@ front-build: front-generate-api-client
 	@echo "\n[+] Building the front app"
 	@$(npm-run) build
 
-front-check:  front-prettier ## Run all frontend checks
+front-check:  front-lint front-prettier ## Run all frontend checks
 
 front-test: ## Run the frontend unit tests
 	@echo "\n [+] Running the frontend tests"
@@ -132,8 +132,12 @@ front-run-dev: front-build  ## Run the development frontend server
 
 front-generate-api-client: $(api-client-root)/core/OpenAPI.ts ## Generate the API openapi.json file
 
+front-lint:
+	@echo "\n[+] Linting the front codebase"
+	@$(npm-run) lint
+
 front-prettier:
-	@echo "\n[+] Running prettier on the codebase"
+	@echo "\n[+] Running prettier on the front codebase"
 	@$(npm-run) prettier-check
 
 ruff:

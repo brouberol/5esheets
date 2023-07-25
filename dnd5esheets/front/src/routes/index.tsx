@@ -1,7 +1,7 @@
+import { createResource } from 'solid-js'
 import { Title } from 'solid-start'
 import CharacterList from '~/components/CharacterList'
 import { CharacterService } from '~/5esheets-client'
-import { createResource } from 'solid-js'
 
 const listCharacters = async () => {
   return await CharacterService.listCharacters()
