@@ -11,13 +11,13 @@ api-client-root = $(front-root)/src/5esheets-client
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
 python = poetry run python3
-5etools-data-dir = https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data
-fr-translations-data-dir = https://gitlab.com/baktov.sugar/foundryvtt-dnd5e-lang-fr-fr/-/raw/master/dnd5e_fr-FR/compendium
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
+
+include $(app-root)/data/data.mk
 
 $(app-root)/schemas.py:
 
@@ -44,7 +44,7 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@sleep 3  # Sorry dad
 	@curl -s http://localhost:$(app-port)/openapi.json > $(front-root)/openapi.json
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
-	@python3 scripts/preprocess_openapi_json.py
+	@$(python) scripts/preprocess_openapi_json.py
 
 $(api-client-root)/core/OpenAPI.ts: $(api-client-root)
 	@$(sed_i) "s@BASE: ''@BASE: process.env.NODE_ENV === 'production' ? '/api' : 'http://127.0.0.1:$(app-port)'@" $(api-client-root)/core/OpenAPI.ts
@@ -52,33 +52,6 @@ $(api-client-root)/core/OpenAPI.ts: $(api-client-root)
 $(api-client-root): $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
-
-$(app-root)/data/items-base.json: $(app-root)/data/translations-items-fr.json
-	@echo "\n[+] Fetching base equipment data"
-	@curl -s $(5etools-data-dir)/items-base.json | $(python) scripts/preprocess_base_item_json.py
-
-$(app-root)/data/spells.json: $(app-root)/data/translations-spells-fr.json $(app-root)/data/spells-phb.json $(app-root)/data/spells-xge.json $(app-root)/data/spells-tce.json
-	@$(python) scripts/preprocess_spells_json.py
-
-$(app-root)/data/spells-tce.json:
-	@echo "\n[+] Fetching TCE spells"
-	@curl -s $(5etools-data-dir)/spells/spells-tce.json > $(app-root)/data/spells-tce.json
-
-$(app-root)/data/spells-xge.json:
-	@echo "\n[+] Fetching XGE spells"
-	@curl -s $(5etools-data-dir)/spells/spells-xge.json > $(app-root)/data/spells-xge.json
-
-$(app-root)/data/spells-phb.json:
-	@echo "\n[+] Fetching PHB spells"
-	@curl -s $(5etools-data-dir)/spells/spells-phb.json > $(app-root)/data/spells-phb.json
-
-$(app-root)/data/translations-spells-fr.json:
-	@echo "\n[+] Fetching PHB spells french translations"
-	@curl -s $(fr-translations-data-dir)/dnd5e.spells.json > $(app-root)/data/translations-spells-fr.json
-
-$(app-root)/data/translations-items-fr.json:
-	@echo "\n[+] Fetching items french translations"
-	@curl -s $(fr-translations-data-dir)/dnd5e.items.json > $(app-root)/data/translations-items-fr.json
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
