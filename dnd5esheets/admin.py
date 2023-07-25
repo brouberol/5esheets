@@ -55,10 +55,23 @@ class ItemAdmin(ModelView, model=Item):
     form_excluded_columns = base_excluded_columns(Item)
 
 
+class EquippedItemAdmin(ModelView, model=EquippedItem):
+    column_list = [
+        EquippedItem.id,
+        EquippedItem.owner,
+        EquippedItem.item,
+        EquippedItem.amount,
+        EquippedItem.equipped,
+    ]
+    column_details_exclude_list = base_excluded_columns(EquippedItem)
+    form_excluded_columns = base_excluded_columns(EquippedItem)
+
+
 def register_admin(app: FastAPI, engine: Engine) -> Admin:
     admin = Admin(app, engine)
     admin.add_view(CharacterAdmin)
     admin.add_view(PartyAdmin)
     admin.add_view(PlayerAdmin)
     admin.add_view(ItemAdmin)
+    admin.add_view(EquippedItemAdmin)
     return admin
