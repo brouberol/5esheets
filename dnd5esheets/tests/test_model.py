@@ -72,7 +72,7 @@ def test_character_level_validation(session):
     with pytest.raises(ValueError):
         Character(name="Ronald McDonald", player_id=1, party_id=1, level=30)
 
-        
+
 def test_spell_level_validation(session):
     with pytest.raises(ValueError):
         Spell(name="Abracadabra", level=10, school="C", data={})

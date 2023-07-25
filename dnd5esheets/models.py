@@ -169,6 +169,7 @@ class Character(NameReprMixin, BaseModel):
     def validate_character_level(self, key, level):
         if level is not None and level not in range(1, 21):
             raise ValueError("Level should be between 1 and 20")
+        return level
 
 
 class Spell(NameReprMixin, BaseModel):
