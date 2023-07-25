@@ -69,7 +69,17 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
 
 def register_admin(app: FastAPI, engine: Engine) -> Admin:
     admin = Admin(app, engine)
-    views = [CharacterAdmin, PartyAdmin, PlayerAdmin, ItemAdmin, EquippedItemAdmin]
+    # Automatically discover admin views in current module
+    views = list(
+        {
+            k: v
+            for k, v in globals().items()
+            if k.endswith("Admin")
+            if k != "Admin"
+            if issubclass(v, ModelView)
+        }.values()
+    )
+
     views = sorted(views, key=lambda view: view.model.__name__)
     for view in views:
         admin.add_view(view)
