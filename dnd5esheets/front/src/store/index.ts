@@ -176,7 +176,6 @@ const douglas: CharacterSchema = {
           verbal: true,
           somatic: true,
           invocation: ActionType.ACTION,
-          origin: SpellOrigin.CLASS,
         },
         {
           name: 'Shield',
