@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import exc as sa_exc
 
-from dnd5esheets.models import Character, Item, EquippedItem
+from dnd5esheets.models import Character, EquippedItem, Item, Spell
 
 
 def test_update_in_model_json_field(session):
@@ -67,3 +67,13 @@ def test_delete_character_cascade(session):
         assert session.get(Item, equipment_item_id) is not None
     for equipped_item_id in equipped_item_ids:
         assert session.get(EquippedItem, equipped_item_id) is None
+
+
+def test_spell_level_validation(session):
+    with pytest.raises(ValueError):
+        Spell(name="Abracadabra", level=10, school="C", data={})
+
+    with pytest.raises(ValueError):
+        Spell(name="Abracadabra", level=-1, school="C", data={})
+
+    Spell(name="Abracadabra", level=1, school="C", data={})
