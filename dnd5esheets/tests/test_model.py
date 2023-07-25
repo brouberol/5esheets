@@ -1,33 +1,29 @@
 import pytest
 from sqlalchemy import exc as sa_exc
 
-from dnd5esheets.models import Character, Item, EquippedItem
+from dnd5esheets.models import Character, EquippedItem, Item
 
 
 def test_update_in_model_json_field(session):
     character = session.get(Character, 1)
     assert character.name == "Douglas McTrickfoot"
-    assert character.data["scores"] == {
-        "strength": 8,
-        "dexterity": 14,
-        "constitution": 12,
-        "intelligence": 18,
-        "wisdom": 12,
-        "charisma": 14,
+    assert character.data["abilities"]["strength"] == {
+        "score": 8,
+        "proficiency": 0,
+        "save": 0,
+        "modifier": 0,
     }
     # We update a root field, as well as a nested field, and we make sure that
     # only these fields get overridden
     character.update_from_dict(
-        {"name": "Mr DingDong", "data": {"scores": {"strength": 10}}}
+        {"name": "Mr DingDong", "data": {"abilities": {"strength": {"score": 10}}}}
     )
     assert character.name == "Mr DingDong"
-    assert character.data["scores"] == {
-        "strength": 10,
-        "dexterity": 14,
-        "constitution": 12,
-        "intelligence": 18,
-        "wisdom": 12,
-        "charisma": 14,
+    assert character.data["abilities"]["strength"] == {
+        "score": 10,
+        "proficiency": 0,
+        "save": 0,
+        "modifier": 0,
     }
 
 
