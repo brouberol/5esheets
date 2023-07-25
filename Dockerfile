@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY dnd5esheets/front/package.json ./
 COPY dnd5esheets/front/package-lock.json ./
-RUN npm install
+RUN npm install --omit=dev
 COPY dnd5esheets/front/ ./
 RUN npm run build
 
