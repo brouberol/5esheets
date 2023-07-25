@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import exc as sa_exc
 
-from dnd5esheets.models import Character, Item, EquippedItem
+from dnd5esheets.models import Character, EquippedItem, Item
 
 
 def test_update_in_model_json_field(session):
@@ -67,3 +67,11 @@ def test_delete_character_cascade(session):
         assert session.get(Item, equipment_item_id) is not None
     for equipped_item_id in equipped_item_ids:
         assert session.get(EquippedItem, equipped_item_id) is None
+
+
+def test_character_level(session):
+    Character(name="Ronald McDonald", player_id=1, party_id=1)  # level = None, OK
+    Character(name="Ronald McDonald", player_id=1, party_id=1, level=2)
+
+    with pytest.raises(ValueError):
+        Character(name="Ronald McDonald", player_id=1, party_id=1, level=30)

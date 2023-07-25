@@ -13,7 +13,13 @@ from sqlalchemy import (
     UniqueConstraint,
     types,
 )
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Mapped,
+    mapped_column,
+    relationship,
+    validates,
+)
 
 
 # Taken from https://stackoverflow.com/a/49933601
@@ -158,3 +164,9 @@ class Character(NameReprMixin, BaseModel):
     __table_args__ = (
         UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),
     )
+
+    @validates("level")
+    def validate_character_level(self, key, level):
+        if level is not None and level not in range(1, 21):
+            raise ValueError("Level should be between 1 and 20")
+        return level
