@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest'
 import '@testing-library/jest-dom'
-
 import { createStore } from 'solid-js/store'
 import { createRoot } from 'solid-js'
+
 import { applyEffect } from '.'
 
 async function inRoot(fn: () => void) {

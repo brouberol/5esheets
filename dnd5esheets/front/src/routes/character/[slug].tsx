@@ -1,20 +1,25 @@
-import { Title, useParams } from 'solid-start'
+import { useParams } from '@solidjs/router'
+import { createResource } from 'solid-js'
+import { Title } from '@solidjs/meta'
 
 import CharacterSheet from '~/components/CharacterSheet'
 import { Layout } from '~/components/Layout'
-import useStore from '~/store'
+import { CharacterService } from '~/5esheets-client'
 
-export default function CharacterPage() {
+export default function CharacterSheetPage() {
   const params = useParams()
-  const [characters, { update }] = useStore()
+  const [character] = createResource(params.slug, CharacterService.getCharacter)
 
   return (
-    <Layout>
+    <>
       <Title>{params.slug}</Title>
-      <CharacterSheet
-        character={characters[params.slug]}
-        onChange={(change) => update(params.slug, change)}
-      />
-    </Layout>
+      <Layout>
+        {character.state === 'ready' ? (
+          <CharacterSheet character={character()} onChange={() => {}} />
+        ) : (
+          <p>loading...</p>
+        )}
+      </Layout>
+    </>
   )
 }

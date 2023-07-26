@@ -1,18 +1,15 @@
+import { Title } from '@solidjs/meta'
 import { createResource } from 'solid-js'
-import { Title } from 'solid-start'
+
 import CharacterList from '~/components/CharacterList'
 import { CharacterService } from '~/5esheets-client'
 
-const listCharacters = async () => {
-  return await CharacterService.listCharacters()
-}
-
-export default function Home() {
-  const [characters] = createResource(listCharacters)
+export default function CharacterListPage() {
+  const [characters] = createResource(CharacterService.listCharacters)
   return (
-    <main>
-      <Title>D&D 5e sheets</Title>
-      {characters() && <CharacterList characters={characters()} />}
-    </main>
+    <>
+      <Title>Character list</Title>
+      <main>{characters() && <CharacterList characters={characters()} />}</main>
+    </>
   )
 }

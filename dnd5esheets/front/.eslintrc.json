@@ -18,7 +18,8 @@
     "import/order": [
       "error",
       {
-        "distinctGroup": true
+        "distinctGroup": true,
+        "newlines-between": "always"
       }
     ]
   }
