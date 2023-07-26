@@ -182,14 +182,16 @@ export default function CharacterSheet({
             <BorderBox>
               <div class="scores flex-container">
                 <For
-                  each={[
-                    'strength',
-                    'dexterity',
-                    'constitution',
-                    'intelligence',
-                    'wisdom',
-                    'charisma',
-                  ]}
+                  each={
+                    [
+                      'strength',
+                      'dexterity',
+                      'constitution',
+                      'intelligence',
+                      'wisdom',
+                      'charisma',
+                    ] as const
+                  }
                 >
                   {(attribute) => (
                     <ScoreBox

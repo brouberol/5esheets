@@ -4,8 +4,9 @@ import { I18nContext } from '@solid-primitives/i18n'
 import { StyleData, StyleRegistry, css } from 'solid-styled'
 import { MetaProvider } from '@solidjs/meta'
 
-import CharacterListPage from '~/routes'
-import CharacterSheetPage from '~/routes/character/[slug]'
+import HomePage from '~/routes'
+import CharacterListPage from '~/routes/characters'
+import CharacterSheetPage from '~/routes/characters/[slug]'
 import { i18nContext } from '~/i18n'
 
 function GlobalStyles() {
@@ -63,9 +64,10 @@ const App: Component = () => {
           <GlobalStyles />
           <Router>
             <header>
-              <h1>D&D 5e sheet</h1>
+              <h1>D&D 5e sheets</h1>
             </header>
             <Routes>
+              <Route path="/" component={HomePage} />
               <Route path="/characters" component={CharacterListPage} />
               <Route path="/characters/:slug" component={CharacterSheetPage} />
             </Routes>

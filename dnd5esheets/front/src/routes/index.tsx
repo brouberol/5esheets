@@ -1,15 +1,13 @@
 import { Title } from '@solidjs/meta'
-import { createResource } from 'solid-js'
+import { A } from '@solidjs/router'
 
-import CharacterList from '~/components/CharacterList'
-import { CharacterService } from '~/5esheets-client'
-
-export default function CharacterListPage() {
-  const [characters] = createResource(CharacterService.listCharacters)
+export default function HomePage() {
   return (
     <>
-      <Title>Character list</Title>
-      <main>{characters() && <CharacterList characters={characters()} />}</main>
+      <Title>D&D 5e sheets</Title>
+      <main>
+        <A href={'/characters'}>Characters</A>
+      </main>
     </>
   )
 }
