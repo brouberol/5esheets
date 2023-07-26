@@ -1,11 +1,14 @@
 name: Check do not merge
 
 on:
+  push:
+    branches-ignore:
+      - main
   pull_request:
     types:
-    - opened
-    - labeled
-    - unlabeled
+      - opened
+      - labeled
+      - unlabeled
 
 jobs:
   fail-for-do-not-merge:

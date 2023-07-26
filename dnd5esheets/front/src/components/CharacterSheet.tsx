@@ -1,4 +1,4 @@
-import { For, createSignal } from 'solid-js'
+import { For } from 'solid-js'
 import { css } from 'solid-styled'
 import { useI18n } from '@solid-primitives/i18n'
 
@@ -170,7 +170,9 @@ export default function CharacterSheet({
             label={t('experience_points')}
             placeholder="3240"
             value={character.data.xp}
-            onChange={(experiencepoints: string) => onChange({ data: { xp } })}
+            onChange={(experiencepoints: string) =>
+              onChange({ data: { xp: experiencepoints } })
+            }
           />
         </div>
       </header>

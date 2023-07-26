@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from .admin import register_admin
 from .api import api
 from .config import get_settings
-from .db import engine
+from .db import async_engine
 from .exceptions import CacheHit
 from .repositories import DuplicateModel, ModelNotFound
 
@@ -28,7 +28,7 @@ if settings.FRONTEND_CORS_ORIGIN is not None:
     )
 
 
-register_admin(app, engine)
+register_admin(app, async_engine)
 
 dist_dir = Path(__file__).parent / "front" / "dist"
 
@@ -45,9 +45,9 @@ def raise_400_exception_on_duplicate_model(_: Request, exc: Exception):
     return JSONResponse(content={"detail": str(exc)}, status_code=400)
 
 
-# Generate a correct 304 response when handling a CacheHit exception.
 @app.exception_handler(CacheHit)
 def cachehit_exception_handler(_: Request, exc: CacheHit):
+    """Generate a correct 304 response when handling a CacheHit exception"""
     return Response("", status_code=exc.status_code, headers=exc.headers)
 
 
