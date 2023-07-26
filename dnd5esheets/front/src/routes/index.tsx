@@ -1,7 +1,8 @@
+import { Title } from '@solidjs/meta'
+import { createResource } from 'solid-js'
+
 import CharacterList from '~/components/CharacterList'
 import { CharacterService } from '~/5esheets-client'
-import { createResource } from 'solid-js'
-import { Title } from '@solidjs/meta'
 
 export default function CharacterListPage() {
   const [characters] = createResource(CharacterService.listCharacters)

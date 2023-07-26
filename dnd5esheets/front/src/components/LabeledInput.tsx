@@ -1,4 +1,3 @@
-import { createSignal } from 'solid-js'
 import { css } from 'solid-styled'
 
 export default function LabeledInput({

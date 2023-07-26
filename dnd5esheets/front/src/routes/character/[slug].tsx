@@ -1,9 +1,10 @@
 import { useParams } from '@solidjs/router'
+import { createResource } from 'solid-js'
+import { Title } from '@solidjs/meta'
+
 import CharacterSheet from '~/components/CharacterSheet'
 import { Layout } from '~/components/Layout'
 import { CharacterService } from '~/5esheets-client'
-import { createResource } from 'solid-js'
-import { Title } from '@solidjs/meta'
 
 export default function CharacterSheetPage() {
   const params = useParams()

@@ -1,12 +1,12 @@
 import { Route, Router, Routes } from '@solidjs/router'
 import type { Component } from 'solid-js'
-import CharacterListPage from '~/routes'
-import CharacterSheetPage from '~/routes/character/[slug]'
 import { I18nContext } from '@solid-primitives/i18n'
-
-import { i18nContext } from '~/i18n'
 import { StyleData, StyleRegistry, css } from 'solid-styled'
 import { MetaProvider } from '@solidjs/meta'
+
+import CharacterListPage from '~/routes'
+import CharacterSheetPage from '~/routes/character/[slug]'
+import { i18nContext } from '~/i18n'
 
 function GlobalStyles() {
   css`
