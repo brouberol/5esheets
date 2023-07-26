@@ -190,7 +190,7 @@ class CharacterStore {
       storage: createDeepSignal,
     })
 
-    const [list] = createStore(listResource())
+    const [list] = createStore<ListCharacterSchema[]>(listResource())
     return list
   }
 
@@ -204,7 +204,6 @@ class CharacterStore {
   private initCharacter = (
     slug: string
   ): [CharacterSchema, (fn: (character: CharacterSchema) => void) => void] => {
-    // TODO we might want to use createDeepSignal to allow updating only the parts of the store that changes when re-fetching resource: https://github.com/solidjs-community/solid-primitives/tree/main/packages/resource#createdeepsignal
     const [characterResource] = createResource(
       slug,
       CharacterService.getCharacter,
