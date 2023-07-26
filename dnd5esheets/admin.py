@@ -4,7 +4,7 @@ from typing import Type
 
 from fastapi import FastAPI
 from sqladmin import Admin, ModelView
-from sqlalchemy import Engine
+from sqlalchemy.ext.asyncio import AsyncEngine
 
 from .models import BaseModel, Character, Item, Party, Player, EquippedItem
 
@@ -67,7 +67,7 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
     form_excluded_columns = base_excluded_columns(EquippedItem)
 
 
-def register_admin(app: FastAPI, engine: Engine) -> Admin:
+def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
     admin = Admin(app, engine)
     # Automatically discover admin views in current module
     views = list(

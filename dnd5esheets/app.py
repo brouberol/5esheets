@@ -9,7 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from .admin import register_admin
 from .api import api
 from .config import get_settings
-from .db import engine
+from .db import async_engine
 from .exceptions import CacheHit
 from .repositories import DuplicateModel, ModelNotFound
 
@@ -28,7 +28,7 @@ if settings.FRONTEND_CORS_ORIGIN is not None:
     )
 
 
-register_admin(app, engine)
+register_admin(app, async_engine)
 
 dist_dir = Path(__file__).parent / "front" / "dist"
 
