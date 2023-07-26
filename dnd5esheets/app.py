@@ -45,9 +45,9 @@ def raise_400_exception_on_duplicate_model(_: Request, exc: Exception):
     return JSONResponse(content={"detail": str(exc)}, status_code=400)
 
 
-# Generate a correct 304 response when handling a CacheHit exception.
 @app.exception_handler(CacheHit)
 def cachehit_exception_handler(_: Request, exc: CacheHit):
+    """Generate a correct 304 response when handling a CacheHit exception"""
     return Response("", status_code=exc.status_code, headers=exc.headers)
 
 
