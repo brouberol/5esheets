@@ -2,8 +2,8 @@ name: Check do not merge
 
 on:
   push:
-    branches:
-      - !main
+    branches-ignore:
+      - main
   pull_request:
     types:
       - opened
