@@ -2,7 +2,11 @@ import { createResource } from 'solid-js'
 import { createDeepSignal } from '@solid-primitives/resource'
 import { createStore, produce } from 'solid-js/store'
 
-import { CharacterSchema, ListCharacterSchema, OpenAPI } from '~/5esheets-client'
+import {
+  CharacterSchema,
+  ListCharacterSchema,
+  OpenAPI,
+} from '~/5esheets-client'
 import { CharacterService } from '~/5esheets-client'
 
 if (process.env.NODE_ENV === 'development') {
