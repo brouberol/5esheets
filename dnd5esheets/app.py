@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse, Response
-from fastapi.staticfiles import StaticFiles
 
 from .admin import register_admin
 from .api import api
@@ -12,6 +11,7 @@ from .config import get_settings
 from .db import async_engine
 from .exceptions import CacheHit
 from .repositories import DuplicateModel, ModelNotFound
+from .spa import SPAStaticFiles
 
 app = FastAPI()
 settings = get_settings()
@@ -52,4 +52,4 @@ def cachehit_exception_handler(_: Request, exc: CacheHit):
 
 
 if dist_dir.exists():
-    app.mount("", StaticFiles(directory=dist_dir, html=True), name="static")
+    app.mount("", SPAStaticFiles(directory=dist_dir, html=True), name="static")
