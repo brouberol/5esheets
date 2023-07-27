@@ -252,7 +252,7 @@ class CharacterSchema(BaseORMSchema):
         max_length=255, title="The character slug, used to identify it in the API"
     )
     class_: str | None = Field(max_length=80, title="The character class", default=None)
-    level: int | None = Field(ge=1, title="The character level", default=None)
+    level: int | None = Field(ge=1, le=20, title="The character level", default=None)
     data: CharacterSheet | None = Field(
         description="The embdedded character sheet JSON data", default=None
     )
