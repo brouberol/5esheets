@@ -3,8 +3,9 @@ Definition of the pydandic models used for type validation and output serializat
 """
 
 from enum import Enum
-from pydantic import ConfigDict, BaseModel as BaseSchema
-from pydantic import Field
+
+from pydantic import BaseModel as BaseSchema
+from pydantic import ConfigDict, Field
 
 # We define a special field to mark the fields with a default value of 0
 # server-side, which _actual_ value will be computed by the frontend, based
@@ -102,53 +103,49 @@ class SaveProficiencies(BaseSchema):
     wisdom: Proficiency
 
 
-class SkillProficiencies(BaseSchema):
-    acrobatics: Proficiency
-    arcana: Proficiency
-    athletics: Proficiency
-    stealth: Proficiency
-    animal_handling: Proficiency
-    sleight_of_hand: Proficiency
-    history: Proficiency
-    intimidation: Proficiency
-    investigation: Proficiency
-    medicine: Proficiency
-    nature: Proficiency
-    perception: Proficiency
-    insight: Proficiency
-    persuasion: Proficiency
-    religion: Proficiency
-    performance: Proficiency
-    survival: Proficiency
-    deception: Proficiency
-
-
-class Proficiencies(BaseSchema):
-    saves: SaveProficiencies
-    skills: SkillProficiencies
-
-
-class Scores(BaseSchema):
-    strength: int
-    dexterity: int
-    constitution: int
-    wisdom: int
-    charisma: int
-    intelligence: int
+class Ability(BaseSchema):
+    score: int
+    proficiency: Proficiency
 
     # Autocomputed fields, declared here to have them part of the TS types
-    strength_mod: int = FrontendComputedField
-    dexterity_mod: int = FrontendComputedField
-    constitution_mod: int = FrontendComputedField
-    wisdom_mod: int = FrontendComputedField
-    charisma_mod: int = FrontendComputedField
-    intelligence_mod: int = FrontendComputedField
-    strength_save_mod: int = FrontendComputedField
-    dexterity_save_mod: int = FrontendComputedField
-    constitution_save_mod: int = FrontendComputedField
-    wisdom_save_mod: int = FrontendComputedField
-    charisma_save_mod: int = FrontendComputedField
-    intelligence_save_mod: int = FrontendComputedField
+    modifier: int = FrontendComputedField
+    save: int = FrontendComputedField
+
+
+class Abilities(BaseSchema):
+    strength: Ability
+    dexterity: Ability
+    constitution: Ability
+    wisdom: Ability
+    charisma: Ability
+    intelligence: Ability
+
+
+class Skill(BaseSchema):
+    # Autocomputed fields, declared here to have them part of the TS types
+    proficiency: Proficiency
+    modifier: int = FrontendComputedField
+
+
+class Skills(BaseSchema):
+    acrobatics: Skill
+    arcana: Skill
+    athletics: Skill
+    stealth: Skill
+    animal_handling: Skill
+    sleight_of_hand: Skill
+    history: Skill
+    intimidation: Skill
+    investigation: Skill
+    medicine: Skill
+    nature: Skill
+    perception: Skill
+    insight: Skill
+    persuasion: Skill
+    religion: Skill
+    performance: Skill
+    survival: Skill
+    deception: Skill
 
 
 class HitPoints(BaseSchema):
@@ -213,8 +210,8 @@ class Spells(BaseSchema):
 
 
 class CharacterSheet(BaseSchema):
-    scores: Scores
-    proficiencies: Proficiencies
+    abilities: Abilities
+    skills: Skills
     xp: int
     race: str
     background: str

@@ -33,18 +33,21 @@ def test_update_characters(client):
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
     )
     assert initial_data["name"] == "Douglas McTrickfoot"
-    assert initial_data["data"]["scores"]["strength"] == 8
+    assert initial_data["data"]["abilities"]["strength"]["score"] == 8
     assert_status_and_return_data(
         client.put,
         "/api/character/douglas-mctrickfoot",
         status_code=200,
-        json={"name": "Ronald McDonald", "data": {"scores": {"strength": 10}}},
+        json={
+            "name": "Ronald McDonald",
+            "data": {"abilities": {"strength": {"score": 10}}},
+        },
     )
     updated_data = assert_status_and_return_data(
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
     )
     assert updated_data["name"] == "Ronald McDonald"
-    assert updated_data["data"]["scores"]["strength"] == 10
+    assert updated_data["data"]["abilities"]["strength"]["score"] == 10
 
 
 def test_update_with_invalid_payload(client):

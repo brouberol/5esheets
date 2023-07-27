@@ -546,6 +546,65 @@
   },
   "components": {
     "schemas": {
+      "Abilities": {
+        "properties": {
+          "strength": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "dexterity": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "constitution": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "wisdom": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "charisma": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "intelligence": {
+            "$ref": "#/components/schemas/Ability"
+          }
+        },
+        "type": "object",
+        "required": [
+          "strength",
+          "dexterity",
+          "constitution",
+          "wisdom",
+          "charisma",
+          "intelligence"
+        ],
+        "title": "Abilities"
+      },
+      "Ability": {
+        "properties": {
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "proficiency": {
+            "$ref": "#/components/schemas/Proficiency"
+          },
+          "modifier": {
+            "type": "integer",
+            "title": "Modifier"
+          },
+          "save": {
+            "type": "integer",
+            "title": "Save"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "proficiency",
+          "modifier",
+          "save"
+        ],
+        "title": "Ability"
+      },
       "ActionType": {
         "type": "string",
         "enum": [
@@ -884,11 +943,11 @@
       },
       "CharacterSheet": {
         "properties": {
-          "scores": {
-            "$ref": "#/components/schemas/Scores"
+          "abilities": {
+            "$ref": "#/components/schemas/Abilities"
           },
-          "proficiencies": {
-            "$ref": "#/components/schemas/Proficiencies"
+          "skills": {
+            "$ref": "#/components/schemas/Skills"
           },
           "xp": {
             "type": "integer",
@@ -999,8 +1058,8 @@
         },
         "type": "object",
         "required": [
-          "scores",
-          "proficiencies",
+          "abilities",
+          "skills",
           "xp",
           "race",
           "background",
@@ -1371,22 +1430,6 @@
         "title": "PlayerSchema",
         "description": "The basic details of a player"
       },
-      "Proficiencies": {
-        "properties": {
-          "saves": {
-            "$ref": "#/components/schemas/SaveProficiencies"
-          },
-          "skills": {
-            "$ref": "#/components/schemas/SkillProficiencies"
-          }
-        },
-        "type": "object",
-        "required": [
-          "saves",
-          "skills"
-        ],
-        "title": "Proficiencies"
-      },
       "Proficiency": {
         "type": "integer",
         "enum": [
@@ -1396,191 +1439,78 @@
         ],
         "title": "Proficiency"
       },
-      "SaveProficiencies": {
+      "Skill": {
         "properties": {
-          "strength": {
+          "proficiency": {
             "$ref": "#/components/schemas/Proficiency"
           },
-          "dexterity": {
-            "$ref": "#/components/schemas/Proficiency"
-          },
-          "constitution": {
-            "$ref": "#/components/schemas/Proficiency"
-          },
-          "intelligence": {
-            "$ref": "#/components/schemas/Proficiency"
-          },
-          "charisma": {
-            "$ref": "#/components/schemas/Proficiency"
-          },
-          "wisdom": {
-            "$ref": "#/components/schemas/Proficiency"
+          "modifier": {
+            "type": "integer",
+            "title": "Modifier"
           }
         },
         "type": "object",
         "required": [
-          "strength",
-          "dexterity",
-          "constitution",
-          "intelligence",
-          "charisma",
-          "wisdom"
+          "proficiency",
+          "modifier"
         ],
-        "title": "SaveProficiencies"
+        "title": "Skill"
       },
-      "Scores": {
-        "properties": {
-          "strength": {
-            "type": "integer",
-            "title": "Strength"
-          },
-          "dexterity": {
-            "type": "integer",
-            "title": "Dexterity"
-          },
-          "constitution": {
-            "type": "integer",
-            "title": "Constitution"
-          },
-          "wisdom": {
-            "type": "integer",
-            "title": "Wisdom"
-          },
-          "charisma": {
-            "type": "integer",
-            "title": "Charisma"
-          },
-          "intelligence": {
-            "type": "integer",
-            "title": "Intelligence"
-          },
-          "strength_mod": {
-            "type": "integer",
-            "title": "Strength Mod"
-          },
-          "dexterity_mod": {
-            "type": "integer",
-            "title": "Dexterity Mod"
-          },
-          "constitution_mod": {
-            "type": "integer",
-            "title": "Constitution Mod"
-          },
-          "wisdom_mod": {
-            "type": "integer",
-            "title": "Wisdom Mod"
-          },
-          "charisma_mod": {
-            "type": "integer",
-            "title": "Charisma Mod"
-          },
-          "intelligence_mod": {
-            "type": "integer",
-            "title": "Intelligence Mod"
-          },
-          "strength_save_mod": {
-            "type": "integer",
-            "title": "Strength Save Mod"
-          },
-          "dexterity_save_mod": {
-            "type": "integer",
-            "title": "Dexterity Save Mod"
-          },
-          "constitution_save_mod": {
-            "type": "integer",
-            "title": "Constitution Save Mod"
-          },
-          "wisdom_save_mod": {
-            "type": "integer",
-            "title": "Wisdom Save Mod"
-          },
-          "charisma_save_mod": {
-            "type": "integer",
-            "title": "Charisma Save Mod"
-          },
-          "intelligence_save_mod": {
-            "type": "integer",
-            "title": "Intelligence Save Mod"
-          }
-        },
-        "type": "object",
-        "required": [
-          "strength",
-          "dexterity",
-          "constitution",
-          "wisdom",
-          "charisma",
-          "intelligence",
-          "strength_mod",
-          "dexterity_mod",
-          "constitution_mod",
-          "wisdom_mod",
-          "charisma_mod",
-          "intelligence_mod",
-          "strength_save_mod",
-          "dexterity_save_mod",
-          "constitution_save_mod",
-          "wisdom_save_mod",
-          "charisma_save_mod",
-          "intelligence_save_mod"
-        ],
-        "title": "Scores"
-      },
-      "SkillProficiencies": {
+      "Skills": {
         "properties": {
           "acrobatics": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "arcana": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "athletics": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "stealth": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "animal_handling": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "sleight_of_hand": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "history": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "intimidation": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "investigation": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "medicine": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "nature": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "perception": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "insight": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "persuasion": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "religion": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "performance": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "survival": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           },
           "deception": {
-            "$ref": "#/components/schemas/Proficiency"
+            "$ref": "#/components/schemas/Skill"
           }
         },
         "type": "object",
@@ -1604,7 +1534,7 @@
           "survival",
           "deception"
         ],
-        "title": "SkillProficiencies"
+        "title": "Skills"
       },
       "Spell": {
         "properties": {
