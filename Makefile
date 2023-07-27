@@ -46,9 +46,6 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
 	@$(python) scripts/preprocess_openapi_json.py
 
-$(api-client-root)/core/OpenAPI.ts: $(api-client-root)
-	@$(sed_i) "s@BASE: ''@BASE: process.env.NODE_ENV === 'production' ? '/api' : 'http://127.0.0.1:$(app-port)'@" $(api-client-root)/core/OpenAPI.ts
-
 $(api-client-root): $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client

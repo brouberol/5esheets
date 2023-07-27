@@ -1,8 +1,8 @@
 import pytest
 
+from dnd5esheets.repositories import DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.character import CharacterRepository
-from dnd5esheets.repositories import ModelNotFound, DuplicateModel
-from dnd5esheets.schemas import UpdateCharacterSchema, CreateCharacterSchema
+from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
 
 @pytest.mark.asyncio
@@ -57,17 +57,19 @@ async def test_update_character(async_session):
         async_session, slug="douglas-mctrickfoot"
     )
     assert douglas_before_update.level == 4
-    assert douglas_before_update.data["scores"]["dexterity"] == 14
+    assert douglas_before_update.data["abilities"]["dexterity"]["score"] == 14
     await CharacterRepository.update(
         async_session,
         slug="douglas-mctrickfoot",
-        body=UpdateCharacterSchema(level=5, data={"scores": {"dexterity": 15}}),
+        body=UpdateCharacterSchema(
+            level=5, data={"abilities": {"dexterity": {"score": 15}}}
+        ),
     )
     douglas_after_update = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"
     )
     assert douglas_after_update.level == 5
-    assert douglas_before_update.data["scores"]["dexterity"] == 15
+    assert douglas_before_update.data["abilities"]["dexterity"]["score"] == 15
 
 
 @pytest.mark.asyncio
