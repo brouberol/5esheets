@@ -13,7 +13,13 @@ from sqlalchemy import (
     UniqueConstraint,
     types,
 )
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import (
+    DeclarativeBase,
+    Mapped,
+    mapped_column,
+    relationship,
+    validates,
+)
 
 
 # Taken from https://stackoverflow.com/a/49933601
@@ -158,3 +164,16 @@ class Character(NameReprMixin, BaseModel):
     __table_args__ = (
         UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),
     )
+
+
+class Spell(NameReprMixin, BaseModel):
+    name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    level: Mapped[int] = mapped_column(Integer, nullable=False)
+    school: Mapped[str] = mapped_column(String(1), nullable=False)
+    data: Mapped[str] = mapped_column(Json, name="json_data")
+
+    @validates("level")
+    def validate_level(self, key, level):
+        if level not in range(0, 10):
+            raise ValueError("Level should be between 0 and 9")
+        return level

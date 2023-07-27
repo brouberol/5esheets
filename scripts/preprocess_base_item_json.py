@@ -1,9 +1,9 @@
+import glob
 import json
 import sys
-import glob
+from pathlib import Path
 
 from bs4 import BeautifulSoup
-from pathlib import Path
 
 data_dir = Path(__file__).parent.parent / "dnd5esheets" / "data"
 base_items_filepath = data_dir / "items-base.json"
