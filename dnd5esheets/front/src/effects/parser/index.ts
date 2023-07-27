@@ -462,7 +462,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
       var peg$c15 = '>='
       var peg$c16 = '<='
 
-      var peg$r0 = /^[a-z_]/
+      var peg$r0 = /^[a-zA-Z_]/
       var peg$r1 = /^[0-9]/
       var peg$r2 = /^[ \t]/
 
@@ -478,7 +478,11 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
       var peg$e9 = peg$literalExpectation('[', false)
       var peg$e10 = peg$literalExpectation(']', false)
       var peg$e11 = peg$literalExpectation('.', false)
-      var peg$e12 = peg$classExpectation([['a', 'z'], '_'], false, false)
+      var peg$e12 = peg$classExpectation(
+        [['a', 'z'], ['A', 'Z'], '_'],
+        false,
+        false
+      )
       var peg$e13 = peg$classExpectation([['0', '9']], false, false)
       var peg$e14 = peg$literalExpectation(':=', false)
       var peg$e15 = peg$literalExpectation('+=', false)

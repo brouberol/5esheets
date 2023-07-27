@@ -169,4 +169,16 @@ class Character(NameReprMixin, BaseModel):
     def validate_character_level(self, key, level):
         if level is not None and level not in range(1, 21):
             raise ValueError("Level should be between 1 and 20")
+
+
+class Spell(NameReprMixin, BaseModel):
+    name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    level: Mapped[int] = mapped_column(Integer, nullable=False)
+    school: Mapped[str] = mapped_column(String(1), nullable=False)
+    data: Mapped[str] = mapped_column(Json, name="json_data")
+
+    @validates("level")
+    def validate_level(self, key, level):
+        if level not in range(0, 10):
+            raise ValueError("Level should be between 0 and 9")
         return level

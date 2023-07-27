@@ -6,7 +6,7 @@ from sqlalchemy import select
 
 from dnd5esheets.config.base import db_dir
 from dnd5esheets.db import create_session
-from dnd5esheets.models import Character, EquippedItem, Item, Party, Player
+from dnd5esheets.models import Character, EquippedItem, Item, Party, Player, Spell
 
 data_dir = Path(__file__).parent / "data"
 
@@ -37,6 +37,27 @@ def _populate_base_items(silent: bool = False):
             session.merge(item)
             if not silent:
                 click.echo(f"Item {item} created")
+
+
+def _populate_spells(silent: bool = False):
+    with open(data_dir / "spells.json") as base_items_fd:
+        base_items = json.load(base_items_fd)
+
+    with create_session(commit_at_end=True) as session:
+        for i, spell in enumerate(base_items, 1):
+            spell_name = spell.pop("name")
+            spell_school = spell.pop("school")
+            spell_level = spell.pop("level")
+            spell = Spell(
+                id=i,
+                name=spell_name,
+                level=spell_level,
+                school=spell_school,
+                data=spell,
+            )
+            session.merge(spell)
+            if not silent:
+                click.echo(f"Spell {spell} created")
 
 
 def _populate_db_with_dev_data(silent: bool = False):
@@ -77,6 +98,13 @@ def _populate_db_with_dev_data(silent: bool = False):
 def populate_base_items(silent: bool = False):
     """Populate the database the base items data, with their translations"""
     _populate_base_items(silent=silent)
+
+
+@populate.command("spells")
+@click.option("--silent", type=bool, default=False)
+def populate_spells(silent: bool = False):
+    """Populate the database the spells data, with their translations"""
+    _populate_spells(silent=silent)
 
 
 @populate.command("fixtures")

@@ -1,5 +1,6 @@
-import { Show, createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, Show } from 'solid-js'
 import { css } from 'solid-styled'
+
 import { cycleProficiency } from '~/store'
 import { Proficiency } from '~/5esheets-client'
 

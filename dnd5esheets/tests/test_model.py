@@ -1,33 +1,29 @@
 import pytest
 from sqlalchemy import exc as sa_exc
 
-from dnd5esheets.models import Character, EquippedItem, Item
+from dnd5esheets.models import Character, EquippedItem, Item, Spell
 
 
 def test_update_in_model_json_field(session):
     character = session.get(Character, 1)
     assert character.name == "Douglas McTrickfoot"
-    assert character.data["scores"] == {
-        "strength": 8,
-        "dexterity": 14,
-        "constitution": 12,
-        "intelligence": 18,
-        "wisdom": 12,
-        "charisma": 14,
+    assert character.data["abilities"]["strength"] == {
+        "score": 8,
+        "proficiency": 0,
+        "save": 0,
+        "modifier": 0,
     }
     # We update a root field, as well as a nested field, and we make sure that
     # only these fields get overridden
     character.update_from_dict(
-        {"name": "Mr DingDong", "data": {"scores": {"strength": 10}}}
+        {"name": "Mr DingDong", "data": {"abilities": {"strength": {"score": 10}}}}
     )
     assert character.name == "Mr DingDong"
-    assert character.data["scores"] == {
-        "strength": 10,
-        "dexterity": 14,
-        "constitution": 12,
-        "intelligence": 18,
-        "wisdom": 12,
-        "charisma": 14,
+    assert character.data["abilities"]["strength"] == {
+        "score": 10,
+        "proficiency": 0,
+        "save": 0,
+        "modifier": 0,
     }
 
 
@@ -69,9 +65,19 @@ def test_delete_character_cascade(session):
         assert session.get(EquippedItem, equipped_item_id) is None
 
 
-def test_character_level(session):
+def test_character_level_validation(session):
     Character(name="Ronald McDonald", player_id=1, party_id=1)  # level = None, OK
     Character(name="Ronald McDonald", player_id=1, party_id=1, level=2)
 
     with pytest.raises(ValueError):
         Character(name="Ronald McDonald", player_id=1, party_id=1, level=30)
+
+        
+def test_spell_level_validation(session):
+    with pytest.raises(ValueError):
+        Spell(name="Abracadabra", level=10, school="C", data={})
+
+    with pytest.raises(ValueError):
+        Spell(name="Abracadabra", level=-1, school="C", data={})
+
+    Spell(name="Abracadabra", level=1, school="C", data={})

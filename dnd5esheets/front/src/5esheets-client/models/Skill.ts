@@ -3,6 +3,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellOrigin = {
+import type { Proficiency } from './Proficiency';
+
+export type Skill = {
+    proficiency: Proficiency;
+    modifier: number;
 };
 

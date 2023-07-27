@@ -3,18 +3,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Abilities } from './Abilities';
 import type { Attack } from './Attack';
 import type { CustomResource } from './CustomResource';
 import type { HitDice } from './HitDice';
 import type { HitPoints } from './HitPoints';
 import type { Money } from './Money';
-import type { Proficiencies } from './Proficiencies';
-import type { Scores } from './Scores';
+import type { Skills } from './Skills';
 import type { Spells } from './Spells';
 
 export type CharacterSheet = {
-    scores: Scores;
-    proficiencies: Proficiencies;
+    abilities: Abilities;
+    skills: Skills;
     xp: number;
     race: string;
     background: string;

@@ -10,11 +10,14 @@ front-root = $(app-root)/front
 api-client-root = $(front-root)/src/5esheets-client
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
+python = poetry run python3
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
+
+include $(app-root)/data/data.mk
 
 $(app-root)/schemas.py:
 
@@ -41,22 +44,11 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@sleep 3  # Sorry dad
 	@curl -s http://localhost:$(app-port)/openapi.json > $(front-root)/openapi.json
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
-	@python3 scripts/preprocess_openapi_json.py
-
-$(api-client-root)/core/OpenAPI.ts: $(api-client-root)
-	@$(sed_i) "s@BASE: ''@BASE: process.env.NODE_ENV === 'production' ? '/api' : 'http://127.0.0.1:$(app-port)'@" $(api-client-root)/core/OpenAPI.ts
+	@$(python) scripts/preprocess_openapi_json.py
 
 $(api-client-root): $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
-
-$(app-root)/data/items-base.json: $(app-root)/data/translations-items-fr.json
-	@echo "\n[+] Fetching base equipment data"
-	@curl -s https://raw.githubusercontent.com/5etools-mirror-1/5etools-mirror-1.github.io/master/data/items-base.json | poetry run python3 scripts/preprocess_base_item_json.py
-
-$(app-root)/data/translations-items-fr.json:
-	@echo "\n[+] Fetching items french translations"
-	@curl -s https://gitlab.com/baktov.sugar/foundryvtt-dnd5e-lang-fr-fr/-/raw/master/dnd5e_fr-FR/compendium/dnd5e.items.json > $(app-root)/data/translations-items-fr.json
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
@@ -78,7 +70,7 @@ black:
 
 check: back-check front-check ## Run all checks on the codebase
 
-data: $(app-root)/data/items-base.json
+data: $(app-root)/data/items-base.json $(app-root)/data/spells.json
 
 deps-js: $(front-root)/package-lock.json
 	@echo "\n[+] Installing js dependencies"
@@ -98,11 +90,15 @@ docker-run: docker-build  ## Run the docker image
 	@echo "\n[+] Running the docker image"
 	@docker run -it --rm -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
-db-base-items: db-migrate ## Populate the base items in database
+db-base-items: ## Populate the base items in database
 	@echo "\n[+] Populating the database with base items"
 	@$(app-cli) db populate base-items
 
-db-dev-fixtures: data db-base-items ## Populate the local database with development fixtures
+db-spells: ## Populate the spells in database
+	@echo "\n[+] Populating the database with spells"
+	@$(app-cli) db populate spells
+
+db-dev-fixtures: data db-migrate db-base-items db-spells ## Populate the local database with development fixtures
 	@echo "\n[+] Populating the database with development fixtures"
 	@$(app-cli) db populate fixtures
 
@@ -120,7 +116,7 @@ front-build: front-generate-api-client
 	@echo "\n[+] Building the front app"
 	@$(npm-run) build
 
-front-check:  front-prettier ## Run all frontend checks
+front-check:  front-lint front-prettier ## Run all frontend checks
 
 front-test: ## Run the frontend unit tests
 	@echo "\n [+] Running the frontend tests"
@@ -132,8 +128,12 @@ front-run-dev: front-build  ## Run the development frontend server
 
 front-generate-api-client: $(api-client-root)/core/OpenAPI.ts ## Generate the API openapi.json file
 
+front-lint:
+	@echo "\n[+] Linting the front codebase"
+	@$(npm-run) lint
+
 front-prettier:
-	@echo "\n[+] Running prettier on the codebase"
+	@echo "\n[+] Running prettier on the front codebase"
 	@$(npm-run) prettier-check
 
 ruff:
