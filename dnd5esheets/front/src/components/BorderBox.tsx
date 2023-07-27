@@ -1,7 +1,7 @@
-import { Component } from 'solid-js'
+import { Component, JSX } from 'solid-js'
 import { css } from 'solid-styled'
 
-const BorderBox: Component<{ children: Element }> = ({ children }) => {
+const BorderBox: Component<{ children: JSX.Element }> = ({ children }) => {
   css`
     .outer-box {
       --border-top: 10mm;
@@ -14,7 +14,7 @@ const BorderBox: Component<{ children: Element }> = ({ children }) => {
       height: calc(100% - var(--border-top) - var(--border-bottom));
       width: calc(100% - 2 * var(--border-side));
 
-      border-image: url(/src/assets/background-1.svg) 49.5% repeat;
+      border-image: url(/assets/background-1.svg) 49.5% repeat;
       background: #deddde;
       border-style: solid;
       border-image-width: var(--border-top) var(--border-side)
