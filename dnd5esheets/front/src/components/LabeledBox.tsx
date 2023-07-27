@@ -12,7 +12,7 @@ const LabeledBox: Component<{ label: string; children?: JSX.Element }> = ({
     }
     
     .border-box {
-      border-image: url(/src/assets/border-1.svg) 48% repeat;
+      border-image: url(/assets/border-1.svg) 48% repeat;
 
       --border-top: 16mm;
       --border-side: 6mm;

@@ -196,10 +196,12 @@ export default function CharacterSheet({
                   {(attribute) => (
                     <ScoreBox
                       label={t(`${attribute}_abbr`)}
-                      score={character.data.scores[attribute]}
-                      modifier={character.data.scores[`${attribute}_mod`]}
+                      score={character.data.abilities[attribute].score}
+                      modifier={character.data.abilities[attribute].modifier}
                       onChange={(score: number) =>
-                        onChange({ data: { scores: { [attribute]: score } } })
+                        onChange({
+                          data: { abilities: { [attribute]: { score } } },
+                        })
                       }
                     />
                   )}
@@ -236,14 +238,16 @@ export default function CharacterSheet({
             <LabeledBox label={t('saving_throws')}>
               <ul class="saving_throws">
                 <For
-                  each={[
-                    'strength',
-                    'dexterity',
-                    'constitution',
-                    'intelligence',
-                    'wisdom',
-                    'charisma',
-                  ]}
+                  each={
+                    [
+                      'strength',
+                      'dexterity',
+                      'constitution',
+                      'intelligence',
+                      'wisdom',
+                      'charisma',
+                    ] as const
+                  }
                 >
                   {(attribute) => (
                     <li>
@@ -251,15 +255,13 @@ export default function CharacterSheet({
                         id={attribute}
                         label={t(attribute)}
                         proficiency={
-                          character.data.proficiencies.saves[attribute]
+                          character.data.abilities[attribute].proficiency
                         }
-                        value={character.data.scores[`${attribute}_save_mod`]}
+                        value={character.data.abilities[attribute].save}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: {
-                                saves: { [attribute]: proficiency },
-                              },
+                              abilities: { [attribute]: { proficiency } },
                             },
                           })
                         }
@@ -299,16 +301,14 @@ export default function CharacterSheet({
                         id={attribute}
                         label={label}
                         proficiency={
-                          character.data.proficiencies.skills[attribute]
+                          character.data.skills[attribute].proficiency
                         }
                         labelSecondary={t(`${secondary}_abbr`)}
-                        value={character.data[attribute]}
+                        value={character.data.skills[attribute].modifier}
                         onChange={(proficiency: number) =>
                           onChange({
                             data: {
-                              proficiencies: {
-                                skills: { [attribute]: proficiency },
-                              },
+                              skills: { [attribute]: { proficiency } },
                             },
                           })
                         }

@@ -42,12 +42,12 @@ function GlobalStyles() {
 
       @font-face {
         font-family: 'Bookinsanity';
-        src: url('/src/assets/font/Bookinsanity.otf');
+        src: url('/assets/font/Bookinsanity.otf');
       }
 
       @font-face {
         font-family: 'MrEaves';
-        src: url('/src/assets/font/Mr Eaves Small Caps.otf');
+        src: url('/assets/font/Mr Eaves Small Caps.otf');
       }
     }
   `
