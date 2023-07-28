@@ -6,11 +6,11 @@
 import type { Ability } from './Ability';
 
 export type Abilities = {
-    strength: Ability;
-    dexterity: Ability;
-    constitution: Ability;
-    wisdom: Ability;
     charisma: Ability;
+    constitution: Ability;
+    dexterity: Ability;
     intelligence: Ability;
+    strength: Ability;
+    wisdom: Ability;
 };
 

@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { Abilities } from './models/Abilities';
 export type { Ability } from './models/Ability';
+export { AbilityName } from './models/AbilityName';
 export { ActionType } from './models/ActionType';
 export type { Attack } from './models/Attack';
 export type { Body_login_login_for_access_token } from './models/Body_login_login_for_access_token';

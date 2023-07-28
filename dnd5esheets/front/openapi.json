@@ -548,33 +548,33 @@
     "schemas": {
       "Abilities": {
         "properties": {
-          "strength": {
-            "$ref": "#/components/schemas/Ability"
-          },
-          "dexterity": {
+          "charisma": {
             "$ref": "#/components/schemas/Ability"
           },
           "constitution": {
             "$ref": "#/components/schemas/Ability"
           },
-          "wisdom": {
-            "$ref": "#/components/schemas/Ability"
-          },
-          "charisma": {
+          "dexterity": {
             "$ref": "#/components/schemas/Ability"
           },
           "intelligence": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "strength": {
+            "$ref": "#/components/schemas/Ability"
+          },
+          "wisdom": {
             "$ref": "#/components/schemas/Ability"
           }
         },
         "type": "object",
         "required": [
-          "strength",
-          "dexterity",
-          "constitution",
-          "wisdom",
           "charisma",
-          "intelligence"
+          "constitution",
+          "dexterity",
+          "intelligence",
+          "strength",
+          "wisdom"
         ],
         "title": "Abilities"
       },
@@ -582,7 +582,9 @@
         "properties": {
           "score": {
             "type": "integer",
-            "title": "Score"
+            "maximum": 30.0,
+            "minimum": 0.0,
+            "title": "The ability score"
           },
           "proficiency": {
             "$ref": "#/components/schemas/Proficiency"
@@ -604,6 +606,18 @@
           "save"
         ],
         "title": "Ability"
+      },
+      "AbilityName": {
+        "type": "string",
+        "enum": [
+          "charisma",
+          "constitution",
+          "dexterity",
+          "intelligence",
+          "strength",
+          "wisdom"
+        ],
+        "title": "AbilityName"
       },
       "ActionType": {
         "type": "string",
@@ -732,6 +746,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 20.0,
                 "minimum": 1.0
               },
               {
@@ -820,6 +835,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 20.0,
                 "minimum": 1.0
               },
               {
@@ -897,6 +913,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 20.0,
                 "minimum": 1.0
               },
               {
@@ -951,6 +968,7 @@
           },
           "xp": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Xp"
           },
           "race": {
@@ -975,6 +993,7 @@
           },
           "speed": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Speed"
           },
           "hp": {
@@ -1117,10 +1136,12 @@
           },
           "available": {
             "type": "integer",
+            "minimum": 1.0,
             "title": "Available"
           },
           "remaining": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Remaining"
           }
         },
@@ -1202,6 +1223,7 @@
           },
           "amount": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "The amount of associated items found in the character's equipment"
           },
           "equipped": {
@@ -1239,10 +1261,12 @@
           },
           "total": {
             "type": "integer",
+            "minimum": 1.0,
             "title": "Total"
           },
           "remaining": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Remaining"
           }
         },
@@ -1258,14 +1282,17 @@
         "properties": {
           "max": {
             "type": "integer",
+            "minimum": 1.0,
             "title": "Max"
           },
           "temp": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Temp"
           },
           "current": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Current"
           }
         },
@@ -1359,23 +1386,28 @@
         "properties": {
           "copper": {
             "type": "integer",
-            "title": "Copper"
+            "minimum": 0.0,
+            "title": "Amount of copper coins"
           },
           "silver": {
             "type": "integer",
-            "title": "Silver"
+            "minimum": 0.0,
+            "title": "Amount of silver coins"
           },
           "electrum": {
             "type": "integer",
-            "title": "Electrum"
+            "minimum": 0.0,
+            "title": "Amount of electrum coins"
           },
           "gold": {
             "type": "integer",
-            "title": "Gold"
+            "minimum": 0.0,
+            "title": "Amount of gold coins"
           },
           "platinum": {
             "type": "integer",
-            "title": "Platinum"
+            "minimum": 0.0,
+            "title": "Amount of platinum coins"
           }
         },
         "type": "object",
@@ -1605,14 +1637,21 @@
         "title": "Spell"
       },
       "SpellOrigin": {
+        "type": "string",
         "const": "class",
         "title": "SpellOrigin"
       },
       "Spells": {
         "properties": {
           "spellcasting_ability": {
-            "type": "string",
-            "title": "Spellcasting Ability"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AbilityName"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "daily_prepared": {
             "type": "integer",

@@ -3,6 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellOrigin = {
-};
-
+export type SpellOrigin = string;

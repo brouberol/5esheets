@@ -3,10 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { AbilityName } from './AbilityName';
 import type { Spell } from './Spell';
 
 export type Spells = {
-    spellcasting_ability: string;
+    spellcasting_ability: (AbilityName | null);
     daily_prepared: number;
     cantrips?: Array<Spell>;
     lvl1?: Array<Spell>;

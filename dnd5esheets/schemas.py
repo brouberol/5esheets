@@ -2,10 +2,19 @@
 Definition of the pydandic models used for type validation and output serialization.
 """
 
-from enum import Enum
+from enum import IntEnum, StrEnum
 
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict, Field
+
+
+class BaseUpdateSchema(BaseSchema, extra="forbid"):
+    ...
+
+
+class BaseORMSchema(BaseSchema):
+    model_config = ConfigDict(from_attributes=True)
+
 
 # We define a special field to mark the fields with a default value of 0
 # server-side, which _actual_ value will be computed by the frontend, based
@@ -19,28 +28,29 @@ from pydantic import ConfigDict, Field
 FrontendComputedField = Field(default=0, description="frontend_computed")
 
 
-class Proficiency(Enum):
+class AbilityName(StrEnum):
+    charisma: str = "charisma"
+    constitution: str = "constitution"
+    dexterity: str = "dexterity"
+    intelligence: str = "intelligence"
+    strength: str = "strength"
+    wisdom: str = "wisdom"
+
+
+class Proficiency(IntEnum):
     none: int = 0
     proficient: int = 1
     master: int = 2
 
 
-class ActionType(Enum):
+class ActionType(StrEnum):
     action: str = "action"
     bonus: str = "bonus_action"
     reaction: str = "reaction"
 
 
-class SpellOrigin(Enum):
+class SpellOrigin(StrEnum):
     subclass: str = "class"
-
-
-class BaseUpdateSchema(BaseSchema, extra="forbid"):
-    ...
-
-
-class BaseORMSchema(BaseSchema):
-    model_config = ConfigDict(from_attributes=True)
 
 
 class ItemSchema(BaseORMSchema):
@@ -55,7 +65,7 @@ class EquippedItemSchema(BaseORMSchema):
 
     item: ItemSchema = Field(title="The equipped item details")
     amount: int = Field(
-        title="The amount of associated items found in the character's equipment"
+        title="The amount of associated items found in the character's equipment", ge=0
     )
     equipped: bool = Field(title="Weather the item is currently equipped")
 
@@ -95,16 +105,16 @@ class UpdatePartySchema(BaseUpdateSchema):
 
 
 class SaveProficiencies(BaseSchema):
-    strength: Proficiency
-    dexterity: Proficiency
-    constitution: Proficiency
-    intelligence: Proficiency
     charisma: Proficiency
+    constitution: Proficiency
+    dexterity: Proficiency
+    intelligence: Proficiency
+    strength: Proficiency
     wisdom: Proficiency
 
 
 class Ability(BaseSchema):
-    score: int
+    score: int = Field(title="The ability score", ge=0, le=30)
     proficiency: Proficiency
 
     # Autocomputed fields, declared here to have them part of the TS types
@@ -113,12 +123,12 @@ class Ability(BaseSchema):
 
 
 class Abilities(BaseSchema):
-    strength: Ability
-    dexterity: Ability
-    constitution: Ability
-    wisdom: Ability
     charisma: Ability
+    constitution: Ability
+    dexterity: Ability
     intelligence: Ability
+    strength: Ability
+    wisdom: Ability
 
 
 class Skill(BaseSchema):
@@ -149,21 +159,21 @@ class Skills(BaseSchema):
 
 
 class HitPoints(BaseSchema):
-    max: int
-    temp: int
-    current: int
+    max: int = Field(ge=1)
+    temp: int = Field(ge=0)
+    current: int = Field(ge=0)
 
 
 class HitDice(BaseSchema):
     type: str
-    total: int
-    remaining: int
+    total: int = Field(ge=1)
+    remaining: int = Field(ge=0)
 
 
 class CustomResource(BaseSchema):
     header: str
-    available: int
-    remaining: int
+    available: int = Field(ge=1)
+    remaining: int = Field(ge=0)
 
 
 class Attack(BaseSchema):
@@ -174,11 +184,11 @@ class Attack(BaseSchema):
 
 
 class Money(BaseSchema):
-    copper: int
-    silver: int
-    electrum: int
-    gold: int
-    platinum: int
+    copper: int = Field(title="Amount of copper coins", ge=0)
+    silver: int = Field(title="Amount of silver coins", ge=0)
+    electrum: int = Field(title="Amount of electrum coins", ge=0)
+    gold: int = Field(title="Amount of gold coins", ge=0)
+    platinum: int = Field(title="Amount of platinum coins", ge=0)
 
 
 class Spell(BaseSchema):
@@ -195,7 +205,7 @@ class Spell(BaseSchema):
 
 
 class Spells(BaseSchema):
-    spellcasting_ability: str
+    spellcasting_ability: AbilityName | None
     daily_prepared: int
     cantrips: list[Spell] = []
     lvl1: list[Spell] = []
@@ -212,13 +222,13 @@ class Spells(BaseSchema):
 class CharacterSheet(BaseSchema):
     abilities: Abilities
     skills: Skills
-    xp: int
+    xp: int = Field(ge=0)
     race: str
     background: str
     alignment: str
     darkvision: bool
     inspiration: bool
-    speed: int
+    speed: int = Field(ge=0)
     hp: HitPoints
     hit_dice: HitDice
     money: Money
