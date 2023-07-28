@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+current_branch=$(git symbolic-ref --short head)
+
+
+if [[ $current_branch = "main" ]]; then
+    make test && make check
+fi

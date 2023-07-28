@@ -50,6 +50,9 @@ $(api-client-root): $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
 	@$(npm-run) generate-client
 
+.git/hooks/pre-push:
+	@cp scripts/pre-push .git/hooks/pre-push
+
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
 
@@ -106,7 +109,9 @@ db-migrate:  ## Run the SQL migrations
 	@echo "\n[+] Applying the SQL migrations"
 	@poetry run alembic upgrade head
 
-init:  deps db-dev-fixtures run  ## Run the application for the first time
+hooks: .git/hooks/pre-push
+
+init:  hooks deps db-dev-fixtures run  ## Run the application for the first time
 
 mypy:
 	@echo "\n[+] Checking Python types"
