@@ -126,7 +126,7 @@ front-run-dev: front-build  ## Run the development frontend server
 	@echo "\n[+] Running the dev frontend server"
 	@$(npm-run) dev -- --open
 
-front-generate-api-client: $(api-client-root)/core/OpenAPI.ts ## Generate the API openapi.json file
+front-generate-api-client: $(api-client-root) ## Generate the API openapi.json file
 
 front-lint:
 	@echo "\n[+] Linting the front codebase"
