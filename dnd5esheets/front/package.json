@@ -16,7 +16,7 @@
   "devDependencies": {
     "@solid-primitives/i18n": "^1.4.0",
     "@solid-primitives/resource": "^0.1.0",
-    "@solidjs/meta": "^0.28.5",
+    "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.2",
     "@solidjs/testing-library": "^0.8.4",
     "@testing-library/jest-dom": "^5.16.5",
