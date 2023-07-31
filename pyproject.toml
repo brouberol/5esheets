@@ -44,10 +44,8 @@ build-backend = "poetry.core.masonry.api"
 line-length = 102
 
 [tool.pytest.ini_options]
-addopts = "-s --disable-warnings"
-testpaths = [
-    "dnd5esheets/tests"
-]
+addopts = "-s"
+testpaths = ["dnd5esheets/tests"]
 
 [tool.mypy]
 ignore_missing_imports = true

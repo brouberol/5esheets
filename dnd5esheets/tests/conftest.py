@@ -1,15 +1,15 @@
 import os
 import subprocess
-import pytest_asyncio
-
 from urllib.parse import urlparse
+
+import pytest_asyncio
 from fastapi.testclient import TestClient
 from pytest import fixture
 
 from dnd5esheets.app import app
 from dnd5esheets.cli import _populate_base_items, _populate_db_with_dev_data
 from dnd5esheets.config import get_settings
-from dnd5esheets.db import create_session, engine, async_session_factory
+from dnd5esheets.db import create_session, engine
 from dnd5esheets.models import BaseModel, Character, Player
 
 
@@ -81,7 +81,7 @@ def session():
 
 @pytest_asyncio.fixture(scope="function")
 async def async_session():
-    with create_session(factory=async_session_factory) as session:
+    async with create_session() as session:
         yield session
 
 
