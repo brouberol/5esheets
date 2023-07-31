@@ -44,7 +44,8 @@ build-backend = "poetry.core.masonry.api"
 line-length = 102
 
 [tool.pytest.ini_options]
-addopts = "-s"
+# We ignore the deprecation warning thrown in passlib until https://foss.heptapod.net/python-libs/passlib/-/issues/148 is resolved
+addopts = "-s -W ignore::DeprecationWarning:passlib.utils:854"
 testpaths = ["dnd5esheets/tests"]
 
 [tool.mypy]
