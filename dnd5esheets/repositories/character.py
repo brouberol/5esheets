@@ -61,7 +61,7 @@ class CharacterRepository(BaseRepository):
 
         # Any non-nil field should be taken as the new value
         fields_to_update = {
-            field: val for field, val in body.dict().items() if val is not None
+            field: val for field, val in body.model_dump().items() if val is not None
         }
         character.update_from_dict(fields_to_update)
 
