@@ -14,7 +14,7 @@ fastapi = "^0.100.1"
 uvicorn = {extras = ["standard"], version = "^0.23.0"}
 sqlalchemy = {extras = ["aiosqlite"], version = "^2.0.19"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
-pydantic = "2.0.3"
+pydantic = "2.1.1"
 python-multipart = "^0.0.6"
 fastapi-jwt = "^0.1.12"
 pydantic-settings = "^2.0.2"
