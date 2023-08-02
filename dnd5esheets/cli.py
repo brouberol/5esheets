@@ -6,7 +6,15 @@ from sqlalchemy import select
 
 from dnd5esheets.config.base import db_dir
 from dnd5esheets.db import create_session
-from dnd5esheets.models import Character, EquippedItem, Item, Party, Player, Spell
+from dnd5esheets.models import (
+    Character,
+    EquippedItem,
+    Item,
+    KnownSpell,
+    Party,
+    Player,
+    Spell,
+)
 
 data_dir = Path(__file__).parent / "data"
 
@@ -68,6 +76,21 @@ def _populate_db_with_dev_data(silent: bool = False):
         longsword = session.execute(
             select(Item).filter(Item.name == "Longsword")
         ).scalar()
+        spells = session.execute(
+            select(Spell).filter(
+                Spell.name.in_(
+                    (
+                        "Mending",
+                        "Fire Bolt",
+                        "Thunderwave",
+                        "Shield",
+                        "Detect Magic",
+                        "Catapult",
+                        "Absorb Elements",
+                    )
+                )
+            )
+        ).scalars()
 
         for player_attrs in dev_fixtures["players"]:
             player = Player(**player_attrs)
@@ -86,6 +109,9 @@ def _populate_db_with_dev_data(silent: bool = False):
                 **character_attrs,
                 equipment=[
                     EquippedItem(item_id=longsword.id, id=character_attrs["id"])
+                ],
+                spellbook=[
+                    KnownSpell(spell_id=spell.id, prepared=True) for spell in spells
                 ],
             )
             session.merge(character)
