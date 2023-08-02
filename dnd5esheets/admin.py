@@ -6,7 +6,16 @@ from fastapi import FastAPI
 from sqladmin import Admin, ModelView
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from .models import BaseModel, Character, EquippedItem, Item, Party, Player, Spell
+from .models import (
+    BaseModel,
+    Character,
+    EquippedItem,
+    Item,
+    KnownSpell,
+    Party,
+    Player,
+    Spell,
+)
 
 
 def base_excluded_columns(model: Type[BaseModel]):
@@ -67,6 +76,15 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
     ]
     column_details_exclude_list = base_excluded_columns(EquippedItem)
     form_excluded_columns = base_excluded_columns(EquippedItem)
+
+
+class KnownSpellAdmin(ModelView, model=KnownSpell):
+    column_list = [
+        KnownSpell.id,
+        KnownSpell.caster,
+        KnownSpell.spell,
+        KnownSpell.prepared,
+    ]
 
 
 class SpellAdmin(ModelView, model=Spell):
