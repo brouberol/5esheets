@@ -3,4 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellOrigin = string;
+export type SpellRangeDistance = {
+    type: string;
+    amount?: (number | null);
+};
+
