@@ -1,13 +1,16 @@
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import ResponseValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
 from fastapi.responses import JSONResponse, Response
+from starlette import status
 
 from .admin import register_admin
 from .api import api
-from .config import get_settings
+from .config import Env, get_env, get_settings
 from .db import async_engine
 from .exceptions import CacheHit
 from .repositories import DuplicateModel, ModelNotFound
@@ -49,6 +52,16 @@ def raise_400_exception_on_duplicate_model(_: Request, exc: Exception):
 def cachehit_exception_handler(_: Request, exc: CacheHit):
     """Generate a correct 304 response when handling a CacheHit exception"""
     return Response("", status_code=exc.status_code, headers=exc.headers)
+
+
+if get_env() != Env.prod:
+
+    @app.exception_handler(ResponseValidationError)
+    async def validation_exception_handler(_: Request, exc: ResponseValidationError):
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content=jsonable_encoder({"detail": exc.errors()}),
+        )
 
 
 if dist_dir.exists():
