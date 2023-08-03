@@ -16,9 +16,10 @@ async def get_item(
     response: Response,
     session: AsyncSession = Depends(create_scoped_session),
 ):
+    item = await ItemRepository.get_by_id(session, id=id)
     await handle_model_etag(
         request,
         response,
-        model=await ItemRepository.get_by_id(session, id=id),
+        model=item,
     )
-    return await ItemRepository.get_by_id(session, id=id)
+    return item

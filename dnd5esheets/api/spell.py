@@ -16,9 +16,10 @@ async def get_spell(
     response: Response,
     session: AsyncSession = Depends(create_scoped_session),
 ):
+    spell = await SpellRepository.get_by_id(session, id=id)
     await handle_model_etag(
         request,
         response,
-        model=await SpellRepository.get_by_id(session, id=id),
+        model=spell,
     )
-    return await SpellRepository.get_by_id(session, id=id)
+    return spell
