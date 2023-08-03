@@ -204,6 +204,7 @@ class RestrictedSpellSchema(BaseORMSchema):
 class RestrictedKnownSpellSchema(BaseORMSchema):
     """The details of a known spell (the association between a character and a spell)"""
 
+    id: int = Field(ge=1, title="The known spell primary key in database")
     prepared: bool = Field(title="Whether the spell is currently prepared")
     spell: RestrictedSpellSchema = Field(title="The spell details")
 

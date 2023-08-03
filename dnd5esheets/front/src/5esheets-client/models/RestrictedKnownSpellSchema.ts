@@ -9,6 +9,7 @@ import type { RestrictedSpellSchema } from './RestrictedSpellSchema';
  * The details of a known spell (the association between a character and a spell)
  */
 export type RestrictedKnownSpellSchema = {
+    id: number;
     prepared: boolean;
     spell: RestrictedSpellSchema;
 };
