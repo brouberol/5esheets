@@ -369,6 +369,128 @@
         }
       }
     },
+    "/api/character/{slug}/prepare/{known_spell_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Prepare Spell",
+        "description": "Set the argument known spell as prepared",
+        "operationId": "prepare_spell",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "known_spell_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Known Spell Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Prepare Spell"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/{slug}/unprepare/{known_spell_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Unprepare Spell",
+        "description": "Set the argument known spell as unprepared",
+        "operationId": "unprepare_spell",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "known_spell_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Known Spell Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Unprepare Spell"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/party/": {
       "get": {
         "tags": [
@@ -1705,6 +1827,11 @@
       },
       "RestrictedKnownSpellSchema": {
         "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The known spell primary key in database"
+          },
           "prepared": {
             "type": "boolean",
             "title": "Whether the spell is currently prepared"
@@ -1720,6 +1847,7 @@
         },
         "type": "object",
         "required": [
+          "id",
           "prepared",
           "spell"
         ],

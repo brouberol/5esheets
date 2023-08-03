@@ -178,4 +178,54 @@ export class CharacterService {
         });
     }
 
+    /**
+     * Prepare Spell
+     * Set the argument known spell as prepared
+     * @param slug
+     * @param knownSpellId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static prepareSpell(
+        slug: string,
+        knownSpellId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/prepare/{known_spell_id}',
+            path: {
+                'slug': slug,
+                'known_spell_id': knownSpellId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Unprepare Spell
+     * Set the argument known spell as unprepared
+     * @param slug
+     * @param knownSpellId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static unprepareSpell(
+        slug: string,
+        knownSpellId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/unprepare/{known_spell_id}',
+            path: {
+                'slug': slug,
+                'known_spell_id': knownSpellId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
 }

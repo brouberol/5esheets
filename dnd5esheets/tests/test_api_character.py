@@ -185,3 +185,29 @@ def test_change_character_equipment_item_equipped_status(client):
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
     )
     assert data_after_update["equipment"][0]["equipped"] is False
+
+
+def test_change_known_spell_prepared_status(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data["spellbook"][0]["prepared"] is True
+    known_spell_id = data["spellbook"][0]["id"]
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/douglas-mctrickfoot/unprepare/{known_spell_id}",
+        status_code=200,
+    )
+    data_after_update = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data_after_update["spellbook"][0]["prepared"] is False
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/douglas-mctrickfoot/prepare/{known_spell_id}",
+        status_code=200,
+    )
+    data_after_update = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data_after_update["spellbook"][0]["prepared"] is True

@@ -150,7 +150,7 @@ async def test_delete_character(async_session):
 
 
 @pytest.mark.asyncio
-async def test_set_item_as_equipped(async_session):
+async def test_change_equipment_item_equipped_status(async_session):
     douglas = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"
     )
@@ -173,3 +173,29 @@ async def test_set_item_as_equipped(async_session):
         equipped=False,
     )
     assert douglas.equipment[0].equipped is False
+
+
+@pytest.mark.asyncio
+async def test_change_known_spell_prepared_status(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert douglas.spellbook[0].prepared is True
+
+    douglas = await CharacterRepository.change_known_spell_prepared_status(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        known_spell_id=douglas.spellbook[0].id,
+        prepared=False,
+    )
+    assert douglas.spellbook[0].prepared is False
+
+    douglas = await CharacterRepository.change_known_spell_prepared_status(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        known_spell_id=douglas.equipment[0].id,
+        prepared=True,
+    )
+    assert douglas.spellbook[0].prepared is True

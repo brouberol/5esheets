@@ -10,6 +10,7 @@ from sqlalchemy.orm import defer
 from dnd5esheets.models import Character, EquippedItem, Party, Player
 from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
+from dnd5esheets.repositories.known_spell import KnownSpellRepository
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
@@ -178,6 +179,22 @@ class CharacterRepository(BaseRepository):
         character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
         await EquippedItemRepository.change_equipped_status(
             session, id=equipped_item_id, owner_id=character.id, equipped=equipped
+        )
+        await session.refresh(character)
+        return character
+
+    @classmethod
+    async def change_known_spell_prepared_status(
+        cls,
+        session: AsyncSession,
+        slug: str,
+        owner_id: int | None,
+        known_spell_id: int,
+        prepared: bool,
+    ):
+        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        await KnownSpellRepository.change_prepared_status(
+            session, id=known_spell_id, owner_id=character.id, prepared=prepared
         )
         await session.refresh(character)
         return character

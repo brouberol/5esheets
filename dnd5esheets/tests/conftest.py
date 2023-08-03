@@ -7,7 +7,11 @@ from fastapi.testclient import TestClient
 from pytest import fixture
 
 from dnd5esheets.app import app
-from dnd5esheets.cli import _populate_base_items, _populate_db_with_dev_data
+from dnd5esheets.cli import (
+    _populate_base_items,
+    _populate_db_with_dev_data,
+    _populate_spells,
+)
 from dnd5esheets.config import get_settings
 from dnd5esheets.db import create_session, engine
 from dnd5esheets.models import BaseModel, Character, Player
@@ -52,6 +56,7 @@ def init_db(settings):
 
     # Insert test data in the db
     _populate_base_items(silent=True)
+    _populate_spells(silent=True)
     _populate_db_with_dev_data(silent=True)
 
     # Prepare a greenfield db dump to be restored after each test

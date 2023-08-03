@@ -155,3 +155,45 @@ async def unequip_item(
         equipped=False,
     )
     return {"status": "ok"}
+
+
+@character_api.put("/{slug}/prepare/{known_spell_id}")
+async def prepare_spell(
+    slug: str,
+    known_spell_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Set the argument known spell as prepared"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.change_known_spell_prepared_status(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        known_spell_id=known_spell_id,
+        prepared=True,
+    )
+    return {"status": "ok"}
+
+
+@character_api.put("/{slug}/unprepare/{known_spell_id}")
+async def unprepare_spell(
+    slug: str,
+    known_spell_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Set the argument known spell as unprepared"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.change_known_spell_prepared_status(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        known_spell_id=known_spell_id,
+        prepared=False,
+    )
+    return {"status": "ok"}
