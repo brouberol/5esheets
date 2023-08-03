@@ -1,15 +1,20 @@
 """Definition of admin model views"""
 
 import json
+from pathlib import Path
 from typing import Type
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from markupsafe import Markup
+from pygments import highlight
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name
 from sqladmin import Admin, ModelView
 from sqladmin.formatters import BASE_FORMATTERS
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from .models import (
+from dnd5esheets.models import (
     BaseModel,
     Character,
     EquippedItem,
@@ -20,9 +25,18 @@ from .models import (
     Spell,
 )
 
+templates_dir = Path(__file__).parent / "templates"
+statics_dir = Path(__file__).parent / "statics"
+
 
 def json_formatter(value: dict) -> Markup:
-    return Markup(f"<pre>{json.dumps(value, indent=2)}</pre>")
+    json_value = json.dumps(value, indent=2)
+    html_json_value = highlight(
+        json_value,
+        lexer=get_lexer_by_name("json"),
+        formatter=HtmlFormatter(),
+    )
+    return Markup(f"{html_json_value}")
 
 
 custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
@@ -50,6 +64,7 @@ class CharacterAdmin(ModelView, model=Character):
     column_labels = {Character.class_: "class"}
     column_searchable_list = [Character.name, Character.class_]
     column_type_formatters = custom_base_formatters
+    details_template = "details_custom.html"
 
 
 class PartyAdmin(ModelView, model=Party):
@@ -110,7 +125,12 @@ class SpellAdmin(ModelView, model=Spell):
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
-    admin = Admin(app, engine, title="5esheets admin")
+    admin = Admin(app, engine, title="5esheets admin", templates_dir=str(templates_dir))
+    app.mount(
+        "/admin-statics",
+        StaticFiles(directory=statics_dir, html=True),
+        name="admin_statics",
+    )
     # Automatically discover admin views in current module
     views = list(
         {

@@ -18,6 +18,7 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 include $(app-root)/data/data.mk
+include $(app-root)/admin/admin.mk
 
 $(app-root)/schemas.py:
 
@@ -145,7 +146,7 @@ ruff:
 	@echo "\n[+] Running linter"
 	@poetry run ruff $(app-root)/
 
-run: build  ## Run the app
+run: admin-statics build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn $(app-root).app:app --reload
 
