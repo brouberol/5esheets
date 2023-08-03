@@ -116,6 +116,10 @@ class KnownSpellAdmin(ModelView, model=KnownSpell):
 
 
 class SpellAdmin(ModelView, model=Spell):
+    _column_formatters = {
+        Spell.school: lambda model, _: model.school.capitalize(),  # type: ignore
+    }
+
     page_size = 30
     column_searchable_list = [Spell.name, Spell.level]
     column_list = [Spell.id, Spell.name, Spell.level, Spell.school]
@@ -124,6 +128,8 @@ class SpellAdmin(ModelView, model=Spell):
     column_sortable_list = [Spell.name, Spell.level]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
+    column_formatters_detail = _column_formatters  # type: ignore
+    column_formatters = _column_formatters  # type: ignore
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
