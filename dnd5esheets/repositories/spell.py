@@ -15,3 +15,8 @@ class SpellRepository(BaseRepository):
         query = select(Spell).filter(Spell.id == id)
         result = await session.execute(query)
         return cast(Spell, cls.one_or_raise_model_not_found(result))
+
+    @classmethod
+    async def etag(cls, session: AsyncSession, id: int) -> str:
+        spell = await cls.get_by_id(session, id=id)
+        return cls.model_etag(spell)

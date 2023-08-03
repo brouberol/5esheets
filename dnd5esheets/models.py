@@ -65,6 +65,16 @@ class BaseModel(DeclarativeBase):
         cls.__tablename__ = pascal_to_snake(cls.__name__)
         return super().__init_subclass__()
 
+    def as_dict(self) -> dict:
+        column_names_to_attr_name = {
+            col.name: attr_name
+            for attr_name, col in self.__mapper__._init_properties.items()
+        }
+        return {
+            c.name: getattr(self, column_names_to_attr_name.get(c.name, c.name))
+            for c in self.__table__.columns
+        }
+
     def update_from_dict(self, fields_to_update: dict) -> Self:
         """Update all columns of a given model instance to the provided values.
 
