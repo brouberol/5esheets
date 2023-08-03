@@ -190,7 +190,7 @@ class Character(NameReprMixin, BaseModel):
         return level
 
 
-class Spell(BaseModel):
+class Spell(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     level: Mapped[int] = mapped_column(Integer, nullable=False)
     school: Mapped[str] = mapped_column(String(30), nullable=False)
