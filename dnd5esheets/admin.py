@@ -110,7 +110,7 @@ class SpellAdmin(ModelView, model=Spell):
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
-    admin = Admin(app, engine)
+    admin = Admin(app, engine, title="5esheets admin")
     # Automatically discover admin views in current module
     views = list(
         {
