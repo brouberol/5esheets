@@ -61,6 +61,21 @@ class MagicSchool(StrEnum):
     divination: str = "divination"
 
 
+class TimeUnit(StrEnum):
+    action = "action"
+    bonus = "bonus"
+    reaction = "reaction"
+    minute = "minute"
+    hour = "hour"
+
+
+class DurationUnit(StrEnum):
+    day = "day"
+    hour = "hour"
+    minute = "minute"
+    round = "round"
+
+
 class SpellOrigin(StrEnum):
     subclass: str = "class"
 
@@ -139,7 +154,7 @@ class SpellMeta(BaseSchema):
 
 class SpellTime(BaseSchema):
     number: int = Field(title="The amount of time units it takes to cast the spell")
-    unit: str = Field(title="The type of time unit it takes to cast the spell")
+    unit: TimeUnit = Field(title="The type of time unit it takes to cast the spell")
     condition: str | None = Field(
         title="A possible condition before being able to cast the spell", default=None
     )
@@ -157,7 +172,7 @@ class SpellRange(BaseSchema):
 
 class SpellDuration(BaseSchema):
     type: str
-    unit: Optional[str] = Field(default=None)
+    unit: Optional[DurationUnit] = Field(default=None)
     amount: Optional[int] = Field(default=0)
     ends: Optional[list[str]] = Field(default_factory=list)
 
@@ -191,6 +206,14 @@ class SpellData(BaseSchema):
 
 class RestrictedSpellData(BaseSchema):
     casting: ListingSpellCasting
+
+
+class SpellSchema(BaseORMSchema):
+    id: int = Field(ge=1, title="The spell primary key in database")
+    name: str = Field(title="The spell name")
+    level: int = Field(ge=0, le=9, title="The spell level")
+    school: MagicSchool = Field(title="The spell magic school")
+    data: SpellData
 
 
 class RestrictedSpellSchema(BaseORMSchema):
