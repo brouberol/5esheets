@@ -91,6 +91,7 @@ class ItemAdmin(ModelView, model=Item):
     column_details_exclude_list = base_excluded_columns(Item)
     form_excluded_columns = base_excluded_columns(Item)
     column_type_formatters = custom_base_formatters
+    details_template = "details_custom.html"
 
 
 class EquippedItemAdmin(ModelView, model=EquippedItem):
@@ -122,6 +123,7 @@ class SpellAdmin(ModelView, model=Spell):
     form_excluded_columns = base_excluded_columns(Spell)
     column_sortable_list = [Spell.name, Spell.level]
     column_type_formatters = custom_base_formatters
+    details_template = "details_custom.html"
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
