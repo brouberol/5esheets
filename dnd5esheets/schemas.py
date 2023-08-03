@@ -75,6 +75,7 @@ class ItemSchema(BaseORMSchema):
 class EquippedItemSchema(BaseORMSchema):
     """The details of an equipped item (the association bewteen an item and a character equipment)"""
 
+    id: int = Field(ge=1, title="The equipped item id in database")
     item: ItemSchema = Field(title="The equipped item details")
     amount: int = Field(
         title="The amount of associated items found in the character's equipment", ge=0

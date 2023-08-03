@@ -159,3 +159,29 @@ def test_delete_character_from_non_owner(client):
     assert_status_and_return_data(
         client.get, "/api/character/trevor-mctrickfoot", status_code=404
     )
+
+
+def test_change_character_equipment_item_equipped_status(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data["equipment"][0]["equipped"] is False
+    equipment_item_id = data["equipment"][0]["id"]
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/douglas-mctrickfoot/equip/{equipment_item_id}",
+        status_code=200,
+    )
+    data_after_update = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data_after_update["equipment"][0]["equipped"] is True
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/douglas-mctrickfoot/unequip/{equipment_item_id}",
+        status_code=200,
+    )
+    data_after_update = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert data_after_update["equipment"][0]["equipped"] is False

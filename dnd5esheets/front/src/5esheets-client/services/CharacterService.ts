@@ -128,4 +128,54 @@ export class CharacterService {
         });
     }
 
+    /**
+     * Equip Item
+     * Set the argument item as equipped
+     * @param slug
+     * @param equippedItemId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static equipItem(
+        slug: string,
+        equippedItemId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/equip/{equipped_item_id}',
+            path: {
+                'slug': slug,
+                'equipped_item_id': equippedItemId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Unequip Item
+     * Set the argument item as unequipped
+     * @param slug
+     * @param equippedItemId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static unequipItem(
+        slug: string,
+        equippedItemId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/unequip/{equipped_item_id}',
+            path: {
+                'slug': slug,
+                'equipped_item_id': equippedItemId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
 }
