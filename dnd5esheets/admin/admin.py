@@ -125,7 +125,7 @@ class SpellAdmin(ModelView, model=Spell):
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
-    admin = Admin(app, engine, title="5esheets admin", templates_dir=templates_dir)
+    admin = Admin(app, engine, title="5esheets admin", templates_dir=str(templates_dir))
     app.mount(
         "/admin-statics",
         StaticFiles(directory=statics_dir, html=True),
