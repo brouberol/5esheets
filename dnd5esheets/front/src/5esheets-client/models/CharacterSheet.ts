@@ -27,7 +27,6 @@ export type CharacterSheet = {
     money: Money;
     custom_resources: Array<CustomResource>;
     attacks: Array<Attack>;
-    equipment: string;
     languages_and_proficiencies: string;
     personality: string;
     ideals: string;

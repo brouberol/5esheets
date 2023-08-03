@@ -1034,10 +1034,6 @@
             "type": "array",
             "title": "Attacks"
           },
-          "equipment": {
-            "type": "string",
-            "title": "Equipment"
-          },
           "languages_and_proficiencies": {
             "type": "string",
             "title": "Languages And Proficiencies"
@@ -1117,7 +1113,6 @@
           "money",
           "custom_resources",
           "attacks",
-          "equipment",
           "languages_and_proficiencies",
           "personality",
           "ideals",

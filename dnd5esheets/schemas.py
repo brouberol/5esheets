@@ -315,19 +315,6 @@ class Money(BaseSchema):
     platinum: int = Field(title="Amount of platinum coins", ge=0)
 
 
-class Spell(BaseSchema):
-    name: str
-    description: str
-    prepared: bool = False
-    somatic: bool = False
-    verbal: bool = False
-    material: bool = False
-    ritual: bool = False
-    concentration: bool = False
-    invocation: ActionType | None = None
-    origin: SpellOrigin | None = None
-
-
 class CharacterSheet(BaseSchema):
     abilities: Abilities
     skills: Skills
@@ -343,7 +330,6 @@ class CharacterSheet(BaseSchema):
     money: Money
     custom_resources: list[CustomResource]
     attacks: list[Attack]
-    equipment: str
     languages_and_proficiencies: str
     personality: str
     ideals: str
