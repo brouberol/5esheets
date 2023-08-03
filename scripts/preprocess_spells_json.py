@@ -18,14 +18,14 @@ field_name_translations = {
 }
 casting_translations = {"v": "verbal", "s": "somatic", "m": "material"}
 school_translations = {
-    "A": "Abjuration",
-    "C": "Conjuration",
-    "V": "Evocation",
-    "D": "Divination",
-    "T": "Transmutation",
-    "E": "Enchantment",
-    "I": "Illusion",
-    "N": "Necromancy",
+    "A": "abjuration",
+    "C": "conjuration",
+    "V": "evocation",
+    "D": "divination",
+    "T": "transmutation",
+    "E": "enchantment",
+    "I": "illusion",
+    "N": "necromancy",
 }
 
 translations = {}

@@ -27,6 +27,7 @@ export type { HTTPValidationError } from './models/HTTPValidationError';
 export type { ItemSchema } from './models/ItemSchema';
 export type { KnownSpellSchema } from './models/KnownSpellSchema';
 export type { ListCharacterSchema } from './models/ListCharacterSchema';
+export { MagicSchool } from './models/MagicSchool';
 export type { Money } from './models/Money';
 export type { PartySchema } from './models/PartySchema';
 export type { PlayerSchema } from './models/PlayerSchema';

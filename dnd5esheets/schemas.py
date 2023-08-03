@@ -50,6 +50,17 @@ class ActionType(StrEnum):
     reaction: str = "reaction"
 
 
+class MagicSchool(StrEnum):
+    necromancy: str = "necromancy"
+    evocation: str = "evocation"
+    enchantment: str = "enchantment"
+    illusion: str = "illusion"
+    transmutation: str = "transmutation"
+    abjuration: str = "abjuration"
+    conjuration: str = "conjuration"
+    divination: str = "divination"
+
+
 class SpellOrigin(StrEnum):
     subclass: str = "class"
 
@@ -172,7 +183,7 @@ class SpellSchemaNoData(BaseORMSchema):
     id: int = Field(ge=1, title="The spell primary key in database")
     name: str = Field(title="The spell name")
     level: int = Field(ge=0, le=9, title="The spell level")
-    school: str = Field(title="The spell magic school")
+    school: MagicSchool = Field(title="The spell magic school")
     data: SpellData = Field(exclude=True)
 
 

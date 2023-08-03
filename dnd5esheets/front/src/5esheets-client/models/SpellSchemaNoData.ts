@@ -3,13 +3,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { MagicSchool } from './MagicSchool';
 import type { SpellData } from './SpellData';
 
 export type SpellSchemaNoData = {
     id: number;
     name: string;
     level: number;
-    school: string;
+    school: MagicSchool;
     data: SpellData;
 };
 

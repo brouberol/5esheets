@@ -1432,6 +1432,20 @@
         ],
         "title": "ListCharacterSchema"
       },
+      "MagicSchool": {
+        "type": "string",
+        "enum": [
+          "necromancy",
+          "evocation",
+          "enchantment",
+          "illusion",
+          "transmutation",
+          "abjuration",
+          "conjuration",
+          "divination"
+        ],
+        "title": "MagicSchool"
+      },
       "Money": {
         "properties": {
           "copper": {
@@ -2000,7 +2014,11 @@
             "title": "The spell level"
           },
           "school": {
-            "type": "string",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MagicSchool"
+              }
+            ],
             "title": "The spell magic school"
           },
           "data": {
