@@ -30,7 +30,7 @@ statics_dir = Path(__file__).parent / "statics"
 
 
 def json_formatter(value: dict) -> Markup:
-    json_value = json.dumps(value, indent=2)
+    json_value = json.dumps(value, indent=2, ensure_ascii=False)
     html_json_value = highlight(
         json_value,
         lexer=get_lexer_by_name("json"),
