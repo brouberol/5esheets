@@ -6,7 +6,7 @@ from enum import IntEnum, StrEnum
 from typing import Optional
 
 from pydantic import BaseModel as BaseSchema
-from pydantic import ConfigDict, Field
+from pydantic import ConfigDict, Field, computed_field
 
 
 class BaseUpdateSchema(BaseSchema, extra="forbid"):
@@ -115,6 +115,15 @@ class SpellCasting(BaseSchema):
     )
 
 
+class ListingSpellCasting(SpellCasting):
+    material: Optional[SpellCastingMaterial] = Field(exclude=True, default=None)
+
+    @computed_field
+    def needs_material(self) -> bool:
+        """Whether the spell requires material components"""
+        return bool(self.material)
+
+
 class SpellTranslation(BaseSchema):
     name: str = Field(title="The spell translated name")
     description: str = Field(title="The spell translated description")
@@ -179,19 +188,23 @@ class SpellData(BaseSchema):
     damage_immune: list[str] = Field(default=[])
 
 
-class SpellSchemaNoData(BaseORMSchema):
+class RestrictedSpellData(BaseSchema):
+    casting: ListingSpellCasting
+
+
+class RestrictedSpellSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The spell primary key in database")
     name: str = Field(title="The spell name")
     level: int = Field(ge=0, le=9, title="The spell level")
     school: MagicSchool = Field(title="The spell magic school")
-    data: SpellData = Field(exclude=True)
+    data: RestrictedSpellData
 
 
-class KnownSpellSchema(BaseORMSchema):
+class RestrictedKnownSpellSchema(BaseORMSchema):
     """The details of a known spell (the association between a character and a spell)"""
 
     prepared: bool = Field(title="Whether the spell is currently prepared")
-    spell: SpellSchemaNoData = Field(title="The spell details")
+    spell: RestrictedSpellSchema = Field(title="The spell details")
 
 
 class PlayerSchema(BaseORMSchema):
@@ -365,7 +378,9 @@ class CharacterSchema(BaseORMSchema):
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
-    spellbook: list[KnownSpellSchema] = Field(title="The character's spellbook content")
+    spellbook: list[RestrictedKnownSpellSchema] = Field(
+        title="The character's spellbook content"
+    )
 
 
 class CreateCharacterSchema(BaseORMSchema):

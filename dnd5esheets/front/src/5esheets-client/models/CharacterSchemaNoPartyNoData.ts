@@ -4,9 +4,9 @@
 /* eslint-disable */
 
 import type { EquippedItemSchema } from './EquippedItemSchema';
-import type { KnownSpellSchema } from './KnownSpellSchema';
 import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
+import type { RestrictedKnownSpellSchema } from './RestrictedKnownSpellSchema';
 
 /**
  * The details of a character, excluding the party
@@ -21,6 +21,6 @@ export type CharacterSchemaNoPartyNoData = {
     party: PartySchema;
     player: PlayerSchema;
     equipment: Array<EquippedItemSchema>;
-    spellbook: Array<KnownSpellSchema>;
+    spellbook: Array<RestrictedKnownSpellSchema>;
 };
 

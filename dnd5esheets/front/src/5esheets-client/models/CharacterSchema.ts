@@ -5,9 +5,9 @@
 
 import type { CharacterSheet } from './CharacterSheet';
 import type { EquippedItemSchema } from './EquippedItemSchema';
-import type { KnownSpellSchema } from './KnownSpellSchema';
 import type { PartySchema } from './PartySchema';
 import type { PlayerSchema } from './PlayerSchema';
+import type { RestrictedKnownSpellSchema } from './RestrictedKnownSpellSchema';
 
 /**
  * All details associated with a character
@@ -25,6 +25,6 @@ export type CharacterSchema = {
     party: PartySchema;
     player: PlayerSchema;
     equipment: Array<EquippedItemSchema>;
-    spellbook: Array<KnownSpellSchema>;
+    spellbook: Array<RestrictedKnownSpellSchema>;
 };
 

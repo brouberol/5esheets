@@ -4,13 +4,13 @@
 /* eslint-disable */
 
 import type { MagicSchool } from './MagicSchool';
-import type { SpellData } from './SpellData';
+import type { RestrictedSpellData } from './RestrictedSpellData';
 
-export type SpellSchemaNoData = {
+export type RestrictedSpellSchema = {
     id: number;
     name: string;
     level: number;
     school: MagicSchool;
-    data: SpellData;
+    data: RestrictedSpellData;
 };
 

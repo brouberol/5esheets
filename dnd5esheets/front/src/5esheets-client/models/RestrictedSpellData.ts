@@ -3,8 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellScalingLevel = {
-    label: string;
-    scaling: Record<string, string>;
+import type { ListingSpellCasting } from './ListingSpellCasting';
+
+export type RestrictedSpellData = {
+    casting: ListingSpellCasting;
 };
 

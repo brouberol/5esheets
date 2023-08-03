@@ -5,11 +5,12 @@
 
 import type { SpellCastingMaterial } from './SpellCastingMaterial';
 
-export type SpellCasting = {
+export type ListingSpellCasting = {
     verbal?: (boolean | null);
     somatic?: (boolean | null);
     material?: (SpellCastingMaterial | null);
     concentration?: (boolean | null);
     ritual?: (boolean | null);
+    needs_material?: boolean;
 };
 
