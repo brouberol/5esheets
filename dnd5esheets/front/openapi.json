@@ -619,15 +619,6 @@
         ],
         "title": "AbilityName"
       },
-      "ActionType": {
-        "type": "string",
-        "enum": [
-          "action",
-          "bonus_action",
-          "reaction"
-        ],
-        "title": "ActionType"
-      },
       "Attack": {
         "properties": {
           "name": {
@@ -788,6 +779,13 @@
             },
             "type": "array",
             "title": "The character's equipment"
+          },
+          "spellbook": {
+            "items": {
+              "$ref": "#/components/schemas/KnownSpellSchema"
+            },
+            "type": "array",
+            "title": "The character's spellbook content"
           }
         },
         "type": "object",
@@ -797,7 +795,8 @@
           "slug",
           "party",
           "player",
-          "equipment"
+          "equipment",
+          "spellbook"
         ],
         "title": "CharacterSchema",
         "description": "All details associated with a character"
@@ -865,6 +864,13 @@
             },
             "type": "array",
             "title": "The character's equipment"
+          },
+          "spellbook": {
+            "items": {
+              "$ref": "#/components/schemas/KnownSpellSchema"
+            },
+            "type": "array",
+            "title": "The character's spellbook content"
           }
         },
         "type": "object",
@@ -875,7 +881,8 @@
           "data",
           "party",
           "player",
-          "equipment"
+          "equipment",
+          "spellbook"
         ],
         "title": "CharacterSchemaNoPartyNoData",
         "description": "The details of a character, excluding the party"
@@ -943,6 +950,13 @@
             },
             "type": "array",
             "title": "The character's equipment"
+          },
+          "spellbook": {
+            "items": {
+              "$ref": "#/components/schemas/KnownSpellSchema"
+            },
+            "type": "array",
+            "title": "The character's spellbook content"
           }
         },
         "type": "object",
@@ -953,7 +967,8 @@
           "data",
           "party",
           "player",
-          "equipment"
+          "equipment",
+          "spellbook"
         ],
         "title": "CharacterSchemaNoPlayer",
         "description": "The details of a character, excluding the player"
@@ -1019,10 +1034,6 @@
             "type": "array",
             "title": "Attacks"
           },
-          "equipment": {
-            "type": "string",
-            "title": "Equipment"
-          },
           "languages_and_proficiencies": {
             "type": "string",
             "title": "Languages And Proficiencies"
@@ -1047,8 +1058,19 @@
             "type": "string",
             "title": "Features"
           },
-          "spells": {
-            "$ref": "#/components/schemas/Spells"
+          "spellcasting_ability": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AbilityName"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "daily_prepared_spells": {
+            "type": "integer",
+            "title": "Daily Prepared Spells"
           },
           "proficiency_bonus": {
             "type": "integer",
@@ -1091,14 +1113,14 @@
           "money",
           "custom_resources",
           "attacks",
-          "equipment",
           "languages_and_proficiencies",
           "personality",
           "ideals",
           "bonds",
           "flaws",
           "features",
-          "spells",
+          "spellcasting_ability",
+          "daily_prepared_spells",
           "proficiency_bonus",
           "ac",
           "initiative",
@@ -1228,7 +1250,7 @@
           },
           "equipped": {
             "type": "boolean",
-            "title": "Weather the item is currently equipped"
+            "title": "Whether the item is currently equipped"
           }
         },
         "type": "object",
@@ -1325,6 +1347,29 @@
         "title": "ItemSchema",
         "description": "The details of an equipment item"
       },
+      "KnownSpellSchema": {
+        "properties": {
+          "prepared": {
+            "type": "boolean",
+            "title": "Whether the spell is currently prepared"
+          },
+          "spell": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SpellSchemaNoData"
+              }
+            ],
+            "title": "The spell details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "prepared",
+          "spell"
+        ],
+        "title": "KnownSpellSchema",
+        "description": "The details of a known spell (the association between a character and a spell)"
+      },
       "ListCharacterSchema": {
         "properties": {
           "id": {
@@ -1381,6 +1426,20 @@
           "party"
         ],
         "title": "ListCharacterSchema"
+      },
+      "MagicSchool": {
+        "type": "string",
+        "enum": [
+          "necromancy",
+          "evocation",
+          "enchantment",
+          "illusion",
+          "transmutation",
+          "abjuration",
+          "conjuration",
+          "divination"
+        ],
+        "title": "MagicSchool"
       },
       "Money": {
         "properties": {
@@ -1568,65 +1627,466 @@
         ],
         "title": "Skills"
       },
-      "Spell": {
+      "SpellCasting": {
         "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "prepared": {
-            "type": "boolean",
-            "title": "Prepared",
+          "verbal": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Whether casting the spell requires a vocal component",
             "default": false
           },
           "somatic": {
-            "type": "boolean",
-            "title": "Somatic",
-            "default": false
-          },
-          "verbal": {
-            "type": "boolean",
-            "title": "Verbal",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Whether casting the spell requires a somatic component",
             "default": false
           },
           "material": {
-            "type": "boolean",
-            "title": "Material",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpellCastingMaterial"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "The material components required to cast the spell"
+          },
+          "concentration": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Whether casting the spell requires maintaining concentration",
             "default": false
           },
           "ritual": {
-            "type": "boolean",
-            "title": "Ritual",
-            "default": false
-          },
-          "concentration": {
-            "type": "boolean",
-            "title": "Concentration",
-            "default": false
-          },
-          "invocation": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/ActionType"
+                "type": "boolean"
               },
               {
                 "type": "null"
               }
+            ],
+            "title": "Whether the spell can be casted as a ritual",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "SpellCasting"
+      },
+      "SpellCastingMaterial": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "A description of the material components required to cast a spell"
+          },
+          "cost": {
+            "type": "integer",
+            "title": "The minimum cost of the materials",
+            "default": 0
+          },
+          "consume": {
+            "type": "boolean",
+            "title": "Consume",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "SpellCastingMaterial"
+      },
+      "SpellData": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/SpellSource"
+          },
+          "casting": {
+            "$ref": "#/components/schemas/SpellCasting"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/SpellMeta"
+          },
+          "time": {
+            "items": {
+              "$ref": "#/components/schemas/SpellTime"
+            },
+            "type": "array",
+            "title": "Time"
+          },
+          "range": {
+            "$ref": "#/components/schemas/SpellRange"
+          },
+          "duration": {
+            "items": {
+              "$ref": "#/components/schemas/SpellDuration"
+            },
+            "type": "array",
+            "title": "Duration"
+          },
+          "misc_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Misc Tags",
+            "default": []
+          },
+          "area_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Area Tags",
+            "default": []
+          },
+          "scaling_level_dice": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SpellScalingLevel"
+              }
             ]
           },
-          "origin": {
+          "damage_inflict": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Damage Inflict",
+            "default": []
+          },
+          "saving_throw": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Saving Throw",
+            "default": []
+          },
+          "condition_inflict": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Condition Inflict",
+            "default": []
+          },
+          "affects_creature_type": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Affects Creature Type",
+            "default": []
+          },
+          "spell_attack": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Spell Attack",
+            "default": []
+          },
+          "ability_check": {
+            "items": {
+              "$ref": "#/components/schemas/AbilityName"
+            },
+            "type": "array",
+            "title": "Ability Check",
+            "default": []
+          },
+          "damage_resist": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Damage Resist",
+            "default": []
+          },
+          "condition_immune": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Condition Immune",
+            "default": []
+          },
+          "damage_vulnerable": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Damage Vulnerable",
+            "default": []
+          },
+          "damage_immune": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Damage Immune",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "casting",
+          "meta",
+          "time",
+          "range",
+          "duration"
+        ],
+        "title": "SpellData"
+      },
+      "SpellDuration": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "unit": {
             "anyOf": [
               {
-                "$ref": "#/components/schemas/SpellOrigin"
+                "type": "string"
               },
               {
                 "type": "null"
               }
-            ]
+            ],
+            "title": "Unit"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount",
+            "default": 0
+          },
+          "ends": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "SpellDuration"
+      },
+      "SpellMeta": {
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "The spell description"
+          },
+          "translations": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SpellTranslation"
+            },
+            "type": "object",
+            "title": "Translations of the spell name and description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "description",
+          "translations"
+        ],
+        "title": "SpellMeta"
+      },
+      "SpellRange": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "distance": {
+            "$ref": "#/components/schemas/SpellRangeDistance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "distance"
+        ],
+        "title": "SpellRange"
+      },
+      "SpellRangeDistance": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "SpellRangeDistance"
+      },
+      "SpellScalingLevel": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "scaling": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Scaling"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "scaling"
+        ],
+        "title": "SpellScalingLevel"
+      },
+      "SpellSchemaNoData": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The spell primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "title": "The spell name"
+          },
+          "level": {
+            "type": "integer",
+            "maximum": 9.0,
+            "minimum": 0.0,
+            "title": "The spell level"
+          },
+          "school": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MagicSchool"
+              }
+            ],
+            "title": "The spell magic school"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SpellData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "level",
+          "school",
+          "data"
+        ],
+        "title": "SpellSchemaNoData"
+      },
+      "SpellSource": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "The spell source book"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "The page the spell is described at"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "page"
+        ],
+        "title": "SpellSource"
+      },
+      "SpellTime": {
+        "properties": {
+          "number": {
+            "type": "integer",
+            "title": "The amount of time units it takes to cast the spell"
+          },
+          "unit": {
+            "type": "string",
+            "title": "The type of time unit it takes to cast the spell"
+          },
+          "condition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "A possible condition before being able to cast the spell"
+          }
+        },
+        "type": "object",
+        "required": [
+          "number",
+          "unit"
+        ],
+        "title": "SpellTime"
+      },
+      "SpellTranslation": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The spell translated name"
+          },
+          "description": {
+            "type": "string",
+            "title": "The spell translated description"
           }
         },
         "type": "object",
@@ -1634,116 +2094,7 @@
           "name",
           "description"
         ],
-        "title": "Spell"
-      },
-      "SpellOrigin": {
-        "type": "string",
-        "const": "class",
-        "title": "SpellOrigin"
-      },
-      "Spells": {
-        "properties": {
-          "spellcasting_ability": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/AbilityName"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "daily_prepared": {
-            "type": "integer",
-            "title": "Daily Prepared"
-          },
-          "cantrips": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Cantrips",
-            "default": []
-          },
-          "lvl1": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl1",
-            "default": []
-          },
-          "lvl2": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl2",
-            "default": []
-          },
-          "lvl3": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl3",
-            "default": []
-          },
-          "lvl4": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl4",
-            "default": []
-          },
-          "lvl5": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl5",
-            "default": []
-          },
-          "lvl6": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl6",
-            "default": []
-          },
-          "lvl7": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl7",
-            "default": []
-          },
-          "lvl8": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl8",
-            "default": []
-          },
-          "lvl9": {
-            "items": {
-              "$ref": "#/components/schemas/Spell"
-            },
-            "type": "array",
-            "title": "Lvl9",
-            "default": []
-          }
-        },
-        "type": "object",
-        "required": [
-          "spellcasting_ability",
-          "daily_prepared"
-        ],
-        "title": "Spells"
+        "title": "SpellTranslation"
       },
       "UpdateCharacterSchema": {
         "properties": {

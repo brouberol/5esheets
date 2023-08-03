@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum ActionType {
-    ACTION = 'action',
-    BONUS_ACTION = 'bonus_action',
-    REACTION = 'reaction',
-}
+export type SpellScalingLevel = {
+    label: string;
+    scaling: Record<string, string>;
+};
+

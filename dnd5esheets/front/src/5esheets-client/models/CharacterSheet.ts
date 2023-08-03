@@ -4,13 +4,13 @@
 /* eslint-disable */
 
 import type { Abilities } from './Abilities';
+import type { AbilityName } from './AbilityName';
 import type { Attack } from './Attack';
 import type { CustomResource } from './CustomResource';
 import type { HitDice } from './HitDice';
 import type { HitPoints } from './HitPoints';
 import type { Money } from './Money';
 import type { Skills } from './Skills';
-import type { Spells } from './Spells';
 
 export type CharacterSheet = {
     abilities: Abilities;
@@ -27,14 +27,14 @@ export type CharacterSheet = {
     money: Money;
     custom_resources: Array<CustomResource>;
     attacks: Array<Attack>;
-    equipment: string;
     languages_and_proficiencies: string;
     personality: string;
     ideals: string;
     bonds: string;
     flaws: string;
     features: string;
-    spells: Spells;
+    spellcasting_ability: (AbilityName | null);
+    daily_prepared_spells: number;
     proficiency_bonus: number;
     ac: number;
     initiative: number;

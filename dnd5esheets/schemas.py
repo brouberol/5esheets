@@ -3,6 +3,7 @@ Definition of the pydandic models used for type validation and output serializat
 """
 
 from enum import IntEnum, StrEnum
+from typing import Optional
 
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict, Field
@@ -49,6 +50,17 @@ class ActionType(StrEnum):
     reaction: str = "reaction"
 
 
+class MagicSchool(StrEnum):
+    necromancy: str = "necromancy"
+    evocation: str = "evocation"
+    enchantment: str = "enchantment"
+    illusion: str = "illusion"
+    transmutation: str = "transmutation"
+    abjuration: str = "abjuration"
+    conjuration: str = "conjuration"
+    divination: str = "divination"
+
+
 class SpellOrigin(StrEnum):
     subclass: str = "class"
 
@@ -67,7 +79,119 @@ class EquippedItemSchema(BaseORMSchema):
     amount: int = Field(
         title="The amount of associated items found in the character's equipment", ge=0
     )
-    equipped: bool = Field(title="Weather the item is currently equipped")
+    equipped: bool = Field(title="Whether the item is currently equipped")
+
+
+class SpellSource(BaseSchema):
+    book: str = Field(title="The spell source book")
+    page: int = Field(ge=0, title="The page the spell is described at")
+
+
+class SpellCastingMaterial(BaseSchema):
+    text: str = Field(
+        title="A description of the material components required to cast a spell"
+    )
+    cost: int = Field(title="The minimum cost of the materials", default=0)
+    consume: bool = Field(default=False)
+
+
+class SpellCasting(BaseSchema):
+    verbal: Optional[bool] = Field(
+        title="Whether casting the spell requires a vocal component", default=False
+    )
+    somatic: Optional[bool] = Field(
+        title="Whether casting the spell requires a somatic component", default=False
+    )
+    material: Optional[SpellCastingMaterial] = Field(
+        title="The material components required to cast the spell", default=None
+    )
+    concentration: Optional[bool] = Field(
+        title="Whether casting the spell requires maintaining concentration",
+        default=False,
+    )
+    ritual: Optional[bool] = Field(
+        title="Whether the spell can be casted as a ritual",
+        default=False,
+    )
+
+
+class SpellTranslation(BaseSchema):
+    name: str = Field(title="The spell translated name")
+    description: str = Field(title="The spell translated description")
+
+
+class SpellMeta(BaseSchema):
+    description: str = Field(title="The spell description")
+    translations: dict[str, SpellTranslation] = Field(
+        title="Translations of the spell name and description"
+    )
+
+
+class SpellTime(BaseSchema):
+    number: int = Field(title="The amount of time units it takes to cast the spell")
+    unit: str = Field(title="The type of time unit it takes to cast the spell")
+    condition: str | None = Field(
+        title="A possible condition before being able to cast the spell", default=None
+    )
+
+
+class SpellRangeDistance(BaseSchema):
+    type: str
+    amount: Optional[int] = Field(default=None)
+
+
+class SpellRange(BaseSchema):
+    type: str
+    distance: SpellRangeDistance
+
+
+class SpellDuration(BaseSchema):
+    type: str
+    unit: Optional[str] = Field(default=None)
+    amount: Optional[int] = Field(default=0)
+    ends: Optional[list[str]] = Field(default_factory=list)
+
+
+class SpellScalingLevel(BaseSchema):
+    label: str
+    scaling: dict[str, str]
+
+
+class SpellData(BaseSchema):
+    source: SpellSource
+    casting: SpellCasting
+    meta: SpellMeta
+    time: list[SpellTime]
+    range: SpellRange
+    duration: list[SpellDuration]
+    misc_tags: list[str] = Field(default=[])
+    area_tags: list[str] = Field(default=[])
+    scaling_level_dice: SpellScalingLevel = Field(default=None)
+    damage_inflict: list[str] = Field(default=[])
+    saving_throw: list[str] = Field(default=[])
+    condition_inflict: list[str] = Field(default=[])
+    affects_creature_type: list[str] = Field(default=[])
+    spell_attack: list[str] = Field(default=[])
+    ability_check: list[AbilityName] = Field(default=[])
+    damage_resist: list[str] = Field(default=[])
+    condition_immune: list[str] = Field(default=[])
+    damage_vulnerable: list[str] = Field(default=[])
+    damage_immune: list[str] = Field(default=[])
+
+
+class SpellSchemaNoData(BaseORMSchema):
+    id: int = Field(ge=1, title="The spell primary key in database")
+    name: str = Field(title="The spell name")
+    level: int = Field(ge=0, le=9, title="The spell level")
+    school: MagicSchool = Field(title="The spell magic school")
+    data: SpellData = Field(exclude=True)
+
+
+class KnownSpellSchema(BaseORMSchema):
+    """The details of a known spell (the association between a character and a spell)"""
+
+    prepared: bool = Field(title="Whether the spell is currently prepared")
+    spell: SpellSchemaNoData = Field(title="The spell details")
 
 
 class PlayerSchema(BaseORMSchema):
@@ -191,34 +315,6 @@ class Money(BaseSchema):
     platinum: int = Field(title="Amount of platinum coins", ge=0)
 
 
-class Spell(BaseSchema):
-    name: str
-    description: str
-    prepared: bool = False
-    somatic: bool = False
-    verbal: bool = False
-    material: bool = False
-    ritual: bool = False
-    concentration: bool = False
-    invocation: ActionType | None = None
-    origin: SpellOrigin | None = None
-
-
-class Spells(BaseSchema):
-    spellcasting_ability: AbilityName | None
-    daily_prepared: int
-    cantrips: list[Spell] = []
-    lvl1: list[Spell] = []
-    lvl2: list[Spell] = []
-    lvl3: list[Spell] = []
-    lvl4: list[Spell] = []
-    lvl5: list[Spell] = []
-    lvl6: list[Spell] = []
-    lvl7: list[Spell] = []
-    lvl8: list[Spell] = []
-    lvl9: list[Spell] = []
-
-
 class CharacterSheet(BaseSchema):
     abilities: Abilities
     skills: Skills
@@ -234,14 +330,14 @@ class CharacterSheet(BaseSchema):
     money: Money
     custom_resources: list[CustomResource]
     attacks: list[Attack]
-    equipment: str
     languages_and_proficiencies: str
     personality: str
     ideals: str
     bonds: str
     flaws: str
     features: str
-    spells: Spells
+    spellcasting_ability: AbilityName | None
+    daily_prepared_spells: int
 
     # These are optional fields are they are calculated by the frontend.
     # We declare them here so that they appear in the generated TS types.
@@ -269,6 +365,7 @@ class CharacterSchema(BaseORMSchema):
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
+    spellbook: list[KnownSpellSchema] = Field(title="The character's spellbook content")
 
 
 class CreateCharacterSchema(BaseORMSchema):
