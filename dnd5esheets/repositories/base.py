@@ -5,8 +5,6 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
-import hashlib
-import json
 from typing import Self, Type, cast
 
 from sqlalchemy.engine import Result
@@ -41,12 +39,3 @@ class BaseRepository:
         if not (model := result.scalars().unique().one_or_none()):
             cls.raise_model_not_found()
         return cast(BaseModel, model)
-
-    @classmethod
-    def model_etag(cls, model: BaseModel) -> str:
-        digest = hashlib.sha1()
-        model_dict = model.as_dict()
-        # default=str allows the encoding of datetimes by first casting them to strings
-        model_json = json.dumps(model_dict, sort_keys=True, default=str)
-        digest.update(model_json.encode("utf-8"))
-        return digest.hexdigest()

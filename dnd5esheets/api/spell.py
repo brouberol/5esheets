@@ -20,6 +20,5 @@ async def get_spell(
         request,
         response,
         model=await SpellRepository.get_by_id(session, id=id),
-        repository=SpellRepository,
     )
     return await SpellRepository.get_by_id(session, id=id)

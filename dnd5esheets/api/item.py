@@ -20,6 +20,5 @@ async def get_item(
         request,
         response,
         model=await ItemRepository.get_by_id(session, id=id),
-        repository=ItemRepository,
     )
     return await ItemRepository.get_by_id(session, id=id)

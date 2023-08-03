@@ -2,17 +2,15 @@ from fastapi import Request, Response
 
 from .exceptions import CacheHit
 from .models import BaseModel
-from .repositories import BaseRepository
 
 
 async def handle_model_etag(
     request: Request,
     response: Response,
-    repository: type[BaseRepository],
     model: BaseModel,
 ):
     """Compute the model etag, and handle any cache hit"""
-    etag = repository.model_etag(model)
+    etag = model.compute_etag()
     if etag is not None:
         handle_etag_for_request(etag, request, response)
 

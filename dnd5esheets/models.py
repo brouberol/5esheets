@@ -1,3 +1,4 @@
+import hashlib
 import json
 from copy import deepcopy
 from datetime import datetime
@@ -99,6 +100,15 @@ class BaseModel(DeclarativeBase):
             else:
                 setattr(self, field_name, value)
         return self
+
+    def compute_etag(self):
+        """Compute the model instance etag as the sha1 of its json-encoded dict representation"""
+        digest = hashlib.sha1()
+        model_dict = self.as_dict()
+        # default=str allows the encoding of datetimes by first casting them to strings
+        model_json = json.dumps(model_dict, sort_keys=True, default=str)
+        digest.update(model_json.encode("utf-8"))
+        return digest.hexdigest()
 
 
 class NameReprMixin:
