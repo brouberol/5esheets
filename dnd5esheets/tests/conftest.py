@@ -1,5 +1,5 @@
 import os
-import subprocess
+import shutil
 from urllib.parse import urlparse
 
 import pytest_asyncio
@@ -31,13 +31,9 @@ def unauthed_client():
 def _remove_all_tables_and_restore_pre_test_backup(settings):
     yield  # let the test run
 
-    # Ater the test has run, remove all tables
-    BaseModel.metadata.drop_all(bind=engine)
-
     # Restore the backup
     db_file = urlparse(settings.DB_URI).path
-    with open(db_file + ".bak") as db_backup_file_fd:
-        subprocess.run(["sqlite3", db_file], stdin=db_backup_file_fd)
+    shutil.copyfile(db_file + ".bak", db_file)
 
 
 @fixture(scope="session")
@@ -61,9 +57,7 @@ def init_db(settings):
 
     # Prepare a greenfield db dump to be restored after each test
     db_file = urlparse(settings.DB_URI).path
-    cmd = ["sqlite3", db_file, ".dump"]
-    with open(db_file + ".bak", "w") as db_backup_file_fd:
-        subprocess.run(cmd, stdout=db_backup_file_fd)
+    shutil.copyfile(db_file, db_file + ".bak")
 
     # Let all tests run
     yield
