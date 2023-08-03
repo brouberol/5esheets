@@ -1,6 +1,6 @@
 import pytest
 
-from dnd5esheets.repositories import DuplicateModel, ModelNotFound
+from dnd5esheets.repositories import ModelNotFound
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
 
 
