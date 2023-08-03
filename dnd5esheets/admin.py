@@ -1,9 +1,12 @@
 """Definition of admin model views"""
 
+import json
 from typing import Type
 
 from fastapi import FastAPI
+from markupsafe import Markup
 from sqladmin import Admin, ModelView
+from sqladmin.formatters import BASE_FORMATTERS
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from .models import (
@@ -16,6 +19,13 @@ from .models import (
     Player,
     Spell,
 )
+
+
+def json_formatter(value: dict) -> Markup:
+    return Markup(f"<pre>{json.dumps(value, indent=2)}</pre>")
+
+
+custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
 
 
 def base_excluded_columns(model: Type[BaseModel]):
@@ -39,6 +49,7 @@ class CharacterAdmin(ModelView, model=Character):
     form_excluded_columns = base_excluded_columns(Character)
     column_labels = {Character.class_: "class"}
     column_searchable_list = [Character.name, Character.class_]
+    column_type_formatters = custom_base_formatters
 
 
 class PartyAdmin(ModelView, model=Party):
@@ -64,6 +75,7 @@ class ItemAdmin(ModelView, model=Item):
     column_list = [Item.id, Item.name]
     column_details_exclude_list = base_excluded_columns(Item)
     form_excluded_columns = base_excluded_columns(Item)
+    column_type_formatters = custom_base_formatters
 
 
 class EquippedItemAdmin(ModelView, model=EquippedItem):
@@ -94,6 +106,7 @@ class SpellAdmin(ModelView, model=Spell):
     column_details_exclude_list = base_excluded_columns(Spell)
     form_excluded_columns = base_excluded_columns(Spell)
     column_sortable_list = [Spell.name, Spell.level]
+    column_type_formatters = custom_base_formatters
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
