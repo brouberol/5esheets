@@ -247,6 +247,128 @@
         ]
       }
     },
+    "/api/character/{slug}/equip/{equipped_item_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Equip Item",
+        "description": "Set the argument item as equipped",
+        "operationId": "equip_item",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "equipped_item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Equipped Item Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Equip Item"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/{slug}/unequip/{equipped_item_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Unequip Item",
+        "description": "Set the argument item as unequipped",
+        "operationId": "unequip_item",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "equipped_item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Equipped Item Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Unequip Item"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/party/": {
       "get": {
         "tags": [
@@ -1235,6 +1357,11 @@
       },
       "EquippedItemSchema": {
         "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The equipped item id in database"
+          },
           "item": {
             "allOf": [
               {
@@ -1255,6 +1382,7 @@
         },
         "type": "object",
         "required": [
+          "id",
           "item",
           "amount",
           "equipped"
