@@ -95,6 +95,9 @@ class NameReprMixin:
     def __repr__(self):
         return f"<{self.__class__.__name__}: {self.name}>"
 
+    def __str__(self):
+        return self.name
+
 
 class Player(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
@@ -136,7 +139,7 @@ class EquippedItem(BaseModel):
     owner: Mapped["Character"] = relationship(back_populates="equipment", lazy="joined")
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}: {self.item}>"
+        return f"<{self.__class__.__name__}: {str(self.item)}>"
 
 
 class KnownSpell(BaseModel):
@@ -149,7 +152,7 @@ class KnownSpell(BaseModel):
     )
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}: {self.spell}>"
+        return f"<{self.__class__.__name__}: {str(self.spell)}>"
 
 
 class Character(NameReprMixin, BaseModel):
