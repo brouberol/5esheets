@@ -57,6 +57,7 @@ export type { UpdatePlayerSchema } from './models/UpdatePlayerSchema';
 export type { ValidationError } from './models/ValidationError';
 
 export { CharacterService } from './services/CharacterService';
+export { ItemService } from './services/ItemService';
 export { LoginService } from './services/LoginService';
 export { PartyService } from './services/PartyService';
 export { PlayerService } from './services/PlayerService';

@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from fastapi.routing import APIRoute
 
 from dnd5esheets.api.character import character_api
+from dnd5esheets.api.item import item_api
 from dnd5esheets.api.login import login_api
 from dnd5esheets.api.party import party_api
 from dnd5esheets.api.player import player_api
@@ -19,3 +20,4 @@ api.include_router(party_api)
 api.include_router(player_api)
 api.include_router(login_api)
 api.include_router(spell_api)
+api.include_router(item_api)
