@@ -147,3 +147,29 @@ async def test_delete_character(async_session):
     )
     with pytest.raises(ModelNotFound):
         await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
+
+
+@pytest.mark.asyncio
+async def test_set_item_as_equipped(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert douglas.equipment[0].equipped is False
+
+    douglas = await CharacterRepository.change_equipment_item_equipped_status(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        equipped_item_id=douglas.equipment[0].id,
+        equipped=True,
+    )
+    assert douglas.equipment[0].equipped is True
+
+    douglas = await CharacterRepository.change_equipment_item_equipped_status(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        equipped_item_id=douglas.equipment[0].id,
+        equipped=False,
+    )
+    assert douglas.equipment[0].equipped is False

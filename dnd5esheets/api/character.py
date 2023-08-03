@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Request, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.status import HTTP_204_NO_CONTENT
+
 from dnd5esheets.db import create_scoped_session
 from dnd5esheets.etag import handle_etag_for_request
 from dnd5esheets.repositories.character import CharacterRepository
@@ -112,3 +113,45 @@ async def delete_character(
     )
     await CharacterRepository.delete(session, slug=slug, owner_id=current_player_id)
     return Response(status_code=HTTP_204_NO_CONTENT)
+
+
+@character_api.put("/{slug}/equip/{equipped_item_id}")
+async def equip_item(
+    slug: str,
+    equipped_item_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Set the argument item as equipped"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.change_equipment_item_equipped_status(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        equipped_item_id=equipped_item_id,
+        equipped=True,
+    )
+    return {"status": "ok"}
+
+
+@character_api.put("/{slug}/unequip/{equipped_item_id}")
+async def unequip_item(
+    slug: str,
+    equipped_item_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Set the argument item as unequipped"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.change_equipment_item_equipped_status(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        equipped_item_id=equipped_item_id,
+        equipped=False,
+    )
+    return {"status": "ok"}
