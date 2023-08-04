@@ -182,7 +182,9 @@ class CharacterRepository(BaseRepository):
         equipped: bool,
     ):
         """Change the equipped status of the argument equipped item in the character's equipment"""
-        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
         await EquippedItemRepository.change_equipped_status(
             session, id=equipped_item_id, owner_id=character.id, equipped=equipped
         )
@@ -199,7 +201,9 @@ class CharacterRepository(BaseRepository):
         prepared: bool,
     ):
         """Change the prepared status of the argument known spell in the character's spellbook"""
-        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
         await KnownSpellRepository.change_prepared_status(
             session, id=known_spell_id, owner_id=character.id, prepared=prepared
         )
