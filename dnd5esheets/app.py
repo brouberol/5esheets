@@ -9,10 +9,7 @@ from .spa import register_spa
 
 
 def create_app() -> ExtendedFastAPI:
-    app = ExtendedFastAPI()
-    app.settings = get_settings()
-    app.env = get_env()
-
+    app = ExtendedFastAPI(settings=get_settings(), env=get_env())
     register_api(app)
     register_middlewares(app)
     register_exception_handlers(app)
