@@ -4,16 +4,16 @@
 /* eslint-disable */
 
 import type { AbilityName } from './AbilityName';
+import type { ResourceSource } from './ResourceSource';
 import type { SpellCasting } from './SpellCasting';
 import type { SpellDuration } from './SpellDuration';
 import type { SpellMeta } from './SpellMeta';
 import type { SpellRange } from './SpellRange';
 import type { SpellScalingLevel } from './SpellScalingLevel';
-import type { SpellSource } from './SpellSource';
 import type { SpellTime } from './SpellTime';
 
 export type SpellData = {
-    source: SpellSource;
+    source: ResourceSource;
     casting: SpellCasting;
     meta: SpellMeta;
     time: Array<SpellTime>;

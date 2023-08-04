@@ -1914,6 +1914,225 @@
         ],
         "title": "HitPoints"
       },
+      "ItemAttributes": {
+        "properties": {
+          "weapon_category": {
+            "$ref": "#/components/schemas/WeaponCategory"
+          },
+          "weapon_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WeaponType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ammo_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ammo Type"
+          },
+          "spellcasting_focus_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpellCastingFocusType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "range": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "weapon_category"
+        ],
+        "title": "ItemAttributes"
+      },
+      "ItemDamage": {
+        "properties": {
+          "damage_1": {
+            "type": "string",
+            "title": "Damage 1"
+          },
+          "damage_type": {
+            "type": "string",
+            "title": "Damage Type"
+          },
+          "damage_2": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Damage 2"
+          }
+        },
+        "type": "object",
+        "required": [
+          "damage_1",
+          "damage_type"
+        ],
+        "title": "ItemDamage"
+      },
+      "ItemData": {
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/ResourceSource"
+          },
+          "srd": {
+            "type": "boolean",
+            "title": "Srd"
+          },
+          "subtype": {
+            "type": "string",
+            "title": "Subtype"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ItemMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "srd",
+          "subtype",
+          "meta"
+        ],
+        "title": "ItemData"
+      },
+      "ItemMeta": {
+        "properties": {
+          "translations": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/ResourceTranslation"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translations"
+          },
+          "rarity": {
+            "type": "string",
+            "title": "Rarity"
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weight"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ItemAttributes"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "damage": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ItemDamage"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "property": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property"
+          },
+          "effect": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effect"
+          },
+          "requirements": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requirements"
+          },
+          "stealth": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stealth"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rarity",
+          "value"
+        ],
+        "title": "ItemMeta"
+      },
       "ItemSchema": {
         "properties": {
           "name": {
@@ -1922,8 +2141,11 @@
             "title": "The item name"
           },
           "data": {
-            "type": "object",
-            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ItemData"
+              }
+            ],
             "description": "The embdedded item JSON data"
           }
         },
@@ -2162,6 +2384,43 @@
           2
         ],
         "title": "Proficiency"
+      },
+      "ResourceSource": {
+        "properties": {
+          "book": {
+            "type": "string",
+            "title": "The resource source book"
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "The page the resource is described at"
+          }
+        },
+        "type": "object",
+        "required": [
+          "book",
+          "page"
+        ],
+        "title": "ResourceSource"
+      },
+      "ResourceTranslation": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The spell translated name"
+          },
+          "description": {
+            "type": "string",
+            "title": "The spell translated description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "description"
+        ],
+        "title": "ResourceTranslation"
       },
       "RestrictedKnownSpellSchema": {
         "properties": {
@@ -2405,6 +2664,14 @@
         "type": "object",
         "title": "SpellCasting"
       },
+      "SpellCastingFocusType": {
+        "type": "string",
+        "enum": [
+          "arcane",
+          "druid"
+        ],
+        "title": "SpellCastingFocusType"
+      },
       "SpellCastingMaterial": {
         "properties": {
           "text": {
@@ -2431,7 +2698,7 @@
       "SpellData": {
         "properties": {
           "source": {
-            "$ref": "#/components/schemas/SpellSource"
+            "$ref": "#/components/schemas/ResourceSource"
           },
           "casting": {
             "$ref": "#/components/schemas/SpellCasting"
@@ -2628,7 +2895,7 @@
           },
           "translations": {
             "additionalProperties": {
-              "$ref": "#/components/schemas/SpellTranslation"
+              "$ref": "#/components/schemas/ResourceTranslation"
             },
             "type": "object",
             "title": "Translations of the spell name and description"
@@ -2636,8 +2903,7 @@
         },
         "type": "object",
         "required": [
-          "description",
-          "translations"
+          "description"
         ],
         "title": "SpellMeta"
       },
@@ -2742,25 +3008,6 @@
         ],
         "title": "SpellSchema"
       },
-      "SpellSource": {
-        "properties": {
-          "book": {
-            "type": "string",
-            "title": "The spell source book"
-          },
-          "page": {
-            "type": "integer",
-            "minimum": 0.0,
-            "title": "The page the spell is described at"
-          }
-        },
-        "type": "object",
-        "required": [
-          "book",
-          "page"
-        ],
-        "title": "SpellSource"
-      },
       "SpellTime": {
         "properties": {
           "number": {
@@ -2793,24 +3040,6 @@
           "unit"
         ],
         "title": "SpellTime"
-      },
-      "SpellTranslation": {
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "The spell translated name"
-          },
-          "description": {
-            "type": "string",
-            "title": "The spell translated description"
-          }
-        },
-        "type": "object",
-        "required": [
-          "name",
-          "description"
-        ],
-        "title": "SpellTranslation"
       },
       "TimeUnit": {
         "type": "string",
@@ -2946,6 +3175,31 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "WeaponCategory": {
+        "type": "string",
+        "enum": [
+          "simple",
+          "heavy"
+        ],
+        "title": "WeaponCategory"
+      },
+      "WeaponType": {
+        "type": "string",
+        "enum": [
+          "axe",
+          "bow",
+          "club",
+          "crossbow",
+          "dagger",
+          "hammer",
+          "mace",
+          "net",
+          "spear",
+          "staff",
+          "sword"
+        ],
+        "title": "WeaponType"
       }
     },
     "securitySchemes": {

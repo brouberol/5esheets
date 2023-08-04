@@ -3,10 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { ResourceTranslation } from './ResourceTranslation';
-
-export type SpellMeta = {
+export type ResourceTranslation = {
+    name: string;
     description: string;
-    translations?: Record<string, ResourceTranslation>;
 };
 
