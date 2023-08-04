@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellTranslation = {
-    name: string;
-    description: string;
-};
-
+export enum WeaponCategory {
+    SIMPLE = 'simple',
+    HEAVY = 'heavy',
+}

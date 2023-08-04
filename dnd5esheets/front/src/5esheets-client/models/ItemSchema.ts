@@ -3,6 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { ItemData } from './ItemData';
+
 /**
  * The details of an equipment item
  */
@@ -11,6 +13,6 @@ export type ItemSchema = {
     /**
      * The embdedded item JSON data
      */
-    data: Record<string, any>;
+    data: ItemData;
 };
 

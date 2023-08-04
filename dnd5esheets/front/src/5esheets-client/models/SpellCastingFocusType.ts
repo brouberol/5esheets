@@ -3,8 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type SpellSource = {
-    book: string;
-    page: number;
-};
-
+export enum SpellCastingFocusType {
+    ARCANE = 'arcane',
+    DRUID = 'druid',
+}

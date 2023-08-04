@@ -76,15 +76,83 @@ class DurationUnit(StrEnum):
     round = "round"
 
 
+class WeaponCategory(StrEnum):
+    simple = "simple"
+    heavy = "heavy"
+
+
+class WeaponType(StrEnum):
+    axe = "axe"
+    bow = "bow"
+    club = "club"
+    crossbow = "crossbow"
+    dagger = "dagger"
+    hammer = "hammer"
+    mace = "mace"
+    net = "net"
+    spear = "spear"
+    staff = "staff"
+    sword = "sword"
+
+
+class SpellCastingFocusType(StrEnum):
+    arcane = "arcane"
+    druid = "druid"
+
+
 class SpellOrigin(StrEnum):
     subclass: str = "class"
+
+
+class ResourceSource(BaseSchema):
+    book: str = Field(title="The resource source book")
+    page: int = Field(ge=0, title="The page the resource is described at")
+
+
+class ResourceTranslation(BaseSchema):
+    name: str = Field(title="The spell translated name")
+    description: str = Field(title="The spell translated description")
+
+
+class ItemAttributes(BaseSchema):
+    weapon_category: WeaponCategory
+    weapon_type: Optional[WeaponType] = Field(default=None)
+    ammo_type: Optional[str] = Field(default=None)
+    spellcasting_focus_type: Optional[SpellCastingFocusType] = Field(default=None)
+    range: Optional[str] = Field(default=None)
+
+
+class ItemDamage(BaseSchema):
+    damage_1: str
+    damage_type: str
+    damage_2: Optional[str] = Field(default=None)
+
+
+class ItemMeta(BaseSchema):
+    translations: Optional[dict[str, ResourceTranslation]] = Field(default_factory=dict)
+    rarity: str
+    weight: Optional[float] = Field(default=None)
+    value: float
+    attributes: Optional[ItemAttributes] = Field(default=None)
+    damage: Optional[ItemDamage] = Field(default=None)
+    property: Optional[list[str]] = Field(default_factory=list)
+    effect: Optional[str] = Field(default=None)
+    requirements: Optional[dict] = Field(default_factory=dict)
+    stealth: Optional[bool] = Field(default=None)
+
+
+class ItemData(BaseSchema):
+    source: ResourceSource
+    srd: bool
+    subtype: str
+    meta: ItemMeta
 
 
 class ItemSchema(BaseORMSchema):
     """The details of an equipment item"""
 
     name: str = Field(max_length=255, title="The item name")
-    data: dict = Field(description="The embdedded item JSON data")
+    data: ItemData = Field(description="The embdedded item JSON data")
 
 
 class EquippedItemSchema(BaseORMSchema):
@@ -96,11 +164,6 @@ class EquippedItemSchema(BaseORMSchema):
         title="The amount of associated items found in the character's equipment", ge=0
     )
     equipped: bool = Field(title="Whether the item is currently equipped")
-
-
-class SpellSource(BaseSchema):
-    book: str = Field(title="The spell source book")
-    page: int = Field(ge=0, title="The page the spell is described at")
 
 
 class SpellCastingMaterial(BaseSchema):
@@ -140,18 +203,6 @@ class ListingSpellCasting(SpellCasting):
         return bool(self.material)
 
 
-class SpellTranslation(BaseSchema):
-    name: str = Field(title="The spell translated name")
-    description: str = Field(title="The spell translated description")
-
-
-class SpellMeta(BaseSchema):
-    description: str = Field(title="The spell description")
-    translations: dict[str, SpellTranslation] = Field(
-        title="Translations of the spell name and description"
-    )
-
-
 class SpellTime(BaseSchema):
     number: int = Field(title="The amount of time units it takes to cast the spell")
     unit: TimeUnit = Field(title="The type of time unit it takes to cast the spell")
@@ -182,8 +233,15 @@ class SpellScalingLevel(BaseSchema):
     scaling: dict[str, str]
 
 
+class SpellMeta(BaseSchema):
+    description: str = Field(title="The spell description")
+    translations: dict[str, ResourceTranslation] = Field(
+        title="Translations of the spell name and description", default_factory=dict
+    )
+
+
 class SpellData(BaseSchema):
-    source: SpellSource
+    source: ResourceSource
     casting: SpellCasting
     meta: SpellMeta
     time: list[SpellTime]
