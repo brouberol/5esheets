@@ -317,15 +317,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "lightning damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "lightning damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "lightning"
     ],
@@ -376,15 +378,17 @@
         "amount": 1
       }
     ],
-    "scaling_level_dice": {
-      "label": "psychic damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "psychic damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "psychic"
     ],
@@ -891,15 +895,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "force damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "force damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "force"
     ],
@@ -1796,15 +1802,17 @@
         "amount": 1
       }
     ],
-    "scaling_level_dice": {
-      "label": "fire damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "fire damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "fire"
     ],
@@ -2658,15 +2666,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "cold damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "cold damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "cold"
     ],
@@ -3151,15 +3161,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "poison damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "poison damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "poison"
     ],
@@ -4142,15 +4154,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "acid damage",
-      "scaling": {
-        "1": "1d10",
-        "5": "2d10",
-        "11": "3d10",
-        "17": "4d10"
+    "scaling_level_dice": [
+      {
+        "label": "acid damage",
+        "scaling": {
+          "1": "1d10",
+          "5": "2d10",
+          "11": "3d10",
+          "17": "4d10"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "acid"
     ],
@@ -5248,15 +5262,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "thunder damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "thunder damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "thunder"
     ],
@@ -5942,15 +5958,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "radiant damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "radiant damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "radiant"
     ],
@@ -6117,15 +6135,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "acid damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "acid damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "acid"
     ],
@@ -8490,15 +8510,17 @@
         "amount": 1
       }
     ],
-    "scaling_level_dice": {
-      "label": "necrotic damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "necrotic damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "necrotic"
     ],
@@ -13178,15 +13200,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "fire damage",
-      "scaling": {
-        "1": "1d10",
-        "5": "2d10",
-        "11": "3d10",
-        "17": "4d10"
+    "scaling_level_dice": [
+      {
+        "label": "fire damage",
+        "scaling": {
+          "1": "1d10",
+          "5": "2d10",
+          "11": "3d10",
+          "17": "4d10"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "fire"
     ],
@@ -19425,15 +19449,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "poison damage",
-      "scaling": {
-        "1": "1d12",
-        "5": "2d12",
-        "11": "3d12",
-        "17": "4d12"
+    "scaling_level_dice": [
+      {
+        "label": "poison damage",
+        "scaling": {
+          "1": "1d12",
+          "5": "2d12",
+          "11": "3d12",
+          "17": "4d12"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "poison"
     ],
@@ -19942,15 +19968,17 @@
         "amount": 10
       }
     ],
-    "scaling_level_dice": {
-      "label": "fire damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "fire damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "fire"
     ],
@@ -20480,15 +20508,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "cold damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "cold damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "cold"
     ],
@@ -20998,15 +21028,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "radiant damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "radiant damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "radiant"
     ],
@@ -21726,15 +21758,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "lightning damage",
-      "scaling": {
-        "1": "1d8",
-        "5": "2d8",
-        "11": "3d8",
-        "17": "4d8"
+    "scaling_level_dice": [
+      {
+        "label": "lightning damage",
+        "scaling": {
+          "1": "1d8",
+          "5": "2d8",
+          "11": "3d8",
+          "17": "4d8"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "lightning"
     ],
@@ -23477,15 +23511,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "piercing damage",
-      "scaling": {
-        "1": "1d6",
-        "5": "2d6",
-        "11": "3d6",
-        "17": "4d6"
+    "scaling_level_dice": [
+      {
+        "label": "piercing damage",
+        "scaling": {
+          "1": "1d6",
+          "5": "2d6",
+          "11": "3d6",
+          "17": "4d6"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "piercing"
     ],
@@ -24187,15 +24223,17 @@
         "type": "instant"
       }
     ],
-    "scaling_level_dice": {
-      "label": "psychic damage",
-      "scaling": {
-        "1": "1d4",
-        "5": "2d4",
-        "11": "3d4",
-        "17": "4d4"
+    "scaling_level_dice": [
+      {
+        "label": "psychic damage",
+        "scaling": {
+          "1": "1d4",
+          "5": "2d4",
+          "11": "3d4",
+          "17": "4d4"
+        }
       }
-    },
+    ],
     "damage_inflict": [
       "psychic"
     ],

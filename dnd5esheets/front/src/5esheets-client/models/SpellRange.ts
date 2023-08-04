@@ -7,6 +7,6 @@ import type { SpellRangeDistance } from './SpellRangeDistance';
 
 export type SpellRange = {
     type: string;
-    distance: SpellRangeDistance;
+    distance?: (SpellRangeDistance | null);
 };
 

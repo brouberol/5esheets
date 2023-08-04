@@ -6,6 +6,6 @@
 export type SpellCastingMaterial = {
     text: string;
     cost?: number;
-    consume?: boolean;
+    consume?: (boolean | string);
 };
 

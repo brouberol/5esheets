@@ -110,6 +110,10 @@ def reformat_spell(spell: dict) -> dict | None:
             reformatted_spell["duration"] = durations
         elif field == "school":
             reformatted_spell["school"] = school_translations[value]
+        elif field == "scaling_level_dice":
+            if isinstance(value, dict):
+                value = [value]
+            reformatted_spell[field] = value
         else:
             reformatted_spell[field] = value
 

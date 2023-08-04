@@ -21,7 +21,7 @@ export type SpellData = {
     duration: Array<SpellDuration>;
     misc_tags?: Array<string>;
     area_tags?: Array<string>;
-    scaling_level_dice?: SpellScalingLevel;
+    scaling_level_dice?: Array<SpellScalingLevel>;
     damage_inflict?: Array<string>;
     saving_throw?: Array<string>;
     condition_inflict?: Array<string>;
