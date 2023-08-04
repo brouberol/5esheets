@@ -130,7 +130,7 @@ export class CharacterService {
 
     /**
      * Equip Item
-     * Set the argument item as equipped
+     * Set the argument equipped item as equipped
      * @param slug
      * @param equippedItemId
      * @returns any Successful Response
@@ -142,7 +142,7 @@ export class CharacterService {
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/character/{slug}/equip/{equipped_item_id}',
+            url: '/api/character/{slug}/equipment/{equipped_item_id}/equip',
             path: {
                 'slug': slug,
                 'equipped_item_id': equippedItemId,
@@ -155,7 +155,7 @@ export class CharacterService {
 
     /**
      * Unequip Item
-     * Set the argument item as unequipped
+     * Set the argument equipped item as unequipped
      * @param slug
      * @param equippedItemId
      * @returns any Successful Response
@@ -167,7 +167,7 @@ export class CharacterService {
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/character/{slug}/unequip/{equipped_item_id}',
+            url: '/api/character/{slug}/equipment/{equipped_item_id}/unequip',
             path: {
                 'slug': slug,
                 'equipped_item_id': equippedItemId,
@@ -192,7 +192,7 @@ export class CharacterService {
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/character/{slug}/prepare/{known_spell_id}',
+            url: '/api/character/{slug}/spellbook/{known_spell_id}/prepare',
             path: {
                 'slug': slug,
                 'known_spell_id': knownSpellId,
@@ -217,7 +217,7 @@ export class CharacterService {
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/character/{slug}/unprepare/{known_spell_id}',
+            url: '/api/character/{slug}/spellbook/{known_spell_id}/unprepare',
             path: {
                 'slug': slug,
                 'known_spell_id': knownSpellId,

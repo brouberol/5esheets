@@ -247,13 +247,13 @@
         ]
       }
     },
-    "/api/character/{slug}/equip/{equipped_item_id}": {
+    "/api/character/{slug}/equipment/{equipped_item_id}/equip": {
       "put": {
         "tags": [
           "character"
         ],
         "summary": "Equip Item",
-        "description": "Set the argument item as equipped",
+        "description": "Set the argument equipped item as equipped",
         "operationId": "equip_item",
         "security": [
           {
@@ -308,13 +308,13 @@
         }
       }
     },
-    "/api/character/{slug}/unequip/{equipped_item_id}": {
+    "/api/character/{slug}/equipment/{equipped_item_id}/unequip": {
       "put": {
         "tags": [
           "character"
         ],
         "summary": "Unequip Item",
-        "description": "Set the argument item as unequipped",
+        "description": "Set the argument equipped item as unequipped",
         "operationId": "unequip_item",
         "security": [
           {
@@ -369,7 +369,7 @@
         }
       }
     },
-    "/api/character/{slug}/prepare/{known_spell_id}": {
+    "/api/character/{slug}/spellbook/{known_spell_id}/prepare": {
       "put": {
         "tags": [
           "character"
@@ -430,7 +430,7 @@
         }
       }
     },
-    "/api/character/{slug}/unprepare/{known_spell_id}": {
+    "/api/character/{slug}/spellbook/{known_spell_id}/unprepare": {
       "put": {
         "tags": [
           "character"

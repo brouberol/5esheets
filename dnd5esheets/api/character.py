@@ -115,14 +115,14 @@ async def delete_character(
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
-@character_api.put("/{slug}/equip/{equipped_item_id}")
+@character_api.put("/{slug}/equipment/{equipped_item_id}/equip")
 async def equip_item(
     slug: str,
     equipped_item_id: int,
     session: AsyncSession = Depends(create_scoped_session),
     current_player_id: int | None = Depends(get_current_user_id),
 ) -> dict:
-    """Set the argument item as equipped"""
+    """Set the argument equipped item as equipped"""
     await CharacterRepository.get_by_slug_if_owned(
         session, slug=slug, owner_id=current_player_id
     )
@@ -136,14 +136,14 @@ async def equip_item(
     return {"status": "ok"}
 
 
-@character_api.put("/{slug}/unequip/{equipped_item_id}")
+@character_api.put("/{slug}/equipment/{equipped_item_id}/unequip")
 async def unequip_item(
     slug: str,
     equipped_item_id: int,
     session: AsyncSession = Depends(create_scoped_session),
     current_player_id: int | None = Depends(get_current_user_id),
 ) -> dict:
-    """Set the argument item as unequipped"""
+    """Set the argument equipped item as unequipped"""
     await CharacterRepository.get_by_slug_if_owned(
         session, slug=slug, owner_id=current_player_id
     )
@@ -157,7 +157,7 @@ async def unequip_item(
     return {"status": "ok"}
 
 
-@character_api.put("/{slug}/prepare/{known_spell_id}")
+@character_api.put("/{slug}/spellbook/{known_spell_id}/prepare")
 async def prepare_spell(
     slug: str,
     known_spell_id: int,
@@ -178,7 +178,7 @@ async def prepare_spell(
     return {"status": "ok"}
 
 
-@character_api.put("/{slug}/unprepare/{known_spell_id}")
+@character_api.put("/{slug}/spellbook/{known_spell_id}/unprepare")
 async def unprepare_spell(
     slug: str,
     known_spell_id: int,
