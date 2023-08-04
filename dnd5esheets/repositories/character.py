@@ -10,6 +10,7 @@ from sqlalchemy.orm import defer
 from dnd5esheets.models import Character, EquippedItem, KnownSpell, Party, Player
 from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
+from dnd5esheets.repositories.item import ItemRepository
 from dnd5esheets.repositories.known_spell import KnownSpellRepository
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.repositories.spell import SpellRepository
@@ -241,5 +242,49 @@ class CharacterRepository(BaseRepository):
             session, slug=slug, owner_id=owner_id
         )
         await KnownSpellRepository.delete_by_id(session, id=known_spell_id)
+        await session.refresh(character)
+        return character
+
+    @classmethod
+    async def add_item_to_equipment(
+        cls,
+        session: AsyncSession,
+        slug: str,
+        owner_id: int | None,
+        item_id: int,
+        amount: int = 1,
+    ):
+        """Ensure a given item is present in the character's equipment"""
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
+        for equipped_item in character.equipment:
+            if equipped_item.item_id == item_id:
+                return character
+
+        # will raise if spell_id is not found
+        await ItemRepository.get_by_id(session, id=item_id)
+        equipped_item = EquippedItem(
+            character_id=character.id, item_id=item_id, amount=amount
+        )
+        character.equipment.append(equipped_item)
+        session.add(character)
+        await session.commit()
+        await session.refresh(character)
+        return character
+
+    @classmethod
+    async def remove_item_from_equipment(
+        cls,
+        session: AsyncSession,
+        slug: str,
+        owner_id: int | None,
+        equipped_item_id: int,
+    ):
+        """Ensure a given item is absent from the character's equipment"""
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
+        await EquippedItemRepository.delete_by_id(session, id=equipped_item_id)
         await session.refresh(character)
         return character

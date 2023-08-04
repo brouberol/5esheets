@@ -244,3 +244,35 @@ def test_forget_spell(client):
     )
     assert len(updated_data["spellbook"]) == 6
     assert updated_data["spellbook"][-1]["id"] != known_spell_id
+
+
+def test_add_item_to_equipment(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(data["equipment"]) == 1
+    assert_status_and_return_data(
+        client.put, "/api/character/douglas-mctrickfoot/equipment/10", status_code=200
+    )
+    updated_data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(updated_data["equipment"]) == 2
+    assert updated_data["equipment"][-1]["item"]["name"] == "Club"
+
+
+def test_remove_item_from_equipment(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(data["equipment"]) == 1
+    equipped_item_id = data["equipment"][0]["id"]
+    assert_status_and_return_data(
+        client.delete,
+        f"/api/character/douglas-mctrickfoot/equipment/{equipped_item_id}",
+        status_code=200,
+    )
+    updated_data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(updated_data["equipment"]) == 0

@@ -115,6 +115,46 @@ async def delete_character(
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
+@character_api.put("/{slug}/equipment/{item_id}")
+async def add_item_to_equipment(
+    slug: str,
+    item_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Ensure the argument item is present in the character's equipment"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.add_item_to_equipment(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        item_id=item_id,
+    )
+    return {"status": "ok"}
+
+
+@character_api.delete("/{slug}/equipment/{equipped_item_id}")
+async def remove_item_from_equipment(
+    slug: str,
+    equipped_item_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Ensure the argument item is absent from the character's equipment"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.remove_item_from_equipment(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        equipped_item_id=equipped_item_id,
+    )
+    return {"status": "ok"}
+
+
 @character_api.put("/{slug}/equipment/{equipped_item_id}/equip")
 async def equip_item(
     slug: str,

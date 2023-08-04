@@ -239,3 +239,41 @@ async def test_forget_spell(async_session):
         async_session, slug="douglas-mctrickfoot"
     )
     assert len(douglas.spellbook) == 6
+
+
+@pytest.mark.asyncio
+async def test_add_item_to_equipment(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.equipment) == 1
+    await CharacterRepository.add_item_to_equipment(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        item_id=30,
+    )
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.equipment) == 2
+    assert douglas.equipment[-1].item.id == 30
+
+
+@pytest.mark.asyncio
+async def test_from_item_from_equipment(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.equipment) == 1
+    equipped_item_id = douglas.equipment[-1].id
+    await CharacterRepository.remove_item_from_equipment(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        equipped_item_id=equipped_item_id,
+    )
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.equipment) == 0
