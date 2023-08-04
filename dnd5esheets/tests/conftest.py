@@ -6,38 +6,28 @@ import pytest_asyncio
 from fastapi.testclient import TestClient
 from pytest import fixture
 
-from dnd5esheets.app import app
+from dnd5esheets.app import create_app
 from dnd5esheets.cli import (
     _populate_base_items,
     _populate_db_with_dev_data,
     _populate_spells,
 )
-from dnd5esheets.config import get_settings
 from dnd5esheets.db import create_session, engine
 from dnd5esheets.models import BaseModel, Character, Player
 
 
 @fixture(scope="session")
-def settings():
-    return get_settings()
+def app():
+    return create_app()
 
 
 @fixture(scope="session")
-def unauthed_client():
+def unauthed_client(app):
     return TestClient(app)
 
 
-@fixture(autouse=True)
-def _remove_all_tables_and_restore_pre_test_backup(settings):
-    yield  # let the test run
-
-    # Restore the backup
-    db_file = urlparse(settings.DB_URI).path
-    shutil.copyfile(db_file + ".bak", db_file)
-
-
 @fixture(scope="session")
-def client():
+def client(app):
     _client = TestClient(app)
     _client.post(
         "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
@@ -46,7 +36,7 @@ def client():
 
 
 @fixture(scope="session", autouse=True)
-def init_db(settings):
+def init_db(app):
     # Create all tables
     BaseModel.metadata.create_all(bind=engine)
 
@@ -56,7 +46,7 @@ def init_db(settings):
     _populate_db_with_dev_data(silent=True)
 
     # Prepare a greenfield db dump to be restored after each test
-    db_file = urlparse(settings.DB_URI).path
+    db_file = urlparse(app.settings.DB_URI).path
     shutil.copyfile(db_file, db_file + ".bak")
 
     # Let all tests run
@@ -65,6 +55,15 @@ def init_db(settings):
     # Cleanup after all the tests have run
     os.remove(db_file)
     os.remove(db_file + ".bak")
+
+
+@fixture(autouse=True)
+def remove_all_tables_and_restore_pre_test_backup(app):
+    yield  # let the test run
+
+    # Restore the backup
+    db_file = urlparse(app.settings.DB_URI).path
+    shutil.copyfile(db_file + ".bak", db_file)
 
 
 @fixture(scope="function")

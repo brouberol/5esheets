@@ -1,1 +1,1 @@
-from .root import api  # noqa
+from .root import register_api  # noqa
