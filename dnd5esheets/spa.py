@@ -1,7 +1,12 @@
+from pathlib import Path
 from typing import cast
 
 from fastapi import HTTPException
 from fastapi.staticfiles import StaticFiles
+
+from . import ExtendedFastAPI
+
+dist_dir = Path(__file__).parent / "front" / "dist"
 
 
 class SPAStaticFiles(StaticFiles):
@@ -20,3 +25,8 @@ class SPAStaticFiles(StaticFiles):
             else:
                 # We serve the SPA root page
                 return await super().get_response(".", scope)
+
+
+def register_spa(app: ExtendedFastAPI):
+    if dist_dir.exists():
+        app.mount("", SPAStaticFiles(directory=dist_dir, html=True), name="static")
