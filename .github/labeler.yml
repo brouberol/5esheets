@@ -2,6 +2,7 @@
 api:
   - dnd5esheets/api/*.py
   - dnd5esheets/front/openapi.json
+  - dnd5esheets/front/src/5esheets-client/**"
 
 database:
   - dnd5esheets/migrations/versions/*.py
@@ -16,7 +17,7 @@ frontend:
       [
         "dnd5esheets/front/**",
         "!dnd5esheets/front/openapi.json",
-        "!dndsheets/front/src/5esheets-client/**",
+        "!dnd5esheets/front/src/5esheets-client/**",
       ]
 
 security:
