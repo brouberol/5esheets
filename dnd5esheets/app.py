@@ -4,7 +4,7 @@ from .api import register_api
 from .config import get_env, get_settings
 from .db import async_engine
 from .exceptions import register_exception_handlers
-from .middleware import register_middlewares
+from .middlewares import register_middlewares
 from .spa import register_spa
 
 
