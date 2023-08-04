@@ -1,6 +1,7 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter
 from fastapi.routing import APIRoute
 
+from dnd5esheets import ExtendedFastAPI
 from dnd5esheets.api.character import character_api
 from dnd5esheets.api.item import item_api
 from dnd5esheets.api.login import login_api
@@ -14,7 +15,7 @@ def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0]}-{route.name}"
 
 
-def register_api(app: FastAPI):
+def register_api(app: ExtendedFastAPI):
     api = APIRouter(
         prefix="/api", generate_unique_id_function=custom_generate_unique_id
     )

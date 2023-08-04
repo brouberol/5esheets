@@ -1,8 +1,9 @@
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from . import ExtendedFastAPI
 
-def register_middlewares(app: FastAPI):
+
+def register_middlewares(app: ExtendedFastAPI):
     if app.settings.FRONTEND_CORS_ORIGIN is not None:
         app.add_middleware(
             CORSMiddleware,

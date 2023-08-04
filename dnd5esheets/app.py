@@ -1,5 +1,4 @@
-from fastapi import FastAPI
-
+from . import ExtendedFastAPI
 from .admin import register_admin
 from .api import register_api
 from .config import get_env, get_settings
@@ -9,8 +8,8 @@ from .middleware import register_middlewares
 from .spa import register_spa
 
 
-def create_app() -> FastAPI:
-    app = FastAPI()
+def create_app() -> ExtendedFastAPI:
+    app = ExtendedFastAPI()
     app.settings = get_settings()
     app.env = get_env()
 

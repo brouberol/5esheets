@@ -1,12 +1,12 @@
 from typing import Self
 
-from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi import HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import ResponseValidationError
-from fastapi.requests import Request
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from starlette import status
 
+from . import ExtendedFastAPI
 from .config import Env
 
 
@@ -28,7 +28,7 @@ class DuplicateModel(RepositoryException):
     ...
 
 
-def register_exception_handlers(app: FastAPI):
+def register_exception_handlers(app: ExtendedFastAPI):
     @app.exception_handler(ModelNotFound)
     def raise_404_exception_on_model_not_found(_: Request, exc: Exception):
         """Return a 404 response when handling a ModelNotFound exception"""
