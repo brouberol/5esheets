@@ -171,7 +171,7 @@ class SpellCastingMaterial(BaseSchema):
         title="A description of the material components required to cast a spell"
     )
     cost: int = Field(title="The minimum cost of the materials", default=0)
-    consume: bool = Field(default=False)
+    consume: bool | str = Field(default=None)
 
 
 class SpellCasting(BaseSchema):
@@ -218,7 +218,7 @@ class SpellRangeDistance(BaseSchema):
 
 class SpellRange(BaseSchema):
     type: str
-    distance: SpellRangeDistance
+    distance: Optional[SpellRangeDistance] = Field(default=None)
 
 
 class SpellDuration(BaseSchema):
@@ -249,7 +249,7 @@ class SpellData(BaseSchema):
     duration: list[SpellDuration]
     misc_tags: list[str] = Field(default=[])
     area_tags: list[str] = Field(default=[])
-    scaling_level_dice: SpellScalingLevel = Field(default=None)
+    scaling_level_dice: list[SpellScalingLevel] = Field(default_factory=list)
     damage_inflict: list[str] = Field(default=[])
     saving_throw: list[str] = Field(default=[])
     condition_inflict: list[str] = Field(default=[])

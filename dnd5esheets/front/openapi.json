@@ -2684,9 +2684,15 @@
             "default": 0
           },
           "consume": {
-            "type": "boolean",
-            "title": "Consume",
-            "default": false
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Consume"
           }
         },
         "type": "object",
@@ -2740,11 +2746,11 @@
             "default": []
           },
           "scaling_level_dice": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SpellScalingLevel"
-              }
-            ]
+            "items": {
+              "$ref": "#/components/schemas/SpellScalingLevel"
+            },
+            "type": "array",
+            "title": "Scaling Level Dice"
           },
           "damage_inflict": {
             "items": {
@@ -2914,13 +2920,19 @@
             "title": "Type"
           },
           "distance": {
-            "$ref": "#/components/schemas/SpellRangeDistance"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpellRangeDistance"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
         "required": [
-          "type",
-          "distance"
+          "type"
         ],
         "title": "SpellRange"
       },
