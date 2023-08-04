@@ -12,6 +12,7 @@ export class SpellService {
 
     /**
      * Get Spell
+     * Return all details of a given spell.
      * @param id
      * @returns SpellSchema Successful Response
      * @throws ApiError

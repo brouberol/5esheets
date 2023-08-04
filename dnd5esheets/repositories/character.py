@@ -7,11 +7,12 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
-from dnd5esheets.models import Character, EquippedItem, Party, Player
+from dnd5esheets.models import Character, EquippedItem, KnownSpell, Party, Player
 from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
 from dnd5esheets.repositories.known_spell import KnownSpellRepository
 from dnd5esheets.repositories.player import PlayerRepository
+from dnd5esheets.repositories.spell import SpellRepository
 from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
 
@@ -196,5 +197,49 @@ class CharacterRepository(BaseRepository):
         await KnownSpellRepository.change_prepared_status(
             session, id=known_spell_id, owner_id=character.id, prepared=prepared
         )
+        await session.refresh(character)
+        return character
+
+    @classmethod
+    async def learn_spell(
+        cls,
+        session: AsyncSession,
+        slug: str,
+        owner_id: int | None,
+        spell_id: int,
+        prepared: bool = False,
+    ):
+        """Ensure a given spell is present in the character's spellbook"""
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
+        for known_spell in character.spellbook:
+            if known_spell.spell_id == spell_id:
+                return character
+
+        # will raise if spell_id is not found
+        await SpellRepository.get_by_id(session, id=spell_id)
+        known_spell = KnownSpell(
+            character_id=character.id, spell_id=spell_id, prepared=prepared
+        )
+        character.spellbook.append(known_spell)
+        session.add(character)
+        await session.commit()
+        await session.refresh(character)
+        return character
+
+    @classmethod
+    async def forget_spell(
+        cls,
+        session: AsyncSession,
+        slug: str,
+        owner_id: int | None,
+        known_spell_id: int,
+    ):
+        """Ensure a given spell is absent from the character's spellbook"""
+        character = await cls.get_by_slug_if_owned(
+            session, slug=slug, owner_id=owner_id
+        )
+        await KnownSpellRepository.delete_by_id(session, id=known_spell_id)
         await session.refresh(character)
         return character

@@ -211,3 +211,36 @@ def test_change_known_spell_prepared_status(client):
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
     )
     assert data_after_update["spellbook"][0]["prepared"] is True
+
+
+def test_learn_spell(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(data["spellbook"]) == 7
+    assert_status_and_return_data(
+        client.put, "/api/character/douglas-mctrickfoot/spellbook/30", status_code=200
+    )
+    updated_data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(updated_data["spellbook"]) == 8
+    assert updated_data["spellbook"][-1]["spell"]["name"] == "Ceremony"
+
+
+def test_forget_spell(client):
+    data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(data["spellbook"]) == 7
+    known_spell_id = data["spellbook"][0]["id"]
+    assert_status_and_return_data(
+        client.delete,
+        f"/api/character/douglas-mctrickfoot/spellbook/{known_spell_id}",
+        status_code=200,
+    )
+    updated_data = assert_status_and_return_data(
+        client.get, "/api/character/douglas-mctrickfoot", status_code=200
+    )
+    assert len(updated_data["spellbook"]) == 6
+    assert updated_data["spellbook"][-1]["id"] != known_spell_id
