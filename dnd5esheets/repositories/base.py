@@ -5,23 +5,14 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
-from typing import Self, Type, cast
+from typing import Type, cast
 
 from sqlalchemy import select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from dnd5esheets.exceptions import ModelNotFound
 from dnd5esheets.models import BaseModel
-
-
-class ModelNotFound(Exception):
-    @classmethod
-    def from_model_name(cls, model_name: str) -> Self:
-        return cls(f"{model_name} not found")
-
-
-class DuplicateModel(Exception):
-    ...
 
 
 class BaseRepository:

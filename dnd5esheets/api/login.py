@@ -5,8 +5,8 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.db import create_scoped_session
+from dnd5esheets.exceptions import ModelNotFound
 from dnd5esheets.models import Player
-from dnd5esheets.repositories import ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.security.hashing import verify_password
 from dnd5esheets.security.user import access_security

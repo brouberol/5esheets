@@ -12,8 +12,7 @@ from .admin import register_admin
 from .api import api
 from .config import Env, get_env, get_settings
 from .db import async_engine
-from .exceptions import CacheHit
-from .repositories import DuplicateModel, ModelNotFound
+from .exceptions import CacheHit, DuplicateModel, ModelNotFound
 from .spa import SPAStaticFiles
 
 app = FastAPI()

@@ -1,7 +1,7 @@
 import pytest
 
+from dnd5esheets.exceptions import ModelNotFound
 from dnd5esheets.repositories.player import PlayerRepository
-from dnd5esheets.repositories import ModelNotFound
 from dnd5esheets.schemas import UpdatePlayerSchema
 
 

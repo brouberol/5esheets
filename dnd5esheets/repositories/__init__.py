@@ -1,1 +1,1 @@
-from .base import BaseRepository, DuplicateModel, ModelNotFound  # noqa
+from .base import BaseRepository  # noqa

@@ -1,6 +1,6 @@
 import pytest
 
-from dnd5esheets.repositories import DuplicateModel, ModelNotFound
+from dnd5esheets.exceptions import DuplicateModel, ModelNotFound
 from dnd5esheets.repositories.character import CharacterRepository
 from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 

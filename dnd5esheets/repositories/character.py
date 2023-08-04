@@ -7,8 +7,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import defer
 
+from dnd5esheets.exceptions import DuplicateModel, ModelNotFound
 from dnd5esheets.models import Character, EquippedItem, KnownSpell, Party, Player
-from dnd5esheets.repositories import BaseRepository, DuplicateModel, ModelNotFound
+from dnd5esheets.repositories import BaseRepository
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
 from dnd5esheets.repositories.item import ItemRepository
 from dnd5esheets.repositories.known_spell import KnownSpellRepository
