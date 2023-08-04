@@ -16,6 +16,7 @@ async def get_spell(
     response: Response,
     session: AsyncSession = Depends(create_scoped_session),
 ):
+    """Return all details of a given spell."""
     spell = await SpellRepository.get_by_id(session, id=id)
     await handle_model_etag(
         request,

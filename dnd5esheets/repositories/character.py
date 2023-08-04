@@ -61,6 +61,7 @@ class CharacterRepository(BaseRepository):
         slug: str,
         body: UpdateCharacterSchema,
     ) -> Character:
+        """Update fields of the Character identified by the argument slug"""
         character = await cls.get_by_slug(session, slug)
 
         # Any non-nil field should be taken as the new value
@@ -83,6 +84,7 @@ class CharacterRepository(BaseRepository):
         character_data: CreateCharacterSchema,
         owner_id: int | None,
     ) -> Character:
+        """Create a new character described by the argument character data"""
         slug = slugify(character_data.name)
 
         if owner_id is not None:
@@ -165,6 +167,7 @@ class CharacterRepository(BaseRepository):
 
     @classmethod
     async def delete(cls, session: AsyncSession, slug: str, owner_id: int | None):
+        """Delete the character identified by the argument slug"""
         character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
         await session.delete(character)
         await session.commit()
@@ -178,6 +181,7 @@ class CharacterRepository(BaseRepository):
         equipped_item_id: int,
         equipped: bool,
     ):
+        """Change the equipped status of the argument equipped item in the character's equipment"""
         character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
         await EquippedItemRepository.change_equipped_status(
             session, id=equipped_item_id, owner_id=character.id, equipped=equipped
@@ -194,6 +198,7 @@ class CharacterRepository(BaseRepository):
         known_spell_id: int,
         prepared: bool,
     ):
+        """Change the prepared status of the argument known spell in the character's spellbook"""
         character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
         await KnownSpellRepository.change_prepared_status(
             session, id=known_spell_id, owner_id=character.id, prepared=prepared

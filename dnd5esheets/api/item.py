@@ -16,6 +16,7 @@ async def get_item(
     response: Response,
     session: AsyncSession = Depends(create_scoped_session),
 ):
+    """Return all details of a given item."""
     item = await ItemRepository.get_by_id(session, id=id)
     await handle_model_etag(
         request,
