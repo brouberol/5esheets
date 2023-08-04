@@ -129,6 +129,56 @@ export class CharacterService {
     }
 
     /**
+     * Add Item To Equipment
+     * Ensure the argument item is present in the character's equipment
+     * @param slug
+     * @param itemId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static addItemToEquipment(
+        slug: string,
+        itemId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/equipment/{item_id}',
+            path: {
+                'slug': slug,
+                'item_id': itemId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Remove Item From Equipment
+     * Ensure the argument item is absent from the character's equipment
+     * @param slug
+     * @param equippedItemId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static removeItemFromEquipment(
+        slug: string,
+        equippedItemId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/character/{slug}/equipment/{equipped_item_id}',
+            path: {
+                'slug': slug,
+                'equipped_item_id': equippedItemId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
      * Equip Item
      * Set the argument equipped item as equipped
      * @param slug
@@ -171,6 +221,56 @@ export class CharacterService {
             path: {
                 'slug': slug,
                 'equipped_item_id': equippedItemId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Learn Spell
+     * Ensure the argument spell is added to the character's spellbook
+     * @param slug
+     * @param spellId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static learnSpell(
+        slug: string,
+        spellId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/character/{slug}/spellbook/{spell_id}',
+            path: {
+                'slug': slug,
+                'spell_id': spellId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Forget Spell
+     * Ensure the argument known spell is absent from the character's spellbook
+     * @param slug
+     * @param knownSpellId
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static forgetSpell(
+        slug: string,
+        knownSpellId: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/character/{slug}/spellbook/{known_spell_id}',
+            path: {
+                'slug': slug,
+                'known_spell_id': knownSpellId,
             },
             errors: {
                 422: `Validation Error`,

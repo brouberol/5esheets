@@ -12,6 +12,7 @@ export class ItemService {
 
     /**
      * Get Item
+     * Return all details of a given item.
      * @param id
      * @returns ItemSchema Successful Response
      * @throws ApiError

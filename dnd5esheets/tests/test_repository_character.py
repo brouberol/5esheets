@@ -199,3 +199,43 @@ async def test_change_known_spell_prepared_status(async_session):
         prepared=True,
     )
     assert douglas.spellbook[0].prepared is True
+
+
+@pytest.mark.asyncio
+async def test_learn_spell(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.spellbook) == 7
+    await CharacterRepository.learn_spell(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        spell_id=45,
+        prepared=True,
+    )
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.spellbook) == 8
+    assert douglas.spellbook[-1].spell.id == 45
+    assert douglas.spellbook[-1].prepared is True
+
+
+@pytest.mark.asyncio
+async def test_forget_spell(async_session):
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.spellbook) == 7
+    known_spell_id = douglas.spellbook[-1].id
+    await CharacterRepository.forget_spell(
+        async_session,
+        slug="douglas-mctrickfoot",
+        owner_id=1,
+        known_spell_id=known_spell_id,
+    )
+    douglas = await CharacterRepository.get_by_slug(
+        async_session, slug="douglas-mctrickfoot"
+    )
+    assert len(douglas.spellbook) == 6

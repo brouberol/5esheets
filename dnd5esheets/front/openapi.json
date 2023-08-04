@@ -247,6 +247,128 @@
         ]
       }
     },
+    "/api/character/{slug}/equipment/{item_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Add Item To Equipment",
+        "description": "Ensure the argument item is present in the character's equipment",
+        "operationId": "add_item_to_equipment",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Item Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Add Item To Equipment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/{slug}/equipment/{equipped_item_id}": {
+      "delete": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Remove Item From Equipment",
+        "description": "Ensure the argument item is absent from the character's equipment",
+        "operationId": "remove_item_from_equipment",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "equipped_item_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Equipped Item Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Remove Item From Equipment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/character/{slug}/equipment/{equipped_item_id}/equip": {
       "put": {
         "tags": [
@@ -352,6 +474,128 @@
                 "schema": {
                   "type": "object",
                   "title": "Response Character-Unequip Item"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/{slug}/spellbook/{spell_id}": {
+      "put": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Learn Spell",
+        "description": "Ensure the argument spell is added to the character's spellbook",
+        "operationId": "learn_spell",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "spell_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Spell Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Learn Spell"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/character/{slug}/spellbook/{known_spell_id}": {
+      "delete": {
+        "tags": [
+          "character"
+        ],
+        "summary": "Forget Spell",
+        "description": "Ensure the argument known spell is absent from the character's spellbook",
+        "operationId": "forget_spell",
+        "security": [
+          {
+            "JwtAccessBearer": []
+          },
+          {
+            "JwtAccessCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "known_spell_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Known Spell Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Response Character-Forget Spell"
                 }
               }
             }
@@ -793,6 +1037,7 @@
           "spell"
         ],
         "summary": "Get Spell",
+        "description": "Return all details of a given spell.",
         "operationId": "get_spell",
         "parameters": [
           {
@@ -834,6 +1079,7 @@
           "item"
         ],
         "summary": "Get Item",
+        "description": "Return all details of a given item.",
         "operationId": "get_item",
         "parameters": [
           {

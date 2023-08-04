@@ -157,6 +157,46 @@ async def unequip_item(
     return {"status": "ok"}
 
 
+@character_api.put("/{slug}/spellbook/{spell_id}")
+async def learn_spell(
+    slug: str,
+    spell_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Ensure the argument spell is added to the character's spellbook"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.learn_spell(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        spell_id=spell_id,
+    )
+    return {"status": "ok"}
+
+
+@character_api.delete("/{slug}/spellbook/{known_spell_id}")
+async def forget_spell(
+    slug: str,
+    known_spell_id: int,
+    session: AsyncSession = Depends(create_scoped_session),
+    current_player_id: int | None = Depends(get_current_user_id),
+) -> dict:
+    """Ensure the argument known spell is absent from the character's spellbook"""
+    await CharacterRepository.get_by_slug_if_owned(
+        session, slug=slug, owner_id=current_player_id
+    )
+    await CharacterRepository.forget_spell(
+        session,
+        slug=slug,
+        owner_id=current_player_id,
+        known_spell_id=known_spell_id,
+    )
+    return {"status": "ok"}
+
+
 @character_api.put("/{slug}/spellbook/{known_spell_id}/prepare")
 async def prepare_spell(
     slug: str,
