@@ -143,10 +143,6 @@ front-prettier:
 	@echo "\n[+] Running prettier on the front codebase"
 	@$(npm-run) prettier-check
 
-profile:  ## Convert a profile to a png file
-	@poetry run gprof2dot -f pstats $(pstats-file) | dot -Tpng -o profile.png
-	@open profile.png
-
 ruff:
 	@echo "\n[+] Running linter"
 	@poetry run ruff $(app-root)/

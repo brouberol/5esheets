@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_cprofile.profiler import CProfileMiddleware
+from fastapi_profiler import PyInstrumentProfilerMiddleware
 
 from . import ExtendedFastAPI
 
@@ -19,11 +19,11 @@ def register_middlewares(app: ExtendedFastAPI):
         )
     if app.settings.PROFILING_ENABLED is True:
         app.add_middleware(
-            CProfileMiddleware,
+            PyInstrumentProfilerMiddleware,
             server_app=app,
-            enable=True,
-            print_each_request=True,
-            strip_dirs=False,
-            sort_by="cumulative",
-            filename=current_dir / ".." / "5esheets.pstats",
+            is_print_each_request=False,
+            async_mode="enable",
+            html_file_name=current_dir / "../profile.html",
+            open_in_browser=True,
+            profiler_output_type="html",
         )
