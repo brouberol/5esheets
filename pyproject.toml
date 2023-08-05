@@ -2,7 +2,7 @@
 name = "dnd5esheets"
 version = "0.1.0"
 description = "Character sheets for D&D 5e"
-authors = ["Balthazar Rouberol"]
+authors = ["Balthazar Rouberol <br@imap.cc>"]
 license = "MIT"
 readme = "README.md"
 
