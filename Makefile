@@ -150,9 +150,6 @@ run: admin-statics build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn --factory $(app-root).app:create_app --reload
 
-run-with-profiling:  ## Run the server with the profiling middleware enabled
-	@PROFILING_ENABLED=true make run
-
 test:  back-test front-test ## Run the project tests
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
