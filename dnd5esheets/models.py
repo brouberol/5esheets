@@ -1,9 +1,9 @@
 import hashlib
-import json
 from copy import deepcopy
 from datetime import datetime
 from typing import Self
 
+import orjson
 from sqlalchemy import (
     Boolean,
     DateTime,
@@ -32,14 +32,14 @@ class Json(TypeDecorator):
     impl = types.Text
 
     def process_bind_param(self, value, dialect):
-        return json.dumps(value)
+        return orjson.dumps(value)
 
     def process_literal_param(self, value, dialect):
         return value
 
     def process_result_value(self, value, dialect):
         try:
-            return json.loads(value)
+            return orjson.loads(value)
         except (ValueError, TypeError):
             return None
 
@@ -106,8 +106,10 @@ class BaseModel(DeclarativeBase):
         digest = hashlib.sha1()
         model_dict = self.as_dict()
         # default=str allows the encoding of datetimes by first casting them to strings
-        model_json = json.dumps(model_dict, sort_keys=True, default=str)
-        digest.update(model_json.encode("utf-8"))
+        model_json = orjson.dumps(
+            model_dict, option=orjson.OPT_NON_STR_KEYS | orjson.OPT_SORT_KEYS
+        )
+        digest.update(model_json)
         return digest.hexdigest()
 
 

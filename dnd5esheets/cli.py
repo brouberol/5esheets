@@ -1,7 +1,7 @@
-import json
 from pathlib import Path
 
 import click
+import orjson
 from sqlalchemy import select
 
 from dnd5esheets.config.base import db_dir
@@ -36,7 +36,8 @@ def populate():
 
 def _populate_base_items(silent: bool = False):
     with open(data_dir / "items-base.json") as base_items_fd:
-        base_items = json.load(base_items_fd)
+        base_items_str = base_items_fd.read()
+        base_items = orjson.loads(base_items_str)
 
     with create_session(commit_at_end=True) as session:
         for i, base_item in enumerate(base_items, 1):
@@ -48,11 +49,12 @@ def _populate_base_items(silent: bool = False):
 
 
 def _populate_spells(silent: bool = False):
-    with open(data_dir / "spells.json") as base_items_fd:
-        base_items = json.load(base_items_fd)
+    with open(data_dir / "spells.json") as spells_fd:
+        spells_str = spells_fd.read()
+        spells = orjson.loads(spells_str)
 
     with create_session(commit_at_end=True) as session:
-        for i, spell in enumerate(base_items, 1):
+        for i, spell in enumerate(spells, 1):
             spell_name = spell.pop("name")
             spell_school = spell.pop("school")
             spell_level = spell.pop("level")
@@ -70,7 +72,8 @@ def _populate_spells(silent: bool = False):
 
 def _populate_db_with_dev_data(silent: bool = False):
     with open(db_dir / "fixtures" / "dev.json") as dev_fixtures_fd:
-        dev_fixtures = json.load(dev_fixtures_fd)
+        dev_fixtures_str = dev_fixtures_fd.read()
+        dev_fixtures = orjson.loads(dev_fixtures_str)
 
     with create_session(commit_at_end=True) as session:
         longsword = session.execute(

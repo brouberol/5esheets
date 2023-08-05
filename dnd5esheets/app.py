@@ -1,3 +1,5 @@
+from fastapi.responses import ORJSONResponse
+
 from . import ExtendedFastAPI
 from .admin import register_admin
 from .api import register_api
@@ -9,7 +11,9 @@ from .spa import register_spa
 
 
 def create_app() -> ExtendedFastAPI:
-    app = ExtendedFastAPI(settings=get_settings(), env=get_env())
+    app = ExtendedFastAPI(
+        default_response_class=ORJSONResponse, settings=get_settings(), env=get_env()
+    )
     register_api(app)
     register_middlewares(app)
     register_exception_handlers(app)
