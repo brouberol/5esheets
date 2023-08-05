@@ -36,3 +36,7 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+# profiling files
+*.pstats
+profile.png

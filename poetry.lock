@@ -378,6 +378,20 @@ typing-extensions = ">=4.5.0"
 all = ["email-validator (>=2.0.0)", "httpx (>=0.23.0)", "itsdangerous (>=1.1.0)", "jinja2 (>=2.11.2)", "orjson (>=3.2.1)", "pydantic-extra-types (>=2.0.0)", "pydantic-settings (>=2.0.0)", "python-multipart (>=0.0.5)", "pyyaml (>=5.3.1)", "ujson (>=4.0.1,!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0)", "uvicorn[standard] (>=0.12.0)"]
 
 [[package]]
+name = "fastapi-cprofile"
+version = "0.0.2"
+description = "A FastAPI Middleware with cProfile to stats your service performance."
+optional = false
+python-versions = "*"
+files = [
+    {file = "fastapi_cprofile-0.0.2-py3-none-any.whl", hash = "sha256:dc2709c54a9503915d7f1fa9a81c38c9405762440421a22d131d78c3461cdb08"},
+    {file = "fastapi_cprofile-0.0.2.tar.gz", hash = "sha256:af929b6c48add45b36c68a22efc1b699f86317e7d3d52623d52589228a764d5e"},
+]
+
+[package.dependencies]
+fastapi = "*"
+
+[[package]]
 name = "fastapi-jwt"
 version = "0.1.12"
 description = "`FastAPI` extension for JTW Auth"
@@ -394,6 +408,17 @@ python-jose = {version = ">=3.3.0", extras = ["cryptography"]}
 [package.extras]
 docs = ["MkAutoDoc (>=0.2.0,<1.0.0)", "lazydocs (>=0.4.5,<1.0.0)", "mike (>=1.1.0,<2.0.0)", "mkdocs (>=1.4.0,<2.0.0)", "mkdocs-awesome-pages-plugin (>=2.8.0,<3.0.0)", "mkdocs-include-markdown-plugin (>=4.0.0,<5.0.0)", "mkdocs-material (>=9.0.0,<10.0.0)"]
 test = ["black (==23.1.0)", "flake8 (>=6.0.0,<7.0.0)", "httpx (>=0.23.0,<1.0.0)", "isort (>=5.11.0,<6.0.0)", "mypy (>=1.0.0,<2.0.0)", "pytest (>=7.0.0,<8.0.0)", "pytest-cov (>=4.0.0,<5.0.0)", "pytest-mock (>=3.0.0,<4.0.0)", "requests (>=2.28.0,<3.0.0)", "types-python-jose (==3.3.4.5)"]
+
+[[package]]
+name = "gprof2dot"
+version = "2022.7.29"
+description = "Generate a dot graph from the output of several profilers."
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "gprof2dot-2022.7.29-py2.py3-none-any.whl", hash = "sha256:f165b3851d3c52ee4915eb1bd6cca571e5759823c2cd0f71a79bda93c2dc85d6"},
+    {file = "gprof2dot-2022.7.29.tar.gz", hash = "sha256:45b4d298bd36608fccf9511c3fd88a773f7a1abc04d6cd39445b11ba43133ec5"},
+]
 
 [[package]]
 name = "greenlet"
@@ -1667,4 +1692,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "13e96f09b6223242567040ae6696ec8c7edae793722f6cfd1305ef3406e69288"
+content-hash = "9c36052843e97933123ae02271ba22eb1bd99a6a8b92aeda51d6b66edbf46f07"

@@ -1,5 +1,6 @@
-from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
+
 from pydantic_settings import BaseSettings
 
 db_dir = Path(__file__).parent.parent / "db"
@@ -16,3 +17,5 @@ class CommonSettings(BaseSettings):
     DB_ASYNC_URI: str = f"sqlite+aiosqlite:///{db_file}"
     SQLALCHEMY_ECHO: bool = False
     FRONTEND_CORS_ORIGIN: str | None = "http://localhost:3000"
+
+    PROFILING_ENABLED: bool = False
