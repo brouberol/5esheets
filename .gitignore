@@ -38,5 +38,4 @@ node_modules
 *.sw?
 
 # profiling files
-*.pstats
-profile.png
+profile.html
