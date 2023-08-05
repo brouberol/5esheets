@@ -396,20 +396,6 @@ docs = ["MkAutoDoc (>=0.2.0,<1.0.0)", "lazydocs (>=0.4.5,<1.0.0)", "mike (>=1.1.
 test = ["black (==23.1.0)", "flake8 (>=6.0.0,<7.0.0)", "httpx (>=0.23.0,<1.0.0)", "isort (>=5.11.0,<6.0.0)", "mypy (>=1.0.0,<2.0.0)", "pytest (>=7.0.0,<8.0.0)", "pytest-cov (>=4.0.0,<5.0.0)", "pytest-mock (>=3.0.0,<4.0.0)", "requests (>=2.28.0,<3.0.0)", "types-python-jose (==3.3.4.5)"]
 
 [[package]]
-name = "fastapi-profiler"
-version = "1.2.0"
-description = "A FastAPI Middleware of pyinstrument to check your service performance."
-optional = false
-python-versions = "*"
-files = [
-    {file = "fastapi_profiler-1.2.0-py3-none-any.whl", hash = "sha256:71615f815c5ff4fe193c14b1ecf6bfc250502c6adfca64a219340df5eb0a7a9b"},
-]
-
-[package.dependencies]
-fastapi = "*"
-pyinstrument = ">=4.4.0"
-
-[[package]]
 name = "greenlet"
 version = "2.0.2"
 description = "Lightweight in-process concurrent programming"
@@ -1798,4 +1784,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "6633b75167c600fc814835c249ebc0d0f982c981719f370e6ddbec94c101902e"
+content-hash = "3ef8a2f2c6d44f748c0675f060496352616a8d2d5658900ab7df7a2b85f49dff"

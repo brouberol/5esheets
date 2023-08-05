@@ -1,7 +1,8 @@
 from pathlib import Path
 
+from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_profiler import PyInstrumentProfilerMiddleware
+from pyinstrument import Profiler
 
 from . import ExtendedFastAPI
 
@@ -18,12 +19,18 @@ def register_middlewares(app: ExtendedFastAPI):
             allow_headers=["*"],
         )
     if app.settings.PROFILING_ENABLED is True:
-        app.add_middleware(
-            PyInstrumentProfilerMiddleware,
-            server_app=app,
-            is_print_each_request=False,
-            async_mode="enable",
-            html_file_name=current_dir / "../profile.html",
-            open_in_browser=True,
-            profiler_output_type="html",
-        )
+
+        @app.middleware("http")
+        async def profile_request(request: Request, call_next):
+            """Profile the current request
+
+            Taken from https://pyinstrument.readthedocs.io/en/latest/guide.html#profile-a-web-request-in-fastapi
+            with slight improvements.
+
+            """
+            if request.query_params.get("profile", False):
+                with Profiler(interval=0.0001, async_mode="enabled") as profiler:
+                    await call_next(request)
+                with open(current_dir / "../profile.html", "w") as out:
+                    out.write(profiler.output_html())
+            return await call_next(request)
