@@ -39,3 +39,4 @@ node_modules
 
 # profiling files
 profile.html
+profile.speedscope.json

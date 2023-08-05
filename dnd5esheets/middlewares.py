@@ -3,6 +3,8 @@ from pathlib import Path
 from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
 from pyinstrument import Profiler
+from pyinstrument.renderers.html import HTMLRenderer
+from pyinstrument.renderers.speedscope import SpeedscopeRenderer
 
 from . import ExtendedFastAPI
 
@@ -28,9 +30,21 @@ def register_middlewares(app: ExtendedFastAPI):
             with slight improvements.
 
             """
+            profile_type_to_ext = {"html": "html", "speedscope": "speedscope.json"}
+            profile_type_to_renderer = {
+                "html": HTMLRenderer,
+                "speedscope": SpeedscopeRenderer,
+            }
             if request.query_params.get("profile", False):
-                with Profiler(interval=0.0001, async_mode="enabled") as profiler:
+                profile_type = request.query_params.get("profile_format", "speedscope")
+                with Profiler(interval=0.001, async_mode="enabled") as profiler:
                     await call_next(request)
-                with open(current_dir / "../profile.html", "w") as out:
-                    out.write(profiler.output_html())
+                with open(
+                    current_dir / f"../profile.{profile_type_to_ext[profile_type]}", "w"
+                ) as out:
+                    out.write(
+                        profiler.output(
+                            renderer=profile_type_to_renderer[profile_type]()
+                        )
+                    )
             return await call_next(request)
