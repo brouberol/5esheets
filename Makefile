@@ -18,8 +18,7 @@ ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
 
-include $(app-root)/data/data.mk
-include $(app-root)/admin/admin.mk
+include $(app-root)/*/*.mk
 
 $(app-root)/schemas.py:
 

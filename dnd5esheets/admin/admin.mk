@@ -1,6 +1,6 @@
 .PHONY=admin
 
-statics/pygments.css:
-	@poetry run pygmentize -S friendly -f html -a .highlight -o statics/pygments.css > /dev/null
+$(app-root)/admin/statics/pygments.css:
+	@poetry run pygmentize -S friendly -f html -a .highlight > $(app-root)/admin/statics/pygments.css
 
-admin-statics: statics/pygments.css
+admin-statics: $(app-root)/admin/statics/pygments.css
