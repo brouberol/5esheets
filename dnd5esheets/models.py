@@ -102,14 +102,9 @@ class BaseModel(DeclarativeBase):
         return self
 
     def compute_etag(self):
-        """Compute the model instance etag as the sha1 of its json-encoded dict representation"""
+        """Compute the model instance etag as the sha1 of its last update ISO datetime"""
         digest = hashlib.sha1()
-        model_dict = self.as_dict()
-        # default=str allows the encoding of datetimes by first casting them to strings
-        model_json = orjson.dumps(
-            model_dict, option=orjson.OPT_NON_STR_KEYS | orjson.OPT_SORT_KEYS
-        )
-        digest.update(model_json)
+        digest.update(self.updated_at.isoformat().encode("utf-8"))
         return digest.hexdigest()
 
 
