@@ -11,6 +11,7 @@ api-client-root = $(front-root)/src/5esheets-client
 npm = cd $(front-root) && npm
 npm-run = $(npm) run
 python = poetry run python3
+pstats-file = 5esheets.pstats
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
@@ -142,6 +143,10 @@ front-prettier:
 	@echo "\n[+] Running prettier on the front codebase"
 	@$(npm-run) prettier-check
 
+profile:  ## Convert a profile to a png file
+	@poetry run gprof2dot -f pstats $(pstats-file) | dot -Tpng -o profile.png
+	@open profile.png
+
 ruff:
 	@echo "\n[+] Running linter"
 	@poetry run ruff $(app-root)/
@@ -149,6 +154,9 @@ ruff:
 run: admin-statics build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
 	@cd $(app-root) && poetry run uvicorn --factory $(app-root).app:create_app --reload
+
+run-with-profiling:  ## Run the server with the profiling middleware enabled
+	@PROFILING_ENABLED=true make run
 
 test:  back-test front-test ## Run the project tests
 
