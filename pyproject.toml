@@ -21,6 +21,7 @@ pydantic-settings = "^2.0.2"
 sqladmin = "^0.13.0"
 itsdangerous = "^2.1.2"
 pygments = "^2.15.1"
+orjson = "^3.9.2"
 
 
 [tool.poetry.group.dev.dependencies]

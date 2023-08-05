@@ -3,7 +3,7 @@ from typing import Self
 from fastapi import HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import ResponseValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import ORJSONResponse as JSONResponse
 from starlette import status
 
 from . import ExtendedFastAPI

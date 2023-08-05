@@ -1,9 +1,9 @@
 """Definition of admin model views"""
 
-import json
 from pathlib import Path
 from typing import Type
 
+import orjson
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from markupsafe import Markup
@@ -30,7 +30,7 @@ statics_dir = Path(__file__).parent / "statics"
 
 
 def json_formatter(value: dict) -> Markup:
-    json_value = json.dumps(value, indent=2, ensure_ascii=False)
+    json_value = orjson.dumps(value, option=orjson.OPT_INDENT_2)
     html_json_value = highlight(
         json_value,
         lexer=get_lexer_by_name("json"),
