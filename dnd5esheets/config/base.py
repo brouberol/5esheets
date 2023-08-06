@@ -19,3 +19,6 @@ class CommonSettings(BaseSettings):
     FRONTEND_CORS_ORIGIN: str | None = "http://localhost:3000"
 
     PROFILING_ENABLED: bool = False
+    OPENAPI_URL: str | None = "/openapi.json"
+    DOCS_URL: str | None = "/docs"
+    REDOC_URL: str | None = "/redoc"

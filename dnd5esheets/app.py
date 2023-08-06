@@ -11,8 +11,14 @@ from .spa import register_spa
 
 
 def create_app() -> ExtendedFastAPI:
+    settings = get_settings()
     app = ExtendedFastAPI(
-        default_response_class=ORJSONResponse, settings=get_settings(), env=get_env()
+        default_response_class=ORJSONResponse,
+        settings=settings,
+        env=get_env(),
+        docs_url=settings.DOCS_URL,
+        redoc_url=settings.REDOC_URL,
+        openapi_url=settings.OPENAPI_URL,
     )
     register_api(app)
     register_middlewares(app)
