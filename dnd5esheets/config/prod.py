@@ -1,5 +1,6 @@
-from .base import CommonSettings
 from pydantic_settings import SettingsConfigDict
+
+from .base import CommonSettings
 
 
 class ProdSettings(CommonSettings):
@@ -8,4 +9,7 @@ class ProdSettings(CommonSettings):
     DB_ASYNC_URI: str
     MULTITENANT_ENABLED: bool = True
     FRONTEND_CORS_ORIGIN: str | None = None
+    DOCS_URL: str | None = None
+    REDOC_URL: str | None = None
+    OPENAPI_URL: str | None = None
     model_config = SettingsConfigDict(env_file=".env")
