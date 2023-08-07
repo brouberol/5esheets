@@ -37,6 +37,7 @@ beautifulsoup4 = "^4.12.2"
 types-python-slugify = "^8.0.0.2"
 pytest-asyncio = "^0.21.1"
 logging-tree = "^1.9"
+rich = "^13.5.2"
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'

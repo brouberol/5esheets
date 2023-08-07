@@ -57,7 +57,6 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
         structlog.processors.StackInfoRenderer(),
         # Replace an 'exc_info' field with an 'exception' string field using
         # Python's built-in traceback formatting
-        structlog.processors.format_exc_info,
     ]
 
     common_formatter_processors = processors + [
@@ -84,6 +83,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
                 "()": structlog.stdlib.ProcessorFormatter,
                 "processors": common_formatter_processors
                 + [
+                    structlog.processors.format_exc_info,
                     structlog.processors.JSONRenderer(),
                 ],
                 # Processors applied to non-structlog loggers
@@ -93,7 +93,9 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
                 "()": structlog.stdlib.ProcessorFormatter,
                 "processors": common_formatter_processors
                 + [
-                    structlog.dev.ConsoleRenderer(colors=True),
+                    structlog.dev.ConsoleRenderer(
+                        colors=True, exception_formatter=structlog.dev.rich_traceback
+                    ),
                 ],
                 "foreign_pre_chain": processors,
             },
