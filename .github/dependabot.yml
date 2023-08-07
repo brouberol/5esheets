@@ -5,7 +5,7 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     commit-message:
       # Prefix all commit messages with "[python] "
       prefix: "[python]"
@@ -21,7 +21,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/dnd5esheets/front"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     commit-message:
       # Prefix all commit messages with [js] "
       prefix: "[js]"
