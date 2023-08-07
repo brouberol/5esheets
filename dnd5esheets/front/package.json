@@ -35,7 +35,7 @@
     "solid-styled": "^0.8.2",
     "ts-pegjs": "^4.2.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.4",
+    "vite": "^4.4.8",
     "vite-plugin-solid": "^2.7.0",
     "vite-plugin-solid-styled": "^0.8.3",
     "vite-tsconfig-paths": "^4.2.0",
