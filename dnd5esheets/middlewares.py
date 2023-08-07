@@ -4,6 +4,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable
 
+from asgi_correlation_id import CorrelationIdMiddleware
 from fastapi import Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pyinstrument import Profiler
@@ -39,6 +40,7 @@ class RequestResponseLoggingMiddleware(BaseHTTPMiddleware):
         request_dict = await self._log_request(request)
         logging_dict["request"] = request_dict
         logging_dict["response"] = response_dict
+        logging_dict["correlation_id"] = request.headers["X-Request-ID"]
 
         # self.logger.info(orjson.dumps(logging_dict).decode("utf-8"))
         self.logger.info(json.dumps(logging_dict))
@@ -181,7 +183,12 @@ def register_request_response_logging_middleware(app: ExtendedFastAPI):
         app.add_middleware(RequestResponseLoggingMiddleware)
 
 
+def register_correlation_id_middleware(app: ExtendedFastAPI):
+    app.add_middleware(CorrelationIdMiddleware)
+
+
 def register_middlewares(app: ExtendedFastAPI):
     register_cors_middleware(app)
+    register_correlation_id_middleware(app)
     register_request_response_logging_middleware(app)
     register_profiling_middleware(app)
