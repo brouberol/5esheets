@@ -1,11 +1,14 @@
 from datetime import timedelta
 from pathlib import Path
-from typing import Literal
+from typing import Literal, TypeAlias
 
 from pydantic_settings import BaseSettings
 
 db_dir = Path(__file__).parent.parent / "db"
 db_file = db_dir / "5esheets.db"
+
+LogLevel: TypeAlias = Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+LogFormat: TypeAlias = Literal["plain", "json", "uvicorn"]
 
 
 class CommonSettings(BaseSettings):
@@ -23,6 +26,6 @@ class CommonSettings(BaseSettings):
     OPENAPI_URL: str | None = "/openapi.json"
     DOCS_URL: str | None = "/docs"
     REDOC_URL: str | None = "/redoc"
-    LOG_LEVEL: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
-    LOG_FORMAT: Literal["plain", "json"] = "plain"
+    LOG_LEVEL: LogLevel = "INFO"
+    LOG_FORMAT: LogFormat = "plain"
     LOG_DEBUG: bool = False

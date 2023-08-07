@@ -150,6 +150,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
 
 def setup_logging(app: ExtendedFastAPI):
     """Configure logging for the application"""
-    logging.config.dictConfig(generate_logging_config(app))
+    if app.settings.LOG_FORMAT != "uvicorn":
+        logging.config.dictConfig(generate_logging_config(app))
     if app.settings.LOG_DEBUG:
         __import__("logging_tree").printout()
