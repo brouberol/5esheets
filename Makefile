@@ -148,7 +148,7 @@ ruff:
 
 run: admin-statics build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
-	@cd $(app-root) && poetry run uvicorn --factory $(app-root).app:create_app --reload
+	@cd $(app-root) && poetry run uvicorn --factory $(app-root).app:create_app --reload --no-access-log
 
 test:  back-test front-test ## Run the project tests
 

@@ -24,6 +24,7 @@ pygments = "^2.15.1"
 orjson = "^3.9.3"
 pyinstrument = "^4.5.1"
 structlog = "^23.1.0"
+asgi-correlation-id = "^4.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

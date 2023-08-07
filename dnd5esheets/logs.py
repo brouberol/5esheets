@@ -120,7 +120,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
                 "propagate": False,
             },
             "uvicorn.access": {
-                "level": app.settings.LOG_LEVEL,
+                "level": logging.WARNING,
                 "handlers": ["console"],
                 "propagate": False,
             },
