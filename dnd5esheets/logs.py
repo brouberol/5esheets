@@ -4,6 +4,7 @@ from collections.abc import MutableMapping
 
 import orjson
 import structlog
+from asgi_correlation_id import correlation_id as ctxvar_correlation_id
 
 from . import ExtendedFastAPI
 
@@ -19,6 +20,12 @@ def extract_event_dict(_, __, event_dict: MutableMapping) -> MutableMapping:
             event_dict[
                 "event"
             ] = f"{event_dict['request']['method']} {event_dict['request']['path']}"
+    return event_dict
+
+
+def inject_request_id(_, __, event_dict: MutableMapping) -> MutableMapping:
+    if correlation_id := ctxvar_correlation_id.get(None):
+        event_dict["correlation_id"] = correlation_id
     return event_dict
 
 
@@ -61,6 +68,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
 
     common_formatter_processors = processors + [
         extract_event_dict,
+        inject_request_id,
         cleanup_event_dict,
         #  Remove '_record' and '_from_structlog' from event_dict
         structlog.stdlib.ProcessorFormatter.remove_processors_meta,
