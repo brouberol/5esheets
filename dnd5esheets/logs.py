@@ -1,5 +1,6 @@
 import logging.config
 import sys
+from collections.abc import MutableMapping
 
 import orjson
 import structlog
@@ -7,7 +8,7 @@ import structlog
 from . import ExtendedFastAPI
 
 
-def extract_event_dict(_, __, event_dict) -> dict:
+def extract_event_dict(_, __, event_dict: MutableMapping) -> MutableMapping:
     """If the 'event' value is a JSON-encoded object, extract its key/values into the event itself"""
     try:
         event_dict = event_dict | orjson.loads(event_dict["event"])
@@ -21,7 +22,7 @@ def extract_event_dict(_, __, event_dict) -> dict:
     return event_dict
 
 
-def cleanup_event_dict(_, __, event_dict: dict) -> dict:
+def cleanup_event_dict(_, __, event_dict: MutableMapping) -> MutableMapping:
     event_dict.pop("_logger", None)
     event_dict.pop("_name", None)
     return event_dict
@@ -68,7 +69,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
     log_level = getattr(logging, app.settings.LOG_LEVEL)
     structlog.configure(
         processors=processors
-        + [structlog.stdlib.ProcessorFormatter.wrap_for_formatter],
+        + [structlog.stdlib.ProcessorFormatter.wrap_for_formatter],  # type: ignore
         logger_factory=structlog.stdlib.LoggerFactory(),
         # This increases performance by making sure that logging with a level beneath log_level
         # does nothing at all (return None)
