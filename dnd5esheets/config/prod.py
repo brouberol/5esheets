@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic_settings import SettingsConfigDict
 
 from .base import CommonSettings
@@ -13,3 +15,4 @@ class ProdSettings(CommonSettings):
     REDOC_URL: str | None = None
     OPENAPI_URL: str | None = None
     model_config = SettingsConfigDict(env_file=".env")
+    LOG_FORMAT: Literal["plain", "json"] = "json"
