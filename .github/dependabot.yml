@@ -9,6 +9,13 @@ updates:
     commit-message:
       # Prefix all commit messages with "[python] "
       prefix: "[python]"
+    groups:
+      python:
+        patterns:
+        - *
+        exclude-patterns:
+        - fastapi
+        - pydantic
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -18,3 +25,9 @@ updates:
     commit-message:
       # Prefix all commit messages with [js] "
       prefix: "[js]"
+    groups:
+      js:
+        patterns:
+        - *
+        exclude-patterns:
+        - "@solidjs/*"
