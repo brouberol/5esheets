@@ -23,6 +23,7 @@ itsdangerous = "^2.1.2"
 pygments = "^2.15.1"
 orjson = "^3.9.2"
 pyinstrument = "^4.5.1"
+structlog = "^23.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -35,6 +36,7 @@ httpx = "^0.24.1"
 beautifulsoup4 = "^4.12.2"
 types-python-slugify = "^8.0.0.2"
 pytest-asyncio = "^0.21.1"
+logging-tree = "^1.9"
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
