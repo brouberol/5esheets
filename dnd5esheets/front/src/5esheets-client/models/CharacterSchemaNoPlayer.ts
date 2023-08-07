@@ -5,7 +5,6 @@
 
 import type { EquippedItemSchema } from './EquippedItemSchema';
 import type { PartySchema } from './PartySchema';
-import type { PlayerSchema } from './PlayerSchema';
 import type { RestrictedKnownSpellSchema } from './RestrictedKnownSpellSchema';
 
 /**
@@ -15,11 +14,9 @@ export type CharacterSchemaNoPlayer = {
     id: number;
     name: string;
     slug: string;
-    class_?: (string | null);
-    level?: (number | null);
-    data: Record<string, any>;
+    class_: (string | null);
+    level: (number | null);
     party: PartySchema;
-    player: PlayerSchema;
     equipment: Array<EquippedItemSchema>;
     spellbook: Array<RestrictedKnownSpellSchema>;
 };

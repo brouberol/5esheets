@@ -9,9 +9,9 @@ import type { WeaponType } from './WeaponType';
 
 export type ItemAttributes = {
     weapon_category: WeaponCategory;
-    weapon_type?: (WeaponType | null);
-    ammo_type?: (string | null);
-    spellcasting_focus_type?: (SpellCastingFocusType | null);
-    range?: (string | null);
+    weapon_type: (WeaponType | null);
+    ammo_type: (string | null);
+    spellcasting_focus_type: (SpellCastingFocusType | null);
+    range: (string | null);
 };
 

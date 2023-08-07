@@ -6,6 +6,6 @@
 export type ItemDamage = {
     damage_1: string;
     damage_type: string;
-    damage_2?: (string | null);
+    damage_2: (string | null);
 };
 

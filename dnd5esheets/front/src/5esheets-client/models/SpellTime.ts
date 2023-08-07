@@ -8,6 +8,6 @@ import type { TimeUnit } from './TimeUnit';
 export type SpellTime = {
     number: number;
     unit: TimeUnit;
-    condition?: (string | null);
+    condition: (string | null);
 };
 

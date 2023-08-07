@@ -3,14 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { SpellCastingMaterial } from './SpellCastingMaterial';
-
 export type ListingSpellCasting = {
-    verbal?: (boolean | null);
-    somatic?: (boolean | null);
-    material?: (SpellCastingMaterial | null);
-    concentration?: (boolean | null);
-    ritual?: (boolean | null);
-    needs_material?: boolean;
+    verbal: (boolean | null);
+    somatic: (boolean | null);
+    concentration: (boolean | null);
+    ritual: (boolean | null);
+    needs_material: boolean;
 };
 

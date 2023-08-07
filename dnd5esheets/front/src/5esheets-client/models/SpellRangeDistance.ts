@@ -5,6 +5,6 @@
 
 export type SpellRangeDistance = {
     type: string;
-    amount?: (number | null);
+    amount: (number | null);
 };
 
