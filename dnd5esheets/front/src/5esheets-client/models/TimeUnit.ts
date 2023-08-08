@@ -3,10 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum TimeUnit {
-    ACTION = 'action',
-    BONUS = 'bonus',
-    REACTION = 'reaction',
-    MINUTE = 'minute',
-    HOUR = 'hour',
-}
+export type TimeUnit = 'action' | 'bonus' | 'reaction' | 'minute' | 'hour';

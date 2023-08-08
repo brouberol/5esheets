@@ -2,19 +2,17 @@ import { For } from 'solid-js'
 import { css } from 'solid-styled'
 import { useI18n } from '@solid-primitives/i18n'
 
-import { CharacterSchema } from '~/5esheets-client'
-import LabeledInput from '~/components/LabeledInput'
+import { Proficiency } from '~/5esheets-client'
+import BorderBox from '~/components/BorderBox'
+import ScoreBox from '~/components/ScoreBox'
 import ProficientAttribute from '~/components/ProficientAttribute'
 import LabeledBox from '~/components/LabeledBox'
-import ScoreBox from '~/components/ScoreBox'
-import BorderBox from '~/components/BorderBox'
+import LabeledInput from '~/components/LabeledInput'
+import { ResolvedCharacter, UpdateCharacterFunction } from '~/store'
 
-export default function CharacterSheet({
-  character,
-  onChange,
-}: {
-  character: CharacterSchema
-  onChange: (change: Partial<CharacterSchema>) => void
+export default function CharacterSheet(props: {
+  character: ResolvedCharacter
+  updateCharacter: UpdateCharacterFunction
 }) {
   const [t] = useI18n()
 
@@ -113,8 +111,10 @@ export default function CharacterSheet({
             id="charname"
             label={t('character_name')}
             placeholder="Irene Wun Kmout"
-            value={character.name}
-            onChange={(name: string) => onChange({ name })}
+            value={props.character.name}
+            onChange={(name) =>
+              props.updateCharacter((character) => (character.name = name))
+            }
           />
         </div>
         <div class="misc">
@@ -122,56 +122,68 @@ export default function CharacterSheet({
             id="classlevel"
             label={t('class_and_level')}
             placeholder={`${t('wizard')} 2`}
-            value={`${character.class_} ${character.level}`}
+            value={`${props.character.class_} ${props.character.level}`}
             onChange={(classAndLevel: string) => {
-              const sanitizedInput = classAndLevel.trim()
-              const index = sanitizedInput.lastIndexOf(' ')
-              const [class_, level] = [
-                sanitizedInput.slice(0, index).trim(),
-                parseInt(sanitizedInput.slice(index).trim()) || 0,
-              ]
-              onChange({ class_, level })
+              props.updateCharacter((character) => {
+                const sanitizedInput = classAndLevel.trim()
+                const index = sanitizedInput.lastIndexOf(' ')
+                character.class_ = sanitizedInput.slice(0, index).trim()
+                character.level =
+                  parseInt(sanitizedInput.slice(index).trim()) || 0
+              })
             }}
           />
           <LabeledInput
             id="background"
             label={t('background')}
             placeholder={t('acolyte')}
-            value={character.data.background}
+            value={props.character.data.background}
             onChange={(background: string) =>
-              onChange({ data: { background } })
+              props.updateCharacter(
+                (character) => (character.data.background = background)
+              )
             }
           />
           <LabeledInput
             id="playername"
             label={t('player_name')}
             placeholder={t('player-mcplayerface')}
-            value={character.player.name}
+            value={props.character.player.name}
             onChange={(playername: string) =>
-              onChange({ player: { playername } })
+              props.updateCharacter(
+                (character) => (character.player.name = playername)
+              )
             }
           />
           <LabeledInput
             id="race"
             label={t('race')}
             placeholder={t('half-elf')}
-            value={character.data.race}
-            onChange={(race: string) => onChange({ data: { race } })}
+            value={props.character.data.race}
+            onChange={(race: string) =>
+              props.updateCharacter((character) => (character.data.race = race))
+            }
           />
           <LabeledInput
             id="alignment"
             label={t('alignment')}
             placeholder={t('lawful-good')}
-            value={character.data.alignment}
-            onChange={(alignment: string) => onChange({ data: { alignment } })}
+            value={props.character.data.alignment}
+            onChange={(alignment: string) =>
+              props.updateCharacter(
+                (character) => (character.data.alignment = alignment)
+              )
+            }
           />
           <LabeledInput
             id="experiencepoints"
             label={t('experience_points')}
             placeholder="3240"
-            value={character.data.xp}
+            value={props.character.data.xp.toString()}
             onChange={(experiencepoints: string) =>
-              onChange({ data: { xp: experiencepoints } })
+              props.updateCharacter(
+                (character) => (character.data.xp = parseInt(experiencepoints))
+              )
             }
           />
         </div>
@@ -196,12 +208,15 @@ export default function CharacterSheet({
                   {(attribute) => (
                     <ScoreBox
                       label={t(`${attribute}_abbr`)}
-                      score={character.data.abilities[attribute].score}
-                      modifier={character.data.abilities[attribute].modifier}
+                      score={props.character.data.abilities[attribute].score}
+                      modifier={
+                        props.character.data.abilities[attribute].modifier
+                      }
                       onChange={(score: number) =>
-                        onChange({
-                          data: { abilities: { [attribute]: { score } } },
-                        })
+                        props.updateCharacter(
+                          (character) =>
+                            (character.data.abilities[attribute].score = score)
+                        )
                       }
                     />
                   )}
@@ -219,7 +234,7 @@ export default function CharacterSheet({
               <input
                 name="inspiration"
                 type="checkbox"
-                checked={character.data['inspiration']}
+                checked={props.character.data['inspiration']}
               />
             </div>
             <div class="proficiencybonus box">
@@ -232,7 +247,7 @@ export default function CharacterSheet({
                 class="square-rounded"
                 name="proficiencybonus"
                 placeholder="+2"
-                value={character.data.proficiency_bonus}
+                value={props.character.data.proficiency_bonus}
               />
             </div>
             <LabeledBox label={t('saving_throws')}>
@@ -255,15 +270,15 @@ export default function CharacterSheet({
                         id={attribute}
                         label={t(attribute)}
                         proficiency={
-                          character.data.abilities[attribute].proficiency
+                          props.character.data.abilities[attribute].proficiency
                         }
-                        value={character.data.abilities[attribute].save}
-                        onChange={(proficiency: number) =>
-                          onChange({
-                            data: {
-                              abilities: { [attribute]: { proficiency } },
-                            },
-                          })
+                        value={props.character.data.abilities[attribute].save}
+                        onChange={(proficiency: Proficiency) =>
+                          props.updateCharacter(
+                            (character) =>
+                              (character.data.abilities[attribute].proficiency =
+                                proficiency)
+                          )
                         }
                       />
                     </li>
@@ -275,24 +290,36 @@ export default function CharacterSheet({
               <ul class="skills">
                 <For
                   each={[
-                    [t('acrobatics'), 'acrobatics', 'dexterity'],
-                    [t('animal_handling'), 'animal_handling', 'wisdom'],
-                    [t('arcana'), 'arcana', 'intelligence'],
-                    [t('athletics'), 'athletics', 'strength'],
-                    [t('deception'), 'deception', 'dexterity'],
-                    [t('history'), 'history', 'intelligence'],
-                    [t('insight'), 'insight', 'wisdom'],
-                    [t('intimidation'), 'intimidation', 'charisma'],
-                    [t('investigation'), 'investigation', 'intelligence'],
-                    [t('medicine'), 'medicine', 'wisdom'],
-                    [t('nature'), 'nature', 'intelligence'],
-                    [t('perception'), 'perception', 'wisdom'],
-                    [t('performance'), 'performance', 'charisma'],
-                    [t('persuasion'), 'persuasion', 'charisma'],
-                    [t('religion'), 'religion', 'intelligence'],
-                    [t('sleight_of_hand'), 'sleight_of_hand', 'dexterity'],
-                    [t('stealth'), 'stealth', 'dexterity'],
-                    [t('survival'), 'survival', 'wisdom'],
+                    [t('acrobatics'), 'acrobatics', 'dexterity'] as const,
+                    [
+                      t('animal_handling'),
+                      'animal_handling',
+                      'wisdom',
+                    ] as const,
+                    [t('arcana'), 'arcana', 'intelligence'] as const,
+                    [t('athletics'), 'athletics', 'strength'] as const,
+                    [t('deception'), 'deception', 'dexterity'] as const,
+                    [t('history'), 'history', 'intelligence'] as const,
+                    [t('insight'), 'insight', 'wisdom'] as const,
+                    [t('intimidation'), 'intimidation', 'charisma'] as const,
+                    [
+                      t('investigation'),
+                      'investigation',
+                      'intelligence',
+                    ] as const,
+                    [t('medicine'), 'medicine', 'wisdom'] as const,
+                    [t('nature'), 'nature', 'intelligence'] as const,
+                    [t('perception'), 'perception', 'wisdom'] as const,
+                    [t('performance'), 'performance', 'charisma'] as const,
+                    [t('persuasion'), 'persuasion', 'charisma'] as const,
+                    [t('religion'), 'religion', 'intelligence'] as const,
+                    [
+                      t('sleight_of_hand'),
+                      'sleight_of_hand',
+                      'dexterity',
+                    ] as const,
+                    [t('stealth'), 'stealth', 'dexterity'] as const,
+                    [t('survival'), 'survival', 'wisdom'] as const,
                   ].sort()}
                 >
                   {([label, attribute, secondary]) => (
@@ -301,16 +328,16 @@ export default function CharacterSheet({
                         id={attribute}
                         label={label}
                         proficiency={
-                          character.data.skills[attribute].proficiency
+                          props.character.data.skills[attribute].proficiency
                         }
                         labelSecondary={t(`${secondary}_abbr`)}
-                        value={character.data.skills[attribute].modifier}
-                        onChange={(proficiency: number) =>
-                          onChange({
-                            data: {
-                              skills: { [attribute]: { proficiency } },
-                            },
-                          })
+                        value={props.character.data.skills[attribute].modifier}
+                        onChange={(proficiency: Proficiency) =>
+                          props.updateCharacter(
+                            (character) =>
+                              (character.data.skills[attribute].proficiency =
+                                proficiency)
+                          )
                         }
                       />
                     </li>
@@ -334,7 +361,7 @@ export default function CharacterSheet({
                 class="square-rounded"
                 name="passiveperception"
                 placeholder="10"
-                value={character.data['passive_perception']}
+                value={props.character.data['passive_perception']}
               />
               <span class="tooltiptext" id="passiveperception-tooltip"></span>
             </div>
@@ -348,7 +375,7 @@ export default function CharacterSheet({
             <input
               name="darkvision"
               type="checkbox"
-              checked={character.data['darkvision']}
+              checked={props.character.data['darkvision']}
             />
           </div>
           <LabeledBox

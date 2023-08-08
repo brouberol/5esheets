@@ -1,12 +1,6 @@
 import { css } from 'solid-styled'
 
-export default function LabeledInput({
-  id,
-  label,
-  placeholder,
-  value,
-  onChange,
-}: {
+export default function LabeledInput(props: {
   id: string
   label: string
   placeholder: string
@@ -54,12 +48,12 @@ export default function LabeledInput({
 
   return (
     <div class="labeled-input">
-      <label for={id}>{label}</label>
+      <label for={props.id}>{props.label}</label>
       <input
-        name={id}
-        placeholder={placeholder}
-        value={value}
-        oninput={(event) => onChange(event.target.value)}
+        name={props.id}
+        placeholder={props.placeholder}
+        value={props.value}
+        oninput={(event) => props.onChange(event.target.value)}
       />
     </div>
   )

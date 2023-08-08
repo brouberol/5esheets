@@ -5,12 +5,13 @@
     "build": "vite build",
     "start": "vite",
     "serve": "vite preview",
-    "generate-client": "openapi --input ./openapi.json --output ./src/5esheets-client",
+    "generate-client": "openapi --useUnionTypes --input ./openapi.json --output ./src/5esheets-client",
     "generate-effect-parser": "peggy --plugin ./node_modules/ts-pegjs/dist/tspegjs -o src/effects/parser/index.ts src/effects/parser/grammar.pegjs",
     "test": "vitest --run",
     "lint": "eslint src",
     "prettier": "prettier -w .",
-    "prettier-check": "prettier -c ."
+    "prettier-check": "prettier -c .",
+    "typecheck": "tsc --noEmit"
   },
   "type": "module",
   "devDependencies": {

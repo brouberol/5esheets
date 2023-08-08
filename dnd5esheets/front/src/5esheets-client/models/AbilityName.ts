@@ -3,11 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum AbilityName {
-    CHARISMA = 'charisma',
-    CONSTITUTION = 'constitution',
-    DEXTERITY = 'dexterity',
-    INTELLIGENCE = 'intelligence',
-    STRENGTH = 'strength',
-    WISDOM = 'wisdom',
-}
+export type AbilityName = 'charisma' | 'constitution' | 'dexterity' | 'intelligence' | 'strength' | 'wisdom';

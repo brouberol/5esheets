@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum SpellCastingFocusType {
-    ARCANE = 'arcane',
-    DRUID = 'druid',
-}
+export type SpellCastingFocusType = 'arcane' | 'druid';

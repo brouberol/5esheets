@@ -1,7 +1,7 @@
-import { Component, JSX } from 'solid-js'
+import { JSX } from 'solid-js'
 import { css } from 'solid-styled'
 
-const BorderBox: Component<{ children: JSX.Element }> = ({ children }) => {
+const BorderBox = (props: { children: JSX.Element }) => {
   css`
     .outer-box {
       --border-top: 10mm;
@@ -42,7 +42,7 @@ const BorderBox: Component<{ children: JSX.Element }> = ({ children }) => {
 
   return (
     <div class="outer-box">
-      <div class="inner-box">{children}</div>
+      <div class="inner-box">{props.children}</div>
     </div>
   )
 }

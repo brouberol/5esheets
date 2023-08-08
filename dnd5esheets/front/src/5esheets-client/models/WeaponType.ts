@@ -3,16 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum WeaponType {
-    AXE = 'axe',
-    BOW = 'bow',
-    CLUB = 'club',
-    CROSSBOW = 'crossbow',
-    DAGGER = 'dagger',
-    HAMMER = 'hammer',
-    MACE = 'mace',
-    NET = 'net',
-    SPEAR = 'spear',
-    STAFF = 'staff',
-    SWORD = 'sword',
-}
+export type WeaponType = 'axe' | 'bow' | 'club' | 'crossbow' | 'dagger' | 'hammer' | 'mace' | 'net' | 'spear' | 'staff' | 'sword';

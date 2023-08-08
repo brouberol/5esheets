@@ -1,10 +1,7 @@
-import { Component, JSX } from 'solid-js'
+import { JSX } from 'solid-js'
 import { css } from 'solid-styled'
 
-const LabeledBox: Component<{ label: string; children?: JSX.Element }> = ({
-  label,
-  children,
-}) => {
+const LabeledBox = (props: { label: string; children?: JSX.Element }) => {
   css`
     .border-box, inner-box {
       height: 100%;
@@ -53,8 +50,8 @@ const LabeledBox: Component<{ label: string; children?: JSX.Element }> = ({
   return (
     <section class="border-box">
       <div class="inner-box">
-        <h1>{label}</h1>
-        {children}
+        <h1>{props.label}</h1>
+        {props.children}
       </div>
     </section>
   )
