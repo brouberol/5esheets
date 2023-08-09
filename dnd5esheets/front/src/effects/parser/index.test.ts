@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { parse } from '.'
 
 describe('effect parser', () => {

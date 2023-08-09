@@ -299,6 +299,7 @@ class CharacterStore {
       // TODO memo() also returns the effect history, but we need to store it somewhere else in the character,
       // to allow referencing derived attribute directly, rather than with .value at the end, e.g. data.scores.wisdom_mod.value
       createEffect(() => {
+        // @ts-ignore
         this.setCharacters(character.slug, ...path, memo().value)
       })
     }
