@@ -8,6 +8,7 @@ import ScoreBox from '~/components/ScoreBox'
 import ProficientAttribute from '~/components/ProficientAttribute'
 import LabeledBox from '~/components/LabeledBox'
 import LabeledInput from '~/components/LabeledInput'
+import TrayBox from '~/components/TrayBox'
 import { ResolvedCharacter, UpdateCharacterFunction } from '~/store'
 
 export default function CharacterSheet(props: {
@@ -205,17 +206,18 @@ export default function CharacterSheet(props: {
                     ] as const
                   }
                 >
-                  {(attribute) => (
+                  {(ability) => (
                     <ScoreBox
-                      label={t(`${attribute}_abbr`)}
-                      score={props.character.data.abilities[attribute].score}
+                      ability={ability}
+                      label={t(`${ability}_abbr`)}
+                      score={props.character.data.abilities[ability].score}
                       modifier={
-                        props.character.data.abilities[attribute].modifier
+                        props.character.data.abilities[ability].modifier
                       }
                       onChange={(score: number) =>
                         props.updateCharacter(
                           (character) =>
-                            (character.data.abilities[attribute].score = score)
+                            (character.data.abilities[ability].score = score)
                         )
                       }
                     />
@@ -225,31 +227,20 @@ export default function CharacterSheet(props: {
             </BorderBox>
           </div>
           <div class="attr-applications">
-            <div class="inspiration large-checkbox">
-              <div class="box-label-container">
-                <label class="subtitle" for="inspiration">
-                  {t('inspiration')}
-                </label>
-              </div>
-              <input
-                name="inspiration"
-                type="checkbox"
-                checked={props.character.data['inspiration']}
-              />
-            </div>
-            <div class="proficiencybonus box">
-              <div class="box-label-container">
-                <label class="subtitle" for="proficiencybonus">
-                  {t('proficiency_bonus')}
-                </label>
-              </div>
-              <input
-                class="square-rounded"
-                name="proficiencybonus"
-                placeholder="+2"
-                value={props.character.data.proficiency_bonus}
-              />
-            </div>
+            <TrayBox
+              label={t('inspiration')}
+              value={props.character.data.inspiration ? '✹' : ''}
+              onChange={() =>
+                props.updateCharacter(
+                  (character) =>
+                    (character.data.inspiration = !character.data.inspiration)
+                )
+              }
+            />
+            <TrayBox
+              label={t('proficiency_bonus')}
+              value={props.character.data.proficiency_bonus}
+            />
             <LabeledBox label={t('saving_throws')}>
               <ul class="saving_throws">
                 <For
@@ -264,19 +255,19 @@ export default function CharacterSheet(props: {
                     ] as const
                   }
                 >
-                  {(attribute) => (
+                  {(ability) => (
                     <li>
                       <ProficientAttribute
-                        id={attribute}
-                        label={t(attribute)}
+                        id={ability}
+                        label={t(ability)}
                         proficiency={
-                          props.character.data.abilities[attribute].proficiency
+                          props.character.data.abilities[ability].proficiency
                         }
-                        value={props.character.data.abilities[attribute].save}
+                        value={props.character.data.abilities[ability].save}
                         onChange={(proficiency: Proficiency) =>
                           props.updateCharacter(
                             (character) =>
-                              (character.data.abilities[attribute].proficiency =
+                              (character.data.abilities[ability].proficiency =
                                 proficiency)
                           )
                         }
@@ -322,20 +313,20 @@ export default function CharacterSheet(props: {
                     [t('survival'), 'survival', 'wisdom'] as const,
                   ].sort()}
                 >
-                  {([label, attribute, secondary]) => (
+                  {([label, skill, ability]) => (
                     <li>
                       <ProficientAttribute
-                        id={attribute}
+                        id={skill}
                         label={label}
                         proficiency={
-                          props.character.data.skills[attribute].proficiency
+                          props.character.data.skills[skill].proficiency
                         }
-                        labelSecondary={t(`${secondary}_abbr`)}
-                        value={props.character.data.skills[attribute].modifier}
+                        labelDerived={t(`${ability}_abbr`)}
+                        value={props.character.data.skills[skill].modifier}
                         onChange={(proficiency: Proficiency) =>
                           props.updateCharacter(
                             (character) =>
-                              (character.data.skills[attribute].proficiency =
+                              (character.data.skills[skill].proficiency =
                                 proficiency)
                           )
                         }
@@ -350,34 +341,20 @@ export default function CharacterSheet(props: {
       </section>
       <section class="proficiencies-and-languages flex-container">
         <div class="flex-container">
-          <div class="passive-perception box">
-            <div class="box-label-container">
-              <label class="subtitle" for="passiveperception">
-                {t('passive_perception')}
-              </label>
-            </div>
-            <div class="tooltip">
-              <input
-                class="square-rounded"
-                name="passiveperception"
-                placeholder="10"
-                value={props.character.data['passive_perception']}
-              />
-              <span class="tooltiptext" id="passiveperception-tooltip"></span>
-            </div>
-          </div>
-          <div class="darkvision large-checkbox">
-            <div class="box-label-container">
-              <label class="subtitle" for="darkvision">
-                {t('darkvision')}
-              </label>
-            </div>
-            <input
-              name="darkvision"
-              type="checkbox"
-              checked={props.character.data['darkvision']}
-            />
-          </div>
+          <TrayBox
+            label={t('passive_perception')}
+            value={props.character.data.passive_perception}
+          />
+          <TrayBox
+            label={t('darkvision')}
+            value={props.character.data.darkvision ? '☽' : ''}
+            onChange={() =>
+              props.updateCharacter(
+                (character) =>
+                  (character.data.darkvision = !character.data.darkvision)
+              )
+            }
+          />
           <LabeledBox
             label={t('other_proficiencies_and_languages')}
           ></LabeledBox>

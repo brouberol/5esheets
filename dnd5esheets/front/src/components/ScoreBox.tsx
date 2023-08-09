@@ -1,27 +1,18 @@
 import { css } from 'solid-styled'
 
 const ScoreBox = (props: {
+  ability: string
   label: string
   score: number
   modifier: number
   onChange: (update: number) => void
 }) => {
   css`
-    .score-box {
-      width: 16mm;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid black;
-      padding: 2mm 0;
-      gap: 2mm;
-      margin-bottom: 2mm;
-      align-items: center;
-    }
-
     label {
       text-transform: uppercase;
       font-size: 0.8rem;
       font-family: var(--font-family-headings);
+      font-weight: bold;
       text-align: center;
     }
 
@@ -29,26 +20,60 @@ const ScoreBox = (props: {
     .modifier {
       outline: none;
       text-align: center;
+      border: none;
+      background: none;
+      font-family: var(--font-family-text);
     }
 
     .score {
       font-size: 20pt;
       width: 100%;
-      border: none;
       background: none;
-      font-family: var(--font-family-text);
       overflow: visible;
     }
 
     .modifier {
-      width: 8mm;
-      height: 2rem;
-      margin-bottom: -1rem;
-      background: white;
-      border: 1px solid black;
-      line-height: 2rem;
+      width: 3rem;
       color: unset;
-      font-family: var(--font-family-text);
+
+      position: absolute;
+      bottom: 1.2mm;
+    }
+
+    .score-box {
+      background: no-repeat center;
+      background-size: 100% auto;
+
+      width: 19mm;
+      height: 22mm;
+      padding-top: 2mm;
+      padding-bottom: 1mm;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1mm;
+
+      position: relative;
+    }
+
+    .strength {
+      background: url(/assets/border-ability-strength.svg);
+    }
+    .dexterity {
+      background: url(/assets/border-ability-dexterity.svg);
+    }
+    .constitution {
+      background: url(/assets/border-ability-constitution.svg);
+    }
+    .intelligence {
+      background: url(/assets/border-ability-intelligence.svg);
+    }
+    .wisdom {
+      background: url(/assets/border-ability-wisdom.svg);
+    }
+    .charisma {
+      background: url(/assets/border-ability-charisma.svg);
     }
   `
 
@@ -65,7 +90,7 @@ const ScoreBox = (props: {
   }
 
   return (
-    <div class="score-box">
+    <div class={`score-box ${props.ability}`}>
       <label>{props.label}</label>
       <input
         class="score"
