@@ -37,15 +37,15 @@ def upgrade() -> None:
                 new.id,
                 'en',
                 new.name,
-                new.json_data ->> '$.meta.description'
+                json_extract(new.json_data, '$.meta.description')
             );
             INSERT INTO item_search_index (rowid, item_id, language, name, description)
                 SELECT
                     cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
-                    json_each.value ->> '$.name',
-                    json_each.value ->> '$.description'
+                    json_extract(json_each.value, '$.name'),
+                    json_extract(json_each.value, '$.description')
                 FROM json_each(json_extract(new.json_data, '$.meta.translations'));
         END;
         """,
@@ -57,7 +57,7 @@ def upgrade() -> None:
                 id,
                 'en',
                 name,
-                json_data ->> '$.meta.description'
+                json_extract(json_data, '$.meta.description')
             FROM item;
         """,
         """
@@ -66,8 +66,8 @@ def upgrade() -> None:
                 cast(hex(json_each.key) as integer) + item.id,
                 item.id,
                 json_each.key,
-                json_each.value ->> '$.name',
-                json_each.value ->> '$.description'
+                json_extract(json_each.value, '$.name'),
+                json_extract(json_each.value, '$.description')
             FROM item, json_each(json_extract(item.json_data, '$.meta.translations'));
         """,
         # Every time an item is deleted from DB, delete it from the search index
@@ -90,15 +90,15 @@ def upgrade() -> None:
                 new.id,
                 'en',
                 new.name,
-                new.json_data ->> '$.meta.description'
+                json_extract(new.json_data, '$.meta.description')
             );
             REPLACE INTO item_search_index (rowid, item_id, language, name, description)
                 SELECT
                     cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
-                    json_each.value ->> '$.name',
-                    json_each.value ->> '$.description'
+                    json_extract(json_each.value, '$.name'),
+                    json_extract(json_each.value, '$.description')
                 FROM json_each(json_extract(new.json_data, '$.meta.translations'));
         END
         """,
