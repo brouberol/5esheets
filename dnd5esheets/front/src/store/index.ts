@@ -260,7 +260,7 @@ class CharacterStore {
         name: 'base',
         priority: 10,
         ...computeEffect(
-          `spell_dc := 8 + data.scores[data.spellcasting_ability] + data.proficiency_bonus`,
+          `spell_dc := 8 + data.abilities[data.spellcasting_ability].modifier + data.proficiency_bonus`,
           character
         ),
       },
@@ -270,7 +270,7 @@ class CharacterStore {
         name: 'base',
         priority: 10,
         ...computeEffect(
-          `spell_attack_bonus := data.scores[data.spellcasting_ability] + data.proficiency_bonus`,
+          `spell_attack_bonus := data.abilities[data.spellcasting_ability].modifier + data.proficiency_bonus`,
           character
         ),
       },
