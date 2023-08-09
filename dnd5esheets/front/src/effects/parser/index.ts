@@ -103,11 +103,11 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         var s = this.location.start
         var offset_s =
           this.location.source &&
-            typeof this.location.source.offset === 'function'
+          typeof this.location.source.offset === 'function'
             ? // @ts-ignore
-            this.location.source.offset(s)
+              this.location.source.offset(s)
             : // @ts-ignore
-            s
+              s
         var loc =
           this.location.source + ':' + offset_s.line + ':' + offset_s.column
         if (src) {
@@ -145,9 +145,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           var escapedParts = expectation.parts.map(function (part) {
             return Array.isArray(part)
               ? // @ts-ignore
-              classEscape(part[0]) + '-' + classEscape(part[1])
+                classEscape(part[0]) + '-' + classEscape(part[1])
               : // @ts-ignore
-              classEscape(part)
+                classEscape(part)
           })
           return (
             '[' +
@@ -170,40 +170,36 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return ch.charCodeAt(0).toString(16).toUpperCase()
       }
       function literalEscape(s) {
-        return (
-          s
-            .replace(/\\/g, '\\\\')
-            .replace(/"/g, '\\"')
-            .replace(/\0/g, '\\0')
-            .replace(/\t/g, '\\t')
-            .replace(/\n/g, '\\n')
-            .replace(/\r/g, '\\r')
-            .replace(/[\x00-\x0F]/g, function (ch) {
-              return '\\x0' + hex(ch)
-            })
-            .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) {
-              return '\\x' + hex(ch)
-            })
-        )
+        return s
+          .replace(/\\/g, '\\\\')
+          .replace(/"/g, '\\"')
+          .replace(/\0/g, '\\0')
+          .replace(/\t/g, '\\t')
+          .replace(/\n/g, '\\n')
+          .replace(/\r/g, '\\r')
+          .replace(/[\x00-\x0F]/g, function (ch) {
+            return '\\x0' + hex(ch)
+          })
+          .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) {
+            return '\\x' + hex(ch)
+          })
       }
       function classEscape(s) {
-        return (
-          s
-            .replace(/\\/g, '\\\\')
-            .replace(/\]/g, '\\]')
-            .replace(/\^/g, '\\^')
-            .replace(/-/g, '\\-')
-            .replace(/\0/g, '\\0')
-            .replace(/\t/g, '\\t')
-            .replace(/\n/g, '\\n')
-            .replace(/\r/g, '\\r')
-            .replace(/[\x00-\x0F]/g, function (ch) {
-              return '\\x0' + hex(ch)
-            })
-            .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) {
-              return '\\x' + hex(ch)
-            })
-        )
+        return s
+          .replace(/\\/g, '\\\\')
+          .replace(/\]/g, '\\]')
+          .replace(/\^/g, '\\^')
+          .replace(/-/g, '\\-')
+          .replace(/\0/g, '\\0')
+          .replace(/\t/g, '\\t')
+          .replace(/\n/g, '\\n')
+          .replace(/\r/g, '\\r')
+          .replace(/[\x00-\x0F]/g, function (ch) {
+            return '\\x0' + hex(ch)
+          })
+          .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) {
+            return '\\x' + hex(ch)
+          })
       }
       function describeExpectation(expectation) {
         return DESCRIBE_EXPECTATION_FNS[expectation.type](expectation)
@@ -373,9 +369,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         location =
           location !== undefined
             ? // @ts-ignore
-            location
+              location
             : // @ts-ignore
-            peg$computeLocation(peg$savedPos, peg$currPos)
+              peg$computeLocation(peg$savedPos, peg$currPos)
         throw peg$buildStructuredError(
           [peg$otherExpectation(description)],
           input.substring(peg$savedPos, peg$currPos),
@@ -386,9 +382,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         location =
           location !== undefined
             ? // @ts-ignore
-            location
+              location
             : // @ts-ignore
-            peg$computeLocation(peg$savedPos, peg$currPos)
+              peg$computeLocation(peg$savedPos, peg$currPos)
         throw peg$buildSimpleError(message, location)
       }
       function peg$literalExpectation(text, ignoreCase) {
@@ -483,7 +479,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         )
       }
       function // @ts-ignore
-        peg$parseEffects() {
+      peg$parseEffects() {
         var s0, s1, s2, s3, s4, s5, s6, s7
         s0 = peg$currPos
         s1 = peg$parseEffectExpression()
@@ -548,7 +544,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseEffectExpression() {
+      peg$parseEffectExpression() {
         var s0, s1, s2, s3, s4, s5
         s0 = peg$currPos
         s1 = peg$parseMemberExpression()
@@ -576,7 +572,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseExpression() {
+      peg$parseExpression() {
         var s0, s1, s2, s3, s4, s5, s6, s7
         s0 = peg$currPos
         s1 = peg$parseTerm()
@@ -666,7 +662,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseTerm() {
+      peg$parseTerm() {
         var s0, s1, s2, s3, s4, s5, s6, s7
         s0 = peg$currPos
         s1 = peg$parseFactor()
@@ -756,7 +752,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseFactor() {
+      peg$parseFactor() {
         var s0, s1, s2, s3, s4, s5, s6, s7
         s0 = peg$currPos
         s1 = peg$parseGroup()
@@ -824,7 +820,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseGroup() {
+      peg$parseGroup() {
         var s0, s1, s2, s3
         s0 = peg$currPos
         s1 = peg$parse_()
@@ -839,7 +835,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parsePrimary() {
+      peg$parsePrimary() {
         var s0
         s0 = peg$parseParenthesizedExpression()
         if (s0 === peg$FAILED) {
@@ -854,7 +850,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseParenthesizedExpression() {
+      peg$parseParenthesizedExpression() {
         var s0, s1, s2, s3, s4, s5
         s0 = peg$currPos
         if (input.charCodeAt(peg$currPos) === 40) {
@@ -897,7 +893,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseFunctionExpression() {
+      peg$parseFunctionExpression() {
         var s0, s1, s2, s3
         s0 = peg$currPos
         s1 = peg$parseMemberExpression()
@@ -918,7 +914,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseCallExpression() {
+      peg$parseCallExpression() {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9
         s0 = peg$currPos
         if (input.charCodeAt(peg$currPos) === 40) {
@@ -1021,7 +1017,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseMemberExpression() {
+      peg$parseMemberExpression() {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9
         s0 = peg$currPos
         s1 = peg$parseIdentifier()
@@ -1173,7 +1169,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseIdentifier() {
+      peg$parseIdentifier() {
         var s0, s1, s2
         s0 = peg$currPos
         s1 = []
@@ -1210,7 +1206,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseNumericLiteral() {
+      peg$parseNumericLiteral() {
         var s0, s1, s2, s3, s4, s5, s6
         s0 = peg$currPos
         s1 = peg$parse_()
@@ -1293,7 +1289,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parseAssignmentOperator() {
+      peg$parseAssignmentOperator() {
         var s0
         if (input.substr(peg$currPos, 2) === peg$c12) {
           s0 = peg$c12
@@ -1351,7 +1347,7 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
         return s0
       }
       function // @ts-ignore
-        peg$parse_() {
+      peg$parse_() {
         var s0, s1
         peg$silentFails++
         s0 = []
@@ -1395,9 +1391,9 @@ const peggyParser: { parse: any; SyntaxError: any; DefaultTracer?: any } = // Ge
           peg$maxFailPos < input.length ? input.charAt(peg$maxFailPos) : null,
           peg$maxFailPos < input.length
             ? // @ts-ignore
-            peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
+              peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
             : // @ts-ignore
-            peg$computeLocation(peg$maxFailPos, peg$maxFailPos)
+              peg$computeLocation(peg$maxFailPos, peg$maxFailPos)
         )
       }
     }
