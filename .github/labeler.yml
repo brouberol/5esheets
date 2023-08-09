@@ -20,6 +20,9 @@ frontend:
         "!dnd5esheets/front/src/5esheets-client/**",
       ]
 
+i18n:
+  - dnd5esheets/front/src/i18n/**
+
 security:
   - dnd5esheets/security/*.py
 
