@@ -255,22 +255,22 @@ class CharacterStore {
         ),
       },
 
-      // spell DC effect
-      {
-        name: 'base',
-        priority: 10,
-        ...computeEffect(
-          `spell_dc := 8 + data.abilities[data.spellcasting_ability].modifier + data.proficiency_bonus`,
-          character
-        ),
-      },
-
       // spell attack bonus effect
       {
         name: 'base',
         priority: 10,
         ...computeEffect(
-          `spell_attack_bonus := data.abilities[data.spellcasting_ability].modifier + data.proficiency_bonus`,
+          `data.spell_attack_bonus := data.abilities[data.spellcasting_ability].modifier + data.proficiency_bonus`,
+          character
+        ),
+      },
+
+      // spell DC effect
+      {
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.spell_dc := 8 + data.spell_attack_bonus`,
           character
         ),
       },
