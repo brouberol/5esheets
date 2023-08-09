@@ -1,8 +1,11 @@
 import os
 import shutil
+from pathlib import Path
 from urllib.parse import urlparse
 
+import alembic
 import pytest_asyncio
+from alembic.config import Config
 from fastapi.testclient import TestClient
 from pytest import fixture
 
@@ -12,8 +15,10 @@ from dnd5esheets.cli import (
     _populate_db_with_dev_data,
     _populate_spells,
 )
-from dnd5esheets.db import create_session, engine
-from dnd5esheets.models import BaseModel, Character, Player
+from dnd5esheets.db import create_session
+from dnd5esheets.models import Character, Player
+
+current_dir = Path(__file__).parent
 
 
 @fixture(scope="session")
@@ -37,8 +42,12 @@ def client(app):
 
 @fixture(scope="session", autouse=True)
 def init_db(app):
-    # Create all tables
-    BaseModel.metadata.create_all(bind=engine)
+    # Create all tables by applying all migrations
+    # Note: we could do it with BaseModel.metadata.create_all(bind=engine)
+    # but that won't create the triggers, virtual tables, etc
+    alembic_cfg = Config(current_dir / "../../alembic.ini")
+    alembic_cfg.set_main_option("sqlalchemy.url", app.settings.DB_URI)
+    alembic.command.upgrade(alembic_cfg, "head")
 
     # Insert test data in the db
     _populate_base_items(silent=True)

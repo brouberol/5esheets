@@ -5,9 +5,9 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
-from typing import Type, cast
+from typing import Any, Sequence, Type, cast
 
-from sqlalchemy import select
+from sqlalchemy import Row, select, text
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -17,6 +17,15 @@ from dnd5esheets.models import BaseModel
 
 class BaseRepository:
     model: Type[BaseModel] = BaseModel
+    search_fields: list[str] = []
+
+    @classmethod
+    def search_index_table_name(cls):
+        if not cls.search_fields:
+            raise NotImplementedError(
+                f"Model {cls.model.__name__} does not have an associated search index"
+            )
+        return f"{cls.model.__tablename__}_search_index"
 
     @classmethod
     def raise_exc(cls, exc):
@@ -46,3 +55,19 @@ class BaseRepository:
         model = await cls.get_by_id(session, id=id)
         await session.delete(model)
         await session.commit()
+
+    @classmethod
+    async def _search(
+        cls, session: AsyncSession, search_term: str, sort_by_rank: bool = True
+    ) -> Sequence[Row[Any]]:
+        fields = ["rank"] + cls.search_fields
+        query = (
+            f"SELECT {', '.join(fields)} FROM {cls.search_index_table_name()} "
+            f"WHERE {cls.search_index_table_name()} MATCH :search_term "
+            f"{'ORDER BY rank' if sort_by_rank else ''};"
+        )
+        results = await session.execute(
+            text(query),
+            {"search_term": search_term},
+        )
+        return results.all()
