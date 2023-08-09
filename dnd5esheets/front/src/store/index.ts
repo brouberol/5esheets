@@ -299,6 +299,8 @@ class CharacterStore {
       // TODO memo() also returns the effect history, but we need to store it somewhere else in the character,
       // to allow referencing derived attribute directly, rather than with .value at the end, e.g. data.scores.wisdom_mod.value
       createEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this.setCharacters(character.slug, ...path, memo().value)
       })
     }
