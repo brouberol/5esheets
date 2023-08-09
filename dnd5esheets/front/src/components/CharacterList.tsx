@@ -1,17 +1,15 @@
 import { A } from '@solidjs/router'
 
-import { ListCharacterSchema } from '~/5esheet-client'
+import { Character } from '~/store'
 
-export default function CharacterList({
-  characters,
-}: {
-  characters: ListCharacterSchema[]
-}) {
+export default function CharacterList(props: { characters: Character[] }) {
   return (
     <ul>
-      {Object.values(characters).map(({ name, slug }) => (
+      {Object.values(props.characters).map((character) => (
         <li>
-          <A href={slug}>{name}</A>
+          <A href={character.slug}>
+            {character.name}: {character.class_} {character.level}
+          </A>
         </li>
       ))}
     </ul>

@@ -3,9 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum DurationUnit {
-    DAY = 'day',
-    HOUR = 'hour',
-    MINUTE = 'minute',
-    ROUND = 'round',
-}
+export type DurationUnit = 'day' | 'hour' | 'minute' | 'round';

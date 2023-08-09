@@ -1,12 +1,11 @@
-import { Component } from 'solid-js'
 import { css } from 'solid-styled'
 
-const ScoreBox: Component<{
+const ScoreBox = (props: {
   label: string
   score: number
   modifier: number
   onChange: (update: number) => void
-}> = (props) => {
+}) => {
   css`
     .score-box {
       width: 16mm;
@@ -61,6 +60,10 @@ const ScoreBox: Component<{
   const formatModifier = (mod: number): string =>
     mod > 0 ? `+${mod}` : `${mod}`
 
+  function isKeyOf<T extends object>(obj: T, key: PropertyKey): key is keyof T {
+    return Object.prototype.hasOwnProperty.call(obj, key)
+  }
+
   return (
     <div class="score-box">
       <label>{props.label}</label>
@@ -69,9 +72,10 @@ const ScoreBox: Component<{
         type="text"
         value={props.score}
         oninput={(event) => props.onChange(parseInt(event.target.value ?? '0'))}
-        onkeydown={(event) =>
-          event.key in actions &&
-          props.onChange(actions[event.key](props.score))
+        onkeydown={({ key }) =>
+          isKeyOf(actions, key)
+            ? props.onChange(actions[key](props.score))
+            : null
         }
       />
 

@@ -3,7 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum WeaponCategory {
-    SIMPLE = 'simple',
-    HEAVY = 'heavy',
-}
+export type WeaponCategory = 'simple' | 'heavy';

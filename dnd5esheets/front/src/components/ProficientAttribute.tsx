@@ -10,7 +10,7 @@ export default function ProficientAttribute(props: {
   labelSecondary?: string
   proficiency: Proficiency
   value: number
-  onChange: (update: number) => void
+  onChange: (update: Proficiency) => void
 }) {
   css`
     .attribute, .proficiency {
@@ -106,7 +106,7 @@ export default function ProficientAttribute(props: {
 
   const [highlight, setHighlight] = createSignal(false)
 
-  createEffect((prevTimeout?: number) => {
+  createEffect((prevTimeout?: ReturnType<typeof setTimeout>) => {
     props.value // needed to trigger the effect at each value change
     if (prevTimeout) {
       setHighlight(true)

@@ -3,8 +3,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export enum Proficiency {
-    '_0' = 0,
-    '_1' = 1,
-    '_2' = 2,
-}
+export type Proficiency = 0 | 1 | 2;
