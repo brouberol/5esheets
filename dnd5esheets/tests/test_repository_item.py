@@ -17,8 +17,8 @@ async def test_get_item_by_id(async_session):
 async def test_search_item(async_session):
     search_results = await ItemRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 2
-    result_item_ids = sorted([result.item_id for result in search_results])
-    assert result_item_ids == [1, 2]
+    result_resource_ids = sorted([result.resource_id for result in search_results])
+    assert result_resource_ids == [1, 2]
 
 
 @pytest.mark.asyncio
@@ -28,20 +28,20 @@ async def test_trigger_item_after_delete_and_insert(async_session):
     await async_session.commit()
     search_results = await ItemRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 1
-    result_item_ids = sorted([result.item_id for result in search_results])
-    assert result_item_ids == [2]
+    result_resource_ids = sorted([result.resource_id for result in search_results])
+    assert result_resource_ids == [2]
 
     _populate_base_items(silent=True)  # reinsert all items
     search_results = await ItemRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 2
-    result_item_ids = sorted([result.item_id for result in search_results])
-    assert result_item_ids == [1, 2]
+    result_resource_ids = sorted([result.resource_id for result in search_results])
+    assert result_resource_ids == [1, 2]
 
 
 @pytest.mark.asyncio
 async def test_trigger_iter_after_update(async_session):
     search_results = await ItemRepository.search(async_session, search_term="arrow")
-    arrow_search_result = [res for res in search_results if res.item_id == 1][0]
+    arrow_search_result = [res for res in search_results if res.resource_id == 1][0]
     assert arrow_search_result.description is None
 
     # Add a description to the item
@@ -54,7 +54,7 @@ async def test_trigger_iter_after_update(async_session):
 
     # Make sure the new description was propagated to the search index
     search_results = await ItemRepository.search(async_session, search_term="arrow")
-    arrow_search_result = [res for res in search_results if res.item_id == 1][0]
+    arrow_search_result = [res for res in search_results if res.resource_id == 1][0]
     assert arrow_search_result.description == "A very useful set of arrows"
 
 

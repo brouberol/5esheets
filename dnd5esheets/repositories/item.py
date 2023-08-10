@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-
+from pydantic.dataclasses import dataclass
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.models import Item
@@ -9,10 +8,10 @@ from dnd5esheets.repositories import BaseRepository
 @dataclass
 class ItemSearchResult:
     rank: float
-    item_id: int
+    resource_id: int
     language: str
     name: str
-    description: str
+    description: str | None
 
 
 class ItemRepository(BaseRepository):
