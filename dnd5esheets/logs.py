@@ -153,4 +153,9 @@ def setup_logging(app: ExtendedFastAPI):
     if app.settings.LOG_FORMAT != "uvicorn":
         logging.config.dictConfig(generate_logging_config(app))
     if app.settings.LOG_DEBUG:
-        __import__("logging_tree").printout()
+        try:
+            __import__("logging_tree").printout()
+        except ImportError:
+            logging.warning(
+                "The logging_tree module was not found. Skipping logging debug."
+            )
