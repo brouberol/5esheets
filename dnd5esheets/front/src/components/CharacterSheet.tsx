@@ -214,12 +214,15 @@ export default function CharacterSheet(props: {
                       modifier={
                         props.character.data.abilities[ability].modifier
                       }
-                      onChange={(score: number) =>
+                      onChange={(score: number) => {
+                        if (Number.isNaN(score)) {
+                          score = 0
+                        }
                         props.updateCharacter(
                           (character) =>
                             (character.data.abilities[ability].score = score)
                         )
-                      }
+                      }}
                     />
                   )}
                 </For>
