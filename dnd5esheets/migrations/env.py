@@ -5,6 +5,19 @@ from sqlalchemy import engine_from_config, pool
 
 from dnd5esheets.models import BaseModel
 
+
+def fts_index_tables(base: str) -> list[str]:
+    return [
+        f"{base}_search_index",
+        f"{base}_search_index_docsize",
+        f"{base}_search_index_idx",
+        f"{base}_search_index_data",
+        f"{base}_search_index_config",
+        f"{base}_search_index_content",
+    ]
+
+
+IGNORE_TABLES = fts_index_tables("item") + fts_index_tables("spell")
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -26,6 +39,18 @@ target_metadata = BaseModel.metadata
 # ... etc.
 
 
+def should_include_object(object, name, type_, reflected, compare_to):
+    """
+    Should you include this table or not?
+    """
+    if type_ == "table" and (
+        name in IGNORE_TABLES or object.info.get("skip_autogenerate", False)
+    ):
+        return False
+
+    return True
+
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
@@ -45,6 +70,7 @@ def run_migrations_offline() -> None:
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
         render_as_batch=True,
+        include_object=should_include_object,
     )
 
     with context.begin_transaction():
@@ -69,6 +95,7 @@ def run_migrations_online() -> None:
             connection=connection,
             target_metadata=target_metadata,
             render_as_batch=True,
+            include_object=should_include_object,
         )
 
         with context.begin_transaction():
