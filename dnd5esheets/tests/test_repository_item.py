@@ -77,3 +77,19 @@ async def test_search_item_with_limit(async_session):
         async_session, search_term="arm", limit=1
     )
     assert len(search_results) == 1
+
+
+@pytest.mark.asyncio
+async def test_search_item_via_specific_field(async_session):
+    search_results = await ItemRepository.search(
+        async_session, search_term="name:fleche"
+    )
+    assert len(search_results) == 1
+    assert search_results[0].name == "Flèche"
+
+    search_results = await ItemRepository.search(async_session, search_term="fleche")
+    assert len(search_results) == 2
+    assert sorted([r.name for r in search_results]) == [
+        "Arc long",
+        "Flèche",
+    ]
