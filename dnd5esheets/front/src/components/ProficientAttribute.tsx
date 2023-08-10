@@ -7,7 +7,7 @@ import { Proficiency } from '~/5esheets-client'
 export default function ProficientAttribute(props: {
   id: string
   label: string
-  labelSecondary?: string
+  labelDerived?: string
   proficiency: Proficiency
   value: number
   onChange: (update: Proficiency) => void
@@ -122,9 +122,9 @@ export default function ProficientAttribute(props: {
     <div class={`attribute ${highlight() ? 'highlight' : ''}`}>
       <label for={props.id} class="name">
         {props.label}
-        <Show when={props.labelSecondary}>
+        <Show when={props.labelDerived}>
           {' '}
-          <span class="secondary">({props.labelSecondary})</span>
+          <span class="secondary">({props.labelDerived})</span>
         </Show>
       </label>
       <input
