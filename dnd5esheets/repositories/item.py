@@ -24,11 +24,14 @@ class ItemRepository(BaseRepository):
         cls,
         session: AsyncSession,
         search_term: str,
+        limit: int = 10,
         favored_language: str | None = None,
     ) -> list[ItemSearchResult]:
         results = [
             ItemSearchResult(*result)
-            for result in await cls._search(session, search_term=search_term)
+            for result in await cls._search(
+                session, search_term=search_term, limit=limit
+            )
         ]
         if favored_language:
             results = sorted(

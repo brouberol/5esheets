@@ -60,10 +60,20 @@ async def test_trigger_iter_after_update(async_session):
 
 @pytest.mark.asyncio
 async def test_search_item_with_favored_language(async_session):
-    search_results = await ItemRepository.search(async_session, search_term="arm")
-    assert search_results[0].language == "fr"
+    search_results = await ItemRepository.search(async_session, search_term="chain")
+    assert search_results[0].language == "en"
 
-    search_results_favoring_en = await ItemRepository.search(
-        async_session, search_term="arm", favored_language="en"
+    search_results_favoring_fr = await ItemRepository.search(
+        async_session, search_term="arm", favored_language="fr"
     )
-    assert search_results_favoring_en[0].language == "en"
+    assert search_results_favoring_fr[0].language == "fr"
+
+
+@pytest.mark.asyncio
+async def test_search_item_with_limit(async_session):
+    search_results = await ItemRepository.search(async_session, search_term="arrow")
+    assert len(search_results) == 2
+    search_results = await ItemRepository.search(
+        async_session, search_term="arm", limit=1
+    )
+    assert len(search_results) == 1

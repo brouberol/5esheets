@@ -58,16 +58,20 @@ class BaseRepository:
 
     @classmethod
     async def _search(
-        cls, session: AsyncSession, search_term: str, sort_by_rank: bool = True
+        cls,
+        session: AsyncSession,
+        search_term: str,
+        limit: int,
+        sort_by_rank: bool = True,
     ) -> Sequence[Row[Any]]:
         fields = ["rank"] + cls.search_fields
         query = (
             f"SELECT {', '.join(fields)} FROM {cls.search_index_table_name()} "
             f"WHERE {cls.search_index_table_name()} MATCH :search_term "
-            f"{'ORDER BY rank' if sort_by_rank else ''};"
+            f"{'ORDER BY rank' if sort_by_rank else ''} LIMIT :limit;"
         )
         results = await session.execute(
             text(query),
-            {"search_term": search_term},
+            {"search_term": search_term, "limit": limit},
         )
         return results.all()
