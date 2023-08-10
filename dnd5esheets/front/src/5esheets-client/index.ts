@@ -42,6 +42,7 @@ export type { ResourceTranslation } from './models/ResourceTranslation';
 export type { RestrictedKnownSpellSchema } from './models/RestrictedKnownSpellSchema';
 export type { RestrictedSpellData } from './models/RestrictedSpellData';
 export type { RestrictedSpellSchema } from './models/RestrictedSpellSchema';
+export type { SearchResult } from './models/SearchResult';
 export type { Skill } from './models/Skill';
 export type { Skills } from './models/Skills';
 export type { SpellCasting } from './models/SpellCasting';

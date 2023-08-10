@@ -512,5 +512,12 @@ class UpdateCharacterSchema(BaseUpdateSchema):
     )
 
 
+class SearchResult(BaseSchema):
+    rank: float
+    resource_id: int
+    language: str
+    name: str
+
+
 DisplayPlayerSchema.model_rebuild()
 DisplayPartySchema.model_rebuild()

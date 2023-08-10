@@ -1073,6 +1073,78 @@
         }
       }
     },
+    "/api/item/search": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "Search Items",
+        "operationId": "search_items",
+        "parameters": [
+          {
+            "name": "search_term",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Search Term"
+            }
+          },
+          {
+            "name": "favored_language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Favored Language"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchResult"
+                  },
+                  "title": "Response Item-Search Items"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/item/{id}": {
       "get": {
         "tags": [
@@ -2508,6 +2580,34 @@
           "data"
         ],
         "title": "RestrictedSpellSchema"
+      },
+      "SearchResult": {
+        "properties": {
+          "rank": {
+            "type": "number",
+            "title": "Rank"
+          },
+          "resource_id": {
+            "type": "integer",
+            "title": "Resource Id"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "resource_id",
+          "language",
+          "name"
+        ],
+        "title": "SearchResult"
       },
       "Skill": {
         "properties": {
