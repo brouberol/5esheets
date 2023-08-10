@@ -162,4 +162,4 @@ trash-env:  ## Delete all js dependencies and the python virtualenv
 	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
 
 help:  ## Display help
-	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?##"}; {printf "\033[36m%-26s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | ./scripts/format_makefile.py
