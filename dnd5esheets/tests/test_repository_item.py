@@ -74,7 +74,7 @@ async def test_search_item_with_limit(async_session):
     search_results = await ItemRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 2
     search_results = await ItemRepository.search(
-        async_session, search_term="arm", limit=1
+        async_session, search_term="arrow", limit=1
     )
     assert len(search_results) == 1
 
