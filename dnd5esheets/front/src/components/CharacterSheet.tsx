@@ -217,7 +217,8 @@ export default function CharacterSheet(props: {
                       onChange={(score: number) => {
                         props.updateCharacter(
                           (character) =>
-                            (character.data.abilities[ability].score = Number.isNaN(score) ? 0 : score)
+                            (character.data.abilities[ability].score =
+                              Number.isNaN(score) ? 0 : score)
                         )
                       }}
                     />
