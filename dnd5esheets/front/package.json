@@ -22,7 +22,7 @@
     "@solidjs/testing-library": "^0.8.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/debug": "^4.1.7",
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^9.0.0",
