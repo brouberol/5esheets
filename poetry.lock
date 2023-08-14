@@ -1482,13 +1482,13 @@ files = [
 
 [[package]]
 name = "sqladmin"
-version = "0.13.0"
+version = "0.14.1"
 description = "SQLAlchemy admin for FastAPI and Starlette"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "sqladmin-0.13.0-py3-none-any.whl", hash = "sha256:5d5a3f2b68f9017d99adea08672a8a15892eaff2d4c1427caed417f3c148b8e3"},
-    {file = "sqladmin-0.13.0.tar.gz", hash = "sha256:7a7b54fe179022e1f08861205a2b953b6b9737e1624b4b4164afeb9af93edeb7"},
+    {file = "sqladmin-0.14.1-py3-none-any.whl", hash = "sha256:aa4c802151b28f0cc4953af475647dcaecb7ba817115451e75a02f71f0af08dc"},
+    {file = "sqladmin-0.14.1.tar.gz", hash = "sha256:e1953452b4e49b57164de8fc8bd8081af7f66eb497edbe19f5aae4c9b5e84f2d"},
 ]
 
 [package.dependencies]
@@ -1888,4 +1888,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "5d4e4ffefb6bba5269ea4deb4138684aa49ee5d6bd5eee02d7aa5a86ef04049d"
+content-hash = "b800451ac00c4aab63dab465f2cb8268185f857ecb2abc95f877ca84c6cf0d3f"
