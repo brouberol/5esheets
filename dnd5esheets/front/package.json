@@ -20,7 +20,7 @@
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.2",
     "@solidjs/testing-library": "^0.8.4",
-    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
     "@types/debug": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
