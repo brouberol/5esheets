@@ -12,10 +12,10 @@ updates:
     groups:
       python:
         patterns:
-        - *
+        - "*"
         exclude-patterns:
-        - fastapi
-        - pydantic
+        - "fastapi"
+        - "pydantic"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -28,6 +28,6 @@ updates:
     groups:
       js:
         patterns:
-        - *
+        - "*"
         exclude-patterns:
         - "@solidjs/*"
