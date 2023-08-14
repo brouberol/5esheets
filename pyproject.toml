@@ -29,7 +29,7 @@ asgi-correlation-id = "^4.2.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.4.1"
-ruff = "^0.0.282"
+ruff = "^0.0.284"
 black = "^23.7.0"
 types-passlib = "^1.7.7.12"
 pytest = "^7.4.0"
