@@ -15,5 +15,12 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     testTransformMode: { web: ['/.[jt]sx?$/'] },
+    deps: {
+      optimizer: {
+        web: {
+          include: ['src/**/*.ts', 'src/**/*.tsx'],
+        },
+      },
+    },
   },
 })
