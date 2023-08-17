@@ -1585,85 +1585,6 @@
         "title": "CharacterSchemaNoEmbeddedFields",
         "description": "The details of a character, excluding the party"
       },
-      "CharacterSchemaNoPlayer": {
-        "properties": {
-          "id": {
-            "type": "integer",
-            "minimum": 1.0,
-            "title": "The character primary key in database"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 255,
-            "title": "The character name"
-          },
-          "slug": {
-            "type": "string",
-            "maxLength": 255,
-            "title": "The character slug, used to identify it in the API"
-          },
-          "class_": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 80
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "The character class"
-          },
-          "level": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "maximum": 20.0,
-                "minimum": 1.0
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "The character level"
-          },
-          "party": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PartySchema"
-              }
-            ],
-            "title": "The embedded character's party schema"
-          },
-          "equipment": {
-            "items": {
-              "$ref": "#/components/schemas/EquippedItemSchema"
-            },
-            "type": "array",
-            "title": "The character's equipment"
-          },
-          "spellbook": {
-            "items": {
-              "$ref": "#/components/schemas/RestrictedKnownSpellSchema"
-            },
-            "type": "array",
-            "title": "The character's spellbook content"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "name",
-          "slug",
-          "class_",
-          "level",
-          "party",
-          "equipment",
-          "spellbook"
-        ],
-        "title": "CharacterSchemaNoPlayer",
-        "description": "The details of a character, excluding the player"
-      },
       "CharacterSheet": {
         "properties": {
           "abilities": {
@@ -1913,9 +1834,16 @@
             "maxLength": 255,
             "title": "The player name"
           },
+          "player_roles": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerRole"
+            },
+            "type": "array",
+            "title": "Player Roles"
+          },
           "characters": {
             "items": {
-              "$ref": "#/components/schemas/CharacterSchemaNoPlayer"
+              "$ref": "#/components/schemas/RestrictedCharacterSchema"
             },
             "type": "array",
             "title": "The player's characters"
@@ -1925,6 +1853,7 @@
         "required": [
           "id",
           "name",
+          "player_roles",
           "characters"
         ],
         "title": "DisplayPlayerSchema",
@@ -2490,6 +2419,25 @@
         "title": "PartySchema",
         "description": "The basic details of a party"
       },
+      "PlayerRole": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "party_id": {
+            "type": "integer",
+            "title": "Party Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role",
+          "party_id"
+        ],
+        "title": "PlayerRole",
+        "description": "The details of a player role"
+      },
       "PlayerSchema": {
         "properties": {
           "id": {
@@ -2501,12 +2449,20 @@
             "type": "string",
             "maxLength": 255,
             "title": "The player name"
+          },
+          "player_roles": {
+            "items": {
+              "$ref": "#/components/schemas/PlayerRole"
+            },
+            "type": "array",
+            "title": "Player Roles"
           }
         },
         "type": "object",
         "required": [
           "id",
-          "name"
+          "name",
+          "player_roles"
         ],
         "title": "PlayerSchema",
         "description": "The basic details of a player"
@@ -2556,6 +2512,69 @@
           "description"
         ],
         "title": "ResourceTranslation"
+      },
+      "RestrictedCharacterSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "The character primary key in database"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The character name"
+          },
+          "slug": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "The character slug, used to identify it in the API"
+          },
+          "class_": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "The character class"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 20.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "The character level"
+          },
+          "party": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PartySchema"
+              }
+            ],
+            "title": "The embedded character's party schema"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "class_",
+          "level",
+          "party"
+        ],
+        "title": "RestrictedCharacterSchema",
+        "description": "The details of a character, excluding the player"
       },
       "RestrictedKnownSpellSchema": {
         "properties": {

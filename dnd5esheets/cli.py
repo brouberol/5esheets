@@ -13,6 +13,7 @@ from dnd5esheets.models import (
     KnownSpell,
     Party,
     Player,
+    PlayerRole,
     Spell,
 )
 
@@ -106,6 +107,12 @@ def _populate_db_with_dev_data(silent: bool = False):
             session.merge(party)
             if not silent:
                 click.echo(f"Party {party} saved")
+
+        for player_role_attrs in dev_fixtures["player_roles"]:
+            player_role = PlayerRole(**player_role_attrs)
+            session.merge(player_role)
+            if not silent:
+                click.echo(f"PlayerRole {player_role} saved")
 
         for character_attrs in dev_fixtures["characters"]:
             character = Character(

@@ -290,17 +290,27 @@ class RestrictedKnownSpellSchema(BaseORMSchema):
     spell: RestrictedSpellSchema = Field(title="The spell details")
 
 
+class PlayerRole(BaseORMSchema):
+    """The details of a player role"""
+
+    role: str
+    party_id: int
+
+
 class PlayerSchema(BaseORMSchema):
     """The basic details of a player"""
 
     id: int = Field(ge=1, title="The player primary key in database")
     name: str = Field(max_length=255, title="The player name")
+    player_roles: list[PlayerRole]
 
 
 class DisplayPlayerSchema(PlayerSchema):
     """A player details including the list of their characters"""
 
-    characters: list["CharacterSchemaNoPlayer"] = Field(title="The player's characters")
+    characters: list["RestrictedCharacterSchema"] = Field(
+        title="The player's characters"
+    )
 
 
 class UpdatePlayerSchema(BaseUpdateSchema):
@@ -473,11 +483,13 @@ class CreateCharacterSchema(BaseORMSchema):
     party_id: int = Field(title="The character's party id")
 
 
-class CharacterSchemaNoPlayer(CharacterSchema):
+class RestrictedCharacterSchema(CharacterSchema):
     """The details of a character, excluding the player"""
 
     player: PlayerSchema = Field(exclude=True)
-    data: dict = Field(exclude=True)  # type: ignore
+    data: CharacterSheet = Field(exclude=True)
+    equipment: list[EquippedItemSchema] = Field(exclude=True)
+    spellbook: list[RestrictedKnownSpellSchema] = Field(exclude=True)
 
 
 class CharacterSchemaNoEmbeddedFields(BaseSchema):

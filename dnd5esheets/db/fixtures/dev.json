@@ -26,6 +26,32 @@
       "hashed_password": "$2b$12$JoYFBGO5rjhS5YS2sWF0eOYfWN1b1rHT/x0Yy1ukTaYHVOQHC2bUq"
     }
   ],
+  "player_roles": [
+    {
+      "id": 1,
+      "player_id": 1,
+      "party_id": 1,
+      "role": "gm"
+    },
+    {
+      "id": 2,
+      "player_id": 2,
+      "party_id": 1,
+      "role": "player"
+    },
+    {
+      "id": 3,
+      "player_id": 3,
+      "party_id": 1,
+      "role": "player"
+    },
+    {
+      "id": 4,
+      "player_id": 4,
+      "party_id": 1,
+      "role": "player"
+    }
+  ],
   "parties": [
     {
       "id": 1,
