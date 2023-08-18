@@ -317,7 +317,7 @@ class PartySchema(BaseORMSchema):
 class DisplayPartySchema(PartySchema):
     """A party details, including the members"""
 
-    members: list["CharacterSchemaNoPartyNoData"] = Field(title="The party members")
+    members: list["CharacterSchemaNoEmbeddedFields"] = Field(title="The party members")
 
 
 class UpdatePartySchema(BaseUpdateSchema):
@@ -480,11 +480,17 @@ class CharacterSchemaNoPlayer(CharacterSchema):
     data: dict = Field(exclude=True)  # type: ignore
 
 
-class CharacterSchemaNoPartyNoData(CharacterSchema):
+class CharacterSchemaNoEmbeddedFields(BaseSchema):
     """The details of a character, excluding the party"""
 
-    party: PartySchema = Field(exclude=True)
-    data: dict = Field(exclude=True)  # type: ignore
+    id: int = Field(ge=1, title="The character primary key in database")
+    name: str = Field(max_length=255, title="The character name")
+    slug: str = Field(
+        max_length=255, title="The character slug, used to identify it in the API"
+    )
+    class_: str | None = Field(max_length=80, title="The character class", default=None)
+    level: int | None = Field(ge=1, le=20, title="The character level", default=None)
+    player: PlayerSchema = Field(title="The embedded character's player schema")
 
 
 class ListCharacterSchema(BaseORMSchema):

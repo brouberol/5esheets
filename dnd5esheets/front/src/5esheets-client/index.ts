@@ -13,7 +13,7 @@ export type { AbilityName } from './models/AbilityName';
 export type { Attack } from './models/Attack';
 export type { Body_login_login_for_access_token } from './models/Body_login_login_for_access_token';
 export type { CharacterSchema } from './models/CharacterSchema';
-export type { CharacterSchemaNoPartyNoData } from './models/CharacterSchemaNoPartyNoData';
+export type { CharacterSchemaNoEmbeddedFields } from './models/CharacterSchemaNoEmbeddedFields';
 export type { CharacterSchemaNoPlayer } from './models/CharacterSchemaNoPlayer';
 export type { CharacterSheet } from './models/CharacterSheet';
 export type { CreateCharacterSchema } from './models/CreateCharacterSchema';

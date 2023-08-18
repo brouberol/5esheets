@@ -1522,7 +1522,7 @@
         "title": "CharacterSchema",
         "description": "All details associated with a character"
       },
-      "CharacterSchemaNoPartyNoData": {
+      "CharacterSchemaNoEmbeddedFields": {
         "properties": {
           "id": {
             "type": "integer",
@@ -1571,20 +1571,6 @@
               }
             ],
             "title": "The embedded character's player schema"
-          },
-          "equipment": {
-            "items": {
-              "$ref": "#/components/schemas/EquippedItemSchema"
-            },
-            "type": "array",
-            "title": "The character's equipment"
-          },
-          "spellbook": {
-            "items": {
-              "$ref": "#/components/schemas/RestrictedKnownSpellSchema"
-            },
-            "type": "array",
-            "title": "The character's spellbook content"
           }
         },
         "type": "object",
@@ -1594,11 +1580,9 @@
           "slug",
           "class_",
           "level",
-          "player",
-          "equipment",
-          "spellbook"
+          "player"
         ],
-        "title": "CharacterSchemaNoPartyNoData",
+        "title": "CharacterSchemaNoEmbeddedFields",
         "description": "The details of a character, excluding the party"
       },
       "CharacterSchemaNoPlayer": {
@@ -1902,7 +1886,7 @@
           },
           "members": {
             "items": {
-              "$ref": "#/components/schemas/CharacterSchemaNoPartyNoData"
+              "$ref": "#/components/schemas/CharacterSchemaNoEmbeddedFields"
             },
             "type": "array",
             "title": "The party members"
