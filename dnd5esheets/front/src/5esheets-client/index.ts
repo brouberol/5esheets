@@ -43,6 +43,7 @@ export type { RestrictedCharacterSchema } from './models/RestrictedCharacterSche
 export type { RestrictedKnownSpellSchema } from './models/RestrictedKnownSpellSchema';
 export type { RestrictedSpellData } from './models/RestrictedSpellData';
 export type { RestrictedSpellSchema } from './models/RestrictedSpellSchema';
+export type { Role } from './models/Role';
 export type { SearchResult } from './models/SearchResult';
 export type { Skill } from './models/Skill';
 export type { Skills } from './models/Skills';

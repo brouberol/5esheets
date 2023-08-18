@@ -8,6 +8,8 @@ from typing import Optional
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict, Field, computed_field
 
+from dnd5esheets.models import Role
+
 
 class BaseUpdateSchema(BaseSchema, extra="forbid"):
     ...
@@ -293,7 +295,7 @@ class RestrictedKnownSpellSchema(BaseORMSchema):
 class PlayerRole(BaseORMSchema):
     """The details of a player role"""
 
-    role: str
+    role: Role
     party_id: int
 
 

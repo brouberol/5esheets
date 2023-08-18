@@ -3,11 +3,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Role } from './Role';
+
 /**
  * The details of a player role
  */
 export type PlayerRole = {
-    role: string;
+    role: Role;
     party_id: number;
 };
 

@@ -2422,8 +2422,7 @@
       "PlayerRole": {
         "properties": {
           "role": {
-            "type": "string",
-            "title": "Role"
+            "$ref": "#/components/schemas/Role"
           },
           "party_id": {
             "type": "integer",
@@ -2655,6 +2654,14 @@
           "data"
         ],
         "title": "RestrictedSpellSchema"
+      },
+      "Role": {
+        "type": "string",
+        "enum": [
+          "player",
+          "gm"
+        ],
+        "title": "Role"
       },
       "SearchResult": {
         "properties": {
