@@ -22,6 +22,7 @@ from dnd5esheets.models import (
     KnownSpell,
     Party,
     Player,
+    PlayerRole,
     Spell,
 )
 
@@ -76,12 +77,19 @@ class PartyAdmin(ModelView, model=Party):
 
 
 class PlayerAdmin(ModelView, model=Player):
-    column_list = [Player.id, Player.name, Player.email, Player.characters]
+    column_list = [
+        Player.id,
+        Player.name,
+        Player.email,
+        Player.characters,
+        Player.player_roles,
+    ]
     column_searchable_list = [Player.name, Player.email]
     column_details_exclude_list = base_excluded_columns(Player) + [
         Player.hashed_password
     ]
     form_excluded_columns = base_excluded_columns(Player) + [Player.hashed_password]
+    column_labels = {Player.player_roles: "roles"}
 
 
 class ItemAdmin(ModelView, model=Item):
@@ -130,6 +138,17 @@ class SpellAdmin(ModelView, model=Spell):
     details_template = "details_custom.html"
     column_formatters_detail = _column_formatters  # type: ignore
     column_formatters = _column_formatters  # type: ignore
+
+
+class PlayerRoleAdmin(ModelView, model=PlayerRole):
+    column_list = [
+        PlayerRole.id,
+        PlayerRole.party,
+        PlayerRole.player,
+        PlayerRole.role,
+    ]
+    column_details_exclude_list = base_excluded_columns(PlayerRole)
+    form_excluded_columns = base_excluded_columns(PlayerRole)
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:

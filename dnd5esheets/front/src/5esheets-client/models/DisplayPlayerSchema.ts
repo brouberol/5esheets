@@ -3,7 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacterSchemaNoPlayer } from './CharacterSchemaNoPlayer';
+import type { PlayerRole } from './PlayerRole';
+import type { RestrictedCharacterSchema } from './RestrictedCharacterSchema';
 
 /**
  * A player details including the list of their characters
@@ -11,6 +12,7 @@ import type { CharacterSchemaNoPlayer } from './CharacterSchemaNoPlayer';
 export type DisplayPlayerSchema = {
     id: number;
     name: string;
-    characters: Array<CharacterSchemaNoPlayer>;
+    player_roles: Array<PlayerRole>;
+    characters: Array<RestrictedCharacterSchema>;
 };
 

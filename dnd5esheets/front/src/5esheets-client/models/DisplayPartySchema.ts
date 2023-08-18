@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CharacterSchemaNoPartyNoData } from './CharacterSchemaNoPartyNoData';
+import type { CharacterSchemaNoEmbeddedFields } from './CharacterSchemaNoEmbeddedFields';
 
 /**
  * A party details, including the members
@@ -11,6 +11,6 @@ import type { CharacterSchemaNoPartyNoData } from './CharacterSchemaNoPartyNoDat
 export type DisplayPartySchema = {
     id: number;
     name: string;
-    members: Array<CharacterSchemaNoPartyNoData>;
+    members: Array<CharacterSchemaNoEmbeddedFields>;
 };
 
