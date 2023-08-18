@@ -168,6 +168,7 @@ class Player(NameReprMixin, BaseModel):
     player_roles: Mapped[list["PlayerRole"]] = relationship(
         back_populates="player",
         cascade="all, delete-orphan",
+        lazy="selectin",
     )
 
 
@@ -224,18 +225,26 @@ class Character(NameReprMixin, BaseModel):
         back_populates="characters",
         # always load the player via a joinedload
         lazy="joined",
+        join_depth=2,
     )
     party_id: Mapped[int] = mapped_column(ForeignKey("party.id"))
     party: Mapped[Party] = relationship(
         back_populates="members",
         # always load the party via a joinedload
         lazy="joined",
+        join_depth=2,
     )
     equipment: Mapped[list[EquippedItem]] = relationship(
-        back_populates="owner", lazy="selectin", cascade="all, delete-orphan"
+        back_populates="owner",
+        lazy="selectin",
+        cascade="all, delete-orphan",
+        join_depth=2,
     )
     spellbook: Mapped[list[KnownSpell]] = relationship(
-        back_populates="caster", lazy="selectin", cascade="all, delete-orphan"
+        back_populates="caster",
+        lazy="selectin",
+        cascade="all, delete-orphan",
+        join_depth=2,
     )
     __table_args__ = (
         UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),

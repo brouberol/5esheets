@@ -5,14 +5,20 @@ def test_list_characters(client):
     data = assert_status_and_return_data(client.get, "/api/character/", status_code=200)
 
     assert len(data) == 1
-
     assert data[0] == {
         "class_": "Artilleur",
         "id": 1,
         "level": 4,
         "name": "Douglas McTrickfoot",
-        "party": {"id": 1, "name": "Famille McTrickfoot"},
-        "player": {"id": 1, "name": "Balthazar"},
+        "party": {
+            "id": 1,
+            "name": "Famille McTrickfoot",
+        },
+        "player": {
+            "id": 1,
+            "name": "Balthazar",
+            "player_roles": [{"party_id": 1, "role": "gm"}],
+        },
         "slug": "douglas-mctrickfoot",
     }
 
@@ -24,8 +30,15 @@ def test_describe_character(client):
     assert "equipment" in data
     assert len(data["equipment"]) == 1
     assert "data" in data
-    assert data["party"] == {"id": 1, "name": "Famille McTrickfoot"}
-    assert data["player"] == {"id": 1, "name": "Balthazar"}
+    assert data["party"] == {
+        "id": 1,
+        "name": "Famille McTrickfoot",
+    }
+    assert data["player"] == {
+        "id": 1,
+        "name": "Balthazar",
+        "player_roles": [{"party_id": 1, "role": "gm"}],
+    }
 
 
 def test_update_characters(client):
