@@ -39,6 +39,7 @@ types-python-slugify = "^8.0.0.2"
 pytest-asyncio = "^0.21.1"
 logging-tree = "^1.9"
 rich = "^13.5.2"
+sqla-graphs = { git = "https://github.com/edelooff/sqla-graphs.git" }
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
