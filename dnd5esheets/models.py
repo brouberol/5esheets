@@ -287,7 +287,7 @@ class PlayerRole(BaseModel):
     )
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} {self.party.name}/{self.player.name}: {self.role}"
+        return f"<{self.__class__.__name__} {self.party.name}/{self.player.name}: {self.role}>"
 
     def __str__(self):
         if self.party:
