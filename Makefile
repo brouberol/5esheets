@@ -24,6 +24,8 @@ $(app-root)/schemas.py:
 
 $(wildcard $(app-root)/api/*.py):
 
+$(app-root)/models.py:
+
 pyproject.toml:
 
 poetry.lock: pyproject.toml
@@ -33,6 +35,10 @@ poetry.lock: pyproject.toml
 requirements.txt: poetry.lock
 	@echo "\n[+] Updating requirements.txt"
 	@poetry export --without=dev -o requirements.txt
+
+model_graph.png: $(app-root)/models.py
+	@echo "\n[+] Generating SQL model graph"
+	@$(python) scripts/generate_model_graph.py
 
 $(front-root)/package-lock.json: $(front-root)/package.json
 
@@ -60,7 +66,7 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: data front-build  ## Build the application
+build: model_graph.png data front-build  ## Build the application
 
 back-check: black mypy ruff
 
