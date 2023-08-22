@@ -186,6 +186,10 @@ class Item(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     data: Mapped[str] = mapped_column(Json, name="json_data")
 
+    @property
+    def five_e_tools_url(self):
+        return f"https://5e.tools/items.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+
 
 class EquippedItem(BaseModel):
     amount: Mapped[int] = mapped_column(Integer, default=1)

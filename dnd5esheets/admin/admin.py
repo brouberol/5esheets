@@ -128,7 +128,11 @@ class PlayerAdmin(ModelView, model=Player):
     column_labels = {Player.player_roles: "roles"}
 
 
-class ItemAdmin(ModelView, model=Item):
+class ItemAdmin(CustomModelView, model=Item):
+    _column_formatters = {
+        "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
+    }
+    column_labels = {"five_e_tools_url": "5e.tools URL"}
     page_size = 30
     column_searchable_list = [Item.name]
     column_list = [Item.id, Item.name]
@@ -136,6 +140,8 @@ class ItemAdmin(ModelView, model=Item):
     form_excluded_columns = base_excluded_columns(Item)
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
+    column_formatters_detail = _column_formatters  # type: ignore
+    column_formatters = _column_formatters  # type: ignore
 
 
 class EquippedItemAdmin(ModelView, model=EquippedItem):
