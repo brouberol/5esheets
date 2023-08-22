@@ -7,7 +7,7 @@ from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
 
 @pytest.mark.asyncio
 async def test_list_all_no_owner(async_session):
-    assert len(await CharacterRepository.list_all(async_session)) == 4
+    assert len(await CharacterRepository.list_all(async_session)) == 6
 
 
 @pytest.mark.asyncio
@@ -142,9 +142,7 @@ async def test_delete_character(async_session):
         async_session, slug="douglas-mctrickfoot"
     )
     assert douglas is not None
-    await CharacterRepository.delete(
-        async_session, slug="douglas-mctrickfoot", owner_id=1
-    )
+    await CharacterRepository.delete(async_session, slug="douglas-mctrickfoot")
     with pytest.raises(ModelNotFound):
         await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
 
@@ -159,7 +157,6 @@ async def test_change_equipment_item_equipped_status(async_session):
     douglas = await CharacterRepository.change_equipment_item_equipped_status(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         equipped_item_id=douglas.equipment[0].id,
         equipped=True,
     )
@@ -168,7 +165,6 @@ async def test_change_equipment_item_equipped_status(async_session):
     douglas = await CharacterRepository.change_equipment_item_equipped_status(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         equipped_item_id=douglas.equipment[0].id,
         equipped=False,
     )
@@ -185,7 +181,6 @@ async def test_change_known_spell_prepared_status(async_session):
     douglas = await CharacterRepository.change_known_spell_prepared_status(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         known_spell_id=douglas.spellbook[0].id,
         prepared=False,
     )
@@ -194,8 +189,7 @@ async def test_change_known_spell_prepared_status(async_session):
     douglas = await CharacterRepository.change_known_spell_prepared_status(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
-        known_spell_id=douglas.equipment[0].id,
+        known_spell_id=douglas.spellbook[0].id,
         prepared=True,
     )
     assert douglas.spellbook[0].prepared is True
@@ -210,7 +204,6 @@ async def test_learn_spell(async_session):
     await CharacterRepository.learn_spell(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         spell_id=45,
         prepared=True,
     )
@@ -232,7 +225,6 @@ async def test_forget_spell(async_session):
     await CharacterRepository.forget_spell(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         known_spell_id=known_spell_id,
     )
     douglas = await CharacterRepository.get_by_slug(
@@ -250,7 +242,6 @@ async def test_add_item_to_equipment(async_session):
     await CharacterRepository.add_item_to_equipment(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         item_id=30,
     )
     douglas = await CharacterRepository.get_by_slug(
@@ -270,7 +261,6 @@ async def test_from_item_from_equipment(async_session):
     await CharacterRepository.remove_item_from_equipment(
         async_session,
         slug="douglas-mctrickfoot",
-        owner_id=1,
         equipped_item_id=equipped_item_id,
     )
     douglas = await CharacterRepository.get_by_slug(

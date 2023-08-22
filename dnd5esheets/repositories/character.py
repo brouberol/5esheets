@@ -167,9 +167,9 @@ class CharacterRepository(BaseRepository):
         return digest.hexdigest()
 
     @classmethod
-    async def delete(cls, session: AsyncSession, slug: str, owner_id: int | None):
+    async def delete(cls, session: AsyncSession, slug: str):
         """Delete the character identified by the argument slug"""
-        character = await cls.get_by_slug(session, slug=slug, owner_id=owner_id)
+        character = await cls.get_by_slug(session, slug=slug)
         await session.delete(character)
         await session.commit()
 
@@ -178,16 +178,13 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         equipped_item_id: int,
         equipped: bool,
     ):
         """Change the equipped status of the argument equipped item in the character's equipment"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         await EquippedItemRepository.change_equipped_status(
-            session, id=equipped_item_id, owner_id=character.id, equipped=equipped
+            session, id=equipped_item_id, equipped=equipped
         )
         await session.refresh(character)
         return character
@@ -197,16 +194,13 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         known_spell_id: int,
         prepared: bool,
     ):
         """Change the prepared status of the argument known spell in the character's spellbook"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         await KnownSpellRepository.change_prepared_status(
-            session, id=known_spell_id, owner_id=character.id, prepared=prepared
+            session, id=known_spell_id, prepared=prepared
         )
         await session.refresh(character)
         return character
@@ -216,14 +210,11 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         spell_id: int,
         prepared: bool = False,
     ):
         """Ensure a given spell is present in the character's spellbook"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         for known_spell in character.spellbook:
             if known_spell.spell_id == spell_id:
                 return character
@@ -244,13 +235,10 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         known_spell_id: int,
     ):
         """Ensure a given spell is absent from the character's spellbook"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         await KnownSpellRepository.delete_by_id(session, id=known_spell_id)
         await session.refresh(character)
         return character
@@ -260,14 +248,11 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         item_id: int,
         amount: int = 1,
     ):
         """Ensure a given item is present in the character's equipment"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         for equipped_item in character.equipment:
             if equipped_item.item_id == item_id:
                 return character
@@ -288,13 +273,10 @@ class CharacterRepository(BaseRepository):
         cls,
         session: AsyncSession,
         slug: str,
-        owner_id: int | None,
         equipped_item_id: int,
     ):
         """Ensure a given item is absent from the character's equipment"""
-        character = await cls.get_by_slug_if_owned(
-            session, slug=slug, owner_id=owner_id
-        )
+        character = await cls.get_by_slug(session, slug=slug)
         await EquippedItemRepository.delete_by_id(session, id=equipped_item_id)
         await session.refresh(character)
         return character

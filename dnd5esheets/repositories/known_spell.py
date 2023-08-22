@@ -22,9 +22,9 @@ class KnownSpellRepository(BaseRepository):
 
     @classmethod
     async def change_prepared_status(
-        cls, session: AsyncSession, id: int, owner_id: int, prepared: bool
+        cls, session: AsyncSession, id: int, prepared: bool
     ):
-        known_spell = await cls.get_by_id_if_owned(session, id=id, owner_id=owner_id)
+        known_spell = await cls.get_by_id(session, id=id)
         known_spell.prepared = prepared
         session.add(known_spell)
         await session.commit()

@@ -22,9 +22,9 @@ class EquippedItemRepository(BaseRepository):
 
     @classmethod
     async def change_equipped_status(
-        cls, session: AsyncSession, id: int, owner_id: int, equipped: bool
+        cls, session: AsyncSession, id: int, equipped: bool
     ):
-        equipped_item = await cls.get_by_id_if_owned(session, id=id, owner_id=owner_id)
+        equipped_item = await cls.get_by_id(session, id=id)
         equipped_item.equipped = equipped
         session.add(equipped_item)
         await session.commit()

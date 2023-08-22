@@ -80,21 +80,25 @@ def _populate_db_with_dev_data(silent: bool = False):
         longsword = session.execute(
             select(Item).filter(Item.name == "Longsword")
         ).scalar()
-        spells = session.execute(
-            select(Spell).filter(
-                Spell.name.in_(
-                    (
-                        "Mending",
-                        "Fire Bolt",
-                        "Thunderwave",
-                        "Shield",
-                        "Detect Magic",
-                        "Catapult",
-                        "Absorb Elements",
+        spells = (
+            session.execute(
+                select(Spell).filter(
+                    Spell.name.in_(
+                        (
+                            "Mending",
+                            "Fire Bolt",
+                            "Thunderwave",
+                            "Shield",
+                            "Detect Magic",
+                            "Catapult",
+                            "Absorb Elements",
+                        )
                     )
                 )
             )
-        ).scalars()
+            .scalars()
+            .all()
+        )
 
         for player_attrs in dev_fixtures["players"]:
             player = Player(**player_attrs)
@@ -121,7 +125,13 @@ def _populate_db_with_dev_data(silent: bool = False):
                     EquippedItem(item_id=longsword.id, id=character_attrs["id"])
                 ],
                 spellbook=[
-                    KnownSpell(spell_id=spell.id, prepared=True) for spell in spells
+                    KnownSpell(
+                        id=i + len(spells) * character_attrs["id"],
+                        spell_id=spell.id,
+                        character_id=character_attrs["id"],
+                        prepared=True,
+                    )
+                    for i, spell in enumerate(spells, 1)
                 ],
             )
             session.merge(character)
