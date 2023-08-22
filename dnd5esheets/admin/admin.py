@@ -11,8 +11,11 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 from sqladmin import Admin, ModelView
+from sqladmin.authentication import login_required
 from sqladmin.formatters import BASE_FORMATTERS
 from sqlalchemy.ext.asyncio import AsyncEngine
+from starlette.requests import Request
+from starlette.responses import RedirectResponse, Response
 
 from dnd5esheets.models import (
     BaseModel,
@@ -151,8 +154,17 @@ class PlayerRoleAdmin(ModelView, model=PlayerRole):
     form_excluded_columns = base_excluded_columns(PlayerRole)
 
 
+class CustomAdmin(Admin):
+    @login_required
+    async def index(self, _: Request) -> Response:
+        """Redirect admin index page to the listing of the first model view"""
+        return RedirectResponse(url=f"{self.views[0].identity}/list")
+
+
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
-    admin = Admin(app, engine, title="5esheets admin", templates_dir=str(templates_dir))
+    admin = CustomAdmin(
+        app, engine, title="5esheets admin", templates_dir=str(templates_dir)
+    )
     app.mount(
         "/admin-statics",
         StaticFiles(directory=statics_dir, html=True),
