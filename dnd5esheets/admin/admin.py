@@ -43,6 +43,10 @@ def json_formatter(value: dict) -> Markup:
     return Markup(f"{html_json_value}")
 
 
+def link(url: str, title: str | None = None) -> Markup:
+    return Markup(f"<a href='{url}'>{title or url}</a>")
+
+
 custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
 
 
@@ -52,6 +56,35 @@ def base_excluded_columns(model: Type[BaseModel]):
         for field in model.__annotations__
         if field.endswith("_id")
     ]
+
+
+class CustomModelView(ModelView):
+    """A ModelView allowing the mixing of SQLAlchemy columns and model properties"""
+
+    details_property_exclude_list: list[str] = []
+
+    def get_details_columns(self) -> list[str]:
+        """Get list of properties to display in Detail page."""
+
+        column_details_list = getattr(self, "column_details_list", None)
+
+        # Automatically inject model properties along with model SQLAlchemy columns
+        property_details_list = [
+            col
+            for col in dir(self.model)
+            if not col.startswith("_")
+            if not col in self.details_property_exclude_list
+            if hasattr(getattr(self.model, col), "fset")
+        ]
+        self._prop_names += property_details_list
+        # End of custom code
+
+        column_details_exclude_list = getattr(self, "column_details_exclude_list", None)
+        return self._build_column_list(
+            include=column_details_list,
+            exclude=column_details_exclude_list,
+            defaults=self._prop_names,
+        )
 
 
 class CharacterAdmin(ModelView, model=Character):
@@ -126,10 +159,12 @@ class KnownSpellAdmin(ModelView, model=KnownSpell):
     ]
 
 
-class SpellAdmin(ModelView, model=Spell):
+class SpellAdmin(CustomModelView, model=Spell):
     _column_formatters = {
         Spell.school: lambda model, _: model.school.capitalize(),  # type: ignore
+        "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
     }
+    column_labels = {"five_e_tools_url": "5e.tools URL"}
 
     page_size = 30
     column_searchable_list = [Spell.name, Spell.level]

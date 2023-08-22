@@ -272,6 +272,10 @@ class Spell(NameReprMixin, BaseModel):
             raise ValueError("Level should be between 0 and 9")
         return level
 
+    @property
+    def five_e_tools_url(self):
+        return f"https://5e.tools/spells.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+
 
 class PlayerRole(BaseModel):
     """The role a player has in a party (DM, player)"""
