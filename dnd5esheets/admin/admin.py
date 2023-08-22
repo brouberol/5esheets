@@ -51,7 +51,7 @@ custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
 
 
 def base_excluded_columns(model: Type[BaseModel]):
-    return [model.created_at, model.updated_at] + [
+    return [model.id, model.created_at, model.updated_at] + [
         getattr(model, field)
         for field in model.__annotations__
         if field.endswith("_id")
