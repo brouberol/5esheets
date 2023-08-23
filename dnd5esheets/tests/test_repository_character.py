@@ -34,24 +34,6 @@ async def test_get_unknown_character(async_session):
 
 
 @pytest.mark.asyncio
-async def test_get_character_by_slug_if_owned(async_session, douglas):
-    assert (
-        await CharacterRepository.get_by_slug_if_owned(
-            async_session, slug="douglas-mctrickfoot", owner_id=1
-        )
-        == douglas
-    )
-
-
-@pytest.mark.asyncio
-async def test_get_character_by_slug_if_owned_with_non_owner(async_session):
-    with pytest.raises(ModelNotFound):
-        await CharacterRepository.get_by_slug_if_owned(
-            async_session, slug="douglas-mctrickfoot", owner_id=2
-        )
-
-
-@pytest.mark.asyncio
 async def test_update_character(async_session):
     douglas_before_update = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"

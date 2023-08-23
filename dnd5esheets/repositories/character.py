@@ -46,16 +46,6 @@ class CharacterRepository(BaseRepository):
         return cast(Character, cls.one_or_raise_model_not_found(result))
 
     @classmethod
-    async def get_by_slug_if_owned(
-        cls, session: AsyncSession, slug: str, owner_id: int | None
-    ) -> Character:
-        """Return a Character given an argument slug"""
-        character = await cls.get_by_slug(session, slug)
-        if owner_id is not None and character.player_id != owner_id:
-            cls.raise_model_not_found()
-        return character
-
-    @classmethod
     async def update(
         cls,
         session: AsyncSession,
