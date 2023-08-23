@@ -11,7 +11,7 @@ from dnd5esheets.schemas import (
     ListCharacterSchema,
     UpdateCharacterSchema,
 )
-from dnd5esheets.security.policies import in_same_party, party_gm_or_owner
+from dnd5esheets.security.policies.character import in_same_party, party_gm_or_owner
 from dnd5esheets.security.user import get_current_user_id
 
 character_api = APIRouter(prefix="/character", tags=["character"])
