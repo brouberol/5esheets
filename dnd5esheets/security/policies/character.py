@@ -3,6 +3,8 @@
 from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from dnd5esheets.config import get_settings
+from dnd5esheets.config.base import CommonSettings
 from dnd5esheets.db import create_scoped_session
 from dnd5esheets.repositories.character import CharacterRepository
 from dnd5esheets.repositories.player import PlayerRepository
@@ -14,8 +16,12 @@ async def party_gm_or_owner(
     request: Request,
     current_user_id=Depends(get_current_user_id),
     session: AsyncSession = Depends(create_scoped_session),
+    settings: CommonSettings = Depends(get_settings),
 ):
     """Security policy allowing access to a route only by the resource owner or the party GM"""
+    if not settings.MULTITENANT_ENABLED:
+        return
+
     character_slug = request.scope["path_params"]["slug"]
     character = await CharacterRepository.get_by_slug(session, slug=character_slug)
     current_player = await PlayerRepository.get_by_id(session, current_user_id)
@@ -28,8 +34,12 @@ async def in_same_party(
     request: Request,
     current_user_id: int = Depends(get_current_user_id),
     session: AsyncSession = Depends(create_scoped_session),
+    settings: CommonSettings = Depends(get_settings),
 ):
     """Security policy allowing access to a route only to players belonging to the same party"""
+    if not settings.MULTITENANT_ENABLED:
+        return
+
     character_slug = request.scope["path_params"]["slug"]
     character = await CharacterRepository.get_by_slug(session, slug=character_slug)
     if character is None:
