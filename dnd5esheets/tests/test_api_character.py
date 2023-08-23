@@ -1,3 +1,5 @@
+import pytest
+
 from .utils import assert_status_and_return_data
 
 
@@ -41,6 +43,26 @@ def test_describe_character(client):
     }
 
 
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 200),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_describe_character_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.get,
+        f"/api/character/{slug}",
+        status_code=status_code,
+    )
+
+
 def test_update_characters(client):
     initial_data = assert_status_and_return_data(
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
@@ -61,6 +83,30 @@ def test_update_characters(client):
     )
     assert updated_data["name"] == "Ronald McDonald"
     assert updated_data["data"]["abilities"]["strength"]["score"] == 10
+
+
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_update_character_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/{slug}",
+        status_code=status_code,
+        json={
+            "name": "Ronald McDonald",
+            "data": {"abilities": {"strength": {"score": 10}}},
+        },
+    )
 
 
 def test_update_with_invalid_payload(client):
@@ -168,10 +214,20 @@ def test_delete_character(client):
     )
 
 
-def test_delete_character_from_non_owner(client):
-    assert_status_and_return_data(
-        client.get, "/api/character/trevor-mctrickfoot", status_code=404
-    )
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 204),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 204),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_delete_character_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert client.delete(f"/api/character/{slug}").status_code == status_code
 
 
 def test_change_character_equipment_item_equipped_status(client):
@@ -200,6 +256,26 @@ def test_change_character_equipment_item_equipped_status(client):
     assert data_after_update["equipment"][0]["equipped"] is False
 
 
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_change_character_equipment_item_equipped_status_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/{slug}/equipment/2/equip",
+        status_code=status_code,
+    )
+
+
 def test_change_known_spell_prepared_status(client):
     data = assert_status_and_return_data(
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
@@ -226,6 +302,26 @@ def test_change_known_spell_prepared_status(client):
     assert data_after_update["spellbook"][0]["prepared"] is True
 
 
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_change_known_spell_prepared_status_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/{slug}/spellbook/12/prepare",
+        status_code=status_code,
+    )
+
+
 def test_learn_spell(client):
     data = assert_status_and_return_data(
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
@@ -239,6 +335,26 @@ def test_learn_spell(client):
     )
     assert len(updated_data["spellbook"]) == 8
     assert updated_data["spellbook"][-1]["spell"]["name"] == "Ceremony"
+
+
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_learn_spell_prepared_status_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/{slug}/spellbook/30",
+        status_code=status_code,
+    )
 
 
 def test_forget_spell(client):
@@ -259,6 +375,26 @@ def test_forget_spell(client):
     assert updated_data["spellbook"][-1]["id"] != known_spell_id
 
 
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_forget_spell_prepared_status_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.delete,
+        f"/api/character/{slug}/spellbook/30",
+        status_code=status_code,
+    )
+
+
 def test_add_item_to_equipment(client):
     data = assert_status_and_return_data(
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
@@ -272,6 +408,26 @@ def test_add_item_to_equipment(client):
     )
     assert len(updated_data["equipment"]) == 2
     assert updated_data["equipment"][-1]["item"]["name"] == "Club"
+
+
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_add_item_to_equipment_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.put,
+        f"/api/character/{slug}/equipment/10",
+        status_code=status_code,
+    )
 
 
 def test_remove_item_from_equipment(client):
@@ -289,3 +445,23 @@ def test_remove_item_from_equipment(client):
         client.get, "/api/character/douglas-mctrickfoot", status_code=200
     )
     assert len(updated_data["equipment"]) == 0
+
+
+@pytest.mark.parametrize(
+    "client_fixture_name, slug, status_code",
+    [
+        ("mctrickfoot_family_player", "trevor-mctrickfoot", 200),  # owner
+        ("mctrickfoot_family_player", "douglas-mctrickfoot", 403),  # party member
+        ("mctrickfoot_family_gm", "trevor-mctrickfoot", 200),  # gm
+        ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
+    ],
+)
+def test_delete_item_from_equipment_security_policy(
+    client_fixture_name, slug, status_code, request
+):
+    client = request.getfixturevalue(f"client_as_{client_fixture_name}")
+    assert_status_and_return_data(
+        client.delete,
+        f"/api/character/{slug}/equipment/2",
+        status_code=status_code,
+    )

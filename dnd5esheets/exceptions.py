@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Any, Self
 
 from fastapi import HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
@@ -16,6 +16,15 @@ class CacheHit(HTTPException):
 
 class RepositoryException(Exception):
     ...
+
+
+class Forbidden(HTTPException):
+    """Exception raises when a user is forbidden to access or modify a given resource"""
+
+    def __init__(self, detail: Any = None, headers: dict[str, str] | None = None):
+        super().__init__(
+            detail=detail, headers=headers, status_code=status.HTTP_403_FORBIDDEN
+        )
 
 
 class ModelNotFound(RepositoryException):
@@ -47,6 +56,14 @@ def register_exception_handlers(app: ExtendedFastAPI):
     def cachehit_exception_handler(_: Request, exc: CacheHit):
         """Generate a correct 304 response when handling a CacheHit exception"""
         return Response("", status_code=exc.status_code, headers=exc.headers)
+
+    @app.exception_handler(Forbidden)
+    def forbidden_exception_handler(_: Request, exc: Forbidden):
+        return JSONResponse(
+            content={"detail": str(exc)},
+            status_code=exc.status_code,
+            headers=exc.headers,
+        )
 
     if app.env != Env.prod:
 

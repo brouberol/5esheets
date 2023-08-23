@@ -27,7 +27,7 @@ export class PartyService {
 
     /**
      * Display Party
-     * Display all details of a given party.
+     * Display details of a given party
      * @param id
      * @returns DisplayPartySchema Successful Response
      * @throws ApiError

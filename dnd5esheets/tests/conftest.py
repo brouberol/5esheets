@@ -18,6 +18,8 @@ from dnd5esheets.cli import (
 from dnd5esheets.db import create_session
 from dnd5esheets.models import Character, Player
 
+from .utils import log_as
+
 current_dir = Path(__file__).parent
 
 
@@ -33,11 +35,27 @@ def unauthed_client(app):
 
 @fixture(scope="session")
 def client(app):
-    _client = TestClient(app)
-    _client.post(
-        "/api/login/token", data={"username": "br@test.com", "password": "azerty"}
-    )
-    return _client
+    return log_as("br@test.com", app)
+
+
+@fixture(scope="session")
+def client_as_mctrickfoot_family_gm(app):
+    return log_as("br@test.com", app)
+
+
+@fixture(scope="session")
+def client_as_mctrickfoot_family_player(app):
+    return log_as("eb@test.com", app)
+
+
+@fixture(scope="session")
+def client_as_compagnie_des_gourmands_gm(app):
+    return log_as("eb@test.com", app)
+
+
+@fixture(scope="session")
+def client_as_compagnie_des_gourmands_player(app):
+    return log_as("ne@test.com", app)
 
 
 @fixture(scope="session", autouse=True)

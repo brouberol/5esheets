@@ -775,7 +775,7 @@
           "party"
         ],
         "summary": "Display Party",
-        "description": "Display all details of a given party.",
+        "description": "Display details of a given party",
         "operationId": "display_party",
         "security": [
           {

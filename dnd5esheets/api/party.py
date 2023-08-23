@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from dnd5esheets.db import create_scoped_session
 from dnd5esheets.repositories.party import PartyRepository
 from dnd5esheets.schemas import DisplayPartySchema, PartySchema, UpdatePartySchema
+from dnd5esheets.security.policies.party import in_same_party, is_party_gm
 from dnd5esheets.security.user import get_current_user_id
 
 party_api = APIRouter(prefix="/party", tags=["party"])
@@ -18,24 +19,22 @@ async def list_all_parties(
     return await PartyRepository.list_all(session=session, owner_id=current_player_id)
 
 
-@party_api.get("/{id}", response_model=DisplayPartySchema)
+@party_api.get(
+    "/{id}", dependencies=[Depends(in_same_party)], response_model=DisplayPartySchema
+)
 async def display_party(
     id: int,
     session: AsyncSession = Depends(create_scoped_session),
-    current_player_id: int | None = Depends(get_current_user_id),
 ):
-    """Display all details of a given party."""
-    return await PartyRepository.get_by_id_if_member_of(
-        session=session, id=id, member_id=current_player_id
-    )
+    """Display details of a given party"""
+    return await PartyRepository.get_by_id(session=session, id=id)
 
 
-@party_api.put("/{id}")
+@party_api.put("/{id}", dependencies=[Depends(is_party_gm)])
 async def update_party(
     id: int,
-    player_data: UpdatePartySchema,
+    party_data: UpdatePartySchema,
     session: AsyncSession = Depends(create_scoped_session),
-    current_player_id: int | None = Depends(get_current_user_id),
 ) -> dict:
     """Update a party details.
 
@@ -43,10 +42,9 @@ async def update_party(
 
 
     """
-    await PartyRepository.update_if_member_of(
+    await PartyRepository.update(
         session=session,
         id=id,
-        body=player_data,
-        member_id=current_player_id,
+        body=party_data,
     )
     return {"status": "ok"}

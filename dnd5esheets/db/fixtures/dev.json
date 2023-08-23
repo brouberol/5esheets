@@ -24,6 +24,12 @@
       "name": "Marine",
       "email": "ml@test.com",
       "hashed_password": "$2b$12$JoYFBGO5rjhS5YS2sWF0eOYfWN1b1rHT/x0Yy1ukTaYHVOQHC2bUq"
+    },
+    {
+      "id": "5",
+      "name": "Nicolas",
+      "email": "ne@test.com",
+      "hashed_password": "$2b$12$M4blXQox9LreJsunS2MrWOVyT9O0F4r7oQzwg2JiIcxfdY/MtCOV."
     }
   ],
   "player_roles": [
@@ -50,6 +56,18 @@
       "player_id": 4,
       "party_id": 1,
       "role": "player"
+    },
+    {
+      "id": 5,
+      "player_id": 5,
+      "party_id": 2,
+      "role": "player"
+    },
+    {
+      "id": 6,
+      "player_id": 2,
+      "party_id": 2,
+      "role": "gm"
     }
   ],
   "parties": [
@@ -257,7 +275,183 @@
       "slug": "trevor-mctrickfoot",
       "class_": "Soulknife",
       "level": 4,
-      "data": {}
+      "data": {
+        "abilities": {
+          "strength": {
+            "score": 8,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          },
+          "dexterity": {
+            "score": 14,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          },
+          "constitution": {
+            "score": 12,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          },
+          "intelligence": {
+            "score": 18,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          },
+          "wisdom": {
+            "score": 12,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          },
+          "charisma": {
+            "score": 14,
+            "proficiency": 0,
+            "save": 0,
+            "modifier": 0
+          }
+        },
+        "skills": {
+          "acrobatics": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "arcana": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "athletics": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "stealth": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "animal_handling": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "sleight_of_hand": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "history": {
+            "proficiency": 1,
+            "modifier": 0
+          },
+          "intimidation": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "investigation": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "medicine": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "nature": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "perception": {
+            "proficiency": 1,
+            "modifier": 0
+          },
+          "insight": {
+            "proficiency": 1,
+            "modifier": 0
+          },
+          "persuasion": {
+            "proficiency": 1,
+            "modifier": 0
+          },
+          "religion": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "performance": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "survival": {
+            "proficiency": 0,
+            "modifier": 0
+          },
+          "deception": {
+            "proficiency": 0,
+            "modifier": 0
+          }
+        },
+        "xp": 0,
+        "background": "Artistan",
+        "race": "Gnome",
+        "alignment": "Chaotique Bon",
+        "darkvision": true,
+        "inspiration": true,
+        "languages_and_proficiencies": "**Outils**\r\n- menuisier\r\n- souffleur de verre\r\n- bricolage\r\n- voleur\r\n- forgeron\r\n\r\n**Langues**\r\n- Nain\r\n- Gnome\r\n- Commun\r\n\r\n**Armes**\r\n- légères",
+        "speed": 25,
+        "hp": {
+          "max": 33,
+          "temp": 0,
+          "current": 33
+        },
+        "hit_dice": {
+          "type": "1d8",
+          "total": 4,
+          "remaining": 4
+        },
+        "custom_resources": [
+          {
+            "header": "Infusions",
+            "remaining": 3,
+            "available": 3
+          },
+          {
+            "header": "Canon",
+            "remaining": 3,
+            "available": 3
+          },
+          {
+            "header": "Baguette des secrets",
+            "remaining": 3,
+            "available": 3
+          }
+        ],
+        "attacks": [
+          {
+            "name": "Arbalète légère",
+            "damage": "1d8+2",
+            "bonus": 4,
+            "damage_type": "piercing"
+          },
+          {
+            "name": "Hache à une main",
+            "damage": "1d6+2",
+            "bonus": 4,
+            "damage_type": "slashing"
+          }
+        ],
+        "money": {
+          "copper": 0,
+          "silver": 0,
+          "electrum": 0,
+          "gold": 1,
+          "platinum": 0
+        },
+        "personality": "Douglas est astucieux et fait preuve d'une répartie rapide. Il est fidèle envers ses amis et curieux d'apprendre des nouveaux sujets.",
+        "ideals": "Douglas rêve de maîtriser la magie à la seule force de son intellect.",
+        "bonds": "Douglas est particulièrement fidèle envers les membres de sa famille, et se sent responsable de Crounch.",
+        "flaws": "Douglas est impulsif. Son besoin de paraître intelligent cache un manque de confiance en soi. ",
+        "features": "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
+        "daily_prepared_spells": 6,
+        "spellcasting_ability": "intelligence"
+      }
     },
     {
       "id": 3,
@@ -276,6 +470,26 @@
       "name": "Crounch McTrickfoot",
       "slug": "crounch-mctrickfoot",
       "class_": "Barbare - Voie du Zélote",
+      "level": 4,
+      "data": {}
+    },
+    {
+      "id": 5,
+      "player_id": 5,
+      "party_id": 2,
+      "name": "Groumph",
+      "slug": "groumph",
+      "class_": "Clerc de la Paix",
+      "level": 4,
+      "data": {}
+    },
+    {
+      "id": 6,
+      "player_id": 2,
+      "party_id": 2,
+      "name": "Thirai",
+      "slug": "thirai",
+      "class_": "Mage du Savoir",
       "level": 4,
       "data": {}
     }
