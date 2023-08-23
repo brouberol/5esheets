@@ -1,8 +1,5 @@
-from fastapi import Depends, HTTPException, status, Security
-from fastapi_jwt import (
-    JwtAuthorizationCredentials,
-    JwtAccessBearerCookie,
-)
+from fastapi import Depends, HTTPException, Security, status
+from fastapi_jwt import JwtAccessBearerCookie, JwtAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.config import get_settings
@@ -21,7 +18,7 @@ async def get_current_user_id(
     settings=Depends(get_settings),
     credentials: JwtAuthorizationCredentials = Security(access_security),
 ) -> int | None:
-    if not settings.MULTITENANT_ENABLED:
+    if not settings.MULTITENANCY_ENABLED:
         return None
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

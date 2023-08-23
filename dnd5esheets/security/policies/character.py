@@ -19,7 +19,7 @@ async def party_gm_or_owner(
     settings: CommonSettings = Depends(get_settings),
 ):
     """Security policy allowing access to a route only by the resource owner or the party GM"""
-    if not settings.MULTITENANT_ENABLED:
+    if not settings.MULTITENANCY_ENABLED:
         return
 
     character_slug = request.scope["path_params"]["slug"]
@@ -37,7 +37,7 @@ async def in_same_party(
     settings: CommonSettings = Depends(get_settings),
 ):
     """Security policy allowing access to a route only to players belonging to the same party"""
-    if not settings.MULTITENANT_ENABLED:
+    if not settings.MULTITENANCY_ENABLED:
         return
 
     character_slug = request.scope["path_params"]["slug"]

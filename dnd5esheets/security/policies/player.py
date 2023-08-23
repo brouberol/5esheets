@@ -18,7 +18,7 @@ async def is_owner(
     settings: CommonSettings = Depends(get_settings),
 ):
     """Security policy allowing access to a route only by the resource owner"""
-    if not settings.MULTITENANT_ENABLED:
+    if not settings.MULTITENANCY_ENABLED:
         return
 
     player_id = request.scope["path_params"]["id"]
