@@ -71,7 +71,7 @@ build: model_graph.png data front-build  ## Build the application
 back-check: black mypy ruff
 
 back-test:  ## Run the backend tests
-	@echo "\n [+] Running the backend tests"
+	@echo "\n[+] Running the backend tests"
 	@DND5ESHEETS_ENV=test poetry run pytest
 
 black:
@@ -131,7 +131,7 @@ front-build: front-generate-api-client
 front-check:  front-lint front-prettier front-typecheck ## Run all frontend checks
 
 front-test: ## Run the frontend unit tests
-	@echo "\n [+] Running the frontend tests"
+	@echo "\n[+] Running the frontend tests"
 	@$(npm-run) test
 
 front-run-dev: front-build  ## Run the development frontend server
@@ -163,7 +163,7 @@ run: admin-statics build  ## Run the app
 test:  back-test front-test ## Run the project tests
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
-	@echo "\n [+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"
+	@echo "\n[+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"
 	@rm -rf $(front-root)/node_modules
 	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
 
