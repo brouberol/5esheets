@@ -1,11 +1,6 @@
 import pytest
 
-from .conftest import (
-    client_as_compagnie_des_gourmands_player,
-    client_as_mctrickfoot_family_gm,
-    client_as_mctrickfoot_family_player,
-)
-from .utils import assert_status_and_return_data, log_as
+from .utils import assert_status_and_return_data
 
 
 def test_list_characters(client):

@@ -61,6 +61,7 @@ class PlayerRepository(BaseRepository):
     async def get_all_players_with_characters_in_same_party_than_character(
         cls, session: AsyncSession, character_slug: str
     ) -> list[Player]:
+        """Return all players belonging to the same party than the argument character"""
         party_subquery = (
             select(Party.id)
             .join(Character)
@@ -73,5 +74,16 @@ class PlayerRepository(BaseRepository):
             .join(Party)
             .filter(Party.id.in_(party_subquery))
         )
+        result = await session.execute(query)
+        return result.scalars().all()
+
+    @classmethod
+    async def get_all_players_with_characters_in_party(
+        cls, session: AsyncSession, party_id: int, player_id: int | None = None
+    ) -> list[Player]:
+        """Return all players belonging to the argument party"""
+        query = select(Player).join(Character).join(Party).filter(Party.id == party_id)
+        if player_id:
+            query = query.filter(Player.id == player_id)
         result = await session.execute(query)
         return result.scalars().all()

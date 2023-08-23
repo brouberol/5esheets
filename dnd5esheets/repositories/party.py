@@ -45,16 +45,13 @@ class PartyRepository(BaseRepository):
         return cast(Party, cls.one_or_raise_model_not_found(result))
 
     @classmethod
-    async def update_if_member_of(
+    async def update(
         cls,
         session: AsyncSession,
         id: int,
         body: UpdatePartySchema,
-        member_id: int | None,
     ) -> Party:
-        party = await cls.get_by_id_if_member_of(
-            session=session, id=id, member_id=member_id
-        )
+        party = await cls.get_by_id(session=session, id=id)
 
         # Any non-nil field should be taken as the new value
         fields_to_update = {
