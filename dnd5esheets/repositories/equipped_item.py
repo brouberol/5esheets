@@ -24,7 +24,7 @@ class EquippedItemRepository(BaseRepository):
     async def change_equipped_status(
         cls, session: AsyncSession, id: int, equipped: bool
     ):
-        equipped_item = await cls.get_by_id(session, id=id)
+        equipped_item = cast(EquippedItem, await cls.get_by_id(session, id=id))
         equipped_item.equipped = equipped
         session.add(equipped_item)
         await session.commit()

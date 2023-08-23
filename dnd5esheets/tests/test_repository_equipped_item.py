@@ -1,6 +1,5 @@
 import pytest
 
-from dnd5esheets.exceptions import ModelNotFound
 from dnd5esheets.repositories.equipped_item import EquippedItemRepository
 
 

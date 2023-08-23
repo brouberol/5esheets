@@ -73,7 +73,7 @@ class CustomModelView(ModelView):
             col
             for col in dir(self.model)
             if not col.startswith("_")
-            if not col in self.details_property_exclude_list
+            if col not in self.details_property_exclude_list
             if hasattr(getattr(self.model, col), "fset")
         ]
         self._prop_names += property_details_list

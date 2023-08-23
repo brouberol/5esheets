@@ -21,7 +21,7 @@ def test_describe_player_security_policy(client_fixture_name, status_code, reque
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.get,
-        f"/api/player/1",
+        "/api/player/1",
         status_code=status_code,
     )
 
@@ -49,7 +49,7 @@ def test_update_player(client):
 def test_update_player_security_policy(client_fixture_name, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
-        client.put, f"/api/player/1", status_code=status_code, json={"name": "Gauvain"}
+        client.put, "/api/player/1", status_code=status_code, json={"name": "Gauvain"}
     )
 
 

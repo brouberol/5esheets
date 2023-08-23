@@ -24,7 +24,7 @@ class KnownSpellRepository(BaseRepository):
     async def change_prepared_status(
         cls, session: AsyncSession, id: int, prepared: bool
     ):
-        known_spell = await cls.get_by_id(session, id=id)
+        known_spell = cast(KnownSpell, await cls.get_by_id(session, id=id))
         known_spell.prepared = prepared
         session.add(known_spell)
         await session.commit()

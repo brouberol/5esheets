@@ -30,7 +30,7 @@ def test_describe_party_security_policy(client_fixture_name, status_code, reques
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.get,
-        f"/api/party/1",
+        "/api/party/1",
         status_code=status_code,
     )
 
@@ -56,11 +56,11 @@ def test_update_party(client):
         ("compagnie_des_gourmands_player", 403),  # outsider
     ],
 )
-def test_describe_party_security_policy(client_fixture_name, status_code, request):
+def test_update_party_security_policy(client_fixture_name, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.put,
-        f"/api/party/1",
+        "/api/party/1",
         status_code=status_code,
         json={"name": "Le Clan des Semi-Croustillants"},
     )

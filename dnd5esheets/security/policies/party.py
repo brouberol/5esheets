@@ -1,9 +1,12 @@
 """Security policies related to Party resources"""
 
+from typing import cast
+
 from fastapi import Depends, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dnd5esheets.db import create_scoped_session
+from dnd5esheets.models import Party
 from dnd5esheets.repositories.party import PartyRepository
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.security.policies.base import _in_same_party, _is_party_gm
@@ -15,9 +18,9 @@ async def is_party_gm(
     current_user_id=Depends(get_current_user_id),
     session: AsyncSession = Depends(create_scoped_session),
 ):
-    """Security policy allowing access to a route only by the resource owner or the associated party GM"""
+    """Security policy allowing access to a route only by the resource owner or the party GM"""
     party_id = request.scope["path_params"]["id"]
-    party = await PartyRepository.get_by_id(session, id=party_id)
+    party = cast(Party, await PartyRepository.get_by_id(session, id=party_id))
     current_player = await PlayerRepository.get_by_id(session, current_user_id)
     players_in_party = await PlayerRepository.get_all_players_with_characters_in_party(
         session, party_id=party_id, player_id=current_player.id
@@ -27,12 +30,12 @@ async def is_party_gm(
 
 async def in_same_party(
     request: Request,
-    current_user_id: int | None = Depends(get_current_user_id),
+    current_user_id: int = Depends(get_current_user_id),
     session: AsyncSession = Depends(create_scoped_session),
 ):
     """Security policy allowing access to a route only to players belonging to the same party"""
     party_id = request.scope["path_params"]["id"]
-    party = await PartyRepository.get_by_id(session, id=party_id)
+    party = cast(Party, await PartyRepository.get_by_id(session, id=party_id))
     if party is None:
         return
     current_player = await PlayerRepository.get_by_id(session, current_user_id)

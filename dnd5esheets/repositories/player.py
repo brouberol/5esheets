@@ -1,4 +1,4 @@
-from typing import cast
+from typing import Sequence, cast
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -60,7 +60,7 @@ class PlayerRepository(BaseRepository):
     @classmethod
     async def get_all_players_with_characters_in_same_party_than_character(
         cls, session: AsyncSession, character_slug: str
-    ) -> list[Player]:
+    ) -> Sequence[Player]:
         """Return all players belonging to the same party than the argument character"""
         party_subquery = (
             select(Party.id)
@@ -80,7 +80,7 @@ class PlayerRepository(BaseRepository):
     @classmethod
     async def get_all_players_with_characters_in_party(
         cls, session: AsyncSession, party_id: int, player_id: int | None = None
-    ) -> list[Player]:
+    ) -> Sequence[Player]:
         """Return all players belonging to the argument party"""
         query = select(Player).join(Character).join(Party).filter(Party.id == party_id)
         if player_id:

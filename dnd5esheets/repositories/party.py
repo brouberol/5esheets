@@ -46,4 +46,4 @@ class PartyRepository(BaseRepository):
         await session.commit()
         await session.refresh(party)
 
-        return party
+        return cast(Party, party)
