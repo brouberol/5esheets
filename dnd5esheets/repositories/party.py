@@ -26,25 +26,6 @@ class PartyRepository(BaseRepository):
         return result.scalars().all()
 
     @classmethod
-    async def get_by_id_if_member_of(
-        cls, session: AsyncSession, id: int, member_id: int | None
-    ) -> Party:
-        """Return a Party given an argument id if it is owned by the argument player id"""
-        query = (
-            select(Party)
-            .join(
-                Character, Party.members, isouter=True
-            )  # we use outer joins because we want to be able to display a group with no members
-            .join(Player, Character.player, isouter=True)
-            .filter(Party.id == id)
-            .group_by(Party.id)
-        )
-        if member_id is not None:
-            query = query.filter(Player.id == member_id)
-        result = await session.execute(query)
-        return cast(Party, cls.one_or_raise_model_not_found(result))
-
-    @classmethod
     async def update(
         cls,
         session: AsyncSession,
