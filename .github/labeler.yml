@@ -24,7 +24,7 @@ i18n:
   - dnd5esheets/front/src/i18n/**
 
 security:
-  - dnd5esheets/security/*.py
+  - dnd5esheets/security/**.py
 
 ci:
   - .github/**
