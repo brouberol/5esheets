@@ -8,14 +8,17 @@ import pytest_asyncio
 from alembic.config import Config
 from fastapi.testclient import TestClient
 from pytest import fixture
+from sqlalchemy import create_engine
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import sessionmaker
 
+from dnd5esheets import db
 from dnd5esheets.app import create_app
 from dnd5esheets.cli import (
     _populate_base_items,
     _populate_db_with_dev_data,
     _populate_spells,
 )
-from dnd5esheets.db import create_session
 from dnd5esheets.models import Character, Player
 
 from .utils import log_as
@@ -58,8 +61,30 @@ def client_as_compagnie_des_gourmands_player(app):
     return log_as("ne@test.com", app)
 
 
+@fixture(scope="session")
+def monkeypatch_db_uri(app, worker_id):
+    app.settings.DB_URI += f".{worker_id}"
+    app.settings.DB_ASYNC_URI += f".{worker_id}"
+    test_engine = create_engine(
+        app.settings.DB_URI,
+        connect_args={"check_same_thread": False},  # only for sqlite
+        echo=app.settings.SQLALCHEMY_ECHO,
+    )
+    test_async_engine = create_async_engine(
+        app.settings.DB_ASYNC_URI,
+        connect_args={"check_same_thread": False},  # only for sqlite
+        echo=app.settings.SQLALCHEMY_ECHO,
+    )
+    db.session_factory = sessionmaker(
+        autocommit=False, autoflush=False, bind=test_engine
+    )
+    db.async_session_factory = async_sessionmaker(
+        autocommit=False, autoflush=False, bind=test_async_engine, class_=AsyncSession
+    )
+
+
 @fixture(scope="session", autouse=True)
-def init_db(app):
+def init_db(app, monkeypatch_db_uri):
     # Create all tables by applying all migrations
     # Note: we could do it with BaseModel.metadata.create_all(bind=engine)
     # but that won't create the triggers, virtual tables, etc
@@ -100,13 +125,13 @@ def session():
     This makes sure that any side effect in database is reverted at the end of the test.
 
     """
-    with create_session() as session:
+    with db.create_session() as session:
         yield session
 
 
 @pytest_asyncio.fixture(scope="function")
 async def async_session():
-    async with create_session() as session:
+    async with db.create_session() as session:
         yield session
 
 

@@ -40,6 +40,7 @@ pytest-asyncio = "^0.21.1"
 logging-tree = "^1.9"
 rich = "^13.5.2"
 sqla-graphs = { git = "https://github.com/edelooff/sqla-graphs.git" }
+pytest-xdist = "^3.3.1"
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
@@ -53,7 +54,7 @@ line-length = 102
 
 [tool.pytest.ini_options]
 # We ignore the deprecation warning thrown in passlib until https://foss.heptapod.net/python-libs/passlib/-/issues/148 is resolved
-addopts = "-s -W ignore::DeprecationWarning:passlib.utils:854"
+addopts = "-s -n auto -W ignore::DeprecationWarning:passlib.utils:854"
 testpaths = ["dnd5esheets/tests"]
 
 [tool.mypy]
