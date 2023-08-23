@@ -38,8 +38,9 @@ async def update_party(
 ) -> dict:
     """Update a party details.
 
-    Examples of JSON body paylods:
+    Examples of JSON body payloads:
 
+    - {"name": "New name"}
 
     """
     await PartyRepository.update(

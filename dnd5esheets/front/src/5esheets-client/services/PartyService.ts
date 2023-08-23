@@ -51,7 +51,9 @@ export class PartyService {
      * Update Party
      * Update a party details.
      *
-     * Examples of JSON body paylods:
+     * Examples of JSON body payloads:
+     *
+     * - {"name": "New name"}
      * @param id
      * @param requestBody
      * @returns any Successful Response
