@@ -24,9 +24,8 @@ ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
 
-
-
 include $(app-root)/*/*.mk
+
 
 $(app-root)/schemas.py:
 
@@ -176,7 +175,7 @@ ruff:
 
 run: admin-statics build  ## Run the app
 	@echo  "\n[+] Running the FastApi server"
-	cd $(app-root) && $(poetry-run) uvicorn --factory $(app-root).app:create_app --reload
+	@cd $(app-root) && $(poetry-run) uvicorn --factory $(app-root).app:create_app --reload
 
 test:  back-test front-test ## Run the project tests
 
