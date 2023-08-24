@@ -47,16 +47,6 @@ model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
 	@$(python) scripts/generate_model_graph.py
 
-lib/libsqlite3.so:
-	@echo "\n[+] Building libsqlite3 for linux"
-	@./scripts/compile-libsqlite-linux.sh
-
-lib/libsqlite3.0.dylib:
-	@echo "\n[+] Building libsqlite3 for macos"
-	@./scripts/compile-libsqlite-macos.sh
-
-libsqlite: lib/libsqlite3.so lib/libsqlite3.0.dylib
-
 $(front-root)/package-lock.json: $(front-root)/package.json
 
 $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas.py
@@ -83,7 +73,7 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: libsqlite model_graph.png data front-build  ## Build the application
+build: model_graph.png data front-build  ## Build the application
 
 back-check: black mypy ruff
 
