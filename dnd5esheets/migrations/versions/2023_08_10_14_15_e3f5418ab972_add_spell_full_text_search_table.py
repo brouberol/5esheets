@@ -37,16 +37,16 @@ def upgrade() -> None:
                 new.id,
                 'en',
                 new.name,
-                json_extract(new.json_data, '$.meta.description')
+                new.json_data ->>'$.meta.description'
             );
             INSERT INTO spell_search_index (rowid, spell_id, language, name, description)
                 SELECT
                     cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
-                    json_extract(json_each.value, '$.name'),
-                    json_extract(json_each.value, '$.description')
-                FROM json_each(json_extract(new.json_data, '$.meta.translations'));
+                    json_each.value ->> '$.name',
+                    json_each.value ->> '$.description'
+                FROM json_each(new.json_data ->> '$.meta.translations');
         END;
         """,
         # Populate the search index with the existing spells
@@ -57,7 +57,7 @@ def upgrade() -> None:
                 id,
                 'en',
                 name,
-                json_extract(json_data, '$.meta.description')
+                json_data ->> '$.meta.description'
             FROM spell;
         """,
         """
@@ -66,9 +66,9 @@ def upgrade() -> None:
                 cast(hex(json_each.key) as integer) + spell.id,
                 spell.id,
                 json_each.key,
-                json_extract(json_each.value, '$.name'),
-                json_extract(json_each.value, '$.description')
-            FROM spell, json_each(json_extract(spell.json_data, '$.meta.translations'));
+                json_each.value ->> '$.name',
+                json_each.value ->> '$.description'
+            FROM spell, json_each(spell.json_data ->> '$.meta.translations');
         """,
         # Every time an spell is deleted from DB, delete it from the search index
         """
@@ -90,16 +90,16 @@ def upgrade() -> None:
                 new.id,
                 'en',
                 new.name,
-                json_extract(new.json_data, '$.meta.description')
+                new.json_data ->> '$.meta.description'
             );
             REPLACE INTO spell_search_index (rowid, spell_id, language, name, description)
                 SELECT
                     cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
-                    json_extract(json_each.value, '$.name'),
-                    json_extract(json_each.value, '$.description')
-                FROM json_each(json_extract(new.json_data, '$.meta.translations'));
+                    json_each.value ->> '$.name',
+                    json_each.value ->> '$.description'
+                FROM json_each(new.json_data ->> '$.meta.translations');
         END
         """,
     ]
