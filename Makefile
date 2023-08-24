@@ -120,7 +120,7 @@ docker-build: requirements.txt  ## Build the docker image
 
 docker-run: docker-build  ## Run the docker image
 	@echo "\n[+] Running the docker image"
-	@docker run -it --rm -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
+	@docker run -it --rm --name 5esheets -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
 db-base-items: ## Populate the base items in database
 	@echo "\n[+] Populating the database with base items"
