@@ -27,8 +27,13 @@ RUN apt-get update && \
 # -- Main build combining the FastAPI and compiled frontend apps
 FROM python:3.11.4-slim
 
+ARG USERNAME=app
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
 WORKDIR /usr/src/app
 
+RUN addgroup --gid $USER_GID app && \
+    adduser --uid $USER_UID --gid $USER_GID --disabled-password $USERNAME
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -38,5 +43,5 @@ COPY scripts/start-app.sh .
 RUN rm -r ./dnd5esheets/front/*
 COPY --from=front-build /app/src/build/dist ./dnd5esheets/front/dist
 COPY --from=sqlite-build /app/src/build/libsqlite3.so ./lib/libsqlite3.so
-
+USER $USERNAME
 CMD ["./start-app.sh"]
