@@ -1,3 +1,4 @@
+# hadolint global ignore=DL3008
 # -- Build step, in charge of compiling the frontend app
 FROM node:20.2.0-bullseye-slim AS front-build
 
@@ -17,10 +18,10 @@ WORKDIR /app/src/build
 
 COPY scripts/compile-libsqlite-linux.sh ./
 RUN apt-get update && \
-    apt-get install -y build-essential wget tcl && \
+    apt-get install --no-install-recommends -y build-essential wget tcl && \
     ./compile-libsqlite-linux.sh && \
     apt-get remove -y build-essential wget tcl && \
-    apt clean
+    apt-get auto-clean
 
 
 # -- Main build combining the FastAPI and compiled frontend apps
