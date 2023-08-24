@@ -18,6 +18,7 @@ poetry-run = $(ld_preload) poetry run
 python = $(poetry-run) python3
 pstats-file = 5esheets.pstats
 app-cli = $(poetry-run) dnd5esheets-cli
+FRONT_FILES = $(shell find $(front-root)/src -type f -name '*.js' -or -name '*.ts*')
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
@@ -69,6 +70,10 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@curl -s http://localhost:$(app-port)/openapi.json > $(front-root)/openapi.json
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
 	@$(python) scripts/preprocess_openapi_json.py
+
+$(front-root)/dist/index.html: $(FRONT_FILES)
+	@echo "\n[+] Building the front app"
+	@$(npm-run) build
 
 $(api-client-root): $(front-root)/openapi.json
 	@echo "\n[+] Generating the typescript API client for the 5esheets API"
@@ -141,9 +146,7 @@ mypy:
 	@echo "\n[+] Checking Python types"
 	@$(poetry-run) mypy $(app-root)/
 
-front-build: front-generate-api-client
-	@echo "\n[+] Building the front app"
-	@$(npm-run) build
+front-build: $(front-root)/dist/index.html
 
 front-check:  front-lint front-prettier front-typecheck ## Run all frontend checks
 
