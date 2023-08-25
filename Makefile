@@ -2,12 +2,13 @@
 .PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env $(api-client-root)/core/OpenAPI.ts
 
 UNAME_S := $(shell uname -s)
+PWD = $(shell pwd)
 ifeq ($(UNAME_S),Linux)
 	libsqlite = lib/libsqlite3.so
-	ld_preload = LD_PRELOAD=$(libsqlite)
+	ld_preload = LD_PRELOAD=$(PWD)/$(libsqlite)
 else ifeq ($(UNAME_S),Darwin)
 	libsqlite = lib/libsqlite3.0.dylib
-	ld_preload = DYLD_LIBRARY_PATH=./lib
+	ld_preload = DYLD_LIBRARY_PATH=$(PWD)/lib
 endif
 
 app-root = dnd5esheets
