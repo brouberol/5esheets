@@ -3,8 +3,10 @@
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	ld_preload = LD_PRELOAD=lib/libsqlite3.so
+	libsqlite = lib/libsqlite3.so
+	ld_preload = LD_PRELOAD=$(libsqlite)
 else ifeq ($(UNAME_S),Darwin)
+	libsqlite = lib/libsqlite3.0.dylib
 	ld_preload = DYLD_LIBRARY_PATH=./lib
 endif
 
@@ -56,8 +58,6 @@ lib/libsqlite3.0.dylib:
 	@echo "\n[+] Building libsqlite3 for macos"
 	@./scripts/compile-libsqlite-macos.sh
 
-libsqlite3: lib/libsqlite3.so lib/libsqlite3.0.dylib
-
 $(front-root)/package-lock.json: $(front-root)/package.json
 
 $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas.py
@@ -88,7 +88,7 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: libsqlite3 model_graph.png data front-build  ## Build the application
+build: $(libsqlite) model_graph.png data front-build  ## Build the application
 
 back-check: black mypy ruff
 
