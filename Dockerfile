@@ -24,6 +24,14 @@ RUN apt-get update && \
     apt-get auto-clean
 
 
+# -- Generate the requirements.txt file
+FROM python:3.11.4-slim AS reqstxt-build
+
+WORKDIR /app/src/build
+COPY poetry.lock pyproject.toml .
+RUN pip install poetry==1.6.1 && poetry export --without=dev -o requirements.txt
+
+
 # -- Main build combining the FastAPI and compiled frontend apps
 FROM python:3.11.4-slim
 
@@ -34,7 +42,7 @@ WORKDIR /usr/src/app
 
 RUN addgroup --gid $USER_GID app && \
     adduser --uid $USER_UID --gid $USER_GID --disabled-password $USERNAME
-COPY requirements.txt .
+COPY --from=reqstxt-build /app/src/build/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY dnd5esheets ./dnd5esheets

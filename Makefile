@@ -45,10 +45,6 @@ poetry.lock: pyproject.toml
 	@echo "\n[+] Locking dependencies"
 	@poetry lock
 
-requirements.txt: poetry.lock
-	@echo "\n[+] Updating requirements.txt"
-	@poetry export --without=dev -o requirements.txt
-
 doc/model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
 	@$(python) scripts/generate_model_graph.py doc/model_graph.png
@@ -115,13 +111,13 @@ deps-js: $(front-root)/package-lock.json
 	@echo "\n[+] Installing js dependencies"
 	@$(npm) install
 
-deps-python: requirements.txt
+deps-python: poetry.lock
 	@echo "\n[+] Installing python dependencies"
 	@poetry install
 
 deps: deps-python deps-js  ## Install the development dependencies
 
-docker-build: requirements.txt  ## Build the docker image
+docker-build:  ## Build the docker image
 	@echo "\n[+] Building the docker image"
 	@docker build -t brouberol/5esheets .
 
