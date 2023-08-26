@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env $(api-client-root)/core/OpenAPI.ts
+.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env
 
 UNAME_S := $(shell uname -s)
 PWD = $(shell pwd)
@@ -21,7 +21,7 @@ poetry-run = $(ld_preload) poetry run
 python = $(poetry-run) python3
 pstats-file = 5esheets.pstats
 app-cli = $(poetry-run) dnd5esheets-cli
-FRONT_FILES = $(shell find $(front-root)/src -type f -name '*.js' -or -name '*.ts*')
+FRONT_FILES = $(shell find $(front-root)/src -type f -name '*.[jt]s*')
 
 sed_i = sed -i
 ifeq ($(UNAME_S),Darwin)
@@ -37,6 +37,8 @@ $(wildcard $(app-root)/api/*.py):
 
 $(app-root)/models.py:
 
+scripts/cleanup_makefile2dot_output.py:
+
 pyproject.toml:
 
 poetry.lock: pyproject.toml
@@ -47,9 +49,13 @@ requirements.txt: poetry.lock
 	@echo "\n[+] Updating requirements.txt"
 	@poetry export --without=dev -o requirements.txt
 
-model_graph.png: $(app-root)/models.py
+doc/model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
-	@$(python) scripts/generate_model_graph.py
+	@$(python) scripts/generate_model_graph.py doc/model_graph.png
+
+doc/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
+	@echo "\n[+] Generating a visual graph representation of the Makefile"
+	@$(poetry-run) makefile2dot | ./scripts/cleanup_makefile2dot_output.py | dot -Tpng > doc/makefile.png
 
 lib/libsqlite3.so:
 	@echo "\n[+] Building libsqlite3 for linux"
@@ -89,7 +95,7 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: $(libsqlite) model_graph.png data front-build  ## Build the application
+build: $(libsqlite) doc/model_graph.png doc/makefile.png data front-build  ## Build the application
 
 back-check: black mypy ruff
 
