@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check clean dev docker-build docker-run front-check help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer black check clean docker-build docker-run front-check help init mypy ruff run test trash-env
 
 UNAME_S := $(shell uname -s)
 PWD = $(shell pwd)
@@ -19,7 +19,6 @@ npm = cd $(front-root) && npm
 npm-run = $(npm) run
 poetry-run = $(ld_preload) poetry run
 python = $(poetry-run) python3
-pstats-file = 5esheets.pstats
 app-cli = $(poetry-run) dnd5esheets-cli
 FRONT_FILES = $(shell find $(front-root)/src -type f -name '*.[jt]s*')
 
@@ -47,11 +46,11 @@ poetry.lock: pyproject.toml
 
 doc/model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
-	@$(python) scripts/generate_model_graph.py doc/model_graph.png
+	@./scripts/generate_model_graph.py $@
 
 doc/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
 	@echo "\n[+] Generating a visual graph representation of the Makefile"
-	@$(poetry-run) makefile2dot | ./scripts/cleanup_makefile2dot_output.py | dot -Tpng > doc/makefile.png
+	@$(poetry-run) makefile2dot | ./scripts/cleanup_makefile2dot_output.py | dot -Tpng > $@
 
 lib/libsqlite3.so:
 	@echo "\n[+] Building libsqlite3 for linux"
@@ -70,9 +69,9 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@# save the file locally and then kill the app with a SIGTERM.
 	@cd $(app-root) && $(poetry-run) uvicorn --factory $(app-root).app:create_app >/dev/null 2>&1 &
 	@sleep 3  # Sorry dad
-	@curl -s http://localhost:$(app-port)/openapi.json > $(front-root)/openapi.json
+	@curl -s http://localhost:$(app-port)/openapi.json > $@
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
-	@$(python) scripts/preprocess_openapi_json.py
+	@./scripts/preprocess_openapi_json.py
 
 $(front-root)/dist/index.html: $(FRONT_FILES)
 	@echo "\n[+] Building the front app"
@@ -83,7 +82,7 @@ $(api-client-root): $(front-root)/openapi.json
 	@$(npm-run) generate-client
 
 .git/hooks/pre-push:
-	@cp scripts/pre-push .git/hooks/pre-push
+	@cp scripts/pre-push $@
 
 api-doc:  ## Open the 5esheets API documentation
 	open http://localhost:$(app-port)/redoc
