@@ -18,7 +18,7 @@
     "@solid-primitives/i18n": "^1.4.1",
     "@solid-primitives/resource": "^0.1.0",
     "@solidjs/meta": "^0.28.6",
-    "@solidjs/router": "^0.8.2",
+    "@solidjs/router": "^0.8.3",
     "@solidjs/testing-library": "^0.8.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/debug": "^4.1.7",
