@@ -46,19 +46,19 @@ poetry.lock: pyproject.toml
 
 doc/model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
-	@./scripts/generate_model_graph.py $@
+	@$(python) scripts/generate_model_graph.py $@
 
 doc/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
 	@echo "\n[+] Generating a visual graph representation of the Makefile"
-	@$(poetry-run) makefile2dot | ./scripts/cleanup_makefile2dot_output.py | dot -Tpng > $@
+	@$(poetry-run) makefile2dot | $(python) scripts/cleanup_makefile2dot_output.py | dot -Tpng > $@
 
 lib/libsqlite3.so:
 	@echo "\n[+] Building libsqlite3 for linux"
-	@./scripts/compile-libsqlite-linux.sh
+	@$(python) scripts/compile-libsqlite-linux.sh
 
 lib/libsqlite3.0.dylib:
 	@echo "\n[+] Building libsqlite3 for macos"
-	@./scripts/compile-libsqlite-macos.sh
+	@$(python) scripts/compile-libsqlite-macos.sh
 
 $(front-root)/package-lock.json: $(front-root)/package.json
 
@@ -71,7 +71,7 @@ $(front-root)/openapi.json: $(wildcard $(app-root)/api/*.py) $(app-root)/schemas
 	@sleep 3  # Sorry dad
 	@curl -s http://localhost:$(app-port)/openapi.json > $@
 	@kill $$(lsof -i tcp:$(app-port) | grep -v PID | head -n 1 | awk '{ print $$2 }')
-	@./scripts/preprocess_openapi_json.py
+	@$(python) scripts/preprocess_openapi_json.py
 
 $(front-root)/dist/index.html: $(FRONT_FILES)
 	@echo "\n[+] Building the front app"
@@ -190,4 +190,4 @@ trash-env:  ## Delete all js dependencies and the python virtualenv
 	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
 
 help:  ## Display help
-	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | ./scripts/format_makefile.py
+	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | $(python) scripts/format_makefile.py
