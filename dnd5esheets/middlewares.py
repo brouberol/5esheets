@@ -170,11 +170,12 @@ def register_profiling_middleware(app: ExtendedFastAPI):
             if request.query_params.get("profile", False):
                 profile_type = request.query_params.get("profile_format", "speedscope")
                 with Profiler(interval=0.001, async_mode="enabled") as profiler:
-                    await call_next(request)
+                    response = await call_next(request)
                 extension = profile_type_to_ext[profile_type]
                 renderer = profile_type_to_renderer[profile_type]()
                 with open(current_dir / f"../profile.{extension}", "w") as out:
                     out.write(profiler.output(renderer=renderer))
+                return response
             return await call_next(request)
 
 
