@@ -15,6 +15,7 @@ from sqlalchemy import (
     UniqueConstraint,
     types,
 )
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
@@ -153,6 +154,20 @@ class NameReprMixin:
         return self.name
 
 
+class DataPropertyMixin:
+    """Provide the .data property as an accessor to the data_ mapped column"""
+
+    # We rely on hybrid properties (https://docs.sqlalchemy.org/en/20/orm/extensions/hybrid.html)
+    # to perform an field name indirection, whether on the instance or the model level
+    @hybrid_property
+    def data(self):
+        return self.data_
+
+    @data.inplace.setter
+    def set_data(self, value):
+        self.data_ = value
+
+
 class Player(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(
@@ -182,9 +197,9 @@ class Party(NameReprMixin, BaseModel):
     )
 
 
-class Item(NameReprMixin, BaseModel):
+class Item(NameReprMixin, DataPropertyMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
-    data: Mapped[str] = mapped_column(Json, name="json_data")
+    data_: Mapped[str] = mapped_column(Json, name="json_data")
 
     @property
     def five_e_tools_url(self):
@@ -218,12 +233,12 @@ class KnownSpell(BaseModel):
         return f"<{self.__class__.__name__}: {str(self.spell)}>"
 
 
-class Character(NameReprMixin, BaseModel):
+class Character(NameReprMixin, DataPropertyMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
     class_: Mapped[str] = mapped_column(String(80), name="class", nullable=True)
     level: Mapped[int] = mapped_column(Integer, nullable=True)
-    data: Mapped[str] = mapped_column(Json, name="json_data", nullable=True)
+    data_: Mapped[str] = mapped_column(Json, name="json_data", nullable=True)
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
     player: Mapped[Player] = relationship(
         back_populates="characters",
@@ -261,11 +276,11 @@ class Character(NameReprMixin, BaseModel):
         return level
 
 
-class Spell(NameReprMixin, BaseModel):
+class Spell(NameReprMixin, DataPropertyMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     level: Mapped[int] = mapped_column(Integer, nullable=False)
     school: Mapped[str] = mapped_column(String(30), nullable=False)
-    data: Mapped[str] = mapped_column(Json, name="json_data")
+    data_: Mapped[str] = mapped_column(Json, name="json_data")
 
     def __repr__(self):
         return f"<{self.__class__.__name__}: {self.name} [{self.level}]>"

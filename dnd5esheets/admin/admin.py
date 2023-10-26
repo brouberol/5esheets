@@ -62,20 +62,8 @@ def base_excluded_columns(model: Type[BaseModel]) -> list:
 
 
 def base_form_excluded_columns(model: Type[BaseModel]) -> list:
-    """Exclude hidden fields from form, as well as any field named 'data'.
-
-    Note: this is due to a bug in sqladmin, through wich a field named 'data' overrides
-    the BaseForm.data atttribute.
-    See https://github.com/aminalaee/sqladmin/issues/656.
-
-    """
-    excluded_columns = base_excluded_columns(model)
-    # See https://github.com/aminalaee/sqladmin/issues/656
-    # having a model column named 'data' collides with
-    # https://github.com/wtforms/wtforms/blob/master/src/wtforms/form.py#L150-L152
-    if getattr(model, "data", None):
-        excluded_columns.append(model.data)  # type: ignore
-    return excluded_columns
+    """Exclude hidden fields from form"""
+    return base_excluded_columns(model)
 
 
 class CustomModelView(ModelView):
@@ -118,7 +106,7 @@ class CharacterAdmin(ModelView, model=Character):
     ]
     column_details_exclude_list = base_excluded_columns(Character)
     form_excluded_columns = base_form_excluded_columns(Character)
-    column_labels = {Character.class_: "class"}
+    column_labels = {Character.class_: "class", Character.data_: "data"}
     column_searchable_list = [Character.name, Character.class_]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
@@ -154,7 +142,7 @@ class ItemAdmin(CustomModelView, model=Item):
     _column_formatters = {
         "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
     }
-    column_labels = {"five_e_tools_url": "5e.tools URL"}
+    column_labels = {"five_e_tools_url": "5e.tools URL", Item.data_: "data"}
     page_size = 30
     column_searchable_list = [Item.name]
     column_list = [Item.id, Item.name]
@@ -192,7 +180,7 @@ class SpellAdmin(CustomModelView, model=Spell):
         Spell.school: lambda model, _: model.school.capitalize(),  # type: ignore
         "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
     }
-    column_labels = {"five_e_tools_url": "5e.tools URL"}
+    column_labels = {"five_e_tools_url": "5e.tools URL", Spell.data_: "data"}
 
     page_size = 30
     column_searchable_list = [Spell.name, Spell.level]
