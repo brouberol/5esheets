@@ -50,12 +50,32 @@ def link(url: str, title: str | None = None) -> Markup:
 custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
 
 
-def base_excluded_columns(model: Type[BaseModel]):
-    return [model.id, model.created_at, model.updated_at] + [
+def base_excluded_columns(model: Type[BaseModel]) -> list:
+    """Hide the id, creation/update dates and foreign key fields by default"""
+    excluded_base_columns = [model.id, model.created_at, model.updated_at]
+    foreign_keys = [
         getattr(model, field)
         for field in model.__annotations__
         if field.endswith("_id")
     ]
+    return excluded_base_columns + foreign_keys
+
+
+def base_form_excluded_columns(model: Type[BaseModel]) -> list:
+    """Exclude hidden fields from form, as well as any field named 'data'.
+
+    Note: this is due to a bug in sqladmin, through wich a field named 'data' overrides
+    the BaseForm.data atttribute.
+    See https://github.com/aminalaee/sqladmin/issues/656.
+
+    """
+    excluded_columns = base_excluded_columns(model)
+    # See https://github.com/aminalaee/sqladmin/issues/656
+    # having a model column named 'data' collides with
+    # https://github.com/wtforms/wtforms/blob/master/src/wtforms/form.py#L150-L152
+    if getattr(model, "data", None):
+        excluded_columns.append(model.data)  # type: ignore
+    return excluded_columns
 
 
 class CustomModelView(ModelView):
@@ -97,7 +117,7 @@ class CharacterAdmin(ModelView, model=Character):
         Character.player,
     ]
     column_details_exclude_list = base_excluded_columns(Character)
-    form_excluded_columns = base_excluded_columns(Character)
+    form_excluded_columns = base_form_excluded_columns(Character)
     column_labels = {Character.class_: "class"}
     column_searchable_list = [Character.name, Character.class_]
     column_type_formatters = custom_base_formatters
@@ -109,7 +129,7 @@ class PartyAdmin(ModelView, model=Party):
     column_list = [Party.id, Party.name, Party.members]
     column_searchable_list = [Party.name]
     column_details_exclude_list = base_excluded_columns(Party)
-    form_excluded_columns = base_excluded_columns(Party)
+    form_excluded_columns = base_form_excluded_columns(Party)
 
 
 class PlayerAdmin(ModelView, model=Player):
@@ -124,7 +144,9 @@ class PlayerAdmin(ModelView, model=Player):
     column_details_exclude_list = base_excluded_columns(Player) + [
         Player.hashed_password
     ]
-    form_excluded_columns = base_excluded_columns(Player) + [Player.hashed_password]
+    form_excluded_columns = base_form_excluded_columns(Player) + [
+        Player.hashed_password
+    ]
     column_labels = {Player.player_roles: "roles"}
 
 
@@ -137,7 +159,7 @@ class ItemAdmin(CustomModelView, model=Item):
     column_searchable_list = [Item.name]
     column_list = [Item.id, Item.name]
     column_details_exclude_list = base_excluded_columns(Item)
-    form_excluded_columns = base_excluded_columns(Item)
+    form_excluded_columns = base_form_excluded_columns(Item)
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
     column_formatters_detail = _column_formatters  # type: ignore
@@ -153,7 +175,7 @@ class EquippedItemAdmin(ModelView, model=EquippedItem):
         EquippedItem.equipped,
     ]
     column_details_exclude_list = base_excluded_columns(EquippedItem)
-    form_excluded_columns = base_excluded_columns(EquippedItem)
+    form_excluded_columns = base_form_excluded_columns(EquippedItem)
 
 
 class KnownSpellAdmin(ModelView, model=KnownSpell):
@@ -176,7 +198,7 @@ class SpellAdmin(CustomModelView, model=Spell):
     column_searchable_list = [Spell.name, Spell.level]
     column_list = [Spell.id, Spell.name, Spell.level, Spell.school]
     column_details_exclude_list = base_excluded_columns(Spell)
-    form_excluded_columns = base_excluded_columns(Spell)
+    form_excluded_columns = base_form_excluded_columns(Spell)
     column_sortable_list = [Spell.name, Spell.level]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
@@ -192,7 +214,7 @@ class PlayerRoleAdmin(ModelView, model=PlayerRole):
         PlayerRole.role,
     ]
     column_details_exclude_list = base_excluded_columns(PlayerRole)
-    form_excluded_columns = base_excluded_columns(PlayerRole)
+    form_excluded_columns = base_form_excluded_columns(PlayerRole)
 
 
 class CustomAdmin(Admin):
