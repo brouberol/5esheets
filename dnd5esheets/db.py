@@ -37,8 +37,7 @@ class create_session:
     """Creates a new session to the database.
 
     This session creator acts as a context manager, either synchronous or asynchronous.
-    The session will be committed
-    if `commit_at_end=True`, and then closed.
+    The session will be committed if `commit_at_end=True`, and then closed.
 
     >>> with create_session(commit_at_end=True/False):
     ...     # code
