@@ -362,12 +362,14 @@ export default function CharacterSheet(props: {
           >
             <MarkdownRenderedEditableBox
               id="languages-proficiencies"
-              text={character.data?.languages_and_proficiencies || ''}
-              onChange={(equipment: string) => {
-                onChange({
-                  data: { languages_and_proficiencies },
-                })
-              }}></MarkdownRenderedEditableBox>
+              text={props.character.data?.languages_and_proficiencies || ''}
+              onChange={(languagesAndProficiencies: string) =>
+                props.updateCharacter(
+                  (character) =>
+                    (character.data.languages_and_proficiencies = languagesAndProficiencies)
+                )
+              }
+            ></MarkdownRenderedEditableBox>
           </LabeledBox>
         </div>
       </section>
@@ -379,44 +381,80 @@ export default function CharacterSheet(props: {
       </section>
       <section class="equipment flex-container">
         <LabeledBox label={t('equipment')}>
-          <MarkdownRenderedEditableBox
+          {/* <MarkdownRenderedEditableBox
             id="equipment"
-            text={character.data?.equipment || ''}
-            onChange={(equipment: string) => {
-              onChange({
-                data: { equipment },
-              })
-            }}>
-          </MarkdownRenderedEditableBox>
+            text={props.character.data.equipment || ''}
+            onChange={(equipment: string) =>
+              props.updateCharacter(
+                (character) =>
+                  (character.data.equipment = character.data.equipment)
+              )
+            }
+          >
+          </MarkdownRenderedEditableBox> */}
         </LabeledBox>
       </section>
       <section class="flavor flex-container">
-        <LabeledBox label={t('personality')}>
-          <MarkdownRenderedEditableBox
-            id="personality"
-            text={character.data?.personality || ''}
-            onChange={(personality: string) => {
-              onChange({
-                data: { personality },
-              })
-            }}>
-          </MarkdownRenderedEditableBox>
-
-        </LabeledBox>
+        <BorderBox>
+          <LabeledBox label={t('personality')}>
+            <MarkdownRenderedEditableBox
+              id="personality"
+              text={props.character.data?.personality || ''}
+              onChange={(personality: string) =>
+                props.updateCharacter(
+                  (character) => character.data.personality = personality
+                )
+              }>
+            </MarkdownRenderedEditableBox>
+          </LabeledBox>
+          <LabeledBox label={t('ideals')}>
+            <MarkdownRenderedEditableBox
+              id="ideals"
+              text={props.character.data?.ideals || ''}
+              onChange={(ideals: string) =>
+                props.updateCharacter(
+                  (character) => character.data.ideals = ideals
+                )
+              }>
+            </MarkdownRenderedEditableBox>
+          </LabeledBox>
+          <LabeledBox label={t('bonds')}>
+            <MarkdownRenderedEditableBox
+              id="bonds"
+              text={props.character.data?.bonds || ''}
+              onChange={(bonds: string) =>
+                props.updateCharacter(
+                  (character) => character.data.bonds = bonds
+                )
+              }>
+            </MarkdownRenderedEditableBox>
+          </LabeledBox>
+          <LabeledBox label={t('flaws')}>
+            <MarkdownRenderedEditableBox
+              id="flaws"
+              text={props.character.data?.flaws || ''}
+              onChange={(flaws: string) =>
+                props.updateCharacter(
+                  (character) => character.data.flaws = flaws
+                )
+              }>
+            </MarkdownRenderedEditableBox>
+          </LabeledBox>
+        </BorderBox>
       </section>
       <section class="features_and_traits flex-container">
         <LabeledBox label={t('features_&_traits')}>
           <MarkdownRenderedEditableBox
             id="features-traits"
-            text={character.data?.features || ''}
-            onChange={(features: string) => {
-              onChange({
-                data: { features },
-              })
-            }}>
+            text={props.character.data?.features || ''}
+            onChange={(features: string) =>
+              props.updateCharacter(
+                (character) => character.data.features = features
+              )
+            }>
           </MarkdownRenderedEditableBox>
         </LabeledBox>
       </section>
-    </section>
+    </section >
   )
 }
