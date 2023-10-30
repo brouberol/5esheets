@@ -380,17 +380,15 @@ export default function CharacterSheet(props: {
       </section>
       <section class="equipment flex-container">
         <LabeledBox label={t('equipment')}>
-          {/* <MarkdownRenderedEditableBox
-            id="equipment"
-            text={props.character.data.equipment || ''}
-            onChange={(equipment: string) =>
+          <MarkdownRenderedEditableBox
+            id="inventory"
+            text={props.character.data.inventory || ''}
+            onChange={(inventory: string) =>
               props.updateCharacter(
-                (character) =>
-                  (character.data.equipment = character.data.equipment)
+                (character) => (character.data.inventory = inventory)
               )
             }
-          >
-          </MarkdownRenderedEditableBox> */}
+          ></MarkdownRenderedEditableBox>
         </LabeledBox>
       </section>
       <section class="flavor flex-container">
