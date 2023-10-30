@@ -220,8 +220,8 @@ export default function CharacterSheet(props: {
                       onChange={(score: number) => {
                         props.updateCharacter(
                           (character) =>
-                          (character.data.abilities[ability].score =
-                            Number.isNaN(score) ? 0 : score)
+                            (character.data.abilities[ability].score =
+                              Number.isNaN(score) ? 0 : score)
                         )
                       }}
                     />
@@ -387,23 +387,29 @@ export default function CharacterSheet(props: {
           </LabeledBox>
         </div>
         <LabeledBox label={t('hit_points_current')}>
-          <SingleAttribute value={`${props.character.data?.hp.current} / ${props.character.data?.hp.max} + ${props.character.data?.hp.temp}`} />
+          <SingleAttribute
+            value={`${props.character.data?.hp.current} / ${props.character.data?.hp.max} + ${props.character.data?.hp.temp}`}
+          />
         </LabeledBox>
         <div class="flex-container horizontal-container">
           <LabeledBox label={t('hit_dice')}>
             <div>
-              {t('hit_dice_total')}: {props.character.data?.hit_dice.total}{props.character.data?.hit_dice.type}
+              {t('hit_dice_total')}: {props.character.data?.hit_dice.total}
+              {props.character.data?.hit_dice.type}
             </div>
             <div>
-              {props.character.data?.hit_dice.remaining}{props.character.data?.hit_dice.type}
+              {props.character.data?.hit_dice.remaining}
+              {props.character.data?.hit_dice.type}
             </div>
           </LabeledBox>
           <LabeledBox label={t('death_saves')}>
             <div>
-              {t('death_saves_successes')}: {props.character.data?.death_saves.successes}
+              {t('death_saves_successes')}:{' '}
+              {props.character.data?.death_saves.successes}
             </div>
             <div>
-              {t('death_saves_failures')}: {props.character.data?.death_saves.failures}
+              {t('death_saves_failures')}:{' '}
+              {props.character.data?.death_saves.failures}
             </div>
           </LabeledBox>
         </div>

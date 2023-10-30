@@ -142,14 +142,15 @@ class CharacterStore {
     return [this.characters[slug], this.updateCharacter(slug)]
   }
 
-  saveCharacter = async (
-    slug: string
-  ): Promise<void> => {
+  saveCharacter = async (slug: string): Promise<void> => {
     // TODO: handle async state (before save, we freeze the state, to prevent concurrent
     // updates).
-    const { name, class_, level, data } = this.characters[slug];
+    const { name, class_, level, data } = this.characters[slug]
     await CharacterService.updateCharacter(slug, {
-      name, class_, level, data
+      name,
+      class_,
+      level,
+      data,
     })
   }
 
