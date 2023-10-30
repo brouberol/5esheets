@@ -265,7 +265,11 @@
         "features": "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
         "daily_prepared_spells": 6,
         "spellcasting_ability": "intelligence",
-        "inventory": "- Un coquillage\r\n- de la poudre noire\r\n- 100 billes de metal"
+        "inventory": "- Un coquillage\r\n- de la poudre noire\r\n- 100 billes de metal",
+        "death_saves": {
+          "successes": 0,
+          "failures": 0
+        }
       }
     },
     {
@@ -452,7 +456,11 @@
         "features": "**Bricolage**\r\n- 1h pour bricoler 1 objet\r\n- jusqu'à 3 objets \r\n  * boîte à musique\r\n  * jouet mécanique en bois\r\n  * allume feu\r\n\r\n**Bricolage magique**\r\n- sur objet minuscule\r\n- jusqu'à 3\r\n  * peut jouer un message enregistré\r\n  * peut jouer un son continu\r\n\r\n**Infusions**\r\n- 4 connues\r\n- jusqu'à 3 objets en même temps\r\n- dure 3 jours\r\n\r\n**Right tool**\r\n1h pour crafter des objets d'artisan\r\n\r\n**Canon occulte**\r\n- 1 action pour invoquer/faire disparaître\r\n- 1 action bonus pour utiliser\r\n * lance-flamme: 🔺 DEX save ? 2d8 🔥 : 1/2\r\n * baliste: 🏹 40m. 2d8 💪 + 1.5m recul\r\n * protecteur: 3m ⭕, 1d8@int_mod temp HP",
         "daily_prepared_spells": 6,
         "spellcasting_ability": "intelligence",
-        "inventory": "- Un coquillage\r\n- de la poudre noire\r\n- 100 billes de metal"
+        "inventory": "- Un coquillage\r\n- de la poudre noire\r\n- 100 billes de metal",
+        "death_saves": {
+          "successes": 0,
+          "failures": 0
+        }
       }
     },
     {

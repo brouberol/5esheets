@@ -7,6 +7,7 @@ import type { Abilities } from './Abilities';
 import type { AbilityName } from './AbilityName';
 import type { Attack } from './Attack';
 import type { CustomResource } from './CustomResource';
+import type { DeathSaves } from './DeathSaves';
 import type { HitDice } from './HitDice';
 import type { HitPoints } from './HitPoints';
 import type { Money } from './Money';
@@ -36,6 +37,7 @@ export type CharacterSheet = {
     inventory: string;
     spellcasting_ability: (AbilityName | null);
     daily_prepared_spells: number;
+    death_saves: DeathSaves;
     proficiency_bonus: number;
     ac: number;
     initiative: number;

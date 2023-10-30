@@ -1681,6 +1681,9 @@
             "type": "integer",
             "title": "Daily Prepared Spells"
           },
+          "death_saves": {
+            "$ref": "#/components/schemas/DeathSaves"
+          },
           "proficiency_bonus": {
             "type": "integer",
             "title": "Proficiency Bonus"
@@ -1731,6 +1734,7 @@
           "inventory",
           "spellcasting_ability",
           "daily_prepared_spells",
+          "death_saves",
           "proficiency_bonus",
           "ac",
           "initiative",
@@ -1784,6 +1788,36 @@
           "remaining"
         ],
         "title": "CustomResource"
+      },
+      "DeathSaves": {
+        "properties": {
+          "successes": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "title": "Successes"
+          },
+          "failures": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "title": "Failures"
+          }
+        },
+        "type": "object",
+        "required": [
+          "successes",
+          "failures"
+        ],
+        "title": "DeathSaves"
       },
       "DisplayPartySchema": {
         "properties": {

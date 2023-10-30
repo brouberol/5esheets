@@ -372,7 +372,16 @@ export default function CharacterSheet(props: {
         </div>
       </section>
       <section class="combat-stats flex-container">
-        <LabeledBox label={t('current_hit_points')}></LabeledBox>
+        <div class="flex-container horizontal-container">
+          <LabeledBox label={t('death_saves')}>
+            <div>
+              {t('death_saves_successes')}: {props.character.data?.death_saves.successes}
+            </div>
+            <div>
+              {t('death_saves_failures')}: {props.character.data?.death_saves.failures}
+            </div>
+          </LabeledBox>
+        </div>
       </section>
       <section class="actions flex-container">
         <LabeledBox label={t('attacks')}></LabeledBox>

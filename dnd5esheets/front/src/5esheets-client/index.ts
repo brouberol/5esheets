@@ -17,6 +17,7 @@ export type { CharacterSchemaNoEmbeddedFields } from './models/CharacterSchemaNo
 export type { CharacterSheet } from './models/CharacterSheet';
 export type { CreateCharacterSchema } from './models/CreateCharacterSchema';
 export type { CustomResource } from './models/CustomResource';
+export type { DeathSaves } from './models/DeathSaves';
 export type { DisplayPartySchema } from './models/DisplayPartySchema';
 export type { DisplayPlayerSchema } from './models/DisplayPlayerSchema';
 export type { DurationUnit } from './models/DurationUnit';
