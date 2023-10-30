@@ -127,11 +127,10 @@ export default function CharacterSheet(props: {
             value={`${props.character.class_} ${props.character.level}`}
             onChange={(classAndLevel: string) => {
               props.updateCharacter((character) => {
-                const sanitizedInput = classAndLevel.trim()
-                const index = sanitizedInput.lastIndexOf(' ')
-                character.class_ = sanitizedInput.slice(0, index).trim()
+                const lastSpaceIndex = classAndLevel.lastIndexOf(' ')
+                character.class_ = classAndLevel.slice(0, lastSpaceIndex).trim()
                 character.level =
-                  parseInt(sanitizedInput.slice(index).trim()) || 0
+                  parseInt(classAndLevel.slice(lastSpaceIndex).trim()) || 0
               })
             }}
           />
