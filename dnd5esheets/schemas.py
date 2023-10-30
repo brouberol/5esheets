@@ -169,9 +169,7 @@ class EquippedItemSchema(BaseORMSchema):
 
 
 class SpellCastingMaterial(BaseSchema):
-    text: str = Field(
-        title="A description of the material components required to cast a spell"
-    )
+    text: str = Field(title="A description of the material components required to cast a spell")
     cost: int = Field(title="The minimum cost of the materials", default=0)
     consume: bool | str = Field(default=None)
 
@@ -310,9 +308,7 @@ class PlayerSchema(BaseORMSchema):
 class DisplayPlayerSchema(PlayerSchema):
     """A player details including the list of their characters"""
 
-    characters: list["RestrictedCharacterSchema"] = Field(
-        title="The player's characters"
-    )
+    characters: list["RestrictedCharacterSchema"] = Field(title="The player's characters")
 
 
 class UpdatePlayerSchema(BaseUpdateSchema):
@@ -463,9 +459,7 @@ class CharacterSchema(BaseORMSchema):
 
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
-    slug: str = Field(
-        max_length=255, title="The character slug, used to identify it in the API"
-    )
+    slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
     class_: str | None = Field(max_length=80, title="The character class", default=None)
     level: int | None = Field(ge=1, le=20, title="The character level", default=None)
     data: CharacterSheet | None = Field(
@@ -474,9 +468,7 @@ class CharacterSchema(BaseORMSchema):
     party: PartySchema = Field(title="The embedded character's party schema")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     equipment: list[EquippedItemSchema] = Field(title="The character's equipment")
-    spellbook: list[RestrictedKnownSpellSchema] = Field(
-        title="The character's spellbook content"
-    )
+    spellbook: list[RestrictedKnownSpellSchema] = Field(title="The character's spellbook content")
 
 
 class CreateCharacterSchema(BaseORMSchema):
@@ -500,9 +492,7 @@ class CharacterSchemaNoEmbeddedFields(BaseSchema):
 
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
-    slug: str = Field(
-        max_length=255, title="The character slug, used to identify it in the API"
-    )
+    slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
     class_: str | None = Field(max_length=80, title="The character class", default=None)
     level: int | None = Field(ge=1, le=20, title="The character level", default=None)
     player: PlayerSchema = Field(title="The embedded character's player schema")
@@ -511,9 +501,7 @@ class CharacterSchemaNoEmbeddedFields(BaseSchema):
 class ListCharacterSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
-    slug: str = Field(
-        max_length=255, title="The character slug, used to identify it in the API"
-    )
+    slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
     class_: str = Field(max_length=80, title="The character class")
     level: int = Field(ge=1, le=20, title="The character level")
     player: PlayerSchema = Field(title="The embedded character's player schema")
@@ -522,15 +510,9 @@ class ListCharacterSchema(BaseORMSchema):
 
 class UpdateCharacterSchema(BaseUpdateSchema):
     name: str | None = Field(title="A new character name (Optional)", default=None)
-    class_: str | None = Field(
-        max_length=80, title="A new character class (Optional)", default=None
-    )
-    level: int | None = Field(
-        ge=1, title="A new character level (Optional)", default=None
-    )
-    data: dict | None = Field(
-        title="Updates to the character sheet fields (Optional)", default=None
-    )
+    class_: str | None = Field(max_length=80, title="A new character class (Optional)", default=None)
+    level: int | None = Field(ge=1, title="A new character level (Optional)", default=None)
+    data: dict | None = Field(title="Updates to the character sheet fields (Optional)", default=None)
 
 
 class SearchResult(BaseSchema):

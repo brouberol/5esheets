@@ -131,9 +131,7 @@ class RequestResponseLoggingMiddleware(BaseHTTPMiddleware):
             response: Response = await call_next(request)
 
         except Exception as e:
-            self.logger.exception(
-                {"path": request.url.path, "method": request.method, "reason": e}
-            )
+            self.logger.exception({"path": request.url.path, "method": request.method, "reason": e})
             raise e
 
         else:

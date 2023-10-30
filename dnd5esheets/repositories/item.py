@@ -28,9 +28,7 @@ class ItemRepository(BaseRepository):
     ) -> list[ItemSearchResult]:
         results = [
             ItemSearchResult(*result)
-            for result in await cls._search(
-                session, search_term=search_term, limit=limit
-            )
+            for result in await cls._search(session, search_term=search_term, limit=limit)
         ]
         if favored_language:
             results = sorted(

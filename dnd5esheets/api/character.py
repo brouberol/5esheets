@@ -107,9 +107,7 @@ async def delete_character(
     return Response(status_code=HTTP_204_NO_CONTENT)
 
 
-@character_api.put(
-    "/{slug}/equipment/{item_id}", dependencies=[Depends(party_gm_or_owner)]
-)
+@character_api.put("/{slug}/equipment/{item_id}", dependencies=[Depends(party_gm_or_owner)])
 async def add_item_to_equipment(
     slug: str,
     item_id: int,
@@ -179,9 +177,7 @@ async def unequip_item(
     return {"status": "ok"}
 
 
-@character_api.put(
-    "/{slug}/spellbook/{spell_id}", dependencies=[Depends(party_gm_or_owner)]
-)
+@character_api.put("/{slug}/spellbook/{spell_id}", dependencies=[Depends(party_gm_or_owner)])
 async def learn_spell(
     slug: str,
     spell_id: int,
@@ -196,9 +192,7 @@ async def learn_spell(
     return {"status": "ok"}
 
 
-@character_api.delete(
-    "/{slug}/spellbook/{known_spell_id}", dependencies=[Depends(party_gm_or_owner)]
-)
+@character_api.delete("/{slug}/spellbook/{known_spell_id}", dependencies=[Depends(party_gm_or_owner)])
 async def forget_spell(
     slug: str,
     known_spell_id: int,

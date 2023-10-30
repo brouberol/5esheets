@@ -92,15 +92,15 @@ api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 
 build: $(libsqlite) doc/model_graph.png doc/makefile.png data front-build  ## Build the application
 
-back-check: black mypy ruff
+back-check: back-format-check mypy ruff
 
 back-test:  ## Run the backend tests
 	@echo "\n[+] Running the backend tests"
 	@DND5ESHEETS_ENV=test $(poetry-run) pytest
 
-black:
-	@echo "\n[+] Reformatting python files"
-	@$(poetry-run) black --check $(app-root)/
+back-format-check:
+	@echo "\n[+] Checking format of python files"
+	@$(poetry-run) ruff format --check $(app-root)/
 
 check: back-check front-check ## Run all checks on the codebase
 

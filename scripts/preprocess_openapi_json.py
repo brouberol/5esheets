@@ -4,9 +4,7 @@ from pathlib import Path
 
 from dnd5esheets import schemas
 
-openapi_json_filepath = (
-    Path(__file__).parent.parent / "dnd5esheets" / "front" / "openapi.json"
-)
+openapi_json_filepath = Path(__file__).parent.parent / "dnd5esheets" / "front" / "openapi.json"
 
 openapi_content = json.loads(openapi_json_filepath.read_text())
 
@@ -45,8 +43,9 @@ for schema_class in schema_classes:
         for field, decorator in computed_fields.items():
             return_type = decorator.func.__annotations__["return"]
             openapi_return_type = python_type_to_openapi[return_type]
-            openapi_content["components"]["schemas"][schema_class.__name__][
-                "properties"
-            ][field] = {"type": openapi_return_type, "title": decorator.func.__doc__}
+            openapi_content["components"]["schemas"][schema_class.__name__]["properties"][field] = {
+                "type": openapi_return_type,
+                "title": decorator.func.__doc__,
+            }
 
 openapi_json_filepath.write_text(json.dumps(openapi_content, indent=2))

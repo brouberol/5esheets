@@ -28,23 +28,17 @@ def test_update_in_model_json_field(session):
 
 
 def test_duplicate_character_slug(session):
-    char1 = Character(
-        name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1
-    )
+    char1 = Character(name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1)
     session.add(char1)
     session.commit()
 
     # Same slug, different player, so that's ok
-    char2 = Character(
-        name="Ronald McDonald", slug="ronald-mcdonald", player_id=2, party_id=2
-    )
+    char2 = Character(name="Ronald McDonald", slug="ronald-mcdonald", player_id=2, party_id=2)
     session.add(char2)
     session.commit()
 
     # Duplicate slug/player than with char1
-    char3 = Character(
-        name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1
-    )
+    char3 = Character(name="Ronald McDonald", slug="ronald-mcdonald", player_id=1, party_id=1)
     session.add(char3)
     with pytest.raises(sa_exc.IntegrityError):
         session.commit()

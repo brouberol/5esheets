@@ -2,6 +2,7 @@
   "recommendations": [
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "peggyjs.peggy-language"
+    "peggyjs.peggy-language",
+    "charliermarsh.ruff"
   ]
 }

@@ -49,6 +49,4 @@ async def in_same_party(
     players_in_party = await PlayerRepository.get_all_players_with_characters_in_party(
         session, party_id=party_id
     )
-    return _in_same_party(
-        current_player=current_player, players_in_party=players_in_party
-    )
+    return _in_same_party(current_player=current_player, players_in_party=players_in_party)

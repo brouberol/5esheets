@@ -53,11 +53,7 @@ custom_base_formatters = BASE_FORMATTERS | {dict: json_formatter}
 def base_excluded_columns(model: Type[BaseModel]) -> list:
     """Hide the id, creation/update dates and foreign key fields by default"""
     excluded_base_columns = [model.id, model.created_at, model.updated_at]
-    foreign_keys = [
-        getattr(model, field)
-        for field in model.__annotations__
-        if field.endswith("_id")
-    ]
+    foreign_keys = [getattr(model, field) for field in model.__annotations__ if field.endswith("_id")]
     return excluded_base_columns + foreign_keys
 
 
@@ -129,12 +125,8 @@ class PlayerAdmin(ModelView, model=Player):
         Player.player_roles,
     ]
     column_searchable_list = [Player.name, Player.email]
-    column_details_exclude_list = base_excluded_columns(Player) + [
-        Player.hashed_password
-    ]
-    form_excluded_columns = base_form_excluded_columns(Player) + [
-        Player.hashed_password
-    ]
+    column_details_exclude_list = base_excluded_columns(Player) + [Player.hashed_password]
+    form_excluded_columns = base_form_excluded_columns(Player) + [Player.hashed_password]
     column_labels = {Player.player_roles: "roles"}
 
 
@@ -213,9 +205,7 @@ class CustomAdmin(Admin):
 
 
 def register_admin(app: FastAPI, engine: AsyncEngine) -> Admin:
-    admin = CustomAdmin(
-        app, engine, title="5esheets admin", templates_dir=str(templates_dir)
-    )
+    admin = CustomAdmin(app, engine, title="5esheets admin", templates_dir=str(templates_dir))
     app.mount(
         "/admin-statics",
         StaticFiles(directory=statics_dir, html=True),

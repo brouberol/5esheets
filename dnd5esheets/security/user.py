@@ -28,9 +28,7 @@ async def get_current_user_id(
     if not credentials:
         raise credentials_exception
 
-    player = await PlayerRepository.get_by_email(
-        session, email=credentials.subject["username"]
-    )
+    player = await PlayerRepository.get_by_email(session, email=credentials.subject["username"])
     if player is None:
         raise credentials_exception
 

@@ -19,9 +19,7 @@ async def list_all_parties(
     return await PartyRepository.list_all(session=session, owner_id=current_player_id)
 
 
-@party_api.get(
-    "/{id}", dependencies=[Depends(in_same_party)], response_model=DisplayPartySchema
-)
+@party_api.get("/{id}", dependencies=[Depends(in_same_party)], response_model=DisplayPartySchema)
 async def display_party(
     id: int,
     session: AsyncSession = Depends(create_scoped_session),

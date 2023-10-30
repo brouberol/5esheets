@@ -11,19 +11,13 @@ class KnownSpellRepository(BaseRepository):
     model = KnownSpell
 
     @classmethod
-    async def get_by_id_if_owned(
-        cls, session: AsyncSession, id: int, owner_id: int
-    ) -> KnownSpell:
-        query = select(KnownSpell).filter(
-            KnownSpell.id == id, KnownSpell.character_id == owner_id
-        )
+    async def get_by_id_if_owned(cls, session: AsyncSession, id: int, owner_id: int) -> KnownSpell:
+        query = select(KnownSpell).filter(KnownSpell.id == id, KnownSpell.character_id == owner_id)
         result = await session.execute(query)
         return cast(KnownSpell, cls.one_or_raise_model_not_found(result))
 
     @classmethod
-    async def change_prepared_status(
-        cls, session: AsyncSession, id: int, prepared: bool
-    ):
+    async def change_prepared_status(cls, session: AsyncSession, id: int, prepared: bool):
         known_spell = cast(KnownSpell, await cls.get_by_id(session, id=id))
         known_spell.prepared = prepared
         session.add(known_spell)

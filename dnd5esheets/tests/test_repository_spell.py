@@ -79,17 +79,13 @@ async def test_search_spell_with_favored_language(async_session):
 async def test_search_spell_with_limit(async_session):
     search_results = await SpellRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 6
-    search_results = await SpellRepository.search(
-        async_session, search_term="arrow", limit=5
-    )
+    search_results = await SpellRepository.search(async_session, search_term="arrow", limit=5)
     assert len(search_results) == 5
 
 
 @pytest.mark.asyncio
 async def test_search_spell_via_specific_field(async_session):
-    search_results = await SpellRepository.search(
-        async_session, search_term="name:fleche"
-    )
+    search_results = await SpellRepository.search(async_session, search_term="name:fleche")
     assert len(search_results) == 3
     assert sorted([r.name for r in search_results]) == [
         "Cordon de flèches",

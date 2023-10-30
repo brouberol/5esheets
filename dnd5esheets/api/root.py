@@ -20,9 +20,7 @@ def custom_generate_unique_id(route: APIRoute):
 
 
 def register_api(app: ExtendedFastAPI):
-    api = APIRouter(
-        prefix="/api", generate_unique_id_function=custom_generate_unique_id
-    )
+    api = APIRouter(prefix="/api", generate_unique_id_function=custom_generate_unique_id)
     api.include_router(character_api)
     api.include_router(party_api)
     api.include_router(player_api)
