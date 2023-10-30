@@ -28,7 +28,7 @@ export default function CharacterSheet(props: {
         "header header header"
         "base combat flavor"
         "base actions features"
-        "prof equipment features"
+        "prof inventory features"
       justify-items: stretch;
       align-items: stretch;
       justify-content: stretch;
@@ -61,7 +61,7 @@ export default function CharacterSheet(props: {
     .proficiencies-and-languages { grid-area: prof;}
     .combat-stats { grid-area: combat;}
     .actions { grid-area: actions;}
-    .equipment { grid-area: equipment}
+    .inventory { grid-area: inventory}
     .flavor { grid-area: flavor}
     .features_and_traits { grid-area: features}
 
@@ -217,8 +217,8 @@ export default function CharacterSheet(props: {
                       onChange={(score: number) => {
                         props.updateCharacter(
                           (character) =>
-                            (character.data.abilities[ability].score =
-                              Number.isNaN(score) ? 0 : score)
+                          (character.data.abilities[ability].score =
+                            Number.isNaN(score) ? 0 : score)
                         )
                       }}
                     />
@@ -377,8 +377,8 @@ export default function CharacterSheet(props: {
       <section class="actions flex-container">
         <LabeledBox label={t('attacks')}></LabeledBox>
       </section>
-      <section class="equipment flex-container">
-        <LabeledBox label={t('equipment')}>
+      <section class="inventory flex-container">
+        <LabeledBox label={t('inventory')}>
           <MarkdownRenderedEditableBox
             id="inventory"
             text={props.character.data.inventory || ''}
