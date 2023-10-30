@@ -7,6 +7,6 @@ import type { ResourceTranslation } from './ResourceTranslation';
 
 export type SpellMeta = {
     description: string;
-    translations: Record<string, ResourceTranslation>;
+    translations?: Record<string, ResourceTranslation>;
 };
 

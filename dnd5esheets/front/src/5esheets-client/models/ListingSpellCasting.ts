@@ -4,10 +4,10 @@
 /* eslint-disable */
 
 export type ListingSpellCasting = {
-    verbal: (boolean | null);
-    somatic: (boolean | null);
-    concentration: (boolean | null);
-    ritual: (boolean | null);
+    verbal?: (boolean | null);
+    somatic?: (boolean | null);
+    concentration?: (boolean | null);
+    ritual?: (boolean | null);
     needs_material: boolean;
 };
 

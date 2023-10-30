@@ -1319,8 +1319,6 @@
           "score",
           "proficiency",
           "modifier",
-          "save",
-          "modifier",
           "save"
         ],
         "title": "Ability"
@@ -1511,9 +1509,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
-          "data",
           "party",
           "player",
           "equipment",
@@ -1578,8 +1573,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
           "player"
         ],
         "title": "CharacterSchemaNoEmbeddedFields",
@@ -1738,12 +1731,6 @@
           "inventory",
           "spellcasting_ability",
           "daily_prepared_spells",
-          "proficiency_bonus",
-          "ac",
-          "initiative",
-          "spell_dc",
-          "spell_attack_bonus",
-          "passive_perception",
           "proficiency_bonus",
           "ac",
           "initiative",
@@ -2023,11 +2010,7 @@
         },
         "type": "object",
         "required": [
-          "weapon_category",
-          "weapon_type",
-          "ammo_type",
-          "spellcasting_focus_type",
-          "range"
+          "weapon_category"
         ],
         "title": "ItemAttributes"
       },
@@ -2056,8 +2039,7 @@
         "type": "object",
         "required": [
           "damage_1",
-          "damage_type",
-          "damage_2"
+          "damage_type"
         ],
         "title": "ItemDamage"
       },
@@ -2192,16 +2174,8 @@
         },
         "type": "object",
         "required": [
-          "translations",
           "rarity",
-          "weight",
-          "value",
-          "attributes",
-          "damage",
-          "property",
-          "effect",
-          "requirements",
-          "stealth"
+          "value"
         ],
         "title": "ItemMeta"
       },
@@ -2343,10 +2317,6 @@
         },
         "type": "object",
         "required": [
-          "verbal",
-          "somatic",
-          "concentration",
-          "ritual",
           "needs_material"
         ],
         "title": "ListingSpellCasting"
@@ -2573,8 +2543,6 @@
           "id",
           "name",
           "slug",
-          "class_",
-          "level",
           "party"
         ],
         "title": "RestrictedCharacterSchema",
@@ -2709,7 +2677,6 @@
         "type": "object",
         "required": [
           "proficiency",
-          "modifier",
           "modifier"
         ],
         "title": "Skill"
@@ -2857,13 +2824,6 @@
           }
         },
         "type": "object",
-        "required": [
-          "verbal",
-          "somatic",
-          "material",
-          "concentration",
-          "ritual"
-        ],
         "title": "SpellCasting"
       },
       "SpellCastingFocusType": {
@@ -2899,9 +2859,7 @@
         },
         "type": "object",
         "required": [
-          "text",
-          "cost",
-          "consume"
+          "text"
         ],
         "title": "SpellCastingMaterial"
       },
@@ -3044,20 +3002,7 @@
           "meta",
           "time",
           "range",
-          "duration",
-          "misc_tags",
-          "area_tags",
-          "scaling_level_dice",
-          "damage_inflict",
-          "saving_throw",
-          "condition_inflict",
-          "affects_creature_type",
-          "spell_attack",
-          "ability_check",
-          "damage_resist",
-          "condition_immune",
-          "damage_vulnerable",
-          "damage_immune"
+          "duration"
         ],
         "title": "SpellData"
       },
@@ -3106,10 +3051,7 @@
         },
         "type": "object",
         "required": [
-          "type",
-          "unit",
-          "amount",
-          "ends"
+          "type"
         ],
         "title": "SpellDuration"
       },
@@ -3129,8 +3071,7 @@
         },
         "type": "object",
         "required": [
-          "description",
-          "translations"
+          "description"
         ],
         "title": "SpellMeta"
       },
@@ -3153,8 +3094,7 @@
         },
         "type": "object",
         "required": [
-          "type",
-          "distance"
+          "type"
         ],
         "title": "SpellRange"
       },
@@ -3178,8 +3118,7 @@
         },
         "type": "object",
         "required": [
-          "type",
-          "amount"
+          "type"
         ],
         "title": "SpellRangeDistance"
       },
@@ -3272,8 +3211,7 @@
         "type": "object",
         "required": [
           "number",
-          "unit",
-          "condition"
+          "unit"
         ],
         "title": "SpellTime"
       },

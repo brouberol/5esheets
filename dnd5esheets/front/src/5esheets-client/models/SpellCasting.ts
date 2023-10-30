@@ -6,10 +6,10 @@
 import type { SpellCastingMaterial } from './SpellCastingMaterial';
 
 export type SpellCasting = {
-    verbal: (boolean | null);
-    somatic: (boolean | null);
-    material: (SpellCastingMaterial | null);
-    concentration: (boolean | null);
-    ritual: (boolean | null);
+    verbal?: (boolean | null);
+    somatic?: (boolean | null);
+    material?: (SpellCastingMaterial | null);
+    concentration?: (boolean | null);
+    ritual?: (boolean | null);
 };
 

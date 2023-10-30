@@ -5,7 +5,7 @@
 
 export type SpellCastingMaterial = {
     text: string;
-    cost: number;
-    consume: (boolean | string);
+    cost?: number;
+    consume?: (boolean | string);
 };
 

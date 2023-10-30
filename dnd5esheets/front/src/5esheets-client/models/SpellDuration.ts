@@ -7,8 +7,8 @@ import type { DurationUnit } from './DurationUnit';
 
 export type SpellDuration = {
     type: string;
-    unit: (DurationUnit | null);
-    amount: (number | null);
-    ends: (Array<string> | null);
+    unit?: (DurationUnit | null);
+    amount?: (number | null);
+    ends?: (Array<string> | null);
 };
 
