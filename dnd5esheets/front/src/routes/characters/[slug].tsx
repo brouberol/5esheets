@@ -22,6 +22,7 @@ export default function CharacterSheetPage() {
           <CharacterSheet
             character={character as ResolvedCharacter}
             updateCharacter={updateCharacter}
+            saveCharacter={() => characterStore.saveCharacter(params.slug)}
           />
         </Show>
       </Layout>

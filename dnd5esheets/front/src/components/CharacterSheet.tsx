@@ -16,6 +16,7 @@ import SingleAttribute from './SingleAttribute'
 export default function CharacterSheet(props: {
   character: ResolvedCharacter
   updateCharacter: UpdateCharacterFunction
+  saveCharacter: () => void
 }) {
   const [t] = useI18n()
 
@@ -109,6 +110,7 @@ export default function CharacterSheet(props: {
   return (
     <section class="sheet">
       <header>
+        <button onClick={() => props.saveCharacter()}>save</button>
         <div class="character-name">
           <LabeledInput
             id="charname"

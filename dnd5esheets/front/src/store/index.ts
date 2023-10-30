@@ -142,6 +142,17 @@ class CharacterStore {
     return [this.characters[slug], this.updateCharacter(slug)]
   }
 
+  saveCharacter = async (
+    slug: string
+  ): Promise<void> => {
+    // TODO: handle async state (before save, we freeze the state, to prevent concurrent
+    // updates).
+    const { name, class_, level, data } = this.characters[slug];
+    await CharacterService.updateCharacter(slug, {
+      name, class_, level, data
+    })
+  }
+
   private fetchCharacter = async (slug: string) => {
     this.setCharacters(slug, { [resourceState]: 'pending' })
     const character = await CharacterService.getCharacter(slug)
