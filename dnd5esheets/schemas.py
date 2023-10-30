@@ -444,6 +444,7 @@ class CharacterSheet(BaseSchema):
     bonds: str
     flaws: str
     features: str
+    inventory: str
     spellcasting_ability: AbilityName | None
     daily_prepared_spells: int
 

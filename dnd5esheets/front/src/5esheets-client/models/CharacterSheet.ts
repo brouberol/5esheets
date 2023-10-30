@@ -33,6 +33,7 @@ export type CharacterSheet = {
     bonds: string;
     flaws: string;
     features: string;
+    inventory: string;
     spellcasting_ability: (AbilityName | null);
     daily_prepared_spells: number;
     proficiency_bonus: number;

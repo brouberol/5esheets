@@ -1670,6 +1670,10 @@
             "type": "string",
             "title": "Features"
           },
+          "inventory": {
+            "type": "string",
+            "title": "Inventory"
+          },
           "spellcasting_ability": {
             "anyOf": [
               {
@@ -1731,6 +1735,7 @@
           "bonds",
           "flaws",
           "features",
+          "inventory",
           "spellcasting_ability",
           "daily_prepared_spells",
           "proficiency_bonus",
