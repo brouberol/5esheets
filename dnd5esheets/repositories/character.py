@@ -26,9 +26,7 @@ class CharacterRepository(BaseRepository):
         cls, session: AsyncSession, owner_id: int | None = None
     ) -> Sequence[Character]:
         """List all existing characters, with their associated related data"""
-        query = select(Character).options(
-            defer(Character.data)
-        )  # exclude the large json payload
+        query = select(Character).options(defer(Character.data))  # exclude the large json payload
         if owner_id is not None:
             query = query.filter(Character.player_id == owner_id)
         result = await session.execute(query)
@@ -56,9 +54,7 @@ class CharacterRepository(BaseRepository):
         character = await cls.get_by_slug(session, slug)
 
         # Any non-nil field should be taken as the new value
-        fields_to_update = {
-            field: val for field, val in body.model_dump().items() if val is not None
-        }
+        fields_to_update = {field: val for field, val in body.model_dump().items() if val is not None}
         character.update_from_dict(fields_to_update)
 
         # Persist the changes
@@ -92,9 +88,7 @@ class CharacterRepository(BaseRepository):
             else:
                 # We have found an already existing Character in DB, belonging to the
                 # current player, with the same slug
-                raise DuplicateModel(
-                    f"A character named {character_data.name} already exists"
-                )
+                raise DuplicateModel(f"A character named {character_data.name} already exists")
 
         character = Character(
             name=character_data.name,
@@ -111,9 +105,7 @@ class CharacterRepository(BaseRepository):
         return character
 
     @classmethod
-    async def etag(
-        cls, session: AsyncSession, slug: str, owner_id: int | None
-    ) -> str | None:
+    async def etag(cls, session: AsyncSession, slug: str, owner_id: int | None) -> str | None:
         """Compute a stable hash for a given Character that will be used as its ETag.
 
         For this, we rely on the hash of all updated_at timestamps for the Character itself,
@@ -211,9 +203,7 @@ class CharacterRepository(BaseRepository):
 
         # will raise if spell_id is not found
         await SpellRepository.get_by_id(session, id=spell_id)
-        known_spell = KnownSpell(
-            character_id=character.id, spell_id=spell_id, prepared=prepared
-        )
+        known_spell = KnownSpell(character_id=character.id, spell_id=spell_id, prepared=prepared)
         character.spellbook.append(known_spell)
         session.add(character)
         await session.commit()
@@ -249,9 +239,7 @@ class CharacterRepository(BaseRepository):
 
         # will raise if spell_id is not found
         await ItemRepository.get_by_id(session, id=item_id)
-        equipped_item = EquippedItem(
-            character_id=character.id, item_id=item_id, amount=amount
-        )
+        equipped_item = EquippedItem(character_id=character.id, item_id=item_id, amount=amount)
         character.equipment.append(equipped_item)
         session.add(character)
         await session.commit()

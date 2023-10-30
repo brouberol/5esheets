@@ -15,9 +15,7 @@ async def sqlite_version(
     version = (await session.execute(text("select sqlite_version()"))).scalar_one()
 
     # Taken from https://til.simonwillison.net/sqlite/python-sqlite-environment
-    pragma_compile_options = (
-        (await session.execute(text("pragma compile_options"))).scalars().all()
-    )
+    pragma_compile_options = (await session.execute(text("pragma compile_options"))).scalars().all()
     pragmas = {}
     for pragma in (
         "foreign_keys",

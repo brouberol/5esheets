@@ -52,9 +52,7 @@ def test_describe_character(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_describe_character_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_describe_character_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.get,
@@ -94,9 +92,7 @@ def test_update_characters(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_update_character_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_update_character_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.put,
@@ -198,20 +194,14 @@ def test_describe_character_with_etag(client):
         "/api/character/douglas-mctrickfoot",
         headers={"If-None-Match": response_after_update.headers["ETag"]},
     )
-    assert (
-        new_response_after_party_update.status_code == 200
-    )  # the etag has changed again
+    assert new_response_after_party_update.status_code == 200  # the etag has changed again
 
 
 def test_delete_character(client):
-    assert_status_and_return_data(
-        client.get, "/api/character/douglas-mctrickfoot", status_code=200
-    )
+    assert_status_and_return_data(client.get, "/api/character/douglas-mctrickfoot", status_code=200)
     delete_response = client.delete("/api/character/douglas-mctrickfoot")
     assert delete_response.status_code == 204
-    assert_status_and_return_data(
-        client.get, "/api/character/douglas-mctrickfoot", status_code=404
-    )
+    assert_status_and_return_data(client.get, "/api/character/douglas-mctrickfoot", status_code=404)
 
 
 @pytest.mark.parametrize(
@@ -223,9 +213,7 @@ def test_delete_character(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_delete_character_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_delete_character_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert client.delete(f"/api/character/{slug}").status_code == status_code
 
@@ -346,9 +334,7 @@ def test_learn_spell(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_learn_spell_prepared_status_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_learn_spell_prepared_status_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.put,
@@ -419,9 +405,7 @@ def test_add_item_to_equipment(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_add_item_to_equipment_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_add_item_to_equipment_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.put,
@@ -456,9 +440,7 @@ def test_remove_item_from_equipment(client):
         ("compagnie_des_gourmands_player", "douglas-mctrickfoot", 403),  # outsider
     ],
 )
-def test_delete_item_from_equipment_security_policy(
-    client_fixture_name, slug, status_code, request
-):
+def test_delete_item_from_equipment_security_policy(client_fixture_name, slug, status_code, request):
     client = request.getfixturevalue(f"client_as_{client_fixture_name}")
     assert_status_and_return_data(
         client.delete,

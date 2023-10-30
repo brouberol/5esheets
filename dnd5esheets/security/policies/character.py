@@ -45,9 +45,9 @@ async def in_same_party(
     if character is None:
         return
     current_player = await PlayerRepository.get_by_id(session, current_user_id)
-    players_in_party = await PlayerRepository.get_all_players_with_characters_in_same_party_than_character(  # noqa
-        session, character_slug=character_slug
+    players_in_party = (
+        await PlayerRepository.get_all_players_with_characters_in_same_party_than_character(  # noqa
+            session, character_slug=character_slug
+        )
     )
-    return _in_same_party(
-        current_player=current_player, players_in_party=players_in_party
-    )
+    return _in_same_party(current_player=current_player, players_in_party=players_in_party)

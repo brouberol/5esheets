@@ -43,9 +43,7 @@ def should_include_object(object, name, type_, reflected, compare_to):
     """
     Should you include this table or not?
     """
-    if type_ == "table" and (
-        name in IGNORE_TABLES or object.info.get("skip_autogenerate", False)
-    ):
+    if type_ == "table" and (name in IGNORE_TABLES or object.info.get("skip_autogenerate", False)):
         return False
 
     return True

@@ -9,9 +9,7 @@ from dnd5esheets.security.policies.player import is_owner
 player_api = APIRouter(prefix="/player", tags=["player"])
 
 
-@player_api.get(
-    "/{id}", dependencies=[Depends(is_owner)], response_model=DisplayPlayerSchema
-)
+@player_api.get("/{id}", dependencies=[Depends(is_owner)], response_model=DisplayPlayerSchema)
 async def display_player(
     id: int,
     session: AsyncSession = Depends(create_scoped_session),

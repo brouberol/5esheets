@@ -73,17 +73,13 @@ async def test_search_item_with_favored_language(async_session):
 async def test_search_item_with_limit(async_session):
     search_results = await ItemRepository.search(async_session, search_term="arrow")
     assert len(search_results) == 2
-    search_results = await ItemRepository.search(
-        async_session, search_term="arrow", limit=1
-    )
+    search_results = await ItemRepository.search(async_session, search_term="arrow", limit=1)
     assert len(search_results) == 1
 
 
 @pytest.mark.asyncio
 async def test_search_item_via_specific_field(async_session):
-    search_results = await ItemRepository.search(
-        async_session, search_term="name:fleche"
-    )
+    search_results = await ItemRepository.search(async_session, search_term="name:fleche")
     assert len(search_results) == 1
     assert search_results[0].name == "Flèche"
 

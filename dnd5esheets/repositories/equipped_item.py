@@ -11,9 +11,7 @@ class EquippedItemRepository(BaseRepository):
     model = EquippedItem
 
     @classmethod
-    async def get_by_id_if_owned(
-        cls, session: AsyncSession, id: int, owner_id: int
-    ) -> EquippedItem:
+    async def get_by_id_if_owned(cls, session: AsyncSession, id: int, owner_id: int) -> EquippedItem:
         query = select(EquippedItem).filter(
             EquippedItem.id == id, EquippedItem.character_id == owner_id
         )
@@ -21,9 +19,7 @@ class EquippedItemRepository(BaseRepository):
         return cast(EquippedItem, cls.one_or_raise_model_not_found(result))
 
     @classmethod
-    async def change_equipped_status(
-        cls, session: AsyncSession, id: int, equipped: bool
-    ):
+    async def change_equipped_status(cls, session: AsyncSession, id: int, equipped: bool):
         equipped_item = cast(EquippedItem, await cls.get_by_id(session, id=id))
         equipped_item.equipped = equipped
         session.add(equipped_item)

@@ -12,9 +12,7 @@ class PartyRepository(BaseRepository):
     model = Party
 
     @classmethod
-    async def list_all(
-        cls, session: AsyncSession, owner_id: int | None = None
-    ) -> Sequence[Party]:
+    async def list_all(cls, session: AsyncSession, owner_id: int | None = None) -> Sequence[Party]:
         query = select(Party)
         if owner_id:
             query = (
@@ -35,9 +33,7 @@ class PartyRepository(BaseRepository):
         party = await cls.get_by_id(session=session, id=id)
 
         # Any non-nil field should be taken as the new value
-        fields_to_update = {
-            field: val for field, val in body.model_dump().items() if val is not None
-        }
+        fields_to_update = {field: val for field, val in body.model_dump().items() if val is not None}
 
         party.update_from_dict(fields_to_update)
 

@@ -29,9 +29,7 @@ class SpellRepository(BaseRepository):
     ) -> list[SpellSearchResult]:
         results = [
             SpellSearchResult(*result)
-            for result in await cls._search(
-                session, search_term=search_term, limit=limit
-            )
+            for result in await cls._search(session, search_term=search_term, limit=limit)
         ]
         if favored_language:
             results = sorted(

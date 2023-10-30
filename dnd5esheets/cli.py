@@ -77,9 +77,7 @@ def _populate_db_with_dev_data(silent: bool = False):
         dev_fixtures = orjson.loads(dev_fixtures_str)
 
     with create_session(commit_at_end=True) as session:
-        longsword = session.execute(
-            select(Item).filter(Item.name == "Longsword")
-        ).scalar()
+        longsword = session.execute(select(Item).filter(Item.name == "Longsword")).scalar()
         spells = (
             session.execute(
                 select(Spell).filter(
@@ -121,9 +119,7 @@ def _populate_db_with_dev_data(silent: bool = False):
         for character_attrs in dev_fixtures["characters"]:
             character = Character(
                 **character_attrs,
-                equipment=[
-                    EquippedItem(item_id=longsword.id, id=character_attrs["id"])
-                ],
+                equipment=[EquippedItem(item_id=longsword.id, id=character_attrs["id"])],
                 spellbook=[
                     KnownSpell(
                         id=i + len(spells) * character_attrs["id"],

@@ -104,8 +104,7 @@ class BaseModel(DeclarativeBase):
 
     def as_dict(self) -> dict:
         column_names_to_attr_name = {
-            col.name: attr_name
-            for attr_name, col in self.__mapper__._init_properties.items()
+            col.name: attr_name for attr_name, col in self.__mapper__._init_properties.items()
         }
         return {
             c.name: getattr(self, column_names_to_attr_name.get(c.name, c.name))
@@ -170,9 +169,7 @@ class DataPropertyMixin:
 
 class Player(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
-    email: Mapped[str] = mapped_column(
-        String(255), nullable=False, unique=True, index=True
-    )
+    email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
     characters: Mapped[list["Character"]] = relationship(
         back_populates="player",
@@ -203,7 +200,9 @@ class Item(NameReprMixin, DataPropertyMixin, BaseModel):
 
     @property
     def five_e_tools_url(self):
-        return f"https://5e.tools/items.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+        return (
+            f"https://5e.tools/items.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+        )
 
 
 class EquippedItem(BaseModel):
@@ -225,9 +224,7 @@ class KnownSpell(BaseModel):
     spell_id: Mapped[int] = mapped_column(ForeignKey("spell.id"))
     spell: Mapped["Spell"] = relationship(lazy="joined")
     character_id: Mapped[int] = mapped_column(ForeignKey("character.id"))
-    caster: Mapped["Character"] = relationship(
-        back_populates="spellbook", lazy="joined"
-    )
+    caster: Mapped["Character"] = relationship(back_populates="spellbook", lazy="joined")
 
     def __repr__(self):
         return f"<{self.__class__.__name__}: {str(self.spell)}>"
@@ -265,9 +262,7 @@ class Character(NameReprMixin, DataPropertyMixin, BaseModel):
         cascade="all, delete-orphan",
         join_depth=2,
     )
-    __table_args__ = (
-        UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),
-    )
+    __table_args__ = (UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),)
 
     @validates("level")
     def validate_character_level(self, key, level):
@@ -293,7 +288,9 @@ class Spell(NameReprMixin, DataPropertyMixin, BaseModel):
 
     @property
     def five_e_tools_url(self):
-        return f"https://5e.tools/spells.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+        return (
+            f"https://5e.tools/spells.html#{self.name.lower()}_{self.data['source']['book'].lower()}"
+        )
 
 
 class PlayerRole(BaseModel):

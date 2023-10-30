@@ -24,15 +24,11 @@ class PlayerRepository(BaseRepository):
         return cast(Player, cls.one_or_raise_model_not_found(result))
 
     @classmethod
-    async def update(
-        cls, session: AsyncSession, id: int, body: UpdatePlayerSchema
-    ) -> Player:
+    async def update(cls, session: AsyncSession, id: int, body: UpdatePlayerSchema) -> Player:
         player = await cls.get_by_id(session, id)
 
         # Any non-nil field should be taken as the new value
-        fields_to_update = {
-            field: val for field, val in body.model_dump().items() if val is not None
-        }
+        fields_to_update = {field: val for field, val in body.model_dump().items() if val is not None}
 
         player.update_from_dict(fields_to_update)
 
@@ -63,17 +59,9 @@ class PlayerRepository(BaseRepository):
     ) -> Sequence[Player]:
         """Return all players belonging to the same party than the argument character"""
         party_subquery = (
-            select(Party.id)
-            .join(Character)
-            .join(Player)
-            .filter(Character.slug == character_slug)
+            select(Party.id).join(Character).join(Player).filter(Character.slug == character_slug)
         )
-        query = (
-            select(Player)
-            .join(Character)
-            .join(Party)
-            .filter(Party.id.in_(party_subquery))
-        )
+        query = select(Player).join(Character).join(Party).filter(Party.id.in_(party_subquery))
         result = await session.execute(query)
         return result.scalars().all()
 

@@ -18,9 +18,7 @@ async def test_list_all_with_owner(async_session):
 @pytest.mark.asyncio
 async def test_get_character_by_slug_with_owner(async_session, douglas):
     assert (
-        await CharacterRepository.get_by_slug(
-            async_session, slug="douglas-mctrickfoot", owner_id=1
-        )
+        await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot", owner_id=1)
         == douglas
     )
 
@@ -28,9 +26,7 @@ async def test_get_character_by_slug_with_owner(async_session, douglas):
 @pytest.mark.asyncio
 async def test_get_unknown_character(async_session):
     with pytest.raises(ModelNotFound):
-        await CharacterRepository.get_by_slug(
-            async_session, slug="ronald-mcdonald", owner_id=1
-        )
+        await CharacterRepository.get_by_slug(async_session, slug="ronald-mcdonald", owner_id=1)
 
 
 @pytest.mark.asyncio
@@ -43,9 +39,7 @@ async def test_update_character(async_session):
     await CharacterRepository.update(
         async_session,
         slug="douglas-mctrickfoot",
-        body=UpdateCharacterSchema(
-            level=5, data={"abilities": {"dexterity": {"score": 15}}}
-        ),
+        body=UpdateCharacterSchema(level=5, data={"abilities": {"dexterity": {"score": 15}}}),
     )
     douglas_after_update = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"
@@ -85,24 +79,17 @@ async def test_create_duplicate_character(async_session):
     with pytest.raises(DuplicateModel):
         await CharacterRepository.create(
             async_session,
-            character_data=CreateCharacterSchema(
-                name="Douglas McTrickfoot", party_id=1
-            ),
+            character_data=CreateCharacterSchema(name="Douglas McTrickfoot", party_id=1),
             owner_id=1,
         )
 
 
 @pytest.mark.asyncio
 async def test_character_etag_stability(async_session):
-    etag = await CharacterRepository.etag(
-        async_session, slug="douglas-mctrickfoot", owner_id=1
-    )
+    etag = await CharacterRepository.etag(async_session, slug="douglas-mctrickfoot", owner_id=1)
     # Nothing has changed, the etag is the same
     assert (
-        await CharacterRepository.etag(
-            async_session, slug="douglas-mctrickfoot", owner_id=1
-        )
-        == etag
+        await CharacterRepository.etag(async_session, slug="douglas-mctrickfoot", owner_id=1) == etag
     )
     await CharacterRepository.update(
         async_session,
@@ -111,18 +98,13 @@ async def test_character_etag_stability(async_session):
     )
     # Something related to the character has changed, thus the etag changed as well
     assert (
-        await CharacterRepository.etag(
-            async_session, slug="douglas-mctrickfoot", owner_id=1
-        )
-        != etag
+        await CharacterRepository.etag(async_session, slug="douglas-mctrickfoot", owner_id=1) != etag
     )
 
 
 @pytest.mark.asyncio
 async def test_delete_character(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert douglas is not None
     await CharacterRepository.delete(async_session, slug="douglas-mctrickfoot")
     with pytest.raises(ModelNotFound):
@@ -131,9 +113,7 @@ async def test_delete_character(async_session):
 
 @pytest.mark.asyncio
 async def test_change_equipment_item_equipped_status(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert douglas.equipment[0].equipped is False
 
     douglas = await CharacterRepository.change_equipment_item_equipped_status(
@@ -155,9 +135,7 @@ async def test_change_equipment_item_equipped_status(async_session):
 
 @pytest.mark.asyncio
 async def test_change_known_spell_prepared_status(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert douglas.spellbook[0].prepared is True
 
     douglas = await CharacterRepository.change_known_spell_prepared_status(
@@ -179,9 +157,7 @@ async def test_change_known_spell_prepared_status(async_session):
 
 @pytest.mark.asyncio
 async def test_learn_spell(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.spellbook) == 7
     await CharacterRepository.learn_spell(
         async_session,
@@ -189,9 +165,7 @@ async def test_learn_spell(async_session):
         spell_id=45,
         prepared=True,
     )
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.spellbook) == 8
     assert douglas.spellbook[-1].spell.id == 45
     assert douglas.spellbook[-1].prepared is True
@@ -199,9 +173,7 @@ async def test_learn_spell(async_session):
 
 @pytest.mark.asyncio
 async def test_forget_spell(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.spellbook) == 7
     known_spell_id = douglas.spellbook[-1].id
     await CharacterRepository.forget_spell(
@@ -209,35 +181,27 @@ async def test_forget_spell(async_session):
         slug="douglas-mctrickfoot",
         known_spell_id=known_spell_id,
     )
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.spellbook) == 6
 
 
 @pytest.mark.asyncio
 async def test_add_item_to_equipment(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.equipment) == 1
     await CharacterRepository.add_item_to_equipment(
         async_session,
         slug="douglas-mctrickfoot",
         item_id=30,
     )
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.equipment) == 2
     assert douglas.equipment[-1].item.id == 30
 
 
 @pytest.mark.asyncio
 async def test_from_item_from_equipment(async_session):
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.equipment) == 1
     equipped_item_id = douglas.equipment[-1].id
     await CharacterRepository.remove_item_from_equipment(
@@ -245,7 +209,5 @@ async def test_from_item_from_equipment(async_session):
         slug="douglas-mctrickfoot",
         equipped_item_id=equipped_item_id,
     )
-    douglas = await CharacterRepository.get_by_slug(
-        async_session, slug="douglas-mctrickfoot"
-    )
+    douglas = await CharacterRepository.get_by_slug(async_session, slug="douglas-mctrickfoot")
     assert len(douglas.equipment) == 0

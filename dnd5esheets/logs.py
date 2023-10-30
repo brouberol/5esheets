@@ -17,9 +17,7 @@ def extract_event_dict(_, __, event_dict: MutableMapping) -> MutableMapping:
         pass
     else:
         if "request" in event_dict:
-            event_dict[
-                "event"
-            ] = f"{event_dict['request']['method']} {event_dict['request']['path']}"
+            event_dict["event"] = f"{event_dict['request']['method']} {event_dict['request']['path']}"
     return event_dict
 
 
@@ -74,9 +72,9 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
         structlog.stdlib.ProcessorFormatter.remove_processors_meta,
     ]
     log_level = getattr(logging, app.settings.LOG_LEVEL)
+    processorss = processors + [structlog.stdlib.ProcessorFormatter.wrap_for_formatter]
     structlog.configure(
-        processors=processors
-        + [structlog.stdlib.ProcessorFormatter.wrap_for_formatter],  # type: ignore
+        processors=processorss,  # type: ignore
         logger_factory=structlog.stdlib.LoggerFactory(),
         # This increases performance by making sure that logging with a level beneath log_level
         # does nothing at all (return None)
@@ -138,9 +136,7 @@ def generate_logging_config(app: ExtendedFastAPI) -> dict:
                 "propagate": False,
             },
             "sqlalchemy.engine": {
-                "level": app.settings.LOG_LEVEL
-                if app.settings.SQLALCHEMY_ECHO
-                else logging.WARNING,
+                "level": app.settings.LOG_LEVEL if app.settings.SQLALCHEMY_ECHO else logging.WARNING,
                 "handlers": ["console"],
                 "propagate": False,
             },
@@ -156,6 +152,4 @@ def setup_logging(app: ExtendedFastAPI):
         try:
             __import__("logging_tree").printout()
         except ImportError:
-            logging.warning(
-                "The logging_tree module was not found. Skipping logging debug."
-            )
+            logging.warning("The logging_tree module was not found. Skipping logging debug.")

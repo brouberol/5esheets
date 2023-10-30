@@ -77,9 +77,7 @@ def reformat_spell(spell: dict) -> dict | None:
         elif field == "entries":
             reformatted_spell["meta"]["description"] = aggregate_entry(value)
         elif field == "entries_higher_level":
-            reformatted_spell["meta"]["description_higher_level"] = aggregate_entry(
-                value
-            )
+            reformatted_spell["meta"]["description_higher_level"] = aggregate_entry(value)
         elif field == "meta":
             for k, v in spell["meta"].items():
                 if k == "ritual":
@@ -97,9 +95,7 @@ def reformat_spell(spell: dict) -> dict | None:
             durations = []
             for duration_item in value:
                 if "concentration" in duration_item:
-                    reformatted_spell["casting"]["concentration"] = duration_item.pop(
-                        "concentration"
-                    )
+                    reformatted_spell["casting"]["concentration"] = duration_item.pop("concentration")
                 if "duration" in duration_item:
                     for subfield, subvalue in duration_item.pop("duration").items():
                         if subfield == "type":

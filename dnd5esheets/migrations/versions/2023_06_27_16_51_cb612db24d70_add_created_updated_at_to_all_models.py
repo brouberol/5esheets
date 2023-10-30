@@ -21,37 +21,27 @@ def upgrade() -> None:
     with op.batch_alter_table("character", schema=None) as batch_op:
         batch_op.add_column(sa.Column("created_at", sa.DateTime(), nullable=False))
         batch_op.add_column(sa.Column("updated_at", sa.DateTime(), nullable=False))
-        batch_op.create_index(
-            batch_op.f("ix_character_created_at"), ["created_at"], unique=False
-        )
+        batch_op.create_index(batch_op.f("ix_character_created_at"), ["created_at"], unique=False)
 
     with op.batch_alter_table("equipped_item", schema=None) as batch_op:
         batch_op.add_column(sa.Column("created_at", sa.DateTime(), nullable=False))
         batch_op.add_column(sa.Column("updated_at", sa.DateTime(), nullable=False))
-        batch_op.create_index(
-            batch_op.f("ix_equipped_item_created_at"), ["created_at"], unique=False
-        )
+        batch_op.create_index(batch_op.f("ix_equipped_item_created_at"), ["created_at"], unique=False)
 
     with op.batch_alter_table("item", schema=None) as batch_op:
         batch_op.add_column(sa.Column("created_at", sa.DateTime(), nullable=False))
         batch_op.add_column(sa.Column("updated_at", sa.DateTime(), nullable=False))
-        batch_op.create_index(
-            batch_op.f("ix_item_created_at"), ["created_at"], unique=False
-        )
+        batch_op.create_index(batch_op.f("ix_item_created_at"), ["created_at"], unique=False)
 
     with op.batch_alter_table("party", schema=None) as batch_op:
         batch_op.add_column(sa.Column("created_at", sa.DateTime(), nullable=False))
         batch_op.add_column(sa.Column("updated_at", sa.DateTime(), nullable=False))
-        batch_op.create_index(
-            batch_op.f("ix_party_created_at"), ["created_at"], unique=False
-        )
+        batch_op.create_index(batch_op.f("ix_party_created_at"), ["created_at"], unique=False)
 
     with op.batch_alter_table("player", schema=None) as batch_op:
         batch_op.add_column(sa.Column("created_at", sa.DateTime(), nullable=False))
         batch_op.add_column(sa.Column("updated_at", sa.DateTime(), nullable=False))
-        batch_op.create_index(
-            batch_op.f("ix_player_created_at"), ["created_at"], unique=False
-        )
+        batch_op.create_index(batch_op.f("ix_player_created_at"), ["created_at"], unique=False)
 
     # ### end Alembic commands ###
 
