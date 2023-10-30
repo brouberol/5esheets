@@ -44,5 +44,10 @@
   },
   "engines": {
     "node": ">=16"
+  },
+  "dependencies": {
+    "@types/dompurify": "^3.0.4",
+    "dompurify": "^3.0.6",
+    "marked": "^9.1.3"
   }
 }

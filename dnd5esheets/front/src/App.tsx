@@ -49,6 +49,10 @@ function GlobalStyles() {
         font-family: 'MrEaves';
         src: url('/assets/font/Mr Eaves Small Caps.otf');
       }
+
+      .hidden {
+        display: none;
+      }
     }
   `
   return null
