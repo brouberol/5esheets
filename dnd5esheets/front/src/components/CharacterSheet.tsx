@@ -4,13 +4,13 @@ import { useI18n } from '@solid-primitives/i18n'
 
 import { Proficiency } from '~/5esheets-client'
 import BorderBox from '~/components/BorderBox'
-import ScoreBox from '~/components/ScoreBox'
-import ProficientAttribute from '~/components/ProficientAttribute'
 import LabeledBox from '~/components/LabeledBox'
 import LabeledInput from '~/components/LabeledInput'
+import MarkdownRenderedEditableBox from '~/components/MarkdownRenderedEditableBox'
+import ProficientAttribute from '~/components/ProficientAttribute'
+import ScoreBox from '~/components/ScoreBox'
 import TrayBox from '~/components/TrayBox'
 import { ResolvedCharacter, UpdateCharacterFunction } from '~/store'
-import MarkdownRenderedEditableBox from './MarkdownRenderedEditableBox'
 
 export default function CharacterSheet(props: {
   character: ResolvedCharacter
@@ -218,8 +218,8 @@ export default function CharacterSheet(props: {
                       onChange={(score: number) => {
                         props.updateCharacter(
                           (character) =>
-                          (character.data.abilities[ability].score =
-                            Number.isNaN(score) ? 0 : score)
+                            (character.data.abilities[ability].score =
+                              Number.isNaN(score) ? 0 : score)
                         )
                       }}
                     />
@@ -269,8 +269,8 @@ export default function CharacterSheet(props: {
                         onChange={(proficiency: Proficiency) =>
                           props.updateCharacter(
                             (character) =>
-                            (character.data.abilities[ability].proficiency =
-                              proficiency)
+                              (character.data.abilities[ability].proficiency =
+                                proficiency)
                           )
                         }
                       />
@@ -328,8 +328,8 @@ export default function CharacterSheet(props: {
                         onChange={(proficiency: Proficiency) =>
                           props.updateCharacter(
                             (character) =>
-                            (character.data.skills[skill].proficiency =
-                              proficiency)
+                              (character.data.skills[skill].proficiency =
+                                proficiency)
                           )
                         }
                       />
@@ -357,16 +357,15 @@ export default function CharacterSheet(props: {
               )
             }
           />
-          <LabeledBox
-            label={t('other_proficiencies_and_languages')}
-          >
+          <LabeledBox label={t('other_proficiencies_and_languages')}>
             <MarkdownRenderedEditableBox
               id="languages-proficiencies"
               text={props.character.data?.languages_and_proficiencies || ''}
               onChange={(languagesAndProficiencies: string) =>
                 props.updateCharacter(
                   (character) =>
-                    (character.data.languages_and_proficiencies = languagesAndProficiencies)
+                    (character.data.languages_and_proficiencies =
+                      languagesAndProficiencies)
                 )
               }
             ></MarkdownRenderedEditableBox>
@@ -402,10 +401,10 @@ export default function CharacterSheet(props: {
               text={props.character.data?.personality || ''}
               onChange={(personality: string) =>
                 props.updateCharacter(
-                  (character) => character.data.personality = personality
+                  (character) => (character.data.personality = personality)
                 )
-              }>
-            </MarkdownRenderedEditableBox>
+              }
+            ></MarkdownRenderedEditableBox>
           </LabeledBox>
           <LabeledBox label={t('ideals')}>
             <MarkdownRenderedEditableBox
@@ -413,10 +412,10 @@ export default function CharacterSheet(props: {
               text={props.character.data?.ideals || ''}
               onChange={(ideals: string) =>
                 props.updateCharacter(
-                  (character) => character.data.ideals = ideals
+                  (character) => (character.data.ideals = ideals)
                 )
-              }>
-            </MarkdownRenderedEditableBox>
+              }
+            ></MarkdownRenderedEditableBox>
           </LabeledBox>
           <LabeledBox label={t('bonds')}>
             <MarkdownRenderedEditableBox
@@ -424,10 +423,10 @@ export default function CharacterSheet(props: {
               text={props.character.data?.bonds || ''}
               onChange={(bonds: string) =>
                 props.updateCharacter(
-                  (character) => character.data.bonds = bonds
+                  (character) => (character.data.bonds = bonds)
                 )
-              }>
-            </MarkdownRenderedEditableBox>
+              }
+            ></MarkdownRenderedEditableBox>
           </LabeledBox>
           <LabeledBox label={t('flaws')}>
             <MarkdownRenderedEditableBox
@@ -435,10 +434,10 @@ export default function CharacterSheet(props: {
               text={props.character.data?.flaws || ''}
               onChange={(flaws: string) =>
                 props.updateCharacter(
-                  (character) => character.data.flaws = flaws
+                  (character) => (character.data.flaws = flaws)
                 )
-              }>
-            </MarkdownRenderedEditableBox>
+              }
+            ></MarkdownRenderedEditableBox>
           </LabeledBox>
         </BorderBox>
       </section>
@@ -449,12 +448,12 @@ export default function CharacterSheet(props: {
             text={props.character.data?.features || ''}
             onChange={(features: string) =>
               props.updateCharacter(
-                (character) => character.data.features = features
+                (character) => (character.data.features = features)
               )
-            }>
-          </MarkdownRenderedEditableBox>
+            }
+          ></MarkdownRenderedEditableBox>
         </LabeledBox>
       </section>
-    </section >
+    </section>
   )
 }

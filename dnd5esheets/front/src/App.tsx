@@ -53,7 +53,6 @@ function GlobalStyles() {
       .hidden {
         display: none;
       }
-
     }
   `
   return null
