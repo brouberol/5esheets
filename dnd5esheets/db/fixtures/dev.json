@@ -216,7 +216,7 @@
           "current": 33
         },
         "hit_dice": {
-          "type": "1d8",
+          "type": "d8",
           "total": 4,
           "remaining": 4
         },
@@ -407,7 +407,7 @@
           "current": 33
         },
         "hit_dice": {
-          "type": "1d8",
+          "type": "d8",
           "total": 4,
           "remaining": 4
         },
