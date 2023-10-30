@@ -23,7 +23,7 @@ export default function CharacterSheet(props: {
     .sheet {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto 1.1fr 1fr .9fr;
+      grid-template-rows: auto;
       grid-template-areas:
         "header header header"
         "base combat flavor"
