@@ -11,6 +11,7 @@ import ProficientAttribute from '~/components/ProficientAttribute'
 import ScoreBox from '~/components/ScoreBox'
 import TrayBox from '~/components/TrayBox'
 import { ResolvedCharacter, UpdateCharacterFunction } from '~/store'
+import SingleAttribute from './SingleAttribute'
 
 export default function CharacterSheet(props: {
   character: ResolvedCharacter
@@ -373,6 +374,28 @@ export default function CharacterSheet(props: {
       </section>
       <section class="combat-stats flex-container">
         <div class="flex-container horizontal-container">
+          <LabeledBox label={t('armor_class')}>
+            <SingleAttribute value={props.character.data?.ac} />
+          </LabeledBox>
+          <LabeledBox label={t('initiative')}>
+            <SingleAttribute value={props.character.data?.initiative} />
+          </LabeledBox>
+          <LabeledBox label={t('speed')}>
+            <SingleAttribute value={props.character.data?.speed} />
+          </LabeledBox>
+        </div>
+        <LabeledBox label={t('hit_points_current')}>
+          <SingleAttribute value={`${props.character.data?.hp.current} / ${props.character.data?.hp.max} + ${props.character.data?.hp.temp}`} />
+        </LabeledBox>
+        <div class="flex-container horizontal-container">
+          <LabeledBox label={t('hit_dice')}>
+            <div>
+              {t('hit_dice_total')}: {props.character.data?.hit_dice.total}{props.character.data?.hit_dice.type}
+            </div>
+            <div>
+              {props.character.data?.hit_dice.remaining}{props.character.data?.hit_dice.type}
+            </div>
+          </LabeledBox>
           <LabeledBox label={t('death_saves')}>
             <div>
               {t('death_saves_successes')}: {props.character.data?.death_saves.successes}

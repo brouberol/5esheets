@@ -274,6 +274,16 @@ class CharacterStore {
           character
         ),
       },
+
+      // base armor class
+      {
+        name: 'base',
+        priority: 10,
+        ...computeEffect(
+          `data.ac := 10 + data.abilities.dexterity.modifier`,
+          character
+        ),
+      },
     ]
 
     const targets = baseEffects.reduce(
