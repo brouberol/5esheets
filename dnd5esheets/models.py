@@ -1,6 +1,6 @@
+import datetime
 import hashlib
 from copy import deepcopy
-from datetime import datetime
 from enum import StrEnum
 from typing import Self
 
@@ -23,6 +23,10 @@ from sqlalchemy.orm import (
     relationship,
     validates,
 )
+
+
+def utcnow():
+    return datetime.datetime.now(datetime.UTC)
 
 
 class Role(StrEnum):
@@ -90,11 +94,11 @@ class BaseModel(DeclarativeBase):
     """A base model class, inherited from by all 5esheets models."""
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=False), default=datetime.utcnow, index=True
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=False), default=utcnow, index=True
     )
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=False), default=datetime.utcnow, onupdate=datetime.utcnow
+    updated_at: Mapped[datetime.datetime] = mapped_column(
+        DateTime(timezone=False), default=utcnow, onupdate=utcnow
     )
 
     def __init_subclass__(cls) -> None:

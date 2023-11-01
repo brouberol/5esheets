@@ -65,8 +65,18 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.pytest.ini_options]
-# We ignore the deprecation warning thrown in passlib until https://foss.heptapod.net/python-libs/passlib/-/issues/148 is resolved
-addopts = "-s -W ignore::DeprecationWarning:passlib.utils:854"
+addopts = "-s"
+filterwarnings = [
+    # We ignore the deprecation warning thrown in passlib
+    # until https://foss.heptapod.net/python-libs/passlib/-/issues/148 is resolved
+    "ignore::DeprecationWarning:passlib.utils:854",
+
+    # We ignore deprecation warnings about using datetime.datetime.utcnow in python 3.12
+    # https://github.com/mpdavis/python-jose/issues/334
+    "ignore::DeprecationWarning:jose.jwt:311",
+    # https://github.com/k4black/fastapi-jwt/pull/15
+    "ignore::DeprecationWarning:fastapi_jwt.jwt:135",
+    ]
 testpaths = ["dnd5esheets/tests"]
 
 [tool.mypy]
