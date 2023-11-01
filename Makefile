@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer black check clean docker-build docker-run front-check help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer check clean docker-build docker-run front-check help init mypy ruff run test trash-env
 
 UNAME_S := $(shell uname -s)
 PWD = $(shell pwd)
