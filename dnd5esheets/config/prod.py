@@ -8,7 +8,7 @@ class ProdSettings(CommonSettings):
     DB_URI: str
     DB_ASYNC_URI: str
     MULTITENANCY_ENABLED: bool = True
-    FRONTEND_CORS_ORIGIN: str | None = None
+    FRONTEND_CORS_ORIGIN: list[str] = []
     DOCS_URL: str | None = None
     REDOC_URL: str | None = None
     OPENAPI_URL: str | None = None

@@ -142,7 +142,7 @@ def register_cors_middleware(app: ExtendedFastAPI):
     if app.settings.FRONTEND_CORS_ORIGIN is not None:
         app.add_middleware(
             CORSMiddleware,
-            allow_origins=[app.settings.FRONTEND_CORS_ORIGIN],
+            allow_origins=app.settings.FRONTEND_CORS_ORIGIN,
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],

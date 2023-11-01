@@ -20,7 +20,7 @@ class CommonSettings(BaseSettings):
     DB_URI: str = f"sqlite:///{db_file}"
     DB_ASYNC_URI: str = f"sqlite+aiosqlite:///{db_file}"
     SQLALCHEMY_ECHO: bool = False
-    FRONTEND_CORS_ORIGIN: str | None = "http://localhost:3000"
+    FRONTEND_CORS_ORIGIN: list[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
 
     PROFILING_ENABLED: bool = False
     OPENAPI_URL: str | None = "/openapi.json"
