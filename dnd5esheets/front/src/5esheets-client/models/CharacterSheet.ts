@@ -36,6 +36,7 @@ export type CharacterSheet = {
     inventory: string;
     spellcasting_ability: (AbilityName | null);
     daily_prepared_spells: number;
+    exhaustion: 0 | 1 | 2 | 3 | 4 | 5 | 6;
     proficiency_bonus: number;
     ac: number;
     initiative: number;

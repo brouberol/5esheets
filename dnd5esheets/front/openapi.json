@@ -1681,6 +1681,19 @@
             "type": "integer",
             "title": "Daily Prepared Spells"
           },
+          "exhaustion": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "title": "Exhaustion"
+          },
           "proficiency_bonus": {
             "type": "integer",
             "title": "Proficiency Bonus"
@@ -1731,6 +1744,7 @@
           "inventory",
           "spellcasting_ability",
           "daily_prepared_spells",
+          "exhaustion",
           "proficiency_bonus",
           "ac",
           "initiative",

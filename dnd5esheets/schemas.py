@@ -3,7 +3,7 @@ Definition of the pydandic models used for type validation and output serializat
 """
 
 from enum import IntEnum, StrEnum
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict, Field, computed_field
@@ -443,6 +443,7 @@ class CharacterSheet(BaseSchema):
     inventory: str
     spellcasting_ability: AbilityName | None
     daily_prepared_spells: int
+    exhaustion: Literal[0, 1, 2, 3, 4, 5, 6]
 
     # These are optional fields are they are calculated by the frontend.
     # We declare them here so that they appear in the generated TS types.
