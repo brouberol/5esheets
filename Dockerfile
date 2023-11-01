@@ -1,4 +1,5 @@
 # hadolint global ignore=DL3008
+ARG PYTHON_VERSION=3.12.0
 # -- Build step, in charge of compiling the frontend app
 FROM node:20.2.0-bullseye-slim AS front-build
 
@@ -12,7 +13,7 @@ RUN npm run build
 
 
 # -- Build the libsqlite3.so shared object for the appropriate architecture
-FROM python:3.11.4-slim AS sqlite-build
+FROM python:${PYTHON_VERSION}-slim AS sqlite-build
 
 WORKDIR /app/src/build
 
@@ -25,7 +26,7 @@ RUN apt-get update && \
 
 
 # -- Generate the requirements.txt file
-FROM python:3.11.4-slim AS reqstxt-build
+FROM python:${PYTHON_VERSION}-slim AS reqstxt-build
 
 WORKDIR /app/src/build
 COPY poetry.lock .
@@ -34,7 +35,7 @@ RUN pip install --no-cache-dir poetry==1.6.1 && poetry export --without=dev -o r
 
 
 # -- Main build combining the FastAPI and compiled frontend apps
-FROM python:3.11.4-slim
+FROM python:${PYTHON_VERSION}-slim
 
 ARG USERNAME=app
 ARG USER_UID=1000
