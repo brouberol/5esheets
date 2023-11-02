@@ -1,5 +1,4 @@
-import { Component, createEffect } from 'solid-js'
-import { css } from 'solid-styled'
+import { Component, Show, createSignal } from 'solid-js'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 
@@ -8,30 +7,8 @@ const MarkdownRenderedEditableBox: Component<{
   text: string
   onChange: (update: string) => void
 }> = (props) => {
-  css`
-    .markdown-rendered-editable-box-wrapper {
-      padding: 1em;
-      height: 100%;
-    }
-
-    .markdown-raw {
-      width: 100%;
-    }
-  `
-
-  const hiddenClass = 'hidden'
   const markdownRenderer = new marked.Renderer()
-  const linkRenderer = markdownRenderer.link
-
-  // always render links so they open in a new tab
-  markdownRenderer.link = (
-    href: string,
-    title: string,
-    text: string
-  ): string => {
-    const html = linkRenderer.call(markdownRenderer, href, title, text)
-    return html.replace(/^<a /, '<a target="_blank" ')
-  }
+  const [isBeingEdited, setIsBeingEdited] = createSignal(false)
 
   // DOMPurify sees target blank links as a security issue, so massage it
   // into accepting then.
@@ -44,67 +21,30 @@ const MarkdownRenderedEditableBox: Component<{
     }
   })
 
-  const hideRawTextareaShowRenderedDiv = () => {
-    props.text
-    const textarea = document.getElementById(
-      `${props.id}-raw`
-    ) as HTMLTextAreaElement
-    if (!textarea) {
-      return
-    }
-    const neighbourDiv = document.getElementById(`${props.id}-rendered`)
-    if (!neighbourDiv) {
-      return
-    }
-    if (textarea.value) {
-      textarea.textContent = textarea.value
-
-      const rendered: string = marked.parse(textarea.textContent, {
-        renderer: markdownRenderer,
-      })
-      neighbourDiv.innerHTML = DOMPurify.sanitize(rendered)
-      textarea.classList.add(hiddenClass)
-      neighbourDiv.classList.remove(hiddenClass)
-    } else {
-      // The textarea does not contain any text, so hiding it would prevent us from
-      // writing in it in the first place.
-      textarea.classList.remove(hiddenClass)
-      neighbourDiv.classList.add(hiddenClass)
-    }
-  }
-
-  const showRawTextareHideRenderedDiv = () => {
-    props.text
-    const textarea = document.getElementById(`${props.id}-raw`)
-    if (!textarea) {
-      return
-    }
-    const neighbourDiv = document.getElementById(`${props.id}-rendered`)
-    if (!neighbourDiv) {
-      return
-    }
-    textarea.classList.remove(hiddenClass)
-    textarea.focus({ preventScroll: true })
-    neighbourDiv.classList.add(hiddenClass)
-  }
-
-  createEffect(() => hideRawTextareaShowRenderedDiv())
-
   return (
     <div class="markdown-rendered-editable-box-wrapper">
-      <textarea
-        id={props.id + '-raw'}
-        class="markdown-raw hidden"
-        onfocusout={() => hideRawTextareaShowRenderedDiv()}
-        onChange={() => props.onChange(props.text)}
-      >
-        {props.text}
-      </textarea>
-      <div
-        class="markdown-rendered"
-        id={props.id + '-rendered'}
-        onclick={() => showRawTextareHideRenderedDiv()}
-      ></div>
+      <Show when={isBeingEdited()}>
+        <pre
+          contentEditable
+          onfocusout={(event) => {
+            setIsBeingEdited(false)
+            const target = event.target as HTMLDivElement
+            props.onChange(target.innerHTML)
+          }}
+        >
+          {props.text}
+        </pre>
+      </Show>
+      <Show when={!isBeingEdited()}>
+        <div
+          onClick={() => setIsBeingEdited(true)}
+          innerHTML={DOMPurify.sanitize(
+            marked.parse(props.text, {
+              renderer: markdownRenderer,
+            })
+          )}
+        ></div>
+      </Show>
     </div>
   )
 }
