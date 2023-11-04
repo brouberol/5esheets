@@ -10,7 +10,7 @@ export const LabeledBox: ParentComponent<{ label: string }> = (props) => {
     }
 
     .border-box {
-      border-image: url(/assets/border-1.svg) 48% repeat;
+      border-image: url(/assets/border-1.svg) 48% stretch;
 
       --border-top: 16mm;
       --border-side: 6mm;
