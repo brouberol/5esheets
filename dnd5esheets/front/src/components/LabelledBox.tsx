@@ -1,7 +1,7 @@
 import { ParentComponent } from 'solid-js'
 import { css } from 'solid-styled'
 
-export const LabeledBox: ParentComponent<{ label: string }> = (props) => {
+export const LabelledBox: ParentComponent<{ label: string }> = (props) => {
   css`
     .border-box,
     inner-box {

@@ -11,11 +11,7 @@ const meta: Meta<typeof NumberInput> = {
   render: (props) => {
     const [value, setValue] = createControlledSignal('value')
 
-    return (
-      <div>
-        <NumberInput {...props} value={value()} onChange={setValue} />
-      </div>
-    )
+    return <NumberInput {...props} value={value()} onChange={setValue} />
   },
 }
 
