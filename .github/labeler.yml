@@ -34,3 +34,6 @@ dependencies:
   - pyproject.toml
   - dnd5esheets/front/package.json
   - dnd5esheets/front/package-lock.json
+
+documentation:
+  - docs/**
