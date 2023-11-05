@@ -41,6 +41,10 @@ rich = "^13.6.0"
 sqla-graphs = { git = "https://github.com/edelooff/sqla-graphs.git" }
 makefile2dot = "^1.0.2"
 
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.4.7"
+
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
 

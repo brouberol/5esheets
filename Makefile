@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer check clean docker-build docker-build-front-dev docker-run front-check help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer check clean docker-build docker-build-front-dev docker-run docs front-check help init mypy ruff run test trash-env
 
 UNAME_S := $(shell uname -s)
 PWD = $(shell pwd)
@@ -45,11 +45,11 @@ poetry.lock: pyproject.toml
 	@echo "\n[+] Locking dependencies"
 	@poetry lock
 
-doc/model_graph.png: $(app-root)/models.py
+docs/images/model_graph.png: $(app-root)/models.py
 	@echo "\n[+] Generating SQL model graph"
 	@$(python) scripts/generate_model_graph.py $@
 
-doc/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
+docs/images/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
 	@echo "\n[+] Generating a visual graph representation of the Makefile"
 	@$(poetry-run) makefile2dot | $(python) scripts/cleanup_makefile2dot_output.py | dot -Tpng > $@
 
@@ -91,7 +91,7 @@ api-doc:  ## Open the 5esheets API documentation
 api-explorer:  ## Open the 5esheets API explorer (with interactive requests)
 	open http://localhost:$(app-port)/docs
 
-build: $(libsqlite) doc/model_graph.png doc/makefile.png data front-build  ## Build the application
+build: $(libsqlite) docs/images/model_graph.png docs/images/makefile.png data front-build  ## Build the application
 
 back-check: back-format-check mypy ruff
 
@@ -193,6 +193,9 @@ trash-env:  ## Delete all js dependencies and the python virtualenv
 	@echo "\n[+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"
 	@rm -rf $(front-root)/node_modules
 	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
+
+docs:  ## Generate and serve documentation
+	@$(poetry-run) mkdocs serve --dev-addr localhost:9000
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | $(python) scripts/format_makefile.py
