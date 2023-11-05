@@ -28,8 +28,8 @@ make init
 
 This will:
 
-- install all backend dependencies
-- install all frontend dependencies
+- install all backend dependencies in a virtualenv created and managed by `poetry`
+- install all frontend dependencies under `dnd5esheets/front/node_modules`
 - apply the SQL migrations
 - populate the database with items, spells and development fixtures
 
