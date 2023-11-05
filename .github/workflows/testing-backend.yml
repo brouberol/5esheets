@@ -3,11 +3,11 @@ name: Run backend tests and checks
 on: [push]
 
 jobs:
-  build:
+  build-backend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ['3.11', '3.12']
 
     steps:
       - uses: actions/checkout@v3
