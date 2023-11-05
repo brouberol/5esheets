@@ -1,5 +1,5 @@
 .DEFAULT_GOAL = help
-.PHONY: api-doc api-explorer check clean docker-build docker-run front-check help init mypy ruff run test trash-env
+.PHONY: api-doc api-explorer check clean docker-build docker-build-front-dev docker-run front-check help init mypy ruff run test trash-env
 
 UNAME_S := $(shell uname -s)
 PWD = $(shell pwd)
@@ -13,6 +13,7 @@ endif
 
 app-root = dnd5esheets
 app-port = 8000
+front-port = 3000
 front-root = $(app-root)/front
 api-client-root = $(front-root)/src/5esheets-client
 npm = cd $(front-root) && npm
@@ -116,25 +117,25 @@ deps-python: poetry.lock
 
 deps: deps-python deps-js  ## Install the development dependencies
 
-docker-build:  ## Build the docker image
+docker-build:  ## Build the docker image for the API
 	@echo "\n[+] Building the docker image"
 	@docker build -t brouberol/5esheets .
 
-docker-run: docker-build  ## Run the docker image
-	@echo "\n[+] Running the docker image"
+docker-run: docker-build
+	@echo "\n[+] Running the API docker image"
 	@docker run -it --rm --name 5esheets -v $$(pwd)/$(app-root)/db:/usr/src/app/$(app-root)/db/ -p $(app-port):$(app-port) brouberol/5esheets
 
-db-base-items: ## Populate the base items in database
-	@echo "\n[+] Populating the database with base items"
-	@$(app-cli) db populate base-items
+docker-build-front-dev:  ## Build the dev docker image for the frontend
+	@echo "\n[+] Building the dev docker image for the frontend"
+	docker build -f Dockerfile-dev -t brouberol/5esheets-front-dev .
 
-db-spells: ## Populate the spells in database
-	@echo "\n[+] Populating the database with spells"
-	@$(app-cli) db populate spells
+docker-run-front-dev: docker-build-front-dev
+	@echo "\n[+] Running the dev frontend docker image"
+	@docker run -it --rm --name 5esheets-front-dev --net=host brouberol/5esheets-front-dev
 
-db-dev-fixtures: data db-migrate db-base-items db-spells ## Populate the local database with development fixtures
+db-dev-fixtures: data db-migrate ## Populate the local database with development fixtures
 	@echo "\n[+] Populating the database with development fixtures"
-	@$(app-cli) db populate fixtures
+	@$(app-cli) db populate all
 
 db-migrate:  ## Run the SQL migrations
 	@echo "\n[+] Applying the SQL migrations"
@@ -142,7 +143,7 @@ db-migrate:  ## Run the SQL migrations
 
 hooks: .git/hooks/pre-push
 
-init:  hooks deps db-dev-fixtures run  ## Run the application for the first time
+init:  hooks deps db-dev-fixtures ## Setup the application for the first time
 
 mypy:
 	@echo "\n[+] Checking Python types"
@@ -183,6 +184,10 @@ run: admin-statics build  ## Run the app
 	@cd $(app-root) && $(poetry-run) uvicorn --factory $(app-root).app:create_app --reload
 
 test:  back-test front-test ## Run the project tests
+
+dev: docker-build-front-dev docker-build  ## Run the dev stack in containers
+	@echo  "\n[+] Running the dev stack"
+	@docker compose up
 
 trash-env:  ## Delete all js dependencies and the python virtualenv
 	@echo "\n[+] 🗑️🔥 Deleting the node_modules directory and the whole python virtualenv"

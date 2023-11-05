@@ -1,0 +1,14 @@
+FROM node:20.2.0-bullseye-slim AS front-build
+RUN apt-get update && apt-get install -y --no-install-recommends make
+WORKDIR /usr/src/app
+RUN mkdir -p dnd5esheets/front/src
+
+# Hack! The Makefile assumes that we can find at least one */*.mk file
+RUN touch dnd5esheets/front/stub.mk
+
+COPY dnd5esheets/front/package.json ./dnd5esheets/front
+COPY dnd5esheets/front/package-lock.json ./dnd5esheets/front
+RUN cd dnd5esheets/front && npm install
+COPY ./scripts/run-dev-front.sh ./scripts/run-dev-front.sh
+COPY dnd5esheets/front ./dnd5esheets/front
+ENTRYPOINT ["./scripts/run-dev-front.sh"]

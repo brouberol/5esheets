@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  5esheets-api:
+    image: brouberol/5esheets
+    container_name: 5esheets-api
+    volumes:
+      - ./dnd5esheets/:/usr/src/app/dnd5esheets/
+    ports:
+      - 8000:8000
+    environment:
+      DND5ESHEETS_ENV: dev
+    restart: unless-stopped
+  5esheets-frontend:
+    image: brouberol/5esheets-front-dev
+    container_name: 5esheets-front-dev
+    volumes:
+      - ./dnd5esheets/front/src/:/usr/src/app/dnd5esheets/front/src/
+    ports:
+      - 3000:3000
+    restart: unless-stopped
