@@ -28,7 +28,7 @@ ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
 
-include **/*.mk
+include $(shell find . -type f -name '*.mk')
 
 
 $(app-root)/schemas.py:
