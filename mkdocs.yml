@@ -23,4 +23,5 @@ markdown_extensions:
 
 nav:
   - index.md
-  - getting-started.md
+  - design.md
+  - local-development.md
