@@ -2,7 +2,7 @@
 
 - use modern and robust backend and frontend tooling, as a playground for experimentation
 - build on top of giants, to minimize boilerplate code
-- be fully external-dependencies-free (database, search engine, cache store, etc). Everything should leverage SQLite to make the app extremely easy to run, and the data trivial to backup.
+- be fully external-dependencies-free (database, search engine, cache, etc). Everything should leverage SQLite to make the app extremely easy to run, and the data trivial to backup.
 - depart from the official [5e character sheet layout](https://media.wizards.com/2022/dnd/downloads/DnD_5E_CharacterSheet_FormFillable.pdf) where we find it appropriate, to allow you to input as much information as you need
 - link all SRD items, spells, etc to [5e.tools](https://5e.tools)
 - implement the character sheet as an <abbr title="Single Page App">SPA</abbr> that would query a backend API, for ease of use
@@ -13,13 +13,19 @@ We have designed 5esheets by making [deliberate technical choices](https://githu
 
 ### Design choices for the backend application
 
+![backend](./images/5esheets-backend-arch.jpeg)
+
 #### Language
 
-We chose Python for our backend. It's a language we now really well, that is fast _enough_ for what we have in mind, with an extremely rich set of libraries to build web applications and API with.
+We chose Python for our backend. It's a language we know really well, that is fast _enough_ for what we have in mind, with an extremely rich set of libraries to build web applications and API with.
 
 #### Web framework
 
 We decided to rely on [FastAPI](https://fastapi.tiangolo.com/features) for the backend API. It handles request routing and parsing, input/output payload schema validation and (de)serialization, and OpenAPI schema generation (amongst many other things). It is fully compatible with the `async/await` Python features, allowing us to rely on asynchonous SQL queries to minimize the server footprint (a single process/thread is required).
+
+#### Authentication
+
+We leverage <abbr title="JSON Web Token">JWT</abbr>s to authenticate API calls to the backend. To avoid reinventing the wheel when it comes to security, we used [`fastapi-jwt`](https://github.com/k4black/fastapi-jwt) (which is more actively maintained [than `fastapi-auth-jwt`](https://github.com/IndominusByte/fastapi-jwt-auth/issues/101)) rather than implementing this layer ourselves, as suggested in the [FastAPI documentation](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/).
 
 #### ORM
 
@@ -37,7 +43,7 @@ We use [SQLlite](https://sqlite.org) to store the data, as it is a much more com
 
 #### Language
 
-We rely on [Typescript](https://www.typescriptlang.org) to help us write correct code, without runtime crashes. It is a battle-tested language, widely used in production in products with, much, _much_ more stringent reliability requirements than this one.
+We rely on [Typescript](https://www.typescriptlang.org) to help us write correct code, free of runtime crashes. It is a battle-tested language, widely used in production in products with, much, _much_ more stringent reliability requirements than this one.
 
 #### API Client
 

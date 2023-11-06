@@ -47,8 +47,8 @@ make run-front-dev
 
 ## Next steps
 
-At that point, the backend API will run under `http://localhost:8000` and the frontend will run under `http://localhost:3000`
+At that point, the backend API will run under [`http://localhost:8000`](http://localhost:8000) and the frontend will run under [`http://localhost:3000`](http://localhost:3000)
 
 !!! note
 
-    Any edit you make in the codebase while running `make dev` will induce automatic reload of either the backend or frontend application.
+    When using these `make` commands, any modification to the codebase will induce automatic reload of either the backend or frontend application.
