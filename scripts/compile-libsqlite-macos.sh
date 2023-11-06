@@ -5,7 +5,7 @@
 
 sqlite_version=3420000
 
-wget https://www.sqlite.org/2023/sqlite-amalgamation-${sqlite_version}.zip
+wget "https://www.sqlite.org/2023/sqlite-amalgamation-${sqlite_version}.zip"
 unzip sqlite-amalgamation-${sqlite_version}.zip
 pushd sqlite-amalgamation-${sqlite_version}
 gcc -dynamiclib sqlite3.c -o libsqlite3.0.dylib -lm -lpthread -DSQLITE_ENABLE_FTS5

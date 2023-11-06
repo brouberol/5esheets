@@ -28,7 +28,7 @@ ifeq ($(UNAME_S),Darwin)
 	sed_i += ''
 endif
 
-include $(app-root)/*/*.mk
+include **/*.mk
 
 
 $(app-root)/schemas.py:
@@ -44,22 +44,6 @@ pyproject.toml:
 poetry.lock: pyproject.toml
 	@echo "\n[+] Locking dependencies"
 	@poetry lock
-
-docs/images/model_graph.png: $(app-root)/models.py
-	@echo "\n[+] Generating SQL model graph"
-	@$(python) scripts/generate_model_graph.py $@
-
-docs/images/makefile.png: Makefile scripts/cleanup_makefile2dot_output.py
-	@echo "\n[+] Generating a visual graph representation of the Makefile"
-	@$(poetry-run) makefile2dot | $(python) scripts/cleanup_makefile2dot_output.py | dot -Tpng > $@
-
-lib/libsqlite3.so:
-	@echo "\n[+] Building libsqlite3 for linux"
-	@$(python) scripts/compile-libsqlite-linux.sh
-
-lib/libsqlite3.0.dylib:
-	@echo "\n[+] Building libsqlite3 for macos"
-	@$(python) scripts/compile-libsqlite-macos.sh
 
 $(front-root)/package-lock.json: $(front-root)/package.json
 
@@ -194,8 +178,11 @@ trash-env:  ## Delete all js dependencies and the python virtualenv
 	@rm -rf $(front-root)/node_modules
 	@rm -rf $$(poetry env info | grep Virtualenv -A 5| grep Path | awk '{ print $$2 }')
 
-docs:  ## Generate and serve documentation
+docs: docs/include/make.txt  ## Generate and serve documentation
 	@$(poetry-run) mkdocs serve --dev-addr localhost:9000
 
 help:  ## Display help
 	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | $(python) scripts/format_makefile.py
+
+help-plain:
+	@grep -E '^[%a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | $(python) scripts/format_makefile_plain.py

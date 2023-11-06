@@ -9,6 +9,8 @@ theme:
 
 plugins:
   - search
+  - macros:
+      include_dir: docs/include
 
 markdown_extensions:
   - pymdownx.highlight:

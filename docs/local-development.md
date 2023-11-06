@@ -18,7 +18,7 @@ This will:
 - apply the SQL migrations
 - populate the database with items, spells and development fixtures
 
-## Running the project without containers
+## Running the project on your host
 
 If you were confortable installing `poetry` and `npm` on your development machine, and managed to, then run
 
@@ -52,3 +52,11 @@ At that point, the backend API will run under [`http://localhost:8000`](http://l
 !!! note
 
     When using these `make` commands, any modification to the codebase will induce automatic reload of either the backend or frontend application.
+
+## Development commands
+
+If you run the apps directly on your development host, you might find the following `make` commands useful:
+
+```
+{% include 'make.txt' %}
+```

@@ -44,6 +44,7 @@ makefile2dot = "^1.0.2"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.4.7"
+mkdocs-macros-plugin = "^1.0.5"
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
