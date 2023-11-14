@@ -102,7 +102,7 @@ class CharacterAdmin(ModelView, model=Character):
     ]
     column_details_exclude_list = base_excluded_columns(Character)
     form_excluded_columns = base_form_excluded_columns(Character)
-    column_labels = {Character.class_: "class", Character.data_: "data"}
+    column_labels = {Character.class_: "class"}
     column_searchable_list = [Character.name, Character.class_]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
@@ -134,7 +134,7 @@ class ItemAdmin(CustomModelView, model=Item):
     _column_formatters = {
         "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
     }
-    column_labels = {"five_e_tools_url": "5e.tools URL", Item.data_: "data"}
+    column_labels = {"five_e_tools_url": "5e.tools URL"}
     page_size = 30
     column_searchable_list = [Item.name]
     column_list = [Item.id, Item.name]
@@ -172,7 +172,7 @@ class SpellAdmin(CustomModelView, model=Spell):
         Spell.school: lambda model, _: model.school.capitalize(),  # type: ignore
         "five_e_tools_url": lambda model, _: link(model.five_e_tools_url),
     }
-    column_labels = {"five_e_tools_url": "5e.tools URL", Spell.data_: "data"}
+    column_labels = {"five_e_tools_url": "5e.tools URL"}
 
     page_size = 30
     column_searchable_list = [Spell.name, Spell.level]
