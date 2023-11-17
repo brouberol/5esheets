@@ -11,7 +11,9 @@
     "lint": "eslint src",
     "prettier": "prettier -w .",
     "prettier-check": "prettier -c .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "type": "module",
   "devDependencies": {
@@ -20,6 +22,11 @@
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.2",
     "@solidjs/testing-library": "^0.8.4",
+    "@storybook/addon-essentials": "^7.5.2",
+    "@storybook/addon-interactions": "^7.5.2",
+    "@storybook/addon-links": "^7.5.2",
+    "@storybook/blocks": "^7.5.2",
+    "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/debug": "^4.1.7",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
@@ -28,12 +35,16 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-solid": "^0.12.1",
+    "eslint-plugin-storybook": "^0.6.15",
     "jsdom": "^22.1.0",
     "openapi-typescript-codegen": "^0.25.0",
     "peggy": "^3.0.2",
     "prettier": "^3.0.1",
     "solid-js": "^1.7.11",
     "solid-styled": "^0.8.2",
+    "storybook": "^7.5.2",
+    "storybook-solidjs": "^1.0.0-beta.2",
+    "storybook-solidjs-vite": "^1.0.0-beta.2",
     "ts-pegjs": "^4.2.1",
     "typescript": "^5.1.6",
     "vite": "^4.4.9",
@@ -47,7 +58,11 @@
   },
   "dependencies": {
     "@types/dompurify": "^3.0.4",
+    "@zag-js/hover-card": "^0.30.0",
+    "@zag-js/number-input": "^0.30.0",
+    "@zag-js/solid": "^0.30.0",
     "dompurify": "^3.0.6",
+    "lucide-solid": "^0.292.0",
     "marked": "^9.1.3"
   }
 }
