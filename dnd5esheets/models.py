@@ -263,7 +263,7 @@ class Character(NameReprMixin, BaseModel):
 class Spell(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True)
     level: Mapped[int] = mapped_column(Integer, nullable=False)
-    school: Mapped[str] = mapped_column(String(30), nullable=False)
+    school: Mapped[str] = mapped_column(String(1), nullable=False)
     data: Mapped[str] = mapped_column(Json, name="json_data")
 
     def __repr__(self):
