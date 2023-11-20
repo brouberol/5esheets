@@ -18,7 +18,7 @@ pydantic = "2.4.2"
 python-multipart = "^0.0.6"
 fastapi-jwt = "^0.1.12"
 pydantic-settings = "^2.0.2"
-sqladmin = "^0.15.0"
+sqladmin = "^0.16.0"
 itsdangerous = "^2.1.2"
 pygments = "^2.16.1"
 orjson = "^3.9.7"
@@ -40,6 +40,11 @@ logging-tree = "^1.9"
 rich = "^13.6.0"
 sqla-graphs = { git = "https://github.com/edelooff/sqla-graphs.git" }
 makefile2dot = "^1.0.2"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.4.7"
+mkdocs-macros-plugin = "^1.0.5"
 
 [tool.poetry.scripts]
 dnd5esheets-cli = 'dnd5esheets.cli:cli'
@@ -76,7 +81,7 @@ filterwarnings = [
     "ignore::DeprecationWarning:jose.jwt:311",
     # https://github.com/k4black/fastapi-jwt/pull/15
     "ignore::DeprecationWarning:fastapi_jwt.jwt:135",
-    ]
+]
 testpaths = ["dnd5esheets/tests"]
 
 [tool.mypy]

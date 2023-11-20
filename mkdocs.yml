@@ -1,0 +1,29 @@
+site_name: 5esheets
+theme:
+  name: material
+  features:
+    - search.suggest
+    - search.highlight
+    - navigation.instant
+    - navigation.top
+
+plugins:
+  - search
+  - macros:
+      include_dir: docs/include
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - admonition
+
+nav:
+  - index.md
+  - design.md
+  - local-development.md

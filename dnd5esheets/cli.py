@@ -156,5 +156,14 @@ def populate_db_with_dev_data(silent: bool = False):
     _populate_db_with_dev_data(silent=silent)
 
 
+@populate.command("all")
+@click.option("--silent", type=bool, default=False)
+def populate_db(silent: bool = False):
+    """Populate the database with base data and dev fixtures"""
+    _populate_base_items(silent=silent)
+    _populate_spells(silent=silent)
+    _populate_db_with_dev_data(silent=silent)
+
+
 if __name__ == "__main__":
     cli()  # type: ignore

@@ -3,7 +3,7 @@ name: Run frontend tests and checks
 on: [push]
 
 jobs:
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
