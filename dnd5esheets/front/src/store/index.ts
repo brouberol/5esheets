@@ -24,10 +24,10 @@ type Join<K, P> = K extends string | number
 type Split<S extends string, D extends string> = string extends S
   ? string[]
   : S extends ''
-  ? []
-  : S extends `${infer T}${D}${infer U}`
-  ? [T, ...Split<U, D>]
-  : [S]
+    ? []
+    : S extends `${infer T}${D}${infer U}`
+      ? [T, ...Split<U, D>]
+      : [S]
 
 type Prev = [
   never,
@@ -59,8 +59,8 @@ type Prev = [
 type Leaves<T, D extends number = 10> = [D] extends [never]
   ? never
   : T extends object
-  ? { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T]
-  : ''
+    ? { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T]
+    : ''
 
 // Tentative of typing the possible target for an effect, based on the shape of Character.
 type Target = Leaves<Character>
