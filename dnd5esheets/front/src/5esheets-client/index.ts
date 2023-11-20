@@ -12,6 +12,7 @@ export type { Ability } from './models/Ability';
 export type { AbilityName } from './models/AbilityName';
 export type { Attack } from './models/Attack';
 export type { Body_login_login_for_access_token } from './models/Body_login_login_for_access_token';
+export type { CharacterClass } from './models/CharacterClass';
 export type { CharacterSchema } from './models/CharacterSchema';
 export type { CharacterSchemaNoEmbeddedFields } from './models/CharacterSchemaNoEmbeddedFields';
 export type { CharacterSheet } from './models/CharacterSheet';

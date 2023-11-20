@@ -124,12 +124,15 @@ export default function CharacterSheet(props: {
             id="classlevel"
             label={t('class_and_level')}
             placeholder={`${t('wizard')} 2`}
-            value={`${props.character.class_} ${props.character.level}`}
+            // TEMP We currently do not support display multiple classes/levels, so we only display the first one
+            value={`${props.character.data.classes[0].name} ${props.character.data.classes[0].level}`}
             onChange={(classAndLevel: string) => {
               props.updateCharacter((character) => {
                 const lastSpaceIndex = classAndLevel.lastIndexOf(' ')
-                character.class_ = classAndLevel.slice(0, lastSpaceIndex).trim()
-                character.level =
+                character.data.classes[0].name = classAndLevel
+                  .slice(0, lastSpaceIndex)
+                  .trim()
+                character.data.classes[0].level =
                   parseInt(classAndLevel.slice(lastSpaceIndex).trim()) || 0
               })
             }}

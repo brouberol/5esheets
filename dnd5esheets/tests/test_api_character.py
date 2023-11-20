@@ -8,9 +8,8 @@ def test_list_characters(client):
 
     assert len(data) == 1
     assert data[0] == {
-        "class_": "Artilleur",
         "id": 1,
-        "level": 4,
+        "level": 5,
         "name": "Douglas McTrickfoot",
         "party": {
             "id": 1,
@@ -124,7 +123,6 @@ def test_create_new_character(client):
     assert created_data["slug"] == "ronald-mcdonald"
     assert created_data["player"]["name"] == "Balthazar"
     assert created_data["party"]["name"] == "Famille McTrickfoot"
-    assert created_data["class_"] is None
     assert created_data["data"] is None
     assert created_data["level"] is None
 
@@ -172,7 +170,7 @@ def test_describe_character_with_etag(client):
 
     update_response = client.put(
         "/api/character/douglas-mctrickfoot",
-        json={"level": "5"},  # direct update to the Character
+        json={"name": "Douggie McTricky"},  # direct update to the Character
     )
     assert update_response.status_code == 200
 

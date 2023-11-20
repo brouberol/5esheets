@@ -95,8 +95,6 @@ class CharacterRepository(BaseRepository):
             party_id=character_data.party_id,
             slug=slug,
             player_id=owner_id,
-            level=None,
-            class_=None,
             data=None,
         )
         session.add(character)

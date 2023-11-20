@@ -1420,6 +1420,35 @@
         ],
         "title": "Body_login-login_for_access_token"
       },
+      "CharacterClass": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "variant": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "variant"
+        ],
+        "title": "CharacterClass"
+      },
       "CharacterSchema": {
         "properties": {
           "id": {
@@ -1436,18 +1465,6 @@
             "type": "string",
             "maxLength": 255,
             "title": "The character slug, used to identify it in the API"
-          },
-          "class_": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 80
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "The character class"
           },
           "level": {
             "anyOf": [
@@ -1534,18 +1551,6 @@
             "maxLength": 255,
             "title": "The character slug, used to identify it in the API"
           },
-          "class_": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 80
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "The character class"
-          },
           "level": {
             "anyOf": [
               {
@@ -1580,6 +1585,13 @@
       },
       "CharacterSheet": {
         "properties": {
+          "classes": {
+            "items": {
+              "$ref": "#/components/schemas/CharacterClass"
+            },
+            "type": "array",
+            "title": "Classes"
+          },
           "abilities": {
             "$ref": "#/components/schemas/Abilities"
           },
@@ -1721,6 +1733,7 @@
         },
         "type": "object",
         "required": [
+          "classes",
           "abilities",
           "skills",
           "xp",
@@ -2234,11 +2247,6 @@
             "maxLength": 255,
             "title": "The character slug, used to identify it in the API"
           },
-          "class_": {
-            "type": "string",
-            "maxLength": 80,
-            "title": "The character class"
-          },
           "level": {
             "type": "integer",
             "maximum": 20.0,
@@ -2267,7 +2275,6 @@
           "id",
           "name",
           "slug",
-          "class_",
           "level",
           "player",
           "party"
@@ -2517,18 +2524,6 @@
             "type": "string",
             "maxLength": 255,
             "title": "The character slug, used to identify it in the API"
-          },
-          "class_": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 80
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "The character class"
           },
           "level": {
             "anyOf": [
@@ -3252,30 +3247,6 @@
               }
             ],
             "title": "A new character name (Optional)"
-          },
-          "class_": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 80
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "A new character class (Optional)"
-          },
-          "level": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "minimum": 1.0
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "A new character level (Optional)"
           },
           "data": {
             "anyOf": [

@@ -8,7 +8,7 @@ export default function CharacterList(props: { characters: Character[] }) {
       {Object.values(props.characters).map((character) => (
         <li>
           <A href={character.slug}>
-            {character.name}: {character.class_} {character.level}
+            {character.name}: lvl {character.level}
           </A>
         </li>
       ))}

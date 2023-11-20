@@ -3,8 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UpdateCharacterSchema = {
-    name?: (string | null);
-    data?: (Record<string, any> | null);
+export type CharacterClass = {
+    name: string;
+    variant: (string | null);
+    level?: number;
 };
 

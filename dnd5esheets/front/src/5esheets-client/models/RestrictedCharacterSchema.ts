@@ -12,7 +12,6 @@ export type RestrictedCharacterSchema = {
     id: number;
     name: string;
     slug: string;
-    class_?: (string | null);
     level?: (number | null);
     party: PartySchema;
 };
