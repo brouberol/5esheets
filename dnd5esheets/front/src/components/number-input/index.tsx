@@ -4,7 +4,9 @@ import * as hoverCard from '@zag-js/hover-card'
 import { normalizeProps, useMachine } from '@zag-js/solid'
 import { Show, createEffect, createMemo, createUniqueId } from 'solid-js'
 import { Portal } from 'solid-js/web'
-import { Minus, Plus } from 'lucide-solid'
+
+import { Minus } from '~/components/icons/minus'
+import { Plus } from '~/components/icons/plus'
 
 export default function NumberInput(props: {
   iconSize?: string
@@ -87,12 +89,12 @@ export default function NumberInput(props: {
 
     button[data-part='increment-trigger'] {
       top: calc(50% - var(--button-size) / 2);
-      right: calc(100% - min(var(--button-size) * 0.7, 20%));
+      left: calc(100% - min(var(--button-size) * 0.7, 20%));
     }
 
     button[data-part='decrement-trigger'] {
       top: calc(50% - var(--button-size) / 2);
-      left: calc(100% - min(var(--button-size) * 0.7, 20%));
+      right: calc(100% - min(var(--button-size) * 0.7, 20%));
     }
 
     [data-part='positioner'] {
