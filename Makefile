@@ -135,6 +135,10 @@ mypy:
 
 front-build: $(front-root)/dist/index.html
 
+front-storybook:  ## Run the development frontend storybook server
+	@echo "\n[+] Running development dev storybook server"
+	@$(npm-run) storybook
+
 front-check:  front-lint front-prettier front-typecheck ## Run all frontend checks
 
 front-test: ## Run the frontend unit tests

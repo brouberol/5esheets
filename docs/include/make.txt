@@ -13,6 +13,7 @@ make docs                       Generate and serve documentation
 make front-check                Run all frontend checks
 make front-generate-api-client  Generate the API openapi.json file
 make front-run-dev              Run the development frontend server
+make front-storybook            Run the development frontend storybook server
 make front-test                 Run the frontend unit tests
 make help                       Display help
 make init                       Setup the application for the first time
