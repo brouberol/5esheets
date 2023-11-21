@@ -10,7 +10,6 @@ export type ListCharacterSchema = {
     id: number;
     name: string;
     slug: string;
-    class_: string;
     level: number;
     player: PlayerSchema;
     party: PartySchema;

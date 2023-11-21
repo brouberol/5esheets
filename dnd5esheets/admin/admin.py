@@ -95,15 +95,14 @@ class CharacterAdmin(ModelView, model=Character):
     column_list = [
         Character.id,
         Character.name,
-        Character.class_,
-        Character.level,
+        "level",  # This is a property, not an SQLAlchemy mapped column
+        "classes_repr",  # Same
         Character.party,
         Character.player,
     ]
     column_details_exclude_list = base_excluded_columns(Character)
     form_excluded_columns = base_form_excluded_columns(Character)
-    column_labels = {Character.class_: "class"}
-    column_searchable_list = [Character.name, Character.class_]
+    column_searchable_list = [Character.name]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
 

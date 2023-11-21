@@ -222,8 +222,6 @@ class KnownSpell(BaseModel):
 class Character(NameReprMixin, BaseModel):
     name: Mapped[str] = mapped_column(String(255))
     slug: Mapped[str] = mapped_column(String(255))
-    class_: Mapped[str] = mapped_column(String(80), name="class", nullable=True)
-    level: Mapped[int] = mapped_column(Integer, nullable=True)
     data: Mapped[str] = mapped_column(Json, name="json_data", nullable=True)
     player_id: Mapped[int] = mapped_column(ForeignKey("player.id"))
     player: Mapped[Player] = relationship(
@@ -253,11 +251,25 @@ class Character(NameReprMixin, BaseModel):
     )
     __table_args__ = (UniqueConstraint("slug", "player_id", name="character_slug_unique_per_player"),)
 
-    @validates("level")
-    def validate_character_level(self, key, level):
-        if level is not None and level not in range(1, 21):
-            raise ValueError("Level should be between 1 and 20")
-        return level
+    @property
+    def level(self):
+        """Return the character total level, as the sum of all classes levels"""
+        if not self.data:
+            return None
+        return sum([class_data["level"] for class_data in self.data["classes"]])
+
+    @property
+    def classes_repr(self):
+        if not self.data:
+            return ""
+        return ", ".join(
+            [
+                f"{class_["name"]}"
+                f"{" - " + class_["variant"] if class_["variant"] else ""}"
+                f"[{class_["level"]}]"
+                for class_ in self.data["classes"]
+            ]
+        )
 
 
 class Spell(NameReprMixin, BaseModel):

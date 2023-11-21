@@ -34,18 +34,16 @@ async def test_update_character(async_session):
     douglas_before_update = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"
     )
-    assert douglas_before_update.level == 4
     assert douglas_before_update.data["abilities"]["dexterity"]["score"] == 14
     await CharacterRepository.update(
         async_session,
         slug="douglas-mctrickfoot",
-        body=UpdateCharacterSchema(level=5, data={"abilities": {"dexterity": {"score": 15}}}),
+        body=UpdateCharacterSchema(data={"abilities": {"dexterity": {"score": 15}}}),
     )
     douglas_after_update = await CharacterRepository.get_by_slug(
         async_session, slug="douglas-mctrickfoot"
     )
-    assert douglas_after_update.level == 5
-    assert douglas_before_update.data["abilities"]["dexterity"]["score"] == 15
+    assert douglas_after_update.data["abilities"]["dexterity"]["score"] == 15
 
 
 @pytest.mark.asyncio
@@ -58,7 +56,6 @@ async def test_create_character(async_session):
     assert ronald.name == "Ronald McDonald"
     assert ronald.slug == "ronald-mcdonald"
     assert ronald.level is None
-    assert ronald.class_ is None
     assert ronald.data is None
     assert ronald.player_id == 1
     assert ronald.party_id == 1
@@ -94,7 +91,7 @@ async def test_character_etag_stability(async_session):
     await CharacterRepository.update(
         async_session,
         slug="douglas-mctrickfoot",
-        body=UpdateCharacterSchema(level=5),
+        body=UpdateCharacterSchema(name="Douggie McTricky"),
     )
     # Something related to the character has changed, thus the etag changed as well
     assert (

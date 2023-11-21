@@ -6,6 +6,7 @@
 import type { Abilities } from './Abilities';
 import type { AbilityName } from './AbilityName';
 import type { Attack } from './Attack';
+import type { CharacterClass } from './CharacterClass';
 import type { CustomResource } from './CustomResource';
 import type { HitDice } from './HitDice';
 import type { HitPoints } from './HitPoints';
@@ -13,6 +14,7 @@ import type { Money } from './Money';
 import type { Skills } from './Skills';
 
 export type CharacterSheet = {
+    classes: Array<CharacterClass>;
     abilities: Abilities;
     skills: Skills;
     xp: number;

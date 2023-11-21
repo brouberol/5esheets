@@ -16,7 +16,6 @@ export type CharacterSchema = {
     id: number;
     name: string;
     slug: string;
-    class_?: (string | null);
     level?: (number | null);
     /**
      * The embdedded character sheet JSON data

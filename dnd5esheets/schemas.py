@@ -419,7 +419,14 @@ class Money(BaseSchema):
     platinum: int = Field(title="Amount of platinum coins", ge=0)
 
 
+class CharacterClass(BaseSchema):
+    name: str
+    variant: str | None
+    level: Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+
 class CharacterSheet(BaseSchema):
+    classes: list[CharacterClass]
     abilities: Abilities
     skills: Skills
     xp: int = Field(ge=0)
@@ -461,7 +468,6 @@ class CharacterSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
-    class_: str | None = Field(max_length=80, title="The character class", default=None)
     level: int | None = Field(ge=1, le=20, title="The character level", default=None)
     data: CharacterSheet | None = Field(
         description="The embdedded character sheet JSON data", default=None
@@ -494,7 +500,6 @@ class CharacterSchemaNoEmbeddedFields(BaseSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
-    class_: str | None = Field(max_length=80, title="The character class", default=None)
     level: int | None = Field(ge=1, le=20, title="The character level", default=None)
     player: PlayerSchema = Field(title="The embedded character's player schema")
 
@@ -503,7 +508,6 @@ class ListCharacterSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
-    class_: str = Field(max_length=80, title="The character class")
     level: int = Field(ge=1, le=20, title="The character level")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     party: PartySchema = Field(title="The embedded character's party schema")
@@ -511,8 +515,6 @@ class ListCharacterSchema(BaseORMSchema):
 
 class UpdateCharacterSchema(BaseUpdateSchema):
     name: str | None = Field(title="A new character name (Optional)", default=None)
-    class_: str | None = Field(max_length=80, title="A new character class (Optional)", default=None)
-    level: int | None = Field(ge=1, title="A new character level (Optional)", default=None)
     data: dict | None = Field(title="Updates to the character sheet fields (Optional)", default=None)
 
 

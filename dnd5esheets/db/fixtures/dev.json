@@ -87,9 +87,19 @@
       "party_id": 1,
       "name": "Douglas McTrickfoot",
       "slug": "douglas-mctrickfoot",
-      "class_": "Artilleur",
-      "level": 4,
       "data": {
+        "classes": [
+          {
+            "name": "Artificer",
+            "variant": "Artillerist",
+            "level": 4
+          },
+          {
+            "name": "Rogue",
+            "variant": "",
+            "level": 1
+          }
+        ],
         "abilities": {
           "strength": {
             "score": 8,
@@ -275,9 +285,12 @@
       "party_id": 1,
       "name": "Trevor McTrickfoot",
       "slug": "trevor-mctrickfoot",
-      "class_": "Soulknife",
-      "level": 4,
       "data": {
+        "classes": [{
+          "name": "Rogue",
+          "variant": "Soulknife",
+          "level": 4
+        }],
         "abilities": {
           "strength": {
             "score": 8,
@@ -463,9 +476,13 @@
       "party_id": 1,
       "name": "Lenora McTrickfoot",
       "slug": "lenora-mctrickfoot",
-      "class_": "Paladin - Oath of Glory",
-      "level": 4,
-      "data": {}
+      "data": {
+        "classes": [{
+          "name": "Paladin",
+          "variant": "Oath of Glory",
+          "level": 4
+        }]
+      }
     },
     {
       "id": 4,
@@ -473,9 +490,13 @@
       "party_id": 1,
       "name": "Crounch McTrickfoot",
       "slug": "crounch-mctrickfoot",
-      "class_": "Barbare - Voie du Zélote",
-      "level": 4,
-      "data": {}
+      "data": {
+        "classes": [{
+          "name": "Paladin",
+          "variant": "Path of the Zealot",
+          "level": 4
+        }]
+      }
     },
     {
       "id": 5,
@@ -483,9 +504,13 @@
       "party_id": 2,
       "name": "Groumph",
       "slug": "groumph",
-      "class_": "Clerc de la Paix",
-      "level": 4,
-      "data": {}
+      "data": {
+        "classes": [{
+          "name": "Cleric",
+          "variant": "Peace Domain",
+          "level": 4
+        }]
+      }
     },
     {
       "id": 6,
@@ -493,9 +518,13 @@
       "party_id": 2,
       "name": "Thirai",
       "slug": "thirai",
-      "class_": "Mage du Savoir",
-      "level": 4,
-      "data": {}
+      "data": {
+        "classes": [{
+          "name": "Wizard",
+          "variant": "Order of Scribes",
+          "level": 4
+        }]
+      }
     }
   ]
 }
