@@ -20,7 +20,7 @@
     "@solid-primitives/i18n": "^1.4.1",
     "@solid-primitives/resource": "^0.1.0",
     "@solidjs/meta": "^0.28.6",
-    "@solidjs/router": "^0.8.2",
+    "@solidjs/router": "^0.9.1",
     "@solidjs/testing-library": "^0.8.4",
     "@storybook/addon-essentials": "^7.5.2",
     "@storybook/addon-interactions": "^7.5.2",
