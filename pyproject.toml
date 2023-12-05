@@ -79,8 +79,6 @@ filterwarnings = [
     # We ignore deprecation warnings about using datetime.datetime.utcnow in python 3.12
     # https://github.com/mpdavis/python-jose/issues/334
     "ignore::DeprecationWarning:jose.jwt:311",
-    # https://github.com/k4black/fastapi-jwt/pull/15
-    "ignore::DeprecationWarning:fastapi_jwt.jwt:135",
 ]
 testpaths = ["dnd5esheets/tests"]
 
