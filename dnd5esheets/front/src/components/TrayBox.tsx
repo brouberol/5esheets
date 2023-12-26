@@ -1,6 +1,6 @@
 import { css } from 'solid-styled'
 
-const TrayBox = <T extends string | number>(props: {
+export const TrayBox = <T extends string | number>(props: {
   label: string
   value: T
   onChange?: (value: T) => void
@@ -64,5 +64,3 @@ const TrayBox = <T extends string | number>(props: {
     </div>
   )
 }
-
-export default TrayBox

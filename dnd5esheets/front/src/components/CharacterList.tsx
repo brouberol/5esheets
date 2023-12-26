@@ -1,8 +1,11 @@
 import { A } from '@solidjs/router'
+import { Component } from 'solid-js'
 
 import { Character } from '~/store'
 
-export default function CharacterList(props: { characters: Character[] }) {
+export const CharacterList: Component<{ characters: Character[] }> = (
+  props
+) => {
   return (
     <ul>
       {Object.values(props.characters).map((character) => (

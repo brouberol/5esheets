@@ -1,16 +1,17 @@
+import { Component } from 'solid-js'
 import { css } from 'solid-styled'
 
-export default function LabeledInput(props: {
+export const LabeledInput: Component<{
   id: string
   label: string
   placeholder: string
   value: string
   onChange: (value: string) => void
-}) {
+}> = (props) => {
   css`
     .labeled-input {
       display: flex;
-      flex-direction: column
+      flex-direction: column;
       gap: 3pt;
     }
 
@@ -27,7 +28,7 @@ export default function LabeledInput(props: {
       padding: 3pt 0;
       outline: none;
       font-family: var(--font-family-text);
-      transition: border-color .5s;
+      transition: border-color 0.5s;
     }
 
     input:hover {

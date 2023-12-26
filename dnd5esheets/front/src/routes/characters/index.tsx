@@ -1,10 +1,10 @@
 import { Title } from '@solidjs/meta'
-import { Show } from 'solid-js'
+import { Component, Show } from 'solid-js'
 
-import CharacterList from '~/components/CharacterList'
+import { CharacterList } from '~/components/CharacterList'
 import { characterStore, resourceState } from '~/store'
 
-export default function CharacterListPage() {
+export const CharacterListPage: Component = () => {
   const characterList = characterStore.getCharacters()
 
   return (

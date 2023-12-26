@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import NumberInput from './index'
+import { NumberInput } from './index'
 
 import { createControlledSignal } from '~/storybook/helper'
 

@@ -1,7 +1,7 @@
-import { JSX } from 'solid-js'
+import { ParentComponent } from 'solid-js'
 import { css } from 'solid-styled'
 
-export function Layout(props: { children: JSX.Element }) {
+export const Layout: ParentComponent = (props) => {
   css`
     main {
       margin: 20vh 0;
