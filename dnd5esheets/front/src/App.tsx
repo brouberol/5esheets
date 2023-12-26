@@ -1,13 +1,11 @@
-import { Route, Router, Routes } from '@solidjs/router'
-import type { Component } from 'solid-js'
-import { I18nContext } from '@solid-primitives/i18n'
+import { Route, Router } from '@solidjs/router'
+import type { Component, ParentComponent } from 'solid-js'
 import { StyleData, StyleRegistry, css } from 'solid-styled'
 import { MetaProvider } from '@solidjs/meta'
 
-import HomePage from '~/routes'
-import CharacterListPage from '~/routes/characters'
-import CharacterSheetPage from '~/routes/characters/[slug]'
-import { i18nContext } from '~/i18n'
+import { HomePage } from '~/routes'
+import { CharacterListPage } from '~/routes/characters'
+import { CharacterSheetPage } from '~/routes/characters/[slug]'
 
 function GlobalStyles() {
   css`
@@ -58,26 +56,32 @@ function GlobalStyles() {
   return null
 }
 
+const Header: ParentComponent = (props) => (
+  <>
+    <header>
+      <h1>D&D 5e sheets</h1>
+    </header>
+    {props.children}
+  </>
+)
+
 const App: Component = () => {
   const sheets: StyleData[] = []
 
   return (
     <MetaProvider>
-      <I18nContext.Provider value={i18nContext}>
-        <StyleRegistry styles={sheets}>
-          <GlobalStyles />
-          <Router>
-            <header>
-              <h1>D&D 5e sheets</h1>
-            </header>
-            <Routes>
-              <Route path="/" component={HomePage} />
-              <Route path="/characters" component={CharacterListPage} />
-              <Route path="/characters/:slug" component={CharacterSheetPage} />
-            </Routes>
-          </Router>
-        </StyleRegistry>
-      </I18nContext.Provider>
+      <StyleRegistry styles={sheets}>
+        <GlobalStyles />
+        <Router>
+          <Route path="/" component={Header}>
+            <Route path="/" component={HomePage} />
+            <Route path="/characters">
+              <Route path="/" component={CharacterListPage} />
+              <Route path="/:slug" component={CharacterSheetPage} />
+            </Route>
+          </Route>
+        </Router>
+      </StyleRegistry>
     </MetaProvider>
   )
 }

@@ -1,7 +1,7 @@
-import { JSX } from 'solid-js'
+import { ParentComponent } from 'solid-js'
 import { css } from 'solid-styled'
 
-const BorderBox = (props: { children: JSX.Element }) => {
+export const BorderBox: ParentComponent = (props) => {
   css`
     .outer-box {
       --border-top: 10mm;
@@ -46,5 +46,3 @@ const BorderBox = (props: { children: JSX.Element }) => {
     </div>
   )
 }
-
-export default BorderBox

@@ -1,8 +1,25 @@
-import { Component, Show, createSignal } from 'solid-js'
+import {
+  Component,
+  Show,
+  Suspense,
+  createResource,
+  createSignal,
+} from 'solid-js'
 import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 
-const MarkdownRenderedEditableBox: Component<{
+// DOMPurify sees target blank links as a security issue, so massage it
+// into accepting then.
+// Source: https://github.com/cure53/DOMPurify/issues/317#issuecomment-698800327
+DOMPurify.addHook('afterSanitizeAttributes', function (node: Element) {
+  // set all elements owning target to target=_blank
+  if ('target' in node) {
+    node.setAttribute('target', '_blank')
+    node.setAttribute('rel', 'noopener')
+  }
+})
+
+export const MarkdownRenderedEditableBox: Component<{
   id: string
   text: string
   onChange: (update: string) => void
@@ -10,16 +27,13 @@ const MarkdownRenderedEditableBox: Component<{
   const markdownRenderer = new marked.Renderer()
   const [isBeingEdited, setIsBeingEdited] = createSignal(false)
 
-  // DOMPurify sees target blank links as a security issue, so massage it
-  // into accepting then.
-  // Source: https://github.com/cure53/DOMPurify/issues/317#issuecomment-698800327
-  DOMPurify.addHook('afterSanitizeAttributes', function (node: Element) {
-    // set all elements owning target to target=_blank
-    if ('target' in node) {
-      node.setAttribute('target', '_blank')
-      node.setAttribute('rel', 'noopener')
-    }
-  })
+  const [renderedHtml] = createResource(async () =>
+    DOMPurify.sanitize(
+      await marked.parse(props.text, {
+        renderer: markdownRenderer,
+      })
+    )
+  )
 
   return (
     <div class="markdown-rendered-editable-box-wrapper">
@@ -36,17 +50,13 @@ const MarkdownRenderedEditableBox: Component<{
         </pre>
       </Show>
       <Show when={!isBeingEdited()}>
-        <div
-          onClick={() => setIsBeingEdited(true)}
-          innerHTML={DOMPurify.sanitize(
-            marked.parse(props.text, {
-              renderer: markdownRenderer,
-            })
-          )}
-        ></div>
+        <Suspense fallback={<div>rendering...</div>}>
+          <div
+            onClick={() => setIsBeingEdited(true)}
+            innerHTML={renderedHtml()}
+          ></div>
+        </Suspense>
       </Show>
     </div>
   )
 }
-
-export default MarkdownRenderedEditableBox

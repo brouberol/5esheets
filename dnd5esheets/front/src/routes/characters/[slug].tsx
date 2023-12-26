@@ -1,12 +1,12 @@
-import { Show } from 'solid-js'
+import { Component, Show } from 'solid-js'
 import { A, useParams } from '@solidjs/router'
 import { Title } from '@solidjs/meta'
 
-import CharacterSheet from '~/components/CharacterSheet'
+import { CharacterSheet } from '~/components/CharacterSheet'
 import { Layout } from '~/components/Layout'
 import { ResolvedCharacter, characterStore, resourceState } from '~/store'
 
-export default function CharacterSheetPage() {
+export const CharacterSheetPage: Component = () => {
   const params = useParams()
   const [character, updateCharacter] = characterStore.getCharacter(params.slug)
 

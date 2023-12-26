@@ -1,34 +1,31 @@
-import { For } from 'solid-js'
+import { Component, For } from 'solid-js'
 import { css } from 'solid-styled'
-import { useI18n } from '@solid-primitives/i18n'
 
 import { Proficiency } from '~/5esheets-client'
-import BorderBox from '~/components/BorderBox'
-import LabeledBox from '~/components/LabeledBox'
-import LabeledInput from '~/components/LabeledInput'
-import MarkdownRenderedEditableBox from '~/components/MarkdownRenderedEditableBox'
-import ProficientAttribute from '~/components/ProficientAttribute'
-import ScoreBox from '~/components/ScoreBox'
-import TrayBox from '~/components/TrayBox'
+import { BorderBox } from '~/components/BorderBox'
+import { LabeledBox } from '~/components/LabeledBox'
+import { LabeledInput } from '~/components/LabeledInput'
+import { MarkdownRenderedEditableBox } from '~/components/MarkdownRenderedEditableBox'
+import { ProficientAttribute } from '~/components/ProficientAttribute'
+import { ScoreBox } from '~/components/ScoreBox'
+import { TrayBox } from '~/components/TrayBox'
+import { t } from '~/i18n'
 import { ResolvedCharacter, UpdateCharacterFunction } from '~/store'
 
-export default function CharacterSheet(props: {
+export const CharacterSheet: Component<{
   character: ResolvedCharacter
   updateCharacter: UpdateCharacterFunction
-}) {
-  const [t] = useI18n()
-
+}> = (props) => {
   css`
-
     .sheet {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto 1.1fr 1fr .9fr;
+      grid-template-rows: auto 1.1fr 1fr 0.9fr;
       grid-template-areas:
-        "header header header"
-        "base combat flavor"
-        "base actions features"
-        "prof equipment features"
+        'header header header'
+        'base combat flavor'
+        'base actions features'
+        'prof equipment features';
       justify-items: stretch;
       align-items: stretch;
       justify-content: stretch;
@@ -38,7 +35,7 @@ export default function CharacterSheet(props: {
 
     header {
       display: flex;
-      grid-area: header
+      grid-area: header;
     }
 
     .misc {
@@ -57,13 +54,27 @@ export default function CharacterSheet(props: {
       min-width: 10em;
     }
 
-    .base {grid-area: base;}
-    .proficiencies-and-languages { grid-area: prof;}
-    .combat-stats { grid-area: combat;}
-    .actions { grid-area: actions;}
-    .equipment { grid-area: equipment}
-    .flavor { grid-area: flavor}
-    .features_and_traits { grid-area: features}
+    .base {
+      grid-area: base;
+    }
+    .proficiencies-and-languages {
+      grid-area: prof;
+    }
+    .combat-stats {
+      grid-area: combat;
+    }
+    .actions {
+      grid-area: actions;
+    }
+    .equipment {
+      grid-area: equipment;
+    }
+    .flavor {
+      grid-area: flavor;
+    }
+    .features_and_traits {
+      grid-area: features;
+    }
 
     .flex-container {
       height: 100%;
@@ -83,7 +94,9 @@ export default function CharacterSheet(props: {
       justify-content: space-between;
     }
 
-    .scores, .skills, .saving_throws {
+    .scores,
+    .skills,
+    .saving_throws {
       margin: 0;
       padding: 0;
 
@@ -102,7 +115,6 @@ export default function CharacterSheet(props: {
       gap: 2mm;
       flex-grow: 1;
     }
-
   `
 
   return (
@@ -151,7 +163,7 @@ export default function CharacterSheet(props: {
           <LabeledInput
             id="playername"
             label={t('player_name')}
-            placeholder={t('player-mcplayerface')}
+            placeholder={t('player_mcplayerface')}
             value={props.character.player.name}
             onChange={(playername: string) =>
               props.updateCharacter(

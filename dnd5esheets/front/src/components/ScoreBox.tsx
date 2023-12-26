@@ -1,12 +1,13 @@
+import { Component } from 'solid-js'
 import { css } from 'solid-styled'
 
-const ScoreBox = (props: {
+export const ScoreBox: Component<{
   ability: string
   label: string
   score: number
   modifier: number
   onChange: (update: number) => void
-}) => {
+}> = (props) => {
   css`
     label {
       text-transform: uppercase;
@@ -113,5 +114,3 @@ const ScoreBox = (props: {
     </div>
   )
 }
-
-export default ScoreBox

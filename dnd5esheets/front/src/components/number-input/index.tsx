@@ -2,20 +2,26 @@ import { css } from 'solid-styled'
 import * as numberInput from '@zag-js/number-input'
 import * as hoverCard from '@zag-js/hover-card'
 import { normalizeProps, useMachine } from '@zag-js/solid'
-import { Show, createEffect, createMemo, createUniqueId } from 'solid-js'
+import {
+  Component,
+  Show,
+  createEffect,
+  createMemo,
+  createUniqueId,
+} from 'solid-js'
 import { Portal } from 'solid-js/web'
 
 import { Minus } from '~/components/icons/minus'
 import { Plus } from '~/components/icons/plus'
 
-export default function NumberInput(props: {
+export const NumberInput: Component<{
   iconSize?: string
   label: string
   max?: number
   min?: number
   onChange?: (value: number) => void
   value: number
-}) {
+}> = (props) => {
   const { iconSize = '1rem' } = props
 
   css`

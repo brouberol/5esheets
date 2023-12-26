@@ -1,26 +1,27 @@
-import { createEffect, createSignal, Show } from 'solid-js'
+import { Component, createEffect, createSignal, Show } from 'solid-js'
 import { css } from 'solid-styled'
 
 import { cycleProficiency } from '~/store'
 import { Proficiency } from '~/5esheets-client'
 
-export default function ProficientAttribute(props: {
+export const ProficientAttribute: Component<{
   id: string
   label: string
   labelDerived?: string
   proficiency: Proficiency
   value: number
   onChange: (update: Proficiency) => void
-}) {
+}> = (props) => {
   css`
-    .attribute, .proficiency {
+    .attribute,
+    .proficiency {
       display: flex;
-      flex-direction: row
+      flex-direction: row;
       align-items: baseline;
     }
 
     .attribute {
-      gap: .5em;
+      gap: 0.5em;
       padding: 0 2mm;
     }
 
@@ -32,18 +33,19 @@ export default function ProficientAttribute(props: {
       transition: background-color 5s;
     }
 
-    .proficiency-master, .proficiency-expert {
+    .proficiency-master,
+    .proficiency-expert {
       -webkit-appearance: none;
       appearance: none;
       background-color: #fff;
 
       color: currentColor;
-      width: .9em;
-      height: .9em;
+      width: 0.9em;
+      height: 0.9em;
       margin: auto 0;
       border: 1px solid currentColor;
       border-radius: 50%;
-      transform: translateY(.15em);
+      transform: translateY(0.15em);
       background: white;
 
       position: relative;
@@ -53,7 +55,7 @@ export default function ProficientAttribute(props: {
 
     .proficiency-expert {
       color: var(--border-inactive-color);
-      margin-left: -.15em;
+      margin-left: -0.15em;
       z-index: -1;
     }
 
@@ -62,7 +64,6 @@ export default function ProficientAttribute(props: {
       color: currentColor;
       background: currentColor;
     }
-
 
     input.value {
       order: 1;
@@ -96,7 +97,7 @@ export default function ProficientAttribute(props: {
       text-transform: capitalize;
       font-size: 0.8rem;
       font-family: var(--font-family-text);
-      order: 2
+      order: 2;
     }
 
     .secondary {
