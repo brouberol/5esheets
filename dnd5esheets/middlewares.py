@@ -11,7 +11,6 @@ from pyinstrument import Profiler
 from pyinstrument.renderers.html import HTMLRenderer
 from pyinstrument.renderers.speedscope import SpeedscopeRenderer
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.types import Message
 
 from dnd5esheets.config import Env
 
@@ -35,32 +34,15 @@ class RequestResponseLoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         logging_dict: dict[str, Any] = {}
 
-        await self.set_body(request)
+        await request.body()
         response, response_dict = await self._log_response(call_next, request)
         request_dict = await self._log_request(request)
         logging_dict["request"] = request_dict
         logging_dict["response"] = response_dict
         logging_dict["correlation_id"] = request.headers["X-Request-ID"]
 
-        # self.logger.info(orjson.dumps(logging_dict).decode("utf-8"))
         self.logger.info(json.dumps(logging_dict))
         return response
-
-    async def set_body(self, request: Request):
-        """Avails the response body to be logged within a middleware as,
-        it is generally not a standard practice.
-
-           Arguments:
-           - request: Request
-           Returns:
-           - receive_: Receive
-        """
-        receive_ = await request._receive()
-
-        async def receive() -> Message:
-            return receive_
-
-        request._receive = receive
 
     async def _log_request(self, request: Request) -> dict[str, Any]:
         """Logs request part
