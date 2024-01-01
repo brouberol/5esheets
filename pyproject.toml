@@ -9,10 +9,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 python-slugify = "^8.0.1"
-alembic = "^1.13.0"
+alembic = "^1.13.1"
 fastapi = "^0.104.1"
-uvicorn = { extras = ["standard"], version = "^0.24.0" }
-sqlalchemy = { extras = ["aiosqlite"], version = "^2.0.21" }
+uvicorn = { extras = ["standard"], version = "^0.25.0" }
+sqlalchemy = { extras = ["aiosqlite"], version = "^2.0.24" }
 passlib = { extras = ["bcrypt"], version = "^1.7.4" }
 pydantic = "2.5.2"
 python-multipart = "^0.0.6"
@@ -23,16 +23,16 @@ itsdangerous = "^2.1.2"
 pygments = "^2.17.2"
 orjson = "^3.9.7"
 pyinstrument = "^4.5.3"
-structlog = "^23.1.0"
+structlog = "^23.3.0"
 asgi-correlation-id = "^4.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.7.1"
-ruff = "^0.1.6"
+mypy = "^1.8.0"
+ruff = "^0.1.9"
 types-passlib = "^1.7.7.13"
-pytest = "^7.4.2"
-httpx = "^0.25.2"
+pytest = "^7.4.4"
+httpx = "^0.26.0"
 beautifulsoup4 = "^4.12.2"
 types-python-slugify = "^8.0.0.2"
 pytest-asyncio = "^0.23.2"
@@ -43,7 +43,7 @@ makefile2dot = "^1.0.2"
 
 
 [tool.poetry.group.docs.dependencies]
-mkdocs-material = "^9.4.14"
+mkdocs-material = "^9.5.3"
 mkdocs-macros-plugin = "^1.0.5"
 
 [tool.poetry.scripts]
