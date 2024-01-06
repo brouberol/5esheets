@@ -3,36 +3,33 @@ import { css } from 'solid-styled'
 
 export const BorderBox: ParentComponent = (props) => {
   css`
-    .outer-box {
-      --border-top: 10mm;
-      --border-side: 10mm;
-      --border-bottom: 10mm;
-      --margin-top: 4mm;
-      --margin-side: 0mm;
-      --margin-bottom: 4mm;
-
-      height: calc(100% - var(--border-top) - var(--border-bottom));
-      width: calc(100% - 2 * var(--border-side));
-
-      border-image: url(/assets/background-1.svg) 49.5% repeat;
-      background: #deddde;
-      border-style: solid;
-      border-image-width: var(--border-top) var(--border-side)
-        var(--border-bottom) var(--border-side);
-      border-image-outset: calc(var(--border-top) - 1px)
-        calc(var(--border-side) - 1px) calc(var(--border-bottom) - 1px)
-        calc(var(--border-side) - 1px);
-      margin: var(--border-top) var(--border-side) var(--border-bottom);
+    .border-box, inner-box {
+      height: 100%;
+      width: 100%;
     }
+    
+    .border-box {
+      border-image: url(/assets/border-1.svg) 49.5% stretch;
 
-    .inner-box {
-      height: calc(
-        100% - var(--margin-top) + var(--border-top) - var(--margin-bottom) +
-          var(--border-bottom)
-      );
-      width: calc(100% - 2 * (var(--margin-side) - var(--border-side)));
+      --border-top: 16mm;
+      --border-side: 6mm;
+      --border-bottom: 16mm;
+      --margin-top: 1mm;
+      --margin-side: 1mm;
+      --margin-bottom: 1mm;
+    
+      border-style: solid;
+      border-width: var(--border-top) var(--border-side) var(--border-bottom) var(--border-side);
+      
+      position: relative;
+      z-index: 1000;
+    }
+    
+    .border-box .inner-box {
       display: flex;
-      flex-direction: column;
+      flex-direction: column
+      gap: 3pt;
+      
       margin-top: calc(var(--margin-top) - var(--border-top));
       margin-right: calc(var(--margin-side) - var(--border-side));
       margin-bottom: calc(var(--margin-bottom) - var(--border-bottom));
@@ -41,8 +38,8 @@ export const BorderBox: ParentComponent = (props) => {
   `
 
   return (
-    <div class="outer-box">
+    <section class="border-box">
       <div class="inner-box">{props.children}</div>
-    </div>
+    </section>
   )
 }

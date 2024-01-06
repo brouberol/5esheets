@@ -1,6 +1,5 @@
 import { css } from 'solid-styled'
 import * as numberInput from '@zag-js/number-input'
-import * as hoverCard from '@zag-js/hover-card'
 import { normalizeProps, useMachine } from '@zag-js/solid'
 import {
   Component,
@@ -9,10 +8,10 @@ import {
   createMemo,
   createUniqueId,
 } from 'solid-js'
-import { Portal } from 'solid-js/web'
 
 import { Minus } from '~/components/icons/minus'
 import { Plus } from '~/components/icons/plus'
+import { getHoverCard } from '~/components/hover-card'
 
 export const NumberInput: Component<{
   iconSize?: string
@@ -38,8 +37,8 @@ export const NumberInput: Component<{
     }
 
     input {
-      font-weight: bold;
       font-size: 1em;
+      font-family: inherit;
 
       width: 2em;
       height: 2em;
@@ -102,31 +101,6 @@ export const NumberInput: Component<{
       top: calc(50% - var(--button-size) / 2);
       right: calc(100% - min(var(--button-size) * 0.7, 20%));
     }
-
-    [data-part='positioner'] {
-      position: absolute;
-      top: var(--y);
-      left: var(--x);
-    }
-
-    [data-part='content'] {
-      animation: appear 0.5s linear;
-
-      font-size: 1rem;
-      background-color: #000;
-      color: #fff;
-      padding: 0.5em;
-      border-radius: 0.3em;
-    }
-
-    @keyframes appear {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
   `
 
   const [inputState, inputSend] = useMachine(
@@ -145,34 +119,20 @@ export const NumberInput: Component<{
   )
   createEffect(() => inputApi().setValue(props.value))
 
-  const [hoverCardState, hoverCardSend] = useMachine(
-    hoverCard.machine({
-      id: createUniqueId(),
-    })
-  )
-  const hoverCardApi = createMemo(() =>
-    hoverCard.connect(hoverCardState, hoverCardSend, normalizeProps)
-  )
+  const hoverCard = getHoverCard()
 
   return (
-    <div {...{ ...inputApi().rootProps, ...hoverCardApi().triggerProps }}>
+    <div {...{ ...inputApi().rootProps, ...hoverCard.triggerProps }}>
       <input {...inputApi().inputProps} />
-      <button {...inputApi().decrementTriggerProps}>
-        <Minus size={iconSize} />
-      </button>
-      <button {...inputApi().incrementTriggerProps}>
-        <Plus size={iconSize} />
-      </button>
-      <Show when={hoverCardApi().isOpen}>
-        <Portal>
-          <div {...hoverCardApi().positionerProps}>
-            <div {...hoverCardApi().arrowProps}>
-              <div {...hoverCardApi().arrowTipProps} />
-            </div>
-            <div {...hoverCardApi().contentProps}>{props.label}</div>
-          </div>
-        </Portal>
+      <Show when={props.onChange}>
+        <button {...inputApi().decrementTriggerProps}>
+          <Minus size={iconSize} />
+        </button>
+        <button {...inputApi().incrementTriggerProps}>
+          <Plus size={iconSize} />
+        </button>
       </Show>
+      <hoverCard.component>{props.label}</hoverCard.component>
     </div>
   )
 }
