@@ -32,8 +32,7 @@ def upgrade() -> None:
         CREATE TRIGGER item_after_insert
             AFTER INSERT ON item
         BEGIN
-            INSERT INTO item_search_index (rowid, item_id, language, name, description) VALUES (
-                cast(hex('en') as integer) + new.id,
+            INSERT INTO item_search_index (item_id, language, name, description) VALUES (
                 new.id,
                 'en',
                 new.name,
