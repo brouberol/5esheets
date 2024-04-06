@@ -32,16 +32,14 @@ def upgrade() -> None:
         CREATE TRIGGER spell_after_insert
             AFTER INSERT ON spell
         BEGIN
-            INSERT INTO spell_search_index (rowid, spell_id, language, name, description) VALUES (
-                cast(hex('en') as integer) + new.id,
+            INSERT INTO spell_search_index (spell_id, language, name, description) VALUES (
                 new.id,
                 'en',
                 new.name,
                 new.json_data ->>'$.meta.description'
             );
-            INSERT INTO spell_search_index (rowid, spell_id, language, name, description)
+            INSERT INTO spell_search_index (spell_id, language, name, description)
                 SELECT
-                    cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
                     json_each.value ->> '$.name',
@@ -51,9 +49,8 @@ def upgrade() -> None:
         """,
         # Populate the search index with the existing spells
         """
-        INSERT INTO spell_search_index (rowid, spell_id, language, name, description)
+        INSERT INTO spell_search_index (spell_id, language, name, description)
             SELECT
-                cast(hex('en') as integer) + id,
                 id,
                 'en',
                 name,
@@ -61,9 +58,8 @@ def upgrade() -> None:
             FROM spell;
         """,
         """
-        INSERT INTO spell_search_index (rowid, spell_id, language, name, description)
+        INSERT INTO spell_search_index (spell_id, language, name, description)
             SELECT
-                cast(hex(json_each.key) as integer) + spell.id,
                 spell.id,
                 json_each.key,
                 json_each.value ->> '$.name',
@@ -85,16 +81,14 @@ def upgrade() -> None:
             WHEN old.name <> new.name
                 OR old.json_data <> new.json_data
         BEGIN
-            REPLACE INTO spell_search_index (rowid, spell_id, language, name, description) VALUES (
-                cast(hex('en') as integer) + new.id,
+            REPLACE INTO spell_search_index (spell_id, language, name, description) VALUES (
                 new.id,
                 'en',
                 new.name,
                 new.json_data ->> '$.meta.description'
             );
-            REPLACE INTO spell_search_index (rowid, spell_id, language, name, description)
+            REPLACE INTO spell_search_index (spell_id, language, name, description)
                 SELECT
-                    cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
                     json_each.value ->> '$.name',

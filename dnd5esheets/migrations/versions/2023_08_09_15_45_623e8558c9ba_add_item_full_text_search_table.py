@@ -32,16 +32,14 @@ def upgrade() -> None:
         CREATE TRIGGER item_after_insert
             AFTER INSERT ON item
         BEGIN
-            INSERT INTO item_search_index (rowid, item_id, language, name, description) VALUES (
-                cast(hex('en') as integer) + new.id,
+            INSERT INTO item_search_index (item_id, language, name, description) VALUES (
                 new.id,
                 'en',
                 new.name,
                 json_extract(new.json_data, '$.meta.description')
             );
-            INSERT INTO item_search_index (rowid, item_id, language, name, description)
+            INSERT INTO item_search_index (item_id, language, name, description)
                 SELECT
-                    cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
                     json_each.value ->> '$.name',
@@ -51,9 +49,8 @@ def upgrade() -> None:
         """,
         # Populate the search index with the existing items
         """
-        INSERT INTO item_search_index (rowid, item_id, language, name, description)
+        INSERT INTO item_search_index (item_id, language, name, description)
             SELECT
-                cast(hex('en') as integer) + id,
                 id,
                 'en',
                 name,
@@ -61,9 +58,8 @@ def upgrade() -> None:
             FROM item;
         """,
         """
-        INSERT INTO item_search_index (rowid, item_id, language, name, description)
+        INSERT INTO item_search_index (item_id, language, name, description)
             SELECT
-                cast(hex(json_each.key) as integer) + item.id,
                 item.id,
                 json_each.key,
                 json_each.value ->> '$.name',
@@ -85,16 +81,14 @@ def upgrade() -> None:
             WHEN old.name <> new.name
                 OR old.json_data <> new.json_data
         BEGIN
-            REPLACE INTO item_search_index (rowid, item_id, language, name, description) VALUES (
-                cast(hex('en') as integer) + new.id,
+            REPLACE INTO item_search_index (item_id, language, name, description) VALUES (
                 new.id,
                 'en',
                 new.name,
                 json_extract(new.json_data, '$.meta.description')
             );
-            REPLACE INTO item_search_index (rowid, item_id, language, name, description)
+            REPLACE INTO item_search_index (item_id, language, name, description)
                 SELECT
-                    cast(hex(json_each.key) as integer) + new.id,
                     new.id,
                     json_each.key,
                     json_each.value ->> '$.name',
