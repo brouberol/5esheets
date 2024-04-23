@@ -5,6 +5,7 @@ Any database access outside of repositories (eg: in the app routes) is strongly
 discouraged.
 
 """
+
 from typing import Any, Sequence, Type, cast
 
 from sqlalchemy import Row, select, text

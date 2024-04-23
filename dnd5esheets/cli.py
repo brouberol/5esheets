@@ -21,18 +21,15 @@ data_dir = Path(__file__).parent / "data"
 
 
 @click.group()
-def cli():
-    ...
+def cli(): ...
 
 
 @cli.group()  # type: ignore
-def db():
-    ...
+def db(): ...
 
 
 @db.group()
-def populate():
-    ...
+def populate(): ...
 
 
 def _populate_base_items(silent: bool = False):

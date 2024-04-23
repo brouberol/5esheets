@@ -11,8 +11,7 @@ from pydantic import ConfigDict, Field, computed_field
 from dnd5esheets.models import Role
 
 
-class BaseUpdateSchema(BaseSchema, extra="forbid"):
-    ...
+class BaseUpdateSchema(BaseSchema, extra="forbid"): ...
 
 
 class BaseORMSchema(BaseSchema):
