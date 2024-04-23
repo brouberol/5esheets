@@ -137,7 +137,11 @@ export const CharacterSheet: Component<{
             label={t('class_and_level')}
             placeholder={`${t('wizard')} 2`}
             // TEMP We currently do not support display multiple classes/levels, so we only display the first one
-            value={`${props.character.data.classes[0].name} ${props.character.data.classes[0].level}`}
+            value={
+              props.character.data.classes.length > 0
+                ? `${props.character.data.classes[0].name} ${props.character.data.classes[0].level}`
+                : ''
+            }
             onChange={(classAndLevel: string) => {
               props.updateCharacter((character) => {
                 const lastSpaceIndex = classAndLevel.lastIndexOf(' ')
