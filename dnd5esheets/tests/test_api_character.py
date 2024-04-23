@@ -9,7 +9,6 @@ def test_list_characters(client):
     assert len(data) == 1
     assert data[0] == {
         "id": 1,
-        "level": 5,
         "name": "Douglas McTrickfoot",
         "party": {
             "id": 1,

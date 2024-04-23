@@ -511,7 +511,6 @@ class ListCharacterSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
-    level: int = Field(ge=1, le=20, title="The character level")
     player: PlayerSchema = Field(title="The embedded character's player schema")
     party: PartySchema = Field(title="The embedded character's party schema")
 

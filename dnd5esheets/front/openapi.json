@@ -2463,12 +2463,6 @@
             "maxLength": 255,
             "title": "The character slug, used to identify it in the API"
           },
-          "level": {
-            "type": "integer",
-            "maximum": 20.0,
-            "minimum": 1.0,
-            "title": "The character level"
-          },
           "player": {
             "allOf": [
               {
@@ -2491,7 +2485,6 @@
           "id",
           "name",
           "slug",
-          "level",
           "player",
           "party"
         ],
