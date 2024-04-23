@@ -11,7 +11,7 @@ export const CharacterList: Component<{ characters: Character[] }> = (
       {Object.values(props.characters).map((character) => (
         <li>
           <A href={character.slug}>
-            {character.name}: lvl {character.level}
+            {character.name} - {character.party.name} - {character.player.name}
           </A>
         </li>
       ))}
