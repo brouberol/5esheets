@@ -15,7 +15,11 @@ from dnd5esheets.repositories.item import ItemRepository
 from dnd5esheets.repositories.known_spell import KnownSpellRepository
 from dnd5esheets.repositories.player import PlayerRepository
 from dnd5esheets.repositories.spell import SpellRepository
-from dnd5esheets.schemas import CreateCharacterSchema, UpdateCharacterSchema
+from dnd5esheets.schemas import (
+    CharacterSheet,
+    CreateCharacterSchema,
+    UpdateCharacterSchema,
+)
 
 
 class CharacterRepository(BaseRepository):
@@ -95,7 +99,7 @@ class CharacterRepository(BaseRepository):
             party_id=character_data.party_id,
             slug=slug,
             player_id=owner_id,
-            data=None,
+            data=CharacterSheet.new_empty(),
         )
         session.add(character)
         await session.commit()

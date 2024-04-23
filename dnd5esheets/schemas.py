@@ -3,7 +3,7 @@ Definition of the pydandic models used for type validation and output serializat
 """
 
 from enum import IntEnum, StrEnum
-from typing import Literal, Optional
+from typing import Literal, Optional, cast
 
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict, Field, computed_field
@@ -460,6 +460,10 @@ class CharacterSheet(BaseSchema):
     spell_dc: int = FrontendComputedField
     spell_attack_bonus: int = FrontendComputedField
     passive_perception: int = FrontendComputedField
+
+    @classmethod
+    def new_empty(cls) -> "CharacterSheet":
+        return cast(CharacterSheet, CharacterSheet.model_validate({}).model_dump())
 
 
 class CharacterSchema(BaseORMSchema):

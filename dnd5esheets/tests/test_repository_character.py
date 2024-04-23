@@ -55,8 +55,8 @@ async def test_create_character(async_session):
     )
     assert ronald.name == "Ronald McDonald"
     assert ronald.slug == "ronald-mcdonald"
-    assert ronald.level is None
-    assert ronald.data is None
+    assert ronald.level == 0
+    assert ronald.data is not None
     assert ronald.player_id == 1
     assert ronald.party_id == 1
 

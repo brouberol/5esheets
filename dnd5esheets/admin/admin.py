@@ -127,7 +127,7 @@ class CharacterAdmin(ModelView, model=Character):
         """Insert a new Character with an empty CharacterSheet model if no data is specified."""
         data_str = data.get("data")
         if not data_str:
-            data_str = orjson.dumps(CharacterSheet.model_validate({}).model_dump()).decode("utf-8")
+            data_str = orjson.dumps(CharacterSheet.new_empty()).decode("utf-8")
         data["data"] = data_str
         return super().insert_model(request, data)
 

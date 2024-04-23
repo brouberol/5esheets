@@ -123,8 +123,14 @@ def test_create_new_character(client):
     assert created_data["slug"] == "ronald-mcdonald"
     assert created_data["player"]["name"] == "Balthazar"
     assert created_data["party"]["name"] == "Famille McTrickfoot"
-    assert created_data["data"] is None
-    assert created_data["level"] is None
+    # The character sheet has been created empty
+    assert created_data["data"]["abilities"]["charisma"] == {
+        "score": 0,
+        "proficiency": 0,
+        "modifier": 0,
+        "save": 0,
+    }
+    assert created_data["level"] == 0
 
     # Make sure the character is now saved to DB
     display_data = assert_status_and_return_data(
