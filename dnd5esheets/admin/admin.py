@@ -92,6 +92,21 @@ class CustomModelView(ModelView):
         )
 
 
+def render_json_data(value):
+    """This filter is called when rendering a JSON value.
+
+    As we're going back and forth between dict (in python) and JSON (in database),
+    we need to make sure that we display valid JSON-encoded data in the form widget.
+    If we don't (eg if we display a python dict repr), we will then JSON-encode a string
+    in database, which won't be a valid JSON object anymore, and all hell breaks loose.
+
+    """
+    if isinstance(value, dict):
+        json_value = orjson.dumps(value).decode("utf-8")
+        return json_value
+    return value
+
+
 class CharacterAdmin(ModelView, model=Character):
     column_list = [
         Character.id,
@@ -103,6 +118,7 @@ class CharacterAdmin(ModelView, model=Character):
     ]
     column_details_exclude_list = base_excluded_columns(Character)
     form_excluded_columns = base_form_excluded_columns(Character)
+    form_args = dict(data=dict(filters=[render_json_data]))
     column_searchable_list = [Character.name]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
