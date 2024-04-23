@@ -14,8 +14,7 @@ class CacheHit(HTTPException):
     """Exception raised when a requested resource's ETag matches the If-None-Match request header"""
 
 
-class RepositoryException(Exception):
-    ...
+class RepositoryException(Exception): ...
 
 
 class Forbidden(HTTPException):
@@ -31,8 +30,7 @@ class ModelNotFound(RepositoryException):
         return cls(f"{model_name} not found")
 
 
-class DuplicateModel(RepositoryException):
-    ...
+class DuplicateModel(RepositoryException): ...
 
 
 def register_exception_handlers(app: ExtendedFastAPI):
