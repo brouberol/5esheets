@@ -26,6 +26,8 @@ for name, schema in openapi_content["components"]["schemas"].items():
         if property_meta.get("description") == "frontend_computed":
             property_meta.pop("default")
             property_meta.pop("description")
+            if not schema.get("required"):
+                schema["required"] = []
             schema["required"].append(property_name)
 
 # Hack: while https://github.com/tiangolo/fastapi/discussions/9856 is open,

@@ -9,4 +9,3 @@ export type Skill = {
     proficiency: Proficiency;
     modifier: number;
 };
-

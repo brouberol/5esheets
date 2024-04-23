@@ -333,17 +333,17 @@ class UpdatePartySchema(BaseUpdateSchema):
 
 
 class SaveProficiencies(BaseSchema):
-    charisma: Proficiency
-    constitution: Proficiency
-    dexterity: Proficiency
-    intelligence: Proficiency
-    strength: Proficiency
-    wisdom: Proficiency
+    charisma: Proficiency = Proficiency.none
+    constitution: Proficiency = Proficiency.none
+    dexterity: Proficiency = Proficiency.none
+    intelligence: Proficiency = Proficiency.none
+    strength: Proficiency = Proficiency.none
+    wisdom: Proficiency = Proficiency.none
 
 
 class Ability(BaseSchema):
-    score: int = Field(title="The ability score", ge=0, le=30)
-    proficiency: Proficiency
+    score: int = Field(title="The ability score", ge=0, le=30, default=0)
+    proficiency: Proficiency = Proficiency.none
 
     # Autocomputed fields, declared here to have them part of the TS types
     modifier: int = FrontendComputedField
@@ -351,57 +351,57 @@ class Ability(BaseSchema):
 
 
 class Abilities(BaseSchema):
-    charisma: Ability
-    constitution: Ability
-    dexterity: Ability
-    intelligence: Ability
-    strength: Ability
-    wisdom: Ability
+    charisma: Ability = Ability()
+    constitution: Ability = Ability()
+    dexterity: Ability = Ability()
+    intelligence: Ability = Ability()
+    strength: Ability = Ability()
+    wisdom: Ability = Ability()
 
 
 class Skill(BaseSchema):
     # Autocomputed fields, declared here to have them part of the TS types
-    proficiency: Proficiency
+    proficiency: Proficiency = Proficiency.none
     modifier: int = FrontendComputedField
 
 
 class Skills(BaseSchema):
-    acrobatics: Skill
-    arcana: Skill
-    athletics: Skill
-    stealth: Skill
-    animal_handling: Skill
-    sleight_of_hand: Skill
-    history: Skill
-    intimidation: Skill
-    investigation: Skill
-    medicine: Skill
-    nature: Skill
-    perception: Skill
-    insight: Skill
-    persuasion: Skill
-    religion: Skill
-    performance: Skill
-    survival: Skill
-    deception: Skill
+    acrobatics: Skill = Skill()
+    arcana: Skill = Skill()
+    athletics: Skill = Skill()
+    stealth: Skill = Skill()
+    animal_handling: Skill = Skill()
+    sleight_of_hand: Skill = Skill()
+    history: Skill = Skill()
+    intimidation: Skill = Skill()
+    investigation: Skill = Skill()
+    medicine: Skill = Skill()
+    nature: Skill = Skill()
+    perception: Skill = Skill()
+    insight: Skill = Skill()
+    persuasion: Skill = Skill()
+    religion: Skill = Skill()
+    performance: Skill = Skill()
+    survival: Skill = Skill()
+    deception: Skill = Skill()
 
 
 class HitPoints(BaseSchema):
-    max: int = Field(ge=1)
-    temp: int = Field(ge=0)
-    current: int = Field(ge=0)
+    max: int = Field(ge=0, default=0)
+    temp: int = Field(ge=0, default=0)
+    current: int = Field(ge=0, default=0)
 
 
 class HitDice(BaseSchema):
-    type: str
-    total: int = Field(ge=1)
-    remaining: int = Field(ge=0)
+    type: str = ""
+    total: int = Field(ge=0, default=0)
+    remaining: int = Field(ge=0, default=0)
 
 
 class CustomResource(BaseSchema):
-    header: str
-    available: int = Field(ge=1)
-    remaining: int = Field(ge=0)
+    header: str = ""
+    available: int = Field(ge=0, default=0)
+    remaining: int = Field(ge=0, default=0)
 
 
 class Attack(BaseSchema):
@@ -412,11 +412,11 @@ class Attack(BaseSchema):
 
 
 class Money(BaseSchema):
-    copper: int = Field(title="Amount of copper coins", ge=0)
-    silver: int = Field(title="Amount of silver coins", ge=0)
-    electrum: int = Field(title="Amount of electrum coins", ge=0)
-    gold: int = Field(title="Amount of gold coins", ge=0)
-    platinum: int = Field(title="Amount of platinum coins", ge=0)
+    copper: int = Field(title="Amount of copper coins", ge=0, default=0)
+    silver: int = Field(title="Amount of silver coins", ge=0, default=0)
+    electrum: int = Field(title="Amount of electrum coins", ge=0, default=0)
+    gold: int = Field(title="Amount of gold coins", ge=0, default=0)
+    platinum: int = Field(title="Amount of platinum coins", ge=0, default=0)
 
 
 class CharacterClass(BaseSchema):
@@ -426,31 +426,31 @@ class CharacterClass(BaseSchema):
 
 
 class CharacterSheet(BaseSchema):
-    classes: list[CharacterClass]
-    abilities: Abilities
-    skills: Skills
-    xp: int = Field(ge=0)
-    race: str
-    background: str
-    alignment: str
-    darkvision: bool
-    inspiration: bool
-    speed: int = Field(ge=0)
-    hp: HitPoints
-    hit_dice: HitDice
-    money: Money
-    custom_resources: list[CustomResource]
-    attacks: list[Attack]
-    languages_and_proficiencies: str
-    personality: str
-    ideals: str
-    bonds: str
-    flaws: str
-    features: str
-    inventory: str
-    spellcasting_ability: AbilityName | None
-    daily_prepared_spells: int
-    exhaustion: Literal[0, 1, 2, 3, 4, 5, 6]
+    classes: list[CharacterClass] = []
+    abilities: Abilities = Abilities()
+    skills: Skills = Skills()
+    xp: int = Field(ge=0, default=0)
+    race: str = ""
+    background: str = ""
+    alignment: str = ""
+    darkvision: bool = False
+    inspiration: bool = False
+    speed: int = Field(ge=0, default=30)
+    hp: HitPoints = HitPoints()
+    hit_dice: HitDice = HitDice()
+    money: Money = Money()
+    custom_resources: list[CustomResource] = []
+    attacks: list[Attack] = []
+    languages_and_proficiencies: str = ""
+    personality: str = ""
+    ideals: str = ""
+    bonds: str = ""
+    flaws: str = ""
+    features: str = ""
+    inventory: str = ""
+    spellcasting_ability: AbilityName | None = None
+    daily_prepared_spells: int = 0
+    exhaustion: Literal[0, 1, 2, 3, 4, 5, 6] = 0
 
     # These are optional fields are they are calculated by the frontend.
     # We declare them here so that they appear in the generated TS types.
@@ -468,7 +468,7 @@ class CharacterSchema(BaseORMSchema):
     id: int = Field(ge=1, title="The character primary key in database")
     name: str = Field(max_length=255, title="The character name")
     slug: str = Field(max_length=255, title="The character slug, used to identify it in the API")
-    level: int | None = Field(ge=1, le=20, title="The character level", default=None)
+    level: int | None = Field(ge=0, le=20, title="The character level", default=None)
     data: CharacterSheet | None = Field(
         description="The embdedded character sheet JSON data", default=None
     )

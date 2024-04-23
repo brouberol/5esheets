@@ -8,4 +8,3 @@ export type CustomResource = {
     available: number;
     remaining: number;
 };
-

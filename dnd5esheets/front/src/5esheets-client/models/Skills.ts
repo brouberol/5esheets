@@ -25,4 +25,3 @@ export type Skills = {
     survival: Skill;
     deception: Skill;
 };
-

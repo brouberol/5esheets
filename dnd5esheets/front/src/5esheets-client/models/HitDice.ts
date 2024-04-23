@@ -8,4 +8,3 @@ export type HitDice = {
     total: number;
     remaining: number;
 };
-

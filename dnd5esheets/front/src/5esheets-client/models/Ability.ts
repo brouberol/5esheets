@@ -11,4 +11,3 @@ export type Ability = {
     modifier: number;
     save: number;
 };
-

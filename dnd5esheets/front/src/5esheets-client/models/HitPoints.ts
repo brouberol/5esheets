@@ -4,8 +4,8 @@
 /* eslint-disable */
 
 export type HitPoints = {
-    max: number;
-    temp: number;
-    current: number;
+    max?: number;
+    temp?: number;
+    current?: number;
 };
 

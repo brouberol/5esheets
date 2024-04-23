@@ -10,4 +10,3 @@ export type Money = {
     gold: number;
     platinum: number;
 };
-

@@ -1265,33 +1265,85 @@
       "Abilities": {
         "properties": {
           "charisma": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           },
           "constitution": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           },
           "dexterity": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           },
           "intelligence": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           },
           "strength": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           },
           "wisdom": {
-            "$ref": "#/components/schemas/Ability"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Ability"
+              }
+            ],
+            "default": {
+              "score": 0,
+              "proficiency": 0,
+              "modifier": 0,
+              "save": 0
+            }
           }
         },
         "type": "object",
-        "required": [
-          "charisma",
-          "constitution",
-          "dexterity",
-          "intelligence",
-          "strength",
-          "wisdom"
-        ],
         "title": "Abilities"
       },
       "Ability": {
@@ -1300,10 +1352,16 @@
             "type": "integer",
             "maximum": 30.0,
             "minimum": 0.0,
-            "title": "The ability score"
+            "title": "The ability score",
+            "default": 0
           },
           "proficiency": {
-            "$ref": "#/components/schemas/Proficiency"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Proficiency"
+              }
+            ],
+            "default": 0
           },
           "modifier": {
             "type": "integer",
@@ -1315,13 +1373,11 @@
           }
         },
         "type": "object",
+        "title": "Ability",
         "required": [
-          "score",
-          "proficiency",
           "modifier",
           "save"
-        ],
-        "title": "Ability"
+        ]
       },
       "AbilityName": {
         "type": "string",
@@ -1439,13 +1495,36 @@
           },
           "level": {
             "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
             "title": "Level"
           }
         },
         "type": "object",
         "required": [
           "name",
-          "variant"
+          "variant",
+          "level"
         ],
         "title": "CharacterClass"
       },
@@ -1471,7 +1550,7 @@
               {
                 "type": "integer",
                 "maximum": 20.0,
-                "minimum": 1.0
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -1590,94 +1669,260 @@
               "$ref": "#/components/schemas/CharacterClass"
             },
             "type": "array",
-            "title": "Classes"
+            "title": "Classes",
+            "default": []
           },
           "abilities": {
-            "$ref": "#/components/schemas/Abilities"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Abilities"
+              }
+            ],
+            "default": {
+              "charisma": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              },
+              "constitution": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              },
+              "dexterity": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              },
+              "intelligence": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              },
+              "strength": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              },
+              "wisdom": {
+                "modifier": 0,
+                "proficiency": 0,
+                "save": 0,
+                "score": 0
+              }
+            }
           },
           "skills": {
-            "$ref": "#/components/schemas/Skills"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skills"
+              }
+            ],
+            "default": {
+              "acrobatics": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "arcana": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "athletics": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "stealth": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "animal_handling": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "sleight_of_hand": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "history": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "intimidation": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "investigation": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "medicine": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "nature": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "perception": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "insight": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "persuasion": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "religion": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "performance": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "survival": {
+                "modifier": 0,
+                "proficiency": 0
+              },
+              "deception": {
+                "modifier": 0,
+                "proficiency": 0
+              }
+            }
           },
           "xp": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Xp"
+            "title": "Xp",
+            "default": 0
           },
           "race": {
             "type": "string",
-            "title": "Race"
+            "title": "Race",
+            "default": ""
           },
           "background": {
             "type": "string",
-            "title": "Background"
+            "title": "Background",
+            "default": ""
           },
           "alignment": {
             "type": "string",
-            "title": "Alignment"
+            "title": "Alignment",
+            "default": ""
           },
           "darkvision": {
             "type": "boolean",
-            "title": "Darkvision"
+            "title": "Darkvision",
+            "default": false
           },
           "inspiration": {
             "type": "boolean",
-            "title": "Inspiration"
+            "title": "Inspiration",
+            "default": false
           },
           "speed": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Speed"
+            "title": "Speed",
+            "default": 30
           },
           "hp": {
-            "$ref": "#/components/schemas/HitPoints"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HitPoints"
+              }
+            ],
+            "default": {
+              "max": 0,
+              "temp": 0,
+              "current": 0
+            }
           },
           "hit_dice": {
-            "$ref": "#/components/schemas/HitDice"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HitDice"
+              }
+            ],
+            "default": {
+              "type": "",
+              "total": 0,
+              "remaining": 0
+            }
           },
           "money": {
-            "$ref": "#/components/schemas/Money"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Money"
+              }
+            ],
+            "default": {
+              "copper": 0,
+              "silver": 0,
+              "electrum": 0,
+              "gold": 0,
+              "platinum": 0
+            }
           },
           "custom_resources": {
             "items": {
               "$ref": "#/components/schemas/CustomResource"
             },
             "type": "array",
-            "title": "Custom Resources"
+            "title": "Custom Resources",
+            "default": []
           },
           "attacks": {
             "items": {
               "$ref": "#/components/schemas/Attack"
             },
             "type": "array",
-            "title": "Attacks"
+            "title": "Attacks",
+            "default": []
           },
           "languages_and_proficiencies": {
             "type": "string",
-            "title": "Languages And Proficiencies"
+            "title": "Languages And Proficiencies",
+            "default": ""
           },
           "personality": {
             "type": "string",
-            "title": "Personality"
+            "title": "Personality",
+            "default": ""
           },
           "ideals": {
             "type": "string",
-            "title": "Ideals"
+            "title": "Ideals",
+            "default": ""
           },
           "bonds": {
             "type": "string",
-            "title": "Bonds"
+            "title": "Bonds",
+            "default": ""
           },
           "flaws": {
             "type": "string",
-            "title": "Flaws"
+            "title": "Flaws",
+            "default": ""
           },
           "features": {
             "type": "string",
-            "title": "Features"
+            "title": "Features",
+            "default": ""
           },
           "inventory": {
             "type": "string",
-            "title": "Inventory"
+            "title": "Inventory",
+            "default": ""
           },
           "spellcasting_ability": {
             "anyOf": [
@@ -1691,7 +1936,8 @@
           },
           "daily_prepared_spells": {
             "type": "integer",
-            "title": "Daily Prepared Spells"
+            "title": "Daily Prepared Spells",
+            "default": 0
           },
           "exhaustion": {
             "type": "integer",
@@ -1704,7 +1950,8 @@
               5,
               6
             ],
-            "title": "Exhaustion"
+            "title": "Exhaustion",
+            "default": 0
           },
           "proficiency_bonus": {
             "type": "integer",
@@ -1732,40 +1979,15 @@
           }
         },
         "type": "object",
+        "title": "CharacterSheet",
         "required": [
-          "classes",
-          "abilities",
-          "skills",
-          "xp",
-          "race",
-          "background",
-          "alignment",
-          "darkvision",
-          "inspiration",
-          "speed",
-          "hp",
-          "hit_dice",
-          "money",
-          "custom_resources",
-          "attacks",
-          "languages_and_proficiencies",
-          "personality",
-          "ideals",
-          "bonds",
-          "flaws",
-          "features",
-          "inventory",
-          "spellcasting_ability",
-          "daily_prepared_spells",
-          "exhaustion",
           "proficiency_bonus",
           "ac",
           "initiative",
           "spell_dc",
           "spell_attack_bonus",
           "passive_perception"
-        ],
-        "title": "CharacterSheet"
+        ]
       },
       "CreateCharacterSchema": {
         "properties": {
@@ -1791,25 +2013,23 @@
         "properties": {
           "header": {
             "type": "string",
-            "title": "Header"
+            "title": "Header",
+            "default": ""
           },
           "available": {
             "type": "integer",
-            "minimum": 1.0,
-            "title": "Available"
+            "minimum": 0.0,
+            "title": "Available",
+            "default": 0
           },
           "remaining": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Remaining"
+            "title": "Remaining",
+            "default": 0
           }
         },
         "type": "object",
-        "required": [
-          "header",
-          "available",
-          "remaining"
-        ],
         "title": "CustomResource"
       },
       "DisplayPartySchema": {
@@ -1940,51 +2160,47 @@
         "properties": {
           "type": {
             "type": "string",
-            "title": "Type"
+            "title": "Type",
+            "default": ""
           },
           "total": {
             "type": "integer",
-            "minimum": 1.0,
-            "title": "Total"
+            "minimum": 0.0,
+            "title": "Total",
+            "default": 0
           },
           "remaining": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Remaining"
+            "title": "Remaining",
+            "default": 0
           }
         },
         "type": "object",
-        "required": [
-          "type",
-          "total",
-          "remaining"
-        ],
         "title": "HitDice"
       },
       "HitPoints": {
         "properties": {
           "max": {
             "type": "integer",
-            "minimum": 1.0,
-            "title": "Max"
+            "minimum": 0.0,
+            "title": "Max",
+            "default": 0
           },
           "temp": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Temp"
+            "title": "Temp",
+            "default": 0
           },
           "current": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Current"
+            "title": "Current",
+            "default": 0
           }
         },
         "type": "object",
-        "required": [
-          "max",
-          "temp",
-          "current"
-        ],
         "title": "HitPoints"
       },
       "ItemAttributes": {
@@ -2361,37 +2577,35 @@
           "copper": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Amount of copper coins"
+            "title": "Amount of copper coins",
+            "default": 0
           },
           "silver": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Amount of silver coins"
+            "title": "Amount of silver coins",
+            "default": 0
           },
           "electrum": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Amount of electrum coins"
+            "title": "Amount of electrum coins",
+            "default": 0
           },
           "gold": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Amount of gold coins"
+            "title": "Amount of gold coins",
+            "default": 0
           },
           "platinum": {
             "type": "integer",
             "minimum": 0.0,
-            "title": "Amount of platinum coins"
+            "title": "Amount of platinum coins",
+            "default": 0
           }
         },
         "type": "object",
-        "required": [
-          "copper",
-          "silver",
-          "electrum",
-          "gold",
-          "platinum"
-        ],
         "title": "Money"
       },
       "PartySchema": {
@@ -2530,7 +2744,7 @@
               {
                 "type": "integer",
                 "maximum": 20.0,
-                "minimum": 1.0
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -2676,7 +2890,12 @@
       "Skill": {
         "properties": {
           "proficiency": {
-            "$ref": "#/components/schemas/Proficiency"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Proficiency"
+              }
+            ],
+            "default": 0
           },
           "modifier": {
             "type": "integer",
@@ -2684,90 +2903,213 @@
           }
         },
         "type": "object",
+        "title": "Skill",
         "required": [
-          "proficiency",
           "modifier"
-        ],
-        "title": "Skill"
+        ]
       },
       "Skills": {
         "properties": {
           "acrobatics": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "arcana": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "athletics": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "stealth": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "animal_handling": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "sleight_of_hand": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "history": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "intimidation": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "investigation": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "medicine": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "nature": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "perception": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "insight": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "persuasion": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "religion": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "performance": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "survival": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           },
           "deception": {
-            "$ref": "#/components/schemas/Skill"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Skill"
+              }
+            ],
+            "default": {
+              "proficiency": 0,
+              "modifier": 0
+            }
           }
         },
         "type": "object",
-        "required": [
-          "acrobatics",
-          "arcana",
-          "athletics",
-          "stealth",
-          "animal_handling",
-          "sleight_of_hand",
-          "history",
-          "intimidation",
-          "investigation",
-          "medicine",
-          "nature",
-          "perception",
-          "insight",
-          "persuasion",
-          "religion",
-          "performance",
-          "survival",
-          "deception"
-        ],
         "title": "Skills"
       },
       "SpellCasting": {

@@ -1,7 +1,7 @@
 """Definition of admin model views"""
 
 from pathlib import Path
-from typing import Type
+from typing import Any, Coroutine, Type
 
 import orjson
 from fastapi import FastAPI
@@ -28,6 +28,7 @@ from dnd5esheets.models import (
     PlayerRole,
     Spell,
 )
+from dnd5esheets.schemas import CharacterSheet
 
 templates_dir = Path(__file__).parent / "templates"
 statics_dir = Path(__file__).parent / "statics"
@@ -105,6 +106,14 @@ class CharacterAdmin(ModelView, model=Character):
     column_searchable_list = [Character.name]
     column_type_formatters = custom_base_formatters
     details_template = "details_custom.html"
+
+    def insert_model(self, request: Request, data) -> Coroutine[Any, Any, Any]:
+        """Insert a new Character with an empty CharacterSheet model if no data is specified."""
+        data_str = data.get("data")
+        if not data_str:
+            data_str = orjson.dumps(CharacterSheet.model_validate({}).model_dump()).decode("utf-8")
+        data["data"] = data_str
+        return super().insert_model(request, data)
 
 
 class PartyAdmin(ModelView, model=Party):

@@ -46,4 +46,3 @@ export type CharacterSheet = {
     spell_attack_bonus: number;
     passive_perception: number;
 };
-
