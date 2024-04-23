@@ -148,8 +148,13 @@ export const CharacterSheet: Component<{
                 character.data.classes[0].name = classAndLevel
                   .slice(0, lastSpaceIndex)
                   .trim()
-                character.data.classes[0].level =
-                  parseInt(classAndLevel.slice(lastSpaceIndex).trim()) || 0
+                let level =
+                  parseInt(classAndLevel.slice(lastSpaceIndex).trim()) || 1
+                if (level <= 0 || level > 20) {
+                  level = 1
+                }
+                // @ts-expect-error "The level should be casted to a literal of possible values 1 -> 20"
+                character.data.classes[0].level = level
               })
             }}
           />
