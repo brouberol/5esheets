@@ -5,7 +5,7 @@ $(app-root)/data/items-base.json: $(app-root)/data/translations-items-fr.json
 	@echo "\n[+] Fetching base equipment data"
 	@curl -s $(5etools-data-dir)/items-base.json | $(python) scripts/preprocess_base_item_json.py
 
-$(app-root)/data/spells.json: $(app-root)/data/translations-spells-fr.json $(app-root)/data/spells-phb.json $(app-root)/data/spells-xge.json $(app-root)/data/spells-tce.json
+$(app-root)/data/spells.json: $(app-root)/data/translations-spells-fr.json $(app-root)/data/spells-phb.json $(app-root)/data/spells-xge.json $(app-root)/data/spells-tce.json $(app-root)/data/spells-ftd.json
 	@$(python) scripts/preprocess_spells_json.py
 
 $(app-root)/data/spells-tce.json:
@@ -19,6 +19,10 @@ $(app-root)/data/spells-xge.json:
 $(app-root)/data/spells-phb.json:
 	@echo "\n[+] Fetching PHB spells"
 	@curl -s $(5etools-data-dir)/spells/spells-phb.json > $(app-root)/data/spells-phb.json
+
+$(app-root)/data/spells-ftd.json:
+	@echo "\n[+] Fetching FTD spells"
+	@curl -s $(5etools-data-dir)/spells/spells-ftd.json > $(app-root)/data/spells-ftd.json
 
 $(app-root)/data/translations-spells-fr.json:
 	@echo "\n[+] Fetching PHB spells french translations"

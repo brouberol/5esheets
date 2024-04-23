@@ -6097,6 +6097,334 @@
   },
   {
     "meta": {
+      "translations": {},
+      "description": "The billowing flames of a dragon blast from your feet, granting you explosive speed. For the duration, your speed increases by 20 feet and moving doesn't provoke opportunity attacks.\n\nWhen you move within 5 feet of a creature or an object that isn't being worn or carried, it takes {@damage 1d6} fire damage from your trail of heat. A creature or object can take this damage only once during a turn.\n\nWhen you cast this spell using a spell slot of 4th level or higher, increase your speed by 5 feet for each spell slot level above 3rd. The spell deals an additional {@scaledamage 1d6|3-9|1d6} fire damage for each slot level above 3rd."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 19
+    },
+    "casting": {
+      "verbal": true,
+      "somatic": true,
+      "concentration": true
+    },
+    "name": "Ashardalon's Stride",
+    "level": 3,
+    "school": "transmutation",
+    "time": [
+      {
+        "number": 1,
+        "unit": "bonus"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "self"
+      }
+    },
+    "duration": [
+      {
+        "type": "timed",
+        "unit": "minute",
+        "amount": 1
+      }
+    ],
+    "damage_inflict": [
+      "fire"
+    ],
+    "misc_tags": [
+      "OBJ"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "With a roar, you draw on the magic of dragons to transform yourself, taking on draconic features. You gain the following benefits until the spell ends:"
+    },
+    "source": {
+      "book": "FTD",
+      "page": 19
+    },
+    "casting": {
+      "verbal": true,
+      "somatic": true,
+      "material": {
+        "text": "a statuette of a dragon, worth at least 500 gp",
+        "cost": 50000
+      },
+      "concentration": true
+    },
+    "name": "Draconic Transformation",
+    "level": 7,
+    "school": "transmutation",
+    "time": [
+      {
+        "number": 1,
+        "unit": "bonus"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "self"
+      }
+    },
+    "duration": [
+      {
+        "type": "timed",
+        "unit": "minute",
+        "amount": 1
+      }
+    ],
+    "damage_inflict": [
+      "force"
+    ],
+    "saving_throw": [
+      "dexterity"
+    ],
+    "misc_tags": [
+      "SGT",
+      "UBA"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "You create a field of silvery light that surrounds a creature of your choice within range (you can choose yourself). The field sheds dim light out to 5 feet. While surrounded by the field, a creature gains the following benefits:\n\nAs a bonus action on subsequent turns, you can move the field to another creature within 60 feet of the field."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 20
+    },
+    "casting": {
+      "verbal": true,
+      "somatic": true,
+      "material": {
+        "text": "a platinum-plated dragon scale, worth at least 500 gp",
+        "cost": 50000
+      },
+      "concentration": true
+    },
+    "name": "Fizban's Platinum Shield",
+    "level": 6,
+    "school": "abjuration",
+    "time": [
+      {
+        "number": 1,
+        "unit": "bonus"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "feet",
+        "amount": 60
+      }
+    },
+    "duration": [
+      {
+        "type": "timed",
+        "unit": "minute",
+        "amount": 1
+      }
+    ],
+    "misc_tags": [
+      "UBA"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "You fill a 20-foot cube you can see within range with fey and draconic magic. Roll on the Mischievous Surge table to determine the magical effect produced, and roll again at the start of each of your turns until the spell ends. You can move the cube up to 10 feet before you roll."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 20
+    },
+    "casting": {
+      "somatic": true,
+      "material": {
+        "text": "a piece of crust from an apple pie"
+      },
+      "concentration": true
+    },
+    "name": "Nathair's Mischief",
+    "level": 2,
+    "school": "illusion",
+    "time": [
+      {
+        "number": 1,
+        "unit": "action"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "feet",
+        "amount": 60
+      }
+    },
+    "duration": [
+      {
+        "type": "timed",
+        "unit": "minute",
+        "amount": 1
+      }
+    ],
+    "saving_throw": [
+      "dexterity",
+      "wisdom"
+    ],
+    "misc_tags": [
+      "RO",
+      "SGT"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "You unleash a shimmering lance of psychic power from your forehead at a creature that you can see within range. Alternatively, you can utter a creature's name. If the named target is within range, it becomes the spell's target even if you can't see it. If the named target isn't within range, the lance dissipates without effect.\n\nThe target must make an Intelligence saving throw. On a failed save, the target takes {@damage 7d6} psychic damage and is {@condition incapacitated} until the start of your next turn. On a successful save, the creature takes half as much damage and isn't {@condition incapacitated}.\n\nWhen you cast this spell using a spell slot of 5th level or higher, the damage increases by {@scaledamage 7d6|4-9|1d6} for each slot level above 4th."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 21
+    },
+    "casting": {
+      "verbal": true
+    },
+    "name": "Raulothim's Psychic Lance",
+    "level": 4,
+    "school": "enchantment",
+    "time": [
+      {
+        "number": 1,
+        "unit": "action"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "feet",
+        "amount": 120
+      }
+    },
+    "duration": [
+      {
+        "type": "instant"
+      }
+    ],
+    "damage_inflict": [
+      "psychic"
+    ],
+    "condition_inflict": [
+      "incapacitated"
+    ],
+    "saving_throw": [
+      "intelligence"
+    ],
+    "misc_tags": [
+      "SGT"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "A burst of cold energy emanates from you in a 30-foot cone. Each creature in that area must make a Constitution saving throw. On a failed save, a creature takes {@damage 3d8} cold damage and is hindered by ice formations for 1 minute, or until it or another creature within reach of it uses an action to break away the ice. A creature hindered by ice has its speed reduced to 0. On a successful save, a creature takes half as much damage and isn't hindered by ice.\n\nWhen you cast this spell using a spell slot of 3rd level or higher, increase the cold damage by {@scaledamage 3d8|2-9|1d8} for each slot level above 2nd."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 21
+    },
+    "casting": {
+      "somatic": true,
+      "material": {
+        "text": "a vial of meltwater"
+      }
+    },
+    "name": "Rime's Binding Ice",
+    "level": 2,
+    "school": "evocation",
+    "time": [
+      {
+        "number": 1,
+        "unit": "action"
+      }
+    ],
+    "range": {
+      "type": "cone",
+      "distance": {
+        "type": "feet",
+        "amount": 30
+      }
+    },
+    "duration": [
+      {
+        "type": "instant"
+      }
+    ],
+    "damage_inflict": [
+      "cold"
+    ],
+    "saving_throw": [
+      "constitution"
+    ],
+    "area_tags": [
+      "N"
+    ]
+  },
+  {
+    "meta": {
+      "translations": {},
+      "description": "You call forth a {@creature draconic spirit|FTD}. It manifests in an unoccupied space that you can see within range. This corporeal form uses the Draconic Spirit stat block. When you cast this spell, choose a family of dragon: chromatic, gem, or metallic. The creature resembles a dragon of the chosen family, which determines certain traits in its stat block. The creature disappears when it drops to 0 hit points or when the spell ends.\n\nThe creature is an ally to you and your companions. In combat, the creature shares your initiative count, but it takes its turn immediately after yours. It obeys your verbal commands (no action required by you). If you don't issue any, it takes the {@action Dodge} action and uses its move to avoid danger.\n\nWhen you cast this spell using a spell slot of 6th level or higher, use the higher level wherever the spell's level appears in the stat block."
+    },
+    "source": {
+      "book": "FTD",
+      "page": 21
+    },
+    "casting": {
+      "verbal": true,
+      "somatic": true,
+      "material": {
+        "text": "an object with the image of a dragon engraved on it, worth at least 500 gp",
+        "cost": 50000
+      },
+      "concentration": true
+    },
+    "name": "Summon Draconic Spirit",
+    "level": 5,
+    "school": "conjuration",
+    "time": [
+      {
+        "number": 1,
+        "unit": "action"
+      }
+    ],
+    "range": {
+      "type": "point",
+      "distance": {
+        "type": "feet",
+        "amount": 60
+      }
+    },
+    "duration": [
+      {
+        "type": "timed",
+        "unit": "hour",
+        "amount": 1
+      }
+    ],
+    "saving_throw": [
+      "dexterity"
+    ],
+    "misc_tags": [
+      "SGT",
+      "SMN"
+    ]
+  },
+  {
+    "meta": {
       "translations": {
         "fr": {
           "name": "Aspersion acide",

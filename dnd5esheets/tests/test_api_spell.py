@@ -43,7 +43,7 @@ def test_search_spell(client):
     ]
     assert search_results[0]["language"] == "en"
     assert search_results[0]["name"] == "Magic Missile"
-    assert search_results[0]["resource_id"] == 330
+    assert search_results[0]["resource_id"] == 337
 
 
 def test_search_spell_with_limit(client):
