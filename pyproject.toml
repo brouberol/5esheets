@@ -21,17 +21,17 @@ pydantic-settings = "^2.1.0"
 sqladmin = "^0.16.0"
 itsdangerous = "^2.1.2"
 pygments = "^2.17.2"
-orjson = "^3.9.7"
+orjson = "^3.10.2"
 pyinstrument = "^4.5.3"
 structlog = "^24.1.0"
 asgi-correlation-id = "^4.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.8.0"
-ruff = "^0.4.1"
+mypy = "^1.10.0"
+ruff = "^0.4.2"
 types-passlib = "^1.7.7.13"
-pytest = "^8.1.1"
+pytest = "^8.2.0"
 httpx = "^0.27.0"
 beautifulsoup4 = "^4.12.2"
 types-python-slugify = "^8.0.0.2"
@@ -43,7 +43,7 @@ makefile2dot = "^1.0.2"
 
 
 [tool.poetry.group.docs.dependencies]
-mkdocs-material = "^9.5.3"
+mkdocs-material = "^9.5.20"
 mkdocs-macros-plugin = "^1.0.5"
 
 [tool.poetry.scripts]
