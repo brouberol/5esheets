@@ -19,7 +19,7 @@
   "devDependencies": {
     "@solid-primitives/i18n": "^2.0.0",
     "@solid-primitives/resource": "^0.1.0",
-    "@solidjs/meta": "^0.29.3",
+    "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.10.5",
     "@solidjs/testing-library": "^0.8.4",
     "@storybook/addon-essentials": "^7.5.2",
