@@ -21,7 +21,7 @@
     "@solid-primitives/resource": "^0.1.0",
     "@solidjs/meta": "^0.29.3",
     "@solidjs/router": "^0.10.5",
-    "@solidjs/testing-library": "^0.8.4",
+    "@solidjs/testing-library": "^0.8.9",
     "@storybook/addon-essentials": "^7.5.2",
     "@storybook/addon-interactions": "^7.5.2",
     "@storybook/addon-links": "^7.5.2",
