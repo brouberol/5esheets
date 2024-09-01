@@ -1,33 +1,33 @@
-version: 2
-updates:
-
-  # Maintain dependencies for python
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      # Prefix all commit messages with "[python] "
-      prefix: "[python]"
-    groups:
-      python:
-        patterns:
-        - "*"
-        exclude-patterns:
-        - "fastapi"
-        - "pydantic"
-
-  # Maintain dependencies for npm
-  - package-ecosystem: "npm"
-    directory: "/dnd5esheets/front"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      # Prefix all commit messages with [js] "
-      prefix: "[js]"
-    groups:
-      js:
-        patterns:
-        - "*"
-        exclude-patterns:
-        - "@solidjs/*"
+# version: 2
+# updates:
+#
+#   # Maintain dependencies for python
+#   - package-ecosystem: "pip"
+#     directory: "/"
+#     schedule:
+#       interval: "monthly"
+#     commit-message:
+#       # Prefix all commit messages with "[python] "
+#       prefix: "[python]"
+#     groups:
+#       python:
+#         patterns:
+#         - "*"
+#         exclude-patterns:
+#         - "fastapi"
+#         - "pydantic"
+#
+#   # Maintain dependencies for npm
+#   - package-ecosystem: "npm"
+#     directory: "/dnd5esheets/front"
+#     schedule:
+#       interval: "monthly"
+#     commit-message:
+#       # Prefix all commit messages with [js] "
+#       prefix: "[js]"
+#     groups:
+#       js:
+#         patterns:
+#         - "*"
+#         exclude-patterns:
+#         - "@solidjs/*"
