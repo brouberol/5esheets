@@ -1,0 +1,22 @@
+make api-doc                    Open the 5esheets API documentation
+make api-explorer               Open the 5esheets API explorer (with interactive requests)
+make back-test                  Run the backend tests
+make build                      Build the application
+make check                      Run all checks on the codebase
+make db-dev-fixtures            Populate the local database with development fixtures
+make db-migrate                 Run the SQL migrations
+make deps                       Install the development dependencies
+make dev                        Run the dev stack in containers
+make docker-build-front-dev     Build the dev docker image for the frontend
+make docker-build               Build the docker image for the API
+make docs                       Generate and serve documentation
+make front-check                Run all frontend checks
+make front-generate-api-client  Generate the API openapi.json file
+make front-run-dev              Run the development frontend server
+make front-storybook            Run the development frontend storybook server
+make front-test                 Run the frontend unit tests
+make help                       Display help
+make init                       Setup the application for the first time
+make run                        Run the app
+make test                       Run the project tests
+make trash-env                  Delete all js dependencies and the python virtualenv
