@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@types/dompurify": "^3.0.4",
+    "@zag-js/editable": "^0.31.1",
     "@zag-js/hover-card": "^0.31.1",
     "@zag-js/number-input": "^0.31.1",
     "@zag-js/solid": "^0.31.1",

@@ -23,6 +23,7 @@ function GlobalStyles() {
         width: 100%;
         max-width: 700pt;
         margin: auto;
+        font-family: 'Bookinsanity';
       }
 
       :root {
